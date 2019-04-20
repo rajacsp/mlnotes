@@ -1,6 +1,6 @@
 ---
 title: "Add Padding Around String"
-author: "Raja CSP Raman"
+author: "Raja CSP"
 date: 2019-04-20
 description: "Add Padding Around String Using Python."
 type: technical_note
