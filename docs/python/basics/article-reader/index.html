@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Article Reader" />
+<meta property="og:description" content="-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://talentaccurate.com.com/python/basics/article-reader/" />
+<meta property="article:published_time" content="2019-04-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-20T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Article Reader"/>
+<meta name="twitter:description" content="-"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Article Reader",
+  "url": "https:\/\/talentaccurate.com.com\/python\/basics\/article-reader\/",
+  "wordCount": "3069",
+  "datePublished": "2019-04-20T00:00:00\x2b00:00",
+  "dateModified": "2019-04-20T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Raja CSP Raman"
+  },
+  "description": "-"
+}
+</script> 
+
+    <title>Article Reader</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://talentaccurate.com.com/css/custom.css" rel="stylesheet"> 
+    <link href="https://talentaccurate.com.com/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://talentaccurate.com.com/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Article Reader</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-20T00:00:00Z "> 20 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Collect and parse first page</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.wired.com/preview/story/5c803557b8086a2166978cc2/&#39;</span><span class="p">)</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>    </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">content</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;article.article-body-component&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">content</span><span class="p">))</span></code></pre></div>
+<pre><code>&lt;class 'bs4.element.Tag'&gt;
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">content</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span></code></pre></div>
+<pre><code>On Wednesday afternoon, Mark Zuckerberg, the CEO of Facebook, described a sweeping new vision for his platform. “The future of communication,” he wrote, “will increasingly shift to private, encrypted services where people can be confident what they say to each other stays secure.” The post raised all kinds of questions about Facebook’s business model and strategies, as well as the trade-offs the company could face. And so after the post went live, Zuckerberg spoke with WIRED about his vision.Nicholas Thompson: Mark, thank you for letting me talk to you for a few minutes.The 3,200-word memo you wrote almost sounds like a manifesto for a new social network. You say, “this privacy-focused platform will be built around several principles.” Is the idea that you will eventually launch a new platform that goes on top of what you have? Or is this just the new direction in which all your products will evolve?Mark Zuckerberg: The thinking is that there needs to be two types of platforms in the world: one is a more public platform, like the digital equivalent of a town square where you interact with lots of people at once. That’s largely what Facebook and Instagram are. And the other platform is the private space, the digital equivalent to the living room. And the foundation that we have for WhatsApp and Messenger is going to be the starting point for developing those platforms.But if you look at what we've done over the last 15 years, we've taken Facebook and then Instagram and really built out whole social platforms around them. So on Facebook, for example, you're not just posting things at this point. You can join different communities, you can create a page for your small businesses, you can create fund-raisers, you can find people to date through the dating service. There are all these different kinds of utilities for basically all the different things that you would want to do with everyone you know. And we basically built this whole platform around the town square. And it's really a concept of the whole platform around all the private and intimate interactions that you would want to have. I think that's really the opportunity here, on top of WhatsApp and Messenger, and what I'm trying to lay out is a privacy-focused vision for this kind of platform that starts with messaging and making that as secure as possible with end-to-end encryption, and then building all of the other kinds of private and intimate ways that you would want to interact—from calling, to groups, to stories, to payments, to different forms of commerce, to sharing location, to eventually having a more open-ended system to plug in different kinds of tools for providing the interaction with people in all the ways that you would want. So that’s the basic vision for what we’re trying to do.Related StoriesIssie LapowskyFacebook's Pivot to Privacy Is Missing Something CrucialNicholas Thompson9 Questions for Facebook After Zuckerberg’s Privacy ManifestoMolly WoodZuckerberg's Privacy Manifesto is Actually About MessagingNT: Does News Feed still exist then, whenever this is fully built?MZ: Yes, yes. I mean, Facebook and Instagram and the digital equivalent of the town square will always be important. I actually think that they will continue to grow in importance. At the same time though, the things that we see growing the fastest, in terms of what people want to do, are private messaging, stories that are ephemeral and don’t stick around, small groups …So I think that this idea of the digital living room is under-built out today. Right now we have messaging apps where we can send messages, but there should be a whole, deep platform built around all the ways that people want to interact in these private and intimate ways, similar to what you have Facebook and Instagram today. So it’s not that Facebook and Instagram are going to be less important for what they’re doing, it's just that people sometimes want to interact in a town square, and sometimes they want to interact in the living room, and I think that that's the next big frontier.NT: But will people walk from the town square, from Facebook, into the living room? Will this be part of the Blue App on my phone, part of the Instagram app on my phone, or will this be a new app?MZ: Well, probably some of each. The foundation of this will be the messaging experience that we built with Messenger and that we’ve started building on top of WhatsApp as well. But this is partially what I was trying to explain in the note around interoperability, that there are these artificial walls today where if you want to message someone who you see on Facebook, you have to use Messenger. If you want to message someone on Instagram, you have to use Direct, if you want to message someone on WhatsApp you have to use WhatsApp. But I think people tend to have one of the messaging apps that they prefer the most. So giving people the choice to say, “Hey, I want to use WhatsApp because I prefer that as my service where I can not only message people on WhatsApp but I can message people on Facebook or Instagram as well and have those services connect …” I think that that will unlock a lot more convenient and seamless experiences. So connecting the services in that way I think will be valuable. But people have to choose to do that, it’s not going to be something that we can just do. And you'll always have the option to keep the accounts separate if you want.NT: Got it. And then how will the business model work with this new system? Because Facebook's current business model is based upon collecting lots of data and then building targeted ad experiences. That would be much harder with disappearing data and end-to-end encryption.MZ: So yes, parts of this will be harder. But the basic way that we’ve approached things is first to focus on building the consumer service that people really want. Then focus on making it so people can organically interact with businesses, and then focus on paid ways that businesses can grow and get more distribution. So we're still in the phase on this private messaging platform, of phase one, where we're really focused on nailing the consumer experience. You know, a lot of countries, we are the lead messaging app. But in a lot of important ones, especially really important for the business, like the US for example, we're not yet the leading messaging app. So there's still a huge amount of work just in building the consumer experience that people love, and that will be the foundation. If we do that well, the business will be fine. Well, you know, depending on how well we execute it, it could be better or worse, but it will be fine as long as we focus on building something that's good for people.It is true that if we have access to less information, then that makes a lot of our ranking in filtering systems, it makes them somewhat less effective. That's something that we’re going to have to deal with across everything that we want to do, so not just on ads—I’ll get back to that in a second—but safety, our security, and safety, and spam systems. The work there will be harder if we only rely on detecting patterns of activity rather than being able to have the security systems see the content of messages themselves. So that’s something that will get harder. Certainly, ad targeting can benefit from having access to as much content or signal as possible.You know, I’m more optimistic about this for a few reasons. One is that we aren’t really using the content of messages to target ads today anyway. So we weren’t planning on doing that. So it’s not like building a system and making it end-to-end encrypted and now we can't see the messages is really going to hurt ads that much because of the way we were already thinking about that. Keeping metadata around for less time will have some impact, although I'm optimistic that we'll build systems that can basically deliver most of the value with a fraction of the amount of data. But there's a lot more to learn there, which we need to figure out over the coming years as we build this out.SIGN UP TODAYSign up for the Daily newsletter and never miss the best of WIRED.NT: So you're not so worried about the ads and the business side, but you do sound worried about safety and the spread of misinformation. What most keeps you up at night as you think about the new trade-offs Facebook will be facing?MZ: Yeah, I think that's right. I actually, in working through this, I am much more worried about those trade-offs around safety. There is just a clear trade-off here when you're building a messaging system between end-to-end encryption, which provides world-class privacy and the strongest security measures on the one hand, but removes some of the signal that you have to detect really terrible things some people try to do, whether it’s child exploitation or terrorism or extorting people. And those are things that we take really seriously. They’re areas where we just learned a lot in the last couple of years—where, going into the last couple of years, we underestimated the importance and severity of some of these issues, and we've really reoriented the company to care a lot more about that and focus on that.So, you can see that in the approach here. Even though we came out on the side of prioritizing privacy in building end-to-end encryption, we're also committed to taking all of 2019 to build the safety systems to do as well as we can within the framework of an encrypted system before we roll out end-to-end encryption, which is a pretty different way from how we operated five years ago. And not just on taking the time to make sure we roll out and fully build out the safety systems, but we're really going about this in a way where we're going to publicly consult with experts around the world, and governments, including law enforcement and regulators and safety advocates, and I just think at this point we understand that there's a lot more context that we don't know, that we will benefit from engaging with these folks. And it's just really critical that we get the detail and nuances of these safety systems right as we move toward rolling this out, which will probably be next year sometime.NT: OK. And then shifting the priorities of a company as big as Facebook are really hard. Beyond writing this, what are you going to do to guarantee that this vision is implemented?MZ: You have no idea how hard it is. Yes, there's a lot of work that goes into getting the teams aligned and getting the right leaders in place who believe in these priorities, and being able to execute on that. And even the process of writing something like this is really helpful, because you can talk about a lot of things in the abstract. But it's not until you actually put it down on paper and say, “Yeah, here are the trade-offs. We're going to focus on reducing the permanence of how much data we have around, and that’s going to make these things harder.” Then you get all these teams inside the company that come out of the woodwork with all the issues that that’s going to cause for other things that we really care about. You know, whether that’s research that was surfaced about how much people care and value making a record of their lives over time, so making it so that more of the content would be archived automatically would be problematic for them, or different kinds of things.But that whole process has been really helpful for figuring out and distilling the vision of where we want to get. And it basically got us to this point where we feel like we're ready to put a flag in the ground and say, “This is where we want to go.” This isn't a product announcement, it’s a statement of the principles that we think are necessary to build this privacy-focused social platform. But now I think we're going to really start the harder process, over the next year or so, of flushing out what all these things mean as the aspects of this start to get rolled out in the different products.&quot;This isn't a product announcement, it’s a statement of the principles that we think are necessary to build this privacy-focused social platform.&quot;Mark Zuckerberg, Facebook CEONT: So what happens tomorrow?MZ: Well, I think pretty quickly you're going to see public engagement and consultation on some of these things. Now that we’ve put a flag in the ground and said we want to go toward end-to-end encryption, we want to go toward reducing the permanence of messaging and that kind of data, we want to move towards interoperability, not only within our apps but hopefully over time including with SMS or the new telecom standard RCS as well, figuring out how that can work, given that that’s not an encrypted protocol. I mean, these are all things that we care about that we now need to engage with. And then there will be a bunch of work inside the company to make sure that we have the right folks in the right roles. And this should be a massive effort of prioritizing this in all of the different work streams.NT: One thing I've written about and that I care a lot about is that the US tech sector becomes more integrated with the Chinese tech sector. It seems like maybe these changes you're talking about will make it harder to go into China. Is that something you worry about?MZ: Well, I think that— yes, I do. I’ve talked about in the past how I think US–China relations are really important. I think enabling more cross-border communication and building empathy would be important for the world. This isn't really about China specifically, but I just believe that an important part of building this kind of privacy and security infrastructure for the Internet is that  you need to be really sensitive about where you build data centers and where you store people’s sensitive data. And that’s something that we've only become more sensitive to over time as our services have gotten to scale.I referenced one of the examples that really shaped my thinking a couple of years ago where we had this case in a country—this wasn't in China—where one of our employees was put in jail because we were ordered to turn over data that we didn't have, because it was encrypted. And that just was a really—that moment really shifted my views, because it shows if you put a data center in a place, or you store people's information in a country, then you're giving that government the ability to use force to get that data. So I just think that that puts a huge responsibility in companies’ hands to make really careful decisions about where they believe it is appropriate to do that. And that's just something that I’ve really cared about in the decisions that we've made as we built the global infrastructure around what we do.NT: And then the last one. This is a pretty big philosophical change—it's one of the more interesting philosophical documents you’ve put out. It comes after a crazy last 12 months for Facebook. I'm wondering what was the moment during the last 12 months that you think was most important in shaping this new philosophy?MZ: You know, I don’t think it was one moment. I spent a lot of the last couple of years focused on understanding and trying to address the biggest issues facing Facebook and the Internet overall. And I wrote notes on our efforts on content enforcement and governance and on election integrity and protecting the civic process. And when I sat down at the end of last year to write this note on what I felt like we’ve learned about privacy going through this process, and what people wanted for the future given that private messages and stories and small groups are the fastest-growing way that people are interacting online—much faster than any of the more public ways that people interact, so when I sat down to write this thing, my biggest takeaway was, “Wow, in a lot of ways, this is a completely new platform that needs to get built.” People clearly really want this because of what they're doing and what we're seeing people do in our products.And this is a big opportunity, but it's going to mean adopting and taking some positions on some of these big issues that involve some really big trade-offs and are frankly different from what we may have prioritized historically. We've always cared about giving people privacy controls, but going so far as to say the data is going to be end-to-end encrypted in messaging—so we're not even going to be able to see it—and do some of the things that we believe lead to better services in other ways, that’s a big shift. And I think it is a reflection over the last couple of years of all of the issues that we’ve faced and how to make trade-offs across them. It’s not one single moment.NT: OK, great. Thank you so much for taking the time to talk with me.More Great WIRED StoriesNew to TikTok? Here's what you need to knowInside the “black box” of a neural networkThe NSA open sources a powerful cybersecurity toolGene mutation that could cure HIV has a checkered pastAnarchy, bitcoin, and murder in Acapulco👀 Looking for the latest gadgets? Check out our latest buying guides and best deals all year round📩 Get even more of our inside scoops with our weekly Backchannel newsletter Related VideoBusinessJack Dorsey on Filter Bubbles, Twitter Fights and 12 Years of Tweeting | WIRED25Twitter and Square Cofounder and CEO Jack Dorsey spoke with WIRED’s Editor-in-Chief Nicholas Thompson as part of WIRED25, WIRED’s 25th anniversary celebration in San Francisco.
+</code></pre>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 24 pages and is available on <a href="https://github.com/rajacsp">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
