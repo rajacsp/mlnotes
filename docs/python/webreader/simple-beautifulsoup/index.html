@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Simple BeautifulSoup" />
+<meta property="og:description" content="List Test" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/webreader/simple-beautifulsoup/" />
+<meta property="article:published_time" content="2019-04-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-20T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Simple BeautifulSoup"/>
+<meta name="twitter:description" content="List Test"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Simple BeautifulSoup",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/webreader\/simple-beautifulsoup\/",
+  "wordCount": "5852",
+  "datePublished": "2019-04-20T00:00:00\x2b00:00",
+  "dateModified": "2019-04-20T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Rj"
+  },
+  "description": "List Test"
+}
+</script> 
+
+    <title>Simple BeautifulSoup</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Simple BeautifulSoup</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-20T00:00:00Z "> 20 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">page</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://github.com/getify/BikechainJS&#39;</span><span class="p">)</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>    
+
+<span class="k">print</span><span class="p">(</span><span class="n">soup</span><span class="p">)</span> </code></pre></div>
+<pre><code>&lt;!DOCTYPE html&gt;
+
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;/&gt;
+&lt;link href=&quot;https://github.githubassets.com&quot; rel=&quot;dns-prefetch&quot;/&gt;
+&lt;link href=&quot;https://avatars0.githubusercontent.com&quot; rel=&quot;dns-prefetch&quot;/&gt;
+&lt;link href=&quot;https://avatars1.githubusercontent.com&quot; rel=&quot;dns-prefetch&quot;/&gt;
+&lt;link href=&quot;https://avatars2.githubusercontent.com&quot; rel=&quot;dns-prefetch&quot;/&gt;
+&lt;link href=&quot;https://avatars3.githubusercontent.com&quot; rel=&quot;dns-prefetch&quot;/&gt;
+&lt;link href=&quot;https://github-cloud.s3.amazonaws.com&quot; rel=&quot;dns-prefetch&quot;/&gt;
+&lt;link href=&quot;https://user-images.githubusercontent.com/&quot; rel=&quot;dns-prefetch&quot;/&gt;
+&lt;link crossorigin=&quot;anonymous&quot; href=&quot;https://github.githubassets.com/assets/frameworks-d69542a4a3958db914b3bec3f757de26.css&quot; integrity=&quot;sha512-OBabailf0Gja8rWVZO1xyYAw//CQdLOJF4riG050gTxsVqVD7az4Sq56hPWfv3AoaxuEhYXgQlGQcNxzZzDyVA==&quot; media=&quot;all&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link crossorigin=&quot;anonymous&quot; href=&quot;https://github.githubassets.com/assets/site-e4d561c16b6b9aaadbf00c0559c20085.css&quot; integrity=&quot;sha512-9f3NsOQR/iafpq5oTq9iaNzpmB3VaUcvR6AtzwqKitGWmnCnxlp4dfbENMlnj8IgKSCuwyrZTQ6Rok0xkfeiLA==&quot; media=&quot;all&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;link crossorigin=&quot;anonymous&quot; href=&quot;https://github.githubassets.com/assets/github-038ca28f0d66963cc8fcdd04180ca5e0.css&quot; integrity=&quot;sha512-wJhnzAfXEZIRVozNeRj3om7LYMKNuN4/pWiws3GvDrVcYuSnHZVWzVFF0nocd7vibgFePdnbVtr/SgFIOP/FcA==&quot; media=&quot;all&quot; rel=&quot;stylesheet&quot;&gt;
+&lt;meta content=&quot;width=device-width&quot; name=&quot;viewport&quot;/&gt;
+&lt;title&gt;GitHub - getify/BikechainJS: JavaScript VM engine (powered by V8); server-side environment modules; server-side synchronous web app controllers&lt;/title&gt;
+&lt;meta content=&quot;JavaScript VM engine (powered by V8); server-side environment modules; server-side synchronous web app controllers - getify/BikechainJS&quot; name=&quot;description&quot;/&gt;
+&lt;link href=&quot;/opensearch.xml&quot; rel=&quot;search&quot; title=&quot;GitHub&quot; type=&quot;application/opensearchdescription+xml&quot;/&gt;
+&lt;link href=&quot;https://github.com/fluidicon.png&quot; rel=&quot;fluid-icon&quot; title=&quot;GitHub&quot;/&gt;
+&lt;meta content=&quot;1401488693436528&quot; property=&quot;fb:app_id&quot;/&gt;
+&lt;meta content=&quot;https://avatars0.githubusercontent.com/u/150330?s=400&amp;amp;v=4&quot; name=&quot;twitter:image:src&quot;&gt;&lt;meta content=&quot;@github&quot; name=&quot;twitter:site&quot;&gt;&lt;meta content=&quot;summary&quot; name=&quot;twitter:card&quot;&gt;&lt;meta content=&quot;getify/BikechainJS&quot; name=&quot;twitter:title&quot;&gt;&lt;meta content=&quot;JavaScript VM engine (powered by V8); server-side environment modules; server-side synchronous web app controllers - getify/BikechainJS&quot; name=&quot;twitter:description&quot;/&gt;
+&lt;meta content=&quot;https://avatars0.githubusercontent.com/u/150330?s=400&amp;amp;v=4&quot; property=&quot;og:image&quot;/&gt;&lt;meta content=&quot;GitHub&quot; property=&quot;og:site_name&quot;/&gt;&lt;meta content=&quot;object&quot; property=&quot;og:type&quot;/&gt;&lt;meta content=&quot;getify/BikechainJS&quot; property=&quot;og:title&quot;/&gt;&lt;meta content=&quot;https://github.com/getify/BikechainJS&quot; property=&quot;og:url&quot;/&gt;&lt;meta content=&quot;JavaScript VM engine (powered by V8); server-side environment modules; server-side synchronous web app controllers - getify/BikechainJS&quot; property=&quot;og:description&quot;/&gt;
+&lt;link href=&quot;https://github.githubassets.com/&quot; rel=&quot;assets&quot;/&gt;
+&lt;meta content=&quot;1000&quot; name=&quot;pjax-timeout&quot;/&gt;
+&lt;meta content=&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot; data-pjax-transient=&quot;&quot; name=&quot;request-id&quot;/&gt;
+&lt;meta data-pjax-transient=&quot;&quot; name=&quot;selected-link&quot; value=&quot;repo_source&quot;/&gt;
+&lt;meta content=&quot;KT5gs8h0wvaagLKAVWq8bbeNwnZZK1r1XQysX3xurLU&quot; name=&quot;google-site-verification&quot;/&gt;
+&lt;meta content=&quot;ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA&quot; name=&quot;google-site-verification&quot;/&gt;
+&lt;meta content=&quot;GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc&quot; name=&quot;google-site-verification&quot;/&gt;
+&lt;meta content=&quot;collector.githubapp.com&quot; name=&quot;octolytics-host&quot;&gt;&lt;meta content=&quot;github&quot; name=&quot;octolytics-app-id&quot;&gt;&lt;meta content=&quot;https://collector.githubapp.com/github-external/browser_event&quot; name=&quot;octolytics-event-url&quot;&gt;&lt;meta content=&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot; name=&quot;octolytics-dimension-request_id&quot;&gt;&lt;meta content=&quot;iad&quot; name=&quot;octolytics-dimension-region_edge&quot;&gt;&lt;meta content=&quot;iad&quot; name=&quot;octolytics-dimension-region_render&quot;&gt;
+&lt;meta content=&quot;/&amp;lt;user-name&amp;gt;/&amp;lt;repo-name&amp;gt;&quot; data-pjax-transient=&quot;true&quot; name=&quot;analytics-location&quot;/&gt;
+&lt;meta content=&quot;UA-3769691-2&quot; name=&quot;google-analytics&quot;/&gt;
+&lt;meta class=&quot;js-ga-set&quot; content=&quot;Logged Out&quot; name=&quot;dimension1&quot;/&gt;
+&lt;meta content=&quot;github.com&quot; name=&quot;hostname&quot;/&gt;
+&lt;meta content=&quot;&quot; name=&quot;user-login&quot;/&gt;
+&lt;meta content=&quot;github.com&quot; name=&quot;expected-hostname&quot;/&gt;
+&lt;meta content=&quot;NDY4OGZlN2IxMTNiY2FjY2JkZWI4YjJkZDJiYjQ3YjBkOGNlZmRhNGVlNzVkYmE3MjhhYzI3N2EzNGE0NzlmOXx7InJlbW90ZV9hZGRyZXNzIjoiNTAuMTAwLjMwLjEzNiIsInJlcXVlc3RfaWQiOiJDOTVFOjBFRkY6M0MyMEQyOjY4MzBEMDo1Q0JDREExRSIsInRpbWVzdGFtcCI6MTU1NTg4MDQ3OCwiaG9zdCI6ImdpdGh1Yi5jb20ifQ==&quot; name=&quot;js-proxy-site-detection-payload&quot;/&gt;
+&lt;meta content=&quot;UNIVERSE_BANNER,MARKETPLACE_INVOICED_BILLING,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_RECOMMENDATIONS&quot; name=&quot;enabled-features&quot;/&gt;
+&lt;meta content=&quot;e8eafa1c4ad732748ef256e00a9005a904b1beaf&quot; name=&quot;html-safe-nonce&quot;/&gt;
+&lt;meta content=&quot;7d174e573145e30ac002780c2257882e&quot; http-equiv=&quot;x-pjax-version&quot;/&gt;
+&lt;link href=&quot;https://github.com/getify/BikechainJS/commits/master.atom&quot; rel=&quot;alternate&quot; title=&quot;Recent Commits to BikechainJS:master&quot; type=&quot;application/atom+xml&quot;/&gt;
+&lt;meta content=&quot;github.com/getify/BikechainJS git https://github.com/getify/BikechainJS.git&quot; name=&quot;go-import&quot;/&gt;
+&lt;meta content=&quot;150330&quot; name=&quot;octolytics-dimension-user_id&quot;&gt;&lt;meta content=&quot;getify&quot; name=&quot;octolytics-dimension-user_login&quot;&gt;&lt;meta content=&quot;523714&quot; name=&quot;octolytics-dimension-repository_id&quot;&gt;&lt;meta content=&quot;getify/BikechainJS&quot; name=&quot;octolytics-dimension-repository_nwo&quot;&gt;&lt;meta content=&quot;true&quot; name=&quot;octolytics-dimension-repository_public&quot;&gt;&lt;meta content=&quot;false&quot; name=&quot;octolytics-dimension-repository_is_fork&quot;&gt;&lt;meta content=&quot;523714&quot; name=&quot;octolytics-dimension-repository_network_root_id&quot;&gt;&lt;meta content=&quot;getify/BikechainJS&quot; name=&quot;octolytics-dimension-repository_network_root_nwo&quot;&gt;&lt;meta content=&quot;false&quot; name=&quot;octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown&quot;&gt;
+&lt;link data-pjax-transient=&quot;&quot; href=&quot;https://github.com/getify/BikechainJS&quot; rel=&quot;canonical&quot;/&gt;
+&lt;meta content=&quot;https://api.github.com/_private/browser/stats&quot; name=&quot;browser-stats-url&quot;/&gt;
+&lt;meta content=&quot;https://api.github.com/_private/browser/errors&quot; name=&quot;browser-errors-url&quot;/&gt;
+&lt;link color=&quot;#000000&quot; href=&quot;https://github.githubassets.com/pinned-octocat.svg&quot; rel=&quot;mask-icon&quot;/&gt;
+&lt;link class=&quot;js-site-favicon&quot; href=&quot;https://github.githubassets.com/favicon.ico&quot; rel=&quot;icon&quot; type=&quot;image/x-icon&quot;/&gt;
+&lt;meta content=&quot;#1e2327&quot; name=&quot;theme-color&quot;/&gt;
+&lt;link crossorigin=&quot;use-credentials&quot; href=&quot;/manifest.json&quot; rel=&quot;manifest&quot;/&gt;
+&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/meta&gt;&lt;/link&gt;&lt;/link&gt;&lt;/link&gt;&lt;/head&gt;
+&lt;body class=&quot;logged-out env-production&quot;&gt;
+&lt;div class=&quot;position-relative js-header-wrapper&quot;&gt;
+&lt;a class=&quot;px-2 py-4 bg-blue text-white show-on-focus js-skip-to-content&quot; href=&quot;#start-of-content&quot; tabindex=&quot;1&quot;&gt;Skip to content&lt;/a&gt;
+&lt;div class=&quot;pjax-loader-bar&quot; id=&quot;js-pjax-loader-bar&quot;&gt;&lt;div class=&quot;progress&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;header class=&quot;Header-old header-logged-out position-relative f4 py-2&quot; role=&quot;banner&quot;&gt;
+&lt;div class=&quot;container-lg d-flex px-3&quot;&gt;
+&lt;div class=&quot;d-flex flex-justify-between flex-items-center&quot;&gt;
+&lt;a aria-label=&quot;Homepage&quot; class=&quot;mr-4&quot; data-ga-click=&quot;(Logged out) Header, go to homepage, icon:logo-wordmark&quot; href=&quot;https://github.com/&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-mark-github text-white&quot; height=&quot;32&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;32&quot;&gt;&lt;path d=&quot;M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;HeaderMenu HeaderMenu--logged-out d-flex flex-justify-between flex-items-center flex-auto&quot;&gt;
+&lt;div class=&quot;d-none&quot;&gt;
+&lt;button aria-expanded=&quot;false&quot; aria-label=&quot;Toggle navigation&quot; class=&quot;btn-link js-details-target&quot; type=&quot;button&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-x text-gray&quot; height=&quot;24&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;18&quot;&gt;&lt;path d=&quot;M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/button&gt;
+&lt;/div&gt;
+&lt;nav aria-label=&quot;Global&quot; class=&quot;mt-0&quot;&gt;
+&lt;ul class=&quot;d-flex list-style-none&quot;&gt;
+&lt;li class=&quot;mr-3 mr-lg-3 edge-item-fix position-relative flex-wrap flex-justify-between d-flex flex-items-center&quot;&gt;
+&lt;details class=&quot;HeaderMenu-details details-overlay details-reset width-full&quot;&gt;
+&lt;summary class=&quot;HeaderMenu-summary HeaderMenu-link px-0 py-3 border-0 no-wrap d-inline-block&quot;&gt;
+                    Why GitHub?
+                    &lt;svg class=&quot;icon-chevon-down-mktg position-relative&quot; fill=&quot;none&quot; viewbox=&quot;0 0 14 8&quot; x=&quot;0px&quot; xml:space=&quot;preserve&quot; y=&quot;0px&quot;&gt;
+&lt;path d=&quot;M1,1l6.2,6L13,1&quot;&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/summary&gt;
+&lt;div class=&quot;dropdown-menu flex-auto rounded-1 bg-white px-0 mt-0 p-4 left-n4 position-absolute&quot;&gt;
+&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray-dark no-underline h5 Bump-link--hover&quot; data-ga-click=&quot;(Logged out) Header, go to Features&quot; href=&quot;/features&quot;&gt;Features &lt;span class=&quot;Bump-link-symbol float-right text-normal text-gray-light&quot;&gt;→&lt;/span&gt;&lt;/a&gt;
+&lt;ul class=&quot;list-style-none f5 pb-3&quot;&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Code review&quot; href=&quot;/features/code-review/&quot;&gt;Code review&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Project management&quot; href=&quot;/features/project-management/&quot;&gt;Project management&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Integrations&quot; href=&quot;/features/integrations&quot;&gt;Integrations&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Actions&quot; href=&quot;/features/actions&quot;&gt;Actions&lt;/a&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Team management&quot; href=&quot;/features#team-management&quot;&gt;Team management&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Social coding&quot; href=&quot;/features#social-coding&quot;&gt;Social coding&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Documentation&quot; href=&quot;/features#documentation&quot;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Code hosting&quot; href=&quot;/features#code-hosting&quot;&gt;Code hosting&lt;/a&gt;&lt;/li&gt;
+&lt;/li&gt;&lt;/ul&gt;
+&lt;ul class=&quot;list-style-none mb-0 border-lg-top pt-lg-3&quot;&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover&quot; data-ga-click=&quot;(Logged out) Header, go to Customer stories&quot; href=&quot;/customer-stories&quot;&gt;Customer stories &lt;span class=&quot;Bump-link-symbol float-right text-normal text-gray-light&quot;&gt;→&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover&quot; data-ga-click=&quot;(Logged out) Header, go to Security&quot; href=&quot;/security&quot;&gt;Security &lt;span class=&quot;Bump-link-symbol float-right text-normal text-gray-light&quot;&gt;→&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/details&gt;
+&lt;/li&gt;
+&lt;li class=&quot;mr-3 mr-lg-3&quot;&gt;
+&lt;a class=&quot;HeaderMenu-link no-underline py-3 d-block d-lg-inline-block&quot; data-ga-click=&quot;(Logged out) Header, go to Enterprise&quot; href=&quot;/enterprise&quot;&gt;Enterprise&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&quot;mr-3 mr-lg-3 edge-item-fix position-relative flex-wrap flex-justify-between d-flex flex-items-center&quot;&gt;
+&lt;details class=&quot;HeaderMenu-details details-overlay details-reset width-full&quot;&gt;
+&lt;summary class=&quot;HeaderMenu-summary HeaderMenu-link px-0 py-3 border-0 no-wrap d-inline-block&quot;&gt;
+                    Explore
+                    &lt;svg class=&quot;icon-chevon-down-mktg position-relative&quot; fill=&quot;none&quot; viewbox=&quot;0 0 14 8&quot; x=&quot;0px&quot; xml:space=&quot;preserve&quot; y=&quot;0px&quot;&gt;
+&lt;path d=&quot;M1,1l6.2,6L13,1&quot;&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/summary&gt;
+&lt;div class=&quot;dropdown-menu flex-auto rounded-1 bg-white px-0 pt-2 pb-0 mt-0 p-4 left-n4 position-absolute&quot;&gt;
+&lt;ul class=&quot;list-style-none mb-3&quot;&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray-dark no-underline h5 Bump-link--hover&quot; data-ga-click=&quot;(Logged out) Header, go to Explore&quot; href=&quot;/explore&quot;&gt;Explore GitHub &lt;span class=&quot;Bump-link-symbol float-right text-normal text-gray-light&quot;&gt;→&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class=&quot;text-gray-light text-normal text-mono f5 mb-2 border-top pt-3&quot;&gt;Learn &amp;amp; contribute&lt;/h4&gt;
+&lt;ul class=&quot;list-style-none mb-3&quot;&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Topics&quot; href=&quot;/topics&quot;&gt;Topics&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Collections&quot; href=&quot;/collections&quot;&gt;Collections&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Trending&quot; href=&quot;/trending&quot;&gt;Trending&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Learning lab&quot; href=&quot;https://lab.github.com/&quot;&gt;Learning Lab&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Open source guides&quot; href=&quot;https://opensource.guide&quot;&gt;Open source guides&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 class=&quot;text-gray-light text-normal text-mono f5 mb-2 border-top pt-3&quot;&gt;Connect with others&lt;/h4&gt;
+&lt;ul class=&quot;list-style-none mb-0&quot;&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Events&quot; href=&quot;https://github.com/events&quot;&gt;Events&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Community forum&quot; href=&quot;https://github.community&quot;&gt;Community forum&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 pb-0 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to GitHub Education&quot; href=&quot;https://education.github.com&quot;&gt;GitHub Education&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/details&gt;
+&lt;/li&gt;
+&lt;li class=&quot;mr-3 mr-lg-3&quot;&gt;
+&lt;a class=&quot;HeaderMenu-link no-underline py-3 d-block d-lg-inline-block&quot; data-ga-click=&quot;(Logged out) Header, go to Marketplace&quot; href=&quot;/marketplace&quot;&gt;Marketplace&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&quot;mr-3 mr-lg-3 edge-item-fix position-relative flex-wrap flex-justify-between d-flex flex-items-center&quot;&gt;
+&lt;details class=&quot;HeaderMenu-details details-overlay details-reset width-full&quot;&gt;
+&lt;summary class=&quot;HeaderMenu-summary HeaderMenu-link px-0 py-3 border-0 no-wrap d-inline-block&quot;&gt;
+                    Pricing
+                    &lt;svg class=&quot;icon-chevon-down-mktg position-relative&quot; fill=&quot;none&quot; viewbox=&quot;0 0 14 8&quot; x=&quot;0px&quot; xml:space=&quot;preserve&quot; y=&quot;0px&quot;&gt;
+&lt;path d=&quot;M1,1l6.2,6L13,1&quot;&gt;&lt;/path&gt;
+&lt;/svg&gt;
+&lt;/summary&gt;
+&lt;div class=&quot;dropdown-menu flex-auto rounded-1 bg-white px-0 pt-2 pb-4 mt-0 p-4 left-n4 position-absolute&quot;&gt;
+&lt;a class=&quot;pb-2 lh-condensed-ultra d-block link-gray-dark no-underline h5 Bump-link--hover&quot; data-ga-click=&quot;(Logged out) Header, go to Pricing&quot; href=&quot;/pricing&quot;&gt;Plans &lt;span class=&quot;Bump-link-symbol float-right text-normal text-gray-light&quot;&gt;→&lt;/span&gt;&lt;/a&gt;
+&lt;ul class=&quot;list-style-none mb-3&quot;&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Compare plans&quot; href=&quot;/pricing#feature-comparison&quot;&gt;Compare plans&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block link-gray no-underline f5&quot; data-ga-click=&quot;(Logged out) Header, go to Contact Sales&quot; href=&quot;https://enterprise.github.com/contact&quot;&gt;Contact Sales&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul class=&quot;list-style-none mb-0 border-top pt-3&quot;&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover&quot; data-ga-click=&quot;(Logged out) Header, go to Nonprofits&quot; href=&quot;/nonprofit&quot;&gt;Nonprofit &lt;span class=&quot;Bump-link-symbol float-right text-normal text-gray-light&quot;&gt;→&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;edge-item-fix&quot;&gt;&lt;a class=&quot;py-2 pb-0 lh-condensed-ultra d-block no-underline link-gray-dark no-underline h5 Bump-link--hover&quot; data-ga-click=&quot;(Logged out) Header, go to Education&quot; href=&quot;https://education.github.com&quot;&gt;Education &lt;span class=&quot;Bump-link-symbol float-right text-normal text-gray-light&quot;&gt;→&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/details&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/nav&gt;
+&lt;div class=&quot;d-flex flex-items-center px-0 text-center text-left&quot;&gt;
+&lt;div class=&quot;d-lg-flex&quot;&gt;
+&lt;div aria-expanded=&quot;false&quot; aria-haspopup=&quot;listbox&quot; aria-label=&quot;Search or jump to&quot; aria-owns=&quot;jump-to-results&quot; class=&quot;header-search mr-3 scoped-search site-scoped-search js-site-search position-relative js-jump-to&quot; role=&quot;combobox&quot;&gt;
+&lt;div class=&quot;position-relative&quot;&gt;
+&lt;!-- '&quot;` --&gt;&lt;!-- &lt;/textarea&gt;&lt;/xmp&gt; --&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/header&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;&lt;form accept-charset=&quot;UTF-8&quot; action=&quot;/getify/BikechainJS/search&quot; aria-label=&quot;Site&quot; class=&quot;js-site-search-form&quot; data-scope-id=&quot;523714&quot; data-scope-type=&quot;Repository&quot; data-scoped-search-url=&quot;/getify/BikechainJS/search&quot; data-unscoped-search-url=&quot;/search&quot; method=&quot;get&quot; role=&quot;search&quot;&gt;&lt;input name=&quot;utf8&quot; type=&quot;hidden&quot; value=&quot;✓&quot;/&gt;
+&lt;label class=&quot;form-control input-sm header-search-wrapper p-0 header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center js-chromeless-input-container&quot;&gt;
+&lt;input aria-autocomplete=&quot;list&quot; aria-controls=&quot;jump-to-results&quot; aria-label=&quot;Search&quot; autocapitalize=&quot;off&quot; autocomplete=&quot;off&quot; class=&quot;form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable&quot; data-hotkey=&quot;s,/&quot; data-jump-to-suggestions-path=&quot;/_graphql/GetSuggestedNavigationDestinations#csrf-token=lJ58QKCy3J/C0b5T890dTYPus8BYaHVVfv5hNe5zj6vPnIham9S8WRnV4dH2JhD0ax69CHdQbBSBQ7yVRVcN3Q==&quot; data-scoped-placeholder=&quot;Search&quot; data-unscoped-placeholder=&quot;Search GitHub&quot; name=&quot;q&quot; placeholder=&quot;Search&quot; spellcheck=&quot;false&quot; type=&quot;text&quot; value=&quot;&quot;/&gt;
+&lt;input class=&quot;js-site-search-type-field&quot; name=&quot;type&quot; type=&quot;hidden&quot;/&gt;
+&lt;img alt=&quot;&quot; class=&quot;mr-2 header-search-key-slash&quot; src=&quot;https://github.githubassets.com/images/search-key-slash.svg&quot;/&gt;
+&lt;div class=&quot;Box position-absolute overflow-hidden d-none jump-to-suggestions js-jump-to-suggestions-container&quot;&gt;
+&lt;ul class=&quot;d-none js-jump-to-suggestions-template-container&quot;&gt;
+&lt;li class=&quot;d-flex flex-justify-start flex-items-center p-0 f5 navigation-item js-navigation-item js-jump-to-suggestion&quot; role=&quot;option&quot;&gt;
+&lt;a class=&quot;no-underline d-flex flex-auto flex-items-center jump-to-suggestions-path js-jump-to-suggestion-path js-navigation-open p-2&quot; href=&quot;&quot; tabindex=&quot;-1&quot;&gt;
+&lt;div class=&quot;jump-to-octicon js-jump-to-octicon flex-shrink-0 mr-2 text-center d-none&quot;&gt;
+&lt;svg aria-label=&quot;Repository&quot; class=&quot;octicon octicon-repo flex-shrink-0 js-jump-to-octicon-repo d-none&quot; height=&quot;16&quot; role=&quot;img&quot; title=&quot;Repository&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;svg aria-label=&quot;Project&quot; class=&quot;octicon octicon-project flex-shrink-0 js-jump-to-octicon-project d-none&quot; height=&quot;16&quot; role=&quot;img&quot; title=&quot;Project&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 15 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;svg aria-label=&quot;Search&quot; class=&quot;octicon octicon-search flex-shrink-0 js-jump-to-octicon-search d-none&quot; height=&quot;16&quot; role=&quot;img&quot; title=&quot;Search&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/div&gt;
+&lt;img alt=&quot;&quot; aria-label=&quot;Team&quot; class=&quot;avatar mr-2 flex-shrink-0 js-jump-to-suggestion-avatar d-none&quot; height=&quot;28&quot; src=&quot;&quot; width=&quot;28&quot;/&gt;
+&lt;div class=&quot;jump-to-suggestion-name js-jump-to-suggestion-name flex-auto overflow-hidden text-left no-wrap css-truncate css-truncate-target&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;border rounded-1 flex-shrink-0 bg-gray px-1 text-gray-light ml-1 f6 d-none js-jump-to-badge-search&quot;&gt;
+&lt;span aria-label=&quot;in this repository&quot; class=&quot;js-jump-to-badge-search-text-default d-none&quot;&gt;
+        In this repository
+      &lt;/span&gt;
+&lt;span aria-label=&quot;in all of GitHub&quot; class=&quot;js-jump-to-badge-search-text-global d-none&quot;&gt;
+        All GitHub
+      &lt;/span&gt;
+&lt;span aria-hidden=&quot;true&quot; class=&quot;d-inline-block ml-1 v-align-middle&quot;&gt;↵&lt;/span&gt;
+&lt;/div&gt;
+&lt;div aria-hidden=&quot;true&quot; class=&quot;border rounded-1 flex-shrink-0 bg-gray px-1 text-gray-light ml-1 f6 d-none d-on-nav-focus js-jump-to-badge-jump&quot;&gt;
+      Jump to
+      &lt;span class=&quot;d-inline-block ml-1 v-align-middle&quot;&gt;↵&lt;/span&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul class=&quot;d-none js-jump-to-no-results-template-container&quot;&gt;
+&lt;li class=&quot;d-flex flex-justify-center flex-items-center f5 d-none js-jump-to-suggestion p-2&quot;&gt;
+&lt;span class=&quot;text-gray&quot;&gt;No suggested jump to results&lt;/span&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul class=&quot;p-0 m-0 js-navigation-container jump-to-suggestions-results-container js-jump-to-suggestions-results-container&quot; id=&quot;jump-to-results&quot; role=&quot;listbox&quot;&gt;
+&lt;li class=&quot;d-flex flex-justify-start flex-items-center p-0 f5 navigation-item js-navigation-item js-jump-to-scoped-search d-none&quot; role=&quot;option&quot;&gt;
+&lt;a class=&quot;no-underline d-flex flex-auto flex-items-center jump-to-suggestions-path js-jump-to-suggestion-path js-navigation-open p-2&quot; href=&quot;&quot; tabindex=&quot;-1&quot;&gt;
+&lt;div class=&quot;jump-to-octicon js-jump-to-octicon flex-shrink-0 mr-2 text-center d-none&quot;&gt;
+&lt;svg aria-label=&quot;Repository&quot; class=&quot;octicon octicon-repo flex-shrink-0 js-jump-to-octicon-repo d-none&quot; height=&quot;16&quot; role=&quot;img&quot; title=&quot;Repository&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;svg aria-label=&quot;Project&quot; class=&quot;octicon octicon-project flex-shrink-0 js-jump-to-octicon-project d-none&quot; height=&quot;16&quot; role=&quot;img&quot; title=&quot;Project&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 15 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;svg aria-label=&quot;Search&quot; class=&quot;octicon octicon-search flex-shrink-0 js-jump-to-octicon-search d-none&quot; height=&quot;16&quot; role=&quot;img&quot; title=&quot;Search&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/div&gt;
+&lt;img alt=&quot;&quot; aria-label=&quot;Team&quot; class=&quot;avatar mr-2 flex-shrink-0 js-jump-to-suggestion-avatar d-none&quot; height=&quot;28&quot; src=&quot;&quot; width=&quot;28&quot;/&gt;
+&lt;div class=&quot;jump-to-suggestion-name js-jump-to-suggestion-name flex-auto overflow-hidden text-left no-wrap css-truncate css-truncate-target&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;border rounded-1 flex-shrink-0 bg-gray px-1 text-gray-light ml-1 f6 d-none js-jump-to-badge-search&quot;&gt;
+&lt;span aria-label=&quot;in this repository&quot; class=&quot;js-jump-to-badge-search-text-default d-none&quot;&gt;
+        In this repository
+      &lt;/span&gt;
+&lt;span aria-label=&quot;in all of GitHub&quot; class=&quot;js-jump-to-badge-search-text-global d-none&quot;&gt;
+        All GitHub
+      &lt;/span&gt;
+&lt;span aria-hidden=&quot;true&quot; class=&quot;d-inline-block ml-1 v-align-middle&quot;&gt;↵&lt;/span&gt;
+&lt;/div&gt;
+&lt;div aria-hidden=&quot;true&quot; class=&quot;border rounded-1 flex-shrink-0 bg-gray px-1 text-gray-light ml-1 f6 d-none d-on-nav-focus js-jump-to-badge-jump&quot;&gt;
+      Jump to
+      &lt;span class=&quot;d-inline-block ml-1 v-align-middle&quot;&gt;↵&lt;/span&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li class=&quot;d-flex flex-justify-start flex-items-center p-0 f5 navigation-item js-navigation-item js-jump-to-global-search d-none&quot; role=&quot;option&quot;&gt;
+&lt;a class=&quot;no-underline d-flex flex-auto flex-items-center jump-to-suggestions-path js-jump-to-suggestion-path js-navigation-open p-2&quot; href=&quot;&quot; tabindex=&quot;-1&quot;&gt;
+&lt;div class=&quot;jump-to-octicon js-jump-to-octicon flex-shrink-0 mr-2 text-center d-none&quot;&gt;
+&lt;svg aria-label=&quot;Repository&quot; class=&quot;octicon octicon-repo flex-shrink-0 js-jump-to-octicon-repo d-none&quot; height=&quot;16&quot; role=&quot;img&quot; title=&quot;Repository&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;svg aria-label=&quot;Project&quot; class=&quot;octicon octicon-project flex-shrink-0 js-jump-to-octicon-project d-none&quot; height=&quot;16&quot; role=&quot;img&quot; title=&quot;Project&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 15 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;svg aria-label=&quot;Search&quot; class=&quot;octicon octicon-search flex-shrink-0 js-jump-to-octicon-search d-none&quot; height=&quot;16&quot; role=&quot;img&quot; title=&quot;Search&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M15.7 13.3l-3.81-3.83A5.93 5.93 0 0 0 13 6c0-3.31-2.69-6-6-6S1 2.69 1 6s2.69 6 6 6c1.3 0 2.48-.41 3.47-1.11l3.83 3.81c.19.2.45.3.7.3.25 0 .52-.09.7-.3a.996.996 0 0 0 0-1.41v.01zM7 10.7c-2.59 0-4.7-2.11-4.7-4.7 0-2.59 2.11-4.7 4.7-4.7 2.59 0 4.7 2.11 4.7 4.7 0 2.59-2.11 4.7-4.7 4.7z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/div&gt;
+&lt;img alt=&quot;&quot; aria-label=&quot;Team&quot; class=&quot;avatar mr-2 flex-shrink-0 js-jump-to-suggestion-avatar d-none&quot; height=&quot;28&quot; src=&quot;&quot; width=&quot;28&quot;/&gt;
+&lt;div class=&quot;jump-to-suggestion-name js-jump-to-suggestion-name flex-auto overflow-hidden text-left no-wrap css-truncate css-truncate-target&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;border rounded-1 flex-shrink-0 bg-gray px-1 text-gray-light ml-1 f6 d-none js-jump-to-badge-search&quot;&gt;
+&lt;span aria-label=&quot;in this repository&quot; class=&quot;js-jump-to-badge-search-text-default d-none&quot;&gt;
+        In this repository
+      &lt;/span&gt;
+&lt;span aria-label=&quot;in all of GitHub&quot; class=&quot;js-jump-to-badge-search-text-global d-none&quot;&gt;
+        All GitHub
+      &lt;/span&gt;
+&lt;span aria-hidden=&quot;true&quot; class=&quot;d-inline-block ml-1 v-align-middle&quot;&gt;↵&lt;/span&gt;
+&lt;/div&gt;
+&lt;div aria-hidden=&quot;true&quot; class=&quot;border rounded-1 flex-shrink-0 bg-gray px-1 text-gray-light ml-1 f6 d-none d-on-nav-focus js-jump-to-badge-jump&quot;&gt;
+      Jump to
+      &lt;span class=&quot;d-inline-block ml-1 v-align-middle&quot;&gt;↵&lt;/span&gt;
+&lt;/div&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/label&gt;
+&lt;/form&gt; 
+
+
+&lt;a class=&quot;HeaderMenu-link no-underline mr-3&quot; data-ga-click=&quot;(Logged out) Header, clicked Sign in, text:sign-in&quot; data-hydro-click='{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;6eafcbb87aa235f8b6805ea150470af7396c062b3cec00af2c151f0461dd09c2&quot; href=&quot;/login?return_to=%2Fgetify%2FBikechainJS&quot;&gt;
+          Sign in
+&lt;/a&gt; &lt;a class=&quot;HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1&quot; data-ga-click=&quot;(Logged out) Header, clicked Sign up, text:sign-up&quot; data-hydro-click='{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;94a63a331ab83a323c629a6ab1bb5ccfcdf987e27113d845188b1eb1f1b25cb7&quot; href=&quot;/join&quot;&gt;
+            Sign up
+&lt;/a&gt; 
+
+
+
+
+&lt;div class=&quot;show-on-focus&quot; id=&quot;start-of-content&quot;&gt;&lt;/div&gt;
+&lt;div id=&quot;js-flash-container&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;application-main&quot; data-commit-hovercards-enabled=&quot;&quot;&gt;
+&lt;div class=&quot;&quot; itemscope=&quot;&quot; itemtype=&quot;http://schema.org/SoftwareSourceCode&quot;&gt;
+&lt;main data-pjax-container=&quot;&quot; id=&quot;js-repo-pjax-container&quot;&gt;
+&lt;div class=&quot;flash flash-warn flash-full border-0 text-center text-bold py-2&quot;&gt;
+    This repository has been archived by the owner. It is now read-only.
+  &lt;/div&gt;
+&lt;div class=&quot;pagehead repohead instapaper_ignore readability-menu experiment-repo-nav&quot;&gt;
+&lt;div class=&quot;repohead-details-container clearfix container&quot;&gt;
+&lt;ul class=&quot;pagehead-actions&quot;&gt;
+&lt;li&gt;
+&lt;a aria-label=&quot;You must be signed in to watch a repository&quot; class=&quot;tooltipped tooltipped-s btn btn-sm btn-with-count&quot; data-hydro-click='{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;f19ca060ada4742290d9a4f0c53d6189a83ee9e7d7f6fb8f3b4414c09ddd00cb&quot; href=&quot;/login?return_to=%2Fgetify%2FBikechainJS&quot; rel=&quot;nofollow&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-eye v-align-text-bottom&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+    Watch
+&lt;/a&gt; &lt;a aria-label=&quot;6 users are watching this repository&quot; class=&quot;social-count&quot; href=&quot;/getify/BikechainJS/watchers&quot;&gt;
+      6
+    &lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a aria-label=&quot;You must be signed in to star a repository&quot; class=&quot;btn btn-sm btn-with-count tooltipped tooltipped-s&quot; data-hydro-click='{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:523714,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;3ed3e73b6062a8fcf136f58df3eaea885d9dd98db5b5df63fe0e55b59623f762&quot; href=&quot;/login?return_to=%2Fgetify%2FBikechainJS&quot; rel=&quot;nofollow&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-star v-align-text-bottom&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+      Star
+&lt;/a&gt;
+&lt;a aria-label=&quot;52 users starred this repository&quot; class=&quot;social-count js-social-count&quot; href=&quot;/getify/BikechainJS/stargazers&quot;&gt;
+      52
+    &lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a aria-label=&quot;You must be signed in to fork a repository&quot; class=&quot;btn btn-sm btn-with-count tooltipped tooltipped-s&quot; data-hydro-click='{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:523714,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;0d9708f6b7e1ccb1cbea104d2c3596adb6f4c5f5a7a556b39c9e924d1b397a26&quot; href=&quot;/login?return_to=%2Fgetify%2FBikechainJS&quot; rel=&quot;nofollow&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-repo-forked v-align-text-bottom&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 10 16&quot; width=&quot;10&quot;&gt;&lt;path d=&quot;M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+        Fork
+&lt;/a&gt;
+&lt;a aria-label=&quot;8 users forked this repository&quot; class=&quot;social-count&quot; href=&quot;/getify/BikechainJS/network/members&quot;&gt;
+      8
+    &lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 class=&quot;public&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-repo&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;12&quot;&gt;&lt;path d=&quot;M4 9H3V8h1v1zm0-3H3v1h1V6zm0-2H3v1h1V4zm0-2H3v1h1V2zm8-1v12c0 .55-.45 1-1 1H6v2l-1.5-1.5L3 16v-2H1c-.55 0-1-.45-1-1V1c0-.55.45-1 1-1h10c.55 0 1 .45 1 1zm-1 10H1v2h2v-1h3v1h5v-2zm0-10H2v9h9V1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span class=&quot;author&quot; itemprop=&quot;author&quot;&gt;&lt;a class=&quot;url fn&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/hovercards?user_id=150330&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; href=&quot;/getify&quot; rel=&quot;author&quot;&gt;getify&lt;/a&gt;&lt;/span&gt;&lt;!--
+--&gt;&lt;span class=&quot;path-divider&quot;&gt;/&lt;/span&gt;&lt;!--
+--&gt;&lt;strong itemprop=&quot;name&quot;&gt;&lt;a data-pjax=&quot;#js-repo-pjax-container&quot; href=&quot;/getify/BikechainJS&quot;&gt;BikechainJS&lt;/a&gt;&lt;/strong&gt;
+&lt;/h1&gt;
+&lt;/div&gt;
+&lt;nav aria-label=&quot;Repository&quot; class=&quot;reponav js-repo-nav js-sidenav-container-pjax container&quot; data-pjax=&quot;#js-repo-pjax-container&quot; itemscope=&quot;&quot; itemtype=&quot;http://schema.org/BreadcrumbList&quot;&gt;
+&lt;span itemprop=&quot;itemListElement&quot; itemscope=&quot;&quot; itemtype=&quot;http://schema.org/ListItem&quot;&gt;
+&lt;a aria-current=&quot;page&quot; class=&quot;js-selected-navigation-item selected reponav-item&quot; data-hotkey=&quot;g c&quot; data-selected-links=&quot;repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches repo_packages /getify/BikechainJS&quot; href=&quot;/getify/BikechainJS&quot; itemprop=&quot;url&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-code&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M9.5 3L8 4.5 11.5 8 8 11.5 9.5 13 14 8 9.5 3zm-5 0L0 8l4.5 5L6 11.5 2.5 8 6 4.5 4.5 3z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span itemprop=&quot;name&quot;&gt;Code&lt;/span&gt;
+&lt;meta content=&quot;1&quot; itemprop=&quot;position&quot;/&gt;
+&lt;/a&gt; &lt;/span&gt;
+&lt;span itemprop=&quot;itemListElement&quot; itemscope=&quot;&quot; itemtype=&quot;http://schema.org/ListItem&quot;&gt;
+&lt;a class=&quot;js-selected-navigation-item reponav-item&quot; data-hotkey=&quot;g i&quot; data-selected-links=&quot;repo_issues repo_labels repo_milestones /getify/BikechainJS/issues&quot; href=&quot;/getify/BikechainJS/issues&quot; itemprop=&quot;url&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-issue-opened&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span itemprop=&quot;name&quot;&gt;Issues&lt;/span&gt;
+&lt;span class=&quot;Counter&quot;&gt;0&lt;/span&gt;
+&lt;meta content=&quot;2&quot; itemprop=&quot;position&quot;/&gt;
+&lt;/a&gt; &lt;/span&gt;
+&lt;span itemprop=&quot;itemListElement&quot; itemscope=&quot;&quot; itemtype=&quot;http://schema.org/ListItem&quot;&gt;
+&lt;a class=&quot;js-selected-navigation-item reponav-item&quot; data-hotkey=&quot;g p&quot; data-selected-links=&quot;repo_pulls checks /getify/BikechainJS/pulls&quot; href=&quot;/getify/BikechainJS/pulls&quot; itemprop=&quot;url&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-git-pull-request&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;12&quot;&gt;&lt;path d=&quot;M11 11.28V5c-.03-.78-.34-1.47-.94-2.06C9.46 2.35 8.78 2.03 8 2H7V0L4 3l3 3V4h1c.27.02.48.11.69.31.21.2.3.42.31.69v6.28A1.993 1.993 0 0 0 10 15a1.993 1.993 0 0 0 1-3.72zm-1 2.92c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zM4 3c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v6.56A1.993 1.993 0 0 0 2 15a1.993 1.993 0 0 0 1-3.72V4.72c.59-.34 1-.98 1-1.72zm-.8 10c0 .66-.55 1.2-1.2 1.2-.65 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span itemprop=&quot;name&quot;&gt;Pull requests&lt;/span&gt;
+&lt;span class=&quot;Counter&quot;&gt;0&lt;/span&gt;
+&lt;meta content=&quot;3&quot; itemprop=&quot;position&quot;/&gt;
+&lt;/a&gt; &lt;/span&gt;
+&lt;a class=&quot;js-selected-navigation-item reponav-item&quot; data-hotkey=&quot;g b&quot; data-selected-links=&quot;repo_projects new_repo_project repo_project /getify/BikechainJS/projects&quot; href=&quot;/getify/BikechainJS/projects&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-project&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 15 16&quot; width=&quot;15&quot;&gt;&lt;path d=&quot;M10 12h3V2h-3v10zm-4-2h3V2H6v8zm-4 4h3V2H2v12zm-1 1h13V1H1v14zM14 0H1a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+      Projects
+      &lt;span class=&quot;Counter&quot;&gt;0&lt;/span&gt;
+&lt;/a&gt;
+&lt;a class=&quot;js-selected-navigation-item reponav-item&quot; data-selected-links=&quot;repo_graphs repo_contributors dependency_graph pulse people alerts /getify/BikechainJS/pulse&quot; href=&quot;/getify/BikechainJS/pulse&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-graph&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M16 14v1H0V0h1v14h15zM5 13H3V8h2v5zm4 0H7V3h2v10zm4 0h-2V6h2v7z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+      Insights
+&lt;/a&gt;
+&lt;/nav&gt;
+&lt;/div&gt;
+&lt;div class=&quot;container new-discussion-timeline experiment-repo-nav&quot;&gt;
+&lt;div class=&quot;repository-content&quot;&gt;
+&lt;div class=&quot;signup-prompt-bg rounded-1&quot;&gt;
+&lt;div class=&quot;signup-prompt p-4 text-center mb-4 rounded-1&quot;&gt;
+&lt;div class=&quot;position-relative&quot;&gt;
+&lt;!-- '&quot;` --&gt;&lt;!-- &lt;/textarea&gt;&lt;/xmp&gt; --&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;&lt;/main&gt;&lt;/div&gt;&lt;/div&gt;&lt;form accept-charset=&quot;UTF-8&quot; action=&quot;/prompt_dismissals/signup&quot; method=&quot;post&quot;&gt;&lt;input name=&quot;utf8&quot; type=&quot;hidden&quot; value=&quot;✓&quot;&gt;&lt;input name=&quot;_method&quot; type=&quot;hidden&quot; value=&quot;put&quot;&gt;&lt;input name=&quot;authenticity_token&quot; type=&quot;hidden&quot; value=&quot;2GcG8wDD27ALfb5TTu4AXK74niE/wyvqF3GU8CUi3Hhv4BjY4OhnUMKrhplvSfBRXhpVknBALi/U1VsUQEoLYQ==&quot;/&gt;
+&lt;button class=&quot;position-absolute top-0 right-0 btn-link link-gray&quot; data-ga-click=&quot;(Logged out) Sign up prompt, clicked Dismiss, text:dismiss&quot; type=&quot;submit&quot;&gt;
+              Dismiss
+            &lt;/button&gt;
+&lt;/input&gt;&lt;/input&gt;&lt;/form&gt; &lt;h3 class=&quot;pt-2&quot;&gt;Join GitHub today&lt;/h3&gt;
+&lt;p class=&quot;col-6 mx-auto&quot;&gt;GitHub is home to over 31 million developers working together to host and review code, manage projects, and build software together.&lt;/p&gt;
+&lt;a class=&quot;btn btn-primary&quot; data-ga-click=&quot;(Logged out) Sign up prompt, clicked Sign up, text:sign-up&quot; data-hydro-click='{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;3ffe53778c7ad5fa29919d0fe935db98e337e7b0264efbb1fc7b6cdcbf352cde&quot; href=&quot;/join?source=prompt-code&quot;&gt;Sign up&lt;/a&gt;
+
+
+
+&lt;div class=&quot;mb-3&quot;&gt; &lt;div class=&quot;f4&quot;&gt;
+&lt;span class=&quot;text-gray-dark mr-2&quot; itemprop=&quot;about&quot;&gt;
+          JavaScript VM engine (powered by V8); server-side environment modules; server-side synchronous web app controllers
+        &lt;/span&gt;
+&lt;span itemprop=&quot;url&quot;&gt;&lt;a href=&quot;http://getify.com&quot; rel=&quot;nofollow&quot;&gt;http://getify.com&lt;/a&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;overall-summary overall-summary-bottomless&quot;&gt;
+&lt;div class=&quot;stats-switcher-viewport js-stats-switcher-viewport&quot;&gt;
+&lt;div class=&quot;stats-switcher-wrapper&quot;&gt;
+&lt;ul class=&quot;numbers-summary&quot;&gt;
+&lt;li class=&quot;commits&quot;&gt;
+&lt;a data-pjax=&quot;&quot; href=&quot;/getify/BikechainJS/commits/master&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-history&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M8 13H6V6h5v2H8v5zM7 1C4.81 1 2.87 2.02 1.59 3.59L0 2v4h4L2.5 4.5C3.55 3.17 5.17 2.3 7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-.34.03-.67.09-1H.08C.03 7.33 0 7.66 0 8c0 3.86 3.14 7 7 7s7-3.14 7-7-3.14-7-7-7z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span class=&quot;num text-emphasized&quot;&gt;
+                25
+              &lt;/span&gt;
+              commits
+          &lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a data-pjax=&quot;&quot; href=&quot;/getify/BikechainJS/branches&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-git-branch&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 10 16&quot; width=&quot;10&quot;&gt;&lt;path d=&quot;M10 5c0-1.11-.89-2-2-2a1.993 1.993 0 0 0-1 3.72v.3c-.02.52-.23.98-.63 1.38-.4.4-.86.61-1.38.63-.83.02-1.48.16-2 .45V4.72a1.993 1.993 0 0 0-1-3.72C.88 1 0 1.89 0 3a2 2 0 0 0 1 1.72v6.56c-.59.35-1 .99-1 1.72 0 1.11.89 2 2 2 1.11 0 2-.89 2-2 0-.53-.2-1-.53-1.36.09-.06.48-.41.59-.47.25-.11.56-.17.94-.17 1.05-.05 1.95-.45 2.75-1.25S8.95 7.77 9 6.73h-.02C9.59 6.37 10 5.73 10 5zM2 1.8c.66 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2C1.35 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2zm0 12.41c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm6-8c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span class=&quot;num text-emphasized&quot;&gt;
+              1
+            &lt;/span&gt;
+            branch
+          &lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&quot;/getify/BikechainJS/releases&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-tag&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M7.73 1.73C7.26 1.26 6.62 1 5.96 1H3.5C2.13 1 1 2.13 1 3.5v2.47c0 .66.27 1.3.73 1.77l6.06 6.06c.39.39 1.02.39 1.41 0l4.59-4.59a.996.996 0 0 0 0-1.41L7.73 1.73zM2.38 7.09c-.31-.3-.47-.7-.47-1.13V3.5c0-.88.72-1.59 1.59-1.59h2.47c.42 0 .83.16 1.13.47l6.14 6.13-4.73 4.73-6.13-6.15zM3.01 3h2v2H3V3h.01z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span class=&quot;num text-emphasized&quot;&gt;
+              0
+            &lt;/span&gt;
+            releases
+          &lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a href=&quot;/getify/BikechainJS/graphs/contributors&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-organization&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M16 12.999c0 .439-.45 1-1 1H7.995c-.539 0-.994-.447-.995-.999H1c-.54 0-1-.561-1-1 0-2.634 3-4 3-4s.229-.409 0-1c-.841-.621-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.442.58 2.5 3c.058 2.41-.159 2.379-1 3-.229.59 0 1 0 1s1.549.711 2.42 2.088C9.196 9.369 10 8.999 10 8.999s.229-.409 0-1c-.841-.62-1.058-.59-1-3 .058-2.419 1.367-3 2.5-3s2.437.581 2.495 3c.059 2.41-.158 2.38-1 3-.229.59 0 1 0 1s3.005 1.366 3.005 4z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span class=&quot;num text-emphasized&quot;&gt;
+      1
+    &lt;/span&gt;
+    contributor
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;repository-lang-stats&quot;&gt;
+&lt;ol class=&quot;repository-lang-stats-numbers&quot;&gt;
+&lt;li&gt;
+&lt;a data-ga-click=&quot;Repository, language stats search click, location:repo overview&quot; href=&quot;/getify/BikechainJS/search?l=c%2B%2B&quot;&gt;
+&lt;span class=&quot;color-block language-color&quot; style=&quot;background-color:#f34b7d;&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;lang&quot;&gt;C++&lt;/span&gt;
+&lt;span class=&quot;percent&quot;&gt;60.3%&lt;/span&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a data-ga-click=&quot;Repository, language stats search click, location:repo overview&quot; href=&quot;/getify/BikechainJS/search?l=javascript&quot;&gt;
+&lt;span class=&quot;color-block language-color&quot; style=&quot;background-color:#f1e05a;&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;lang&quot;&gt;JavaScript&lt;/span&gt;
+&lt;span class=&quot;percent&quot;&gt;35.0%&lt;/span&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;a data-ga-click=&quot;Repository, language stats search click, location:repo overview&quot; href=&quot;/getify/BikechainJS/search?l=c&quot;&gt;
+&lt;span class=&quot;color-block language-color&quot; style=&quot;background-color:#555555;&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;lang&quot;&gt;C&lt;/span&gt;
+&lt;span class=&quot;percent&quot;&gt;4.7%&lt;/span&gt;
+&lt;/a&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;button class=&quot;d-flex p-0 repository-lang-stats-graph js-toggle-lang-stats&quot; data-ga-click=&quot;Repository, language bar stats toggle, location:repo overview&quot; title=&quot;Click for language details&quot; type=&quot;button&quot;&gt;
+&lt;span aria-label=&quot;C++ 60.3%&quot; class=&quot;language-color&quot; itemprop=&quot;keywords&quot; style=&quot;width:60.3%; background-color:#f34b7d;&quot;&gt;C++&lt;/span&gt;
+&lt;span aria-label=&quot;JavaScript 35.0%&quot; class=&quot;language-color&quot; itemprop=&quot;keywords&quot; style=&quot;width:35.0%; background-color:#f1e05a;&quot;&gt;JavaScript&lt;/span&gt;
+&lt;span aria-label=&quot;C 4.7%&quot; class=&quot;language-color&quot; itemprop=&quot;keywords&quot; style=&quot;width:4.7%; background-color:#555555;&quot;&gt;C&lt;/span&gt;
+&lt;/button&gt;
+&lt;div class=&quot;file-navigation in-mid-page d-flex flex-items-start&quot;&gt;
+&lt;details class=&quot;details-reset details-overlay select-menu branch-select-menu&quot;&gt;
+&lt;summary class=&quot;btn btn-sm select-menu-button css-truncate&quot; data-hotkey=&quot;w&quot; title=&quot;Switch branches or tags&quot;&gt;
+&lt;i&gt;Branch:&lt;/i&gt;
+&lt;span class=&quot;css-truncate-target&quot;&gt;master&lt;/span&gt;
+&lt;/summary&gt;
+&lt;details-menu class=&quot;select-menu-modal position-absolute&quot; preload=&quot;&quot; src=&quot;/getify/BikechainJS/ref-list/master?source_action=disambiguate&amp;amp;source_controller=files&quot; style=&quot;z-index: 99;&quot;&gt;
+&lt;include-fragment class=&quot;select-menu-loading-overlay anim-pulse&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-octoface&quot; height=&quot;32&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;32&quot;&gt;&lt;path d=&quot;M14.7 5.34c.13-.32.55-1.59-.13-3.31 0 0-1.05-.33-3.44 1.3-1-.28-2.07-.32-3.13-.32s-2.13.04-3.13.32c-2.39-1.64-3.44-1.3-3.44-1.3-.68 1.72-.26 2.99-.13 3.31C.49 6.21 0 7.33 0 8.69 0 13.84 3.33 15 7.98 15S16 13.84 16 8.69c0-1.36-.49-2.48-1.3-3.35zM8 14.02c-3.3 0-5.98-.15-5.98-3.35 0-.76.38-1.48 1.02-2.07 1.07-.98 2.9-.46 4.96-.46 2.07 0 3.88-.52 4.96.46.65.59 1.02 1.3 1.02 2.07 0 3.19-2.68 3.35-5.98 3.35zM5.49 9.01c-.66 0-1.2.8-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.54-1.78-1.2-1.78zm5.02 0c-.66 0-1.2.79-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.53-1.78-1.2-1.78z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/include-fragment&gt;
+&lt;/details-menu&gt;
+&lt;/details&gt;
+&lt;div class=&quot;breadcrumb flex-auto&quot;&gt;
+&lt;/div&gt;
+&lt;div class=&quot;BtnGroup&quot;&gt;
+&lt;a class=&quot;btn btn-sm empty-icon float-right BtnGroup-item&quot; data-ga-click=&quot;Repository, find file, location:repo overview&quot; data-hotkey=&quot;t&quot; data-hydro-click='{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;target&quot;:&quot;FIND_FILE_BUTTON&quot;,&quot;repository_id&quot;:523714,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;2219ac632e7c2310e1920036d10d36805d9eed2f229bd7bc19e84354822c190f&quot; data-pjax=&quot;true&quot; href=&quot;/getify/BikechainJS/find/master&quot;&gt;Find File&lt;/a&gt;
+&lt;/div&gt;
+&lt;details class=&quot;get-repo-select-menu js-get-repo-select-menu js-anon-get-repo-select-menu position-relative details-overlay details-reset&quot;&gt;
+&lt;summary class=&quot;btn btn-sm btn-primary&quot; data-hydro-click='{&quot;event_type&quot;:&quot;repository.click&quot;,&quot;payload&quot;:{&quot;repository_id&quot;:523714,&quot;target&quot;:&quot;CLONE_OR_DOWNLOAD_BUTTON&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;7f8e5b971f620cd761739672d7aa954d97dfaef60af7a3bdb20aa8f50fa95e40&quot;&gt;
+    Clone or download
+    &lt;span class=&quot;dropdown-caret&quot;&gt;&lt;/span&gt;
+&lt;/summary&gt; &lt;div class=&quot;position-relative&quot;&gt;
+&lt;div class=&quot;get-repo-modal dropdown-menu dropdown-menu-sw pb-0 js-toggler-container js-get-repo-modal&quot;&gt;
+&lt;div class=&quot;get-repo-modal-options&quot;&gt;
+&lt;div class=&quot;clone-options https-clone-options&quot;&gt;
+&lt;h4 class=&quot;mb-1&quot;&gt;
+              Clone with HTTPS
+              &lt;a class=&quot;muted-link&quot; href=&quot;https://help.github.com/articles/which-remote-url-should-i-use&quot; target=&quot;_blank&quot; title=&quot;Which remote URL should I use?&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-question&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M6 10h2v2H6v-2zm4-3.5C10 8.64 8 9 8 9H6c0-.55.45-1 1-1h.5c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5V7H4c0-1.5 1.5-3 3-3s3 1 3 2.5zM7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/a&gt;
+&lt;/h4&gt;
+&lt;p class=&quot;mb-2 get-repo-decription-text&quot;&gt;
+              Use Git or checkout with SVN using the web URL.
+            &lt;/p&gt;
+&lt;div class=&quot;input-group&quot;&gt;
+&lt;input aria-label=&quot;Clone this repository at https://github.com/getify/BikechainJS.git&quot; class=&quot;form-control input-monospace input-sm&quot; data-autoselect=&quot;&quot; readonly=&quot;&quot; type=&quot;text&quot; value=&quot;https://github.com/getify/BikechainJS.git&quot;/&gt;
+&lt;div class=&quot;input-group-button&quot;&gt;
+&lt;clipboard-copy aria-label=&quot;Copy to clipboard&quot; class=&quot;btn btn-sm&quot; data-hydro-click='{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;COPY_URL&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:523714,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;4ffe18ef68ba1cf03fb0b1f951c3e7d099c00751a8f1a29eb1c831a9654fd37a&quot; value=&quot;https://github.com/getify/BikechainJS.git&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-clippy&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M2 13h4v1H2v-1zm5-6H2v1h5V7zm2 3V8l-3 3 3 3v-2h5v-2H9zM4.5 9H2v1h2.5V9zM2 12h2.5v-1H2v1zm9 1h1v2c-.02.28-.11.52-.3.7-.19.18-.42.28-.7.3H1c-.55 0-1-.45-1-1V4c0-.55.45-1 1-1h3c0-1.11.89-2 2-2 1.11 0 2 .89 2 2h3c.55 0 1 .45 1 1v5h-1V6H1v9h10v-2zM2 5h8c0-.55-.45-1-1-1H8c-.55 0-1-.45-1-1s-.45-1-1-1-1 .45-1 1-.45 1-1 1H3c-.55 0-1 .45-1 1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/clipboard-copy&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;mt-2&quot;&gt;
+&lt;a class=&quot;btn btn-outline get-repo-btn js-anon-download-zip-link&quot; data-ga-click=&quot;Repository, download zip, location:repo overview&quot; data-hydro-click='{&quot;event_type&quot;:&quot;clone_or_download.click&quot;,&quot;payload&quot;:{&quot;feature_clicked&quot;:&quot;DOWNLOAD_ZIP&quot;,&quot;git_repository_type&quot;:&quot;REPOSITORY&quot;,&quot;repository_id&quot;:523714,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;ce2763119dbc2fedbe6773d9b3a17d11854799bd3b60c86580c0eaca58037d0f&quot; href=&quot;/getify/BikechainJS/archive/master.zip&quot; rel=&quot;nofollow&quot;&gt;Download ZIP&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;js-modal-downloading&quot; hidden=&quot;&quot;&gt;
+&lt;div class=&quot;py-2 px-3&quot;&gt;
+&lt;h4 class=&quot;lh-condensed mb-3&quot;&gt;Downloading&lt;span class=&quot;animated-ellipsis-container&quot;&gt;&lt;span class=&quot;animated-ellipsis&quot;&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;p class=&quot;text-gray&quot;&gt;
+              Want to be notified of new releases in
+              &lt;span class=&quot;text-bold&quot;&gt;getify/BikechainJS&lt;/span&gt;?
+            &lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;width-full d-flex&quot;&gt;
+&lt;a class=&quot;get-repo-btn btn btn-outline&quot; data-hydro-click='{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;download popover&quot;,&quot;repository_id&quot;:523714,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;d292457fbd701d94f2c466dd02ed3dd57d415dfa47d7a9154279ebbc765e0dfd&quot; href=&quot;/login?return_to=https%3A%2F%2Fgithub.com%2Fgetify%2FBikechainJS&quot; rel=&quot;nofollow&quot; style=&quot;width: 50%&quot;&gt;Sign in&lt;/a&gt;
+&lt;a class=&quot;get-repo-btn btn btn-primary&quot; data-hydro-click='{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;download popover&quot;,&quot;repository_id&quot;:523714,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:null,&quot;originating_request_id&quot;:&quot;C95E:0EFF:3C20D2:6830D0:5CBCDA1E&quot;,&quot;originating_url&quot;:&quot;https://github.com/getify/BikechainJS&quot;,&quot;referrer&quot;:null,&quot;user_id&quot;:null}}' data-hydro-click-hmac=&quot;15840a678dac178e107b22ecc3c0f88346fd72ee986c7c231d035e32d784390c&quot; href=&quot;/join?return_to=%2Fgetify%2FBikechainJS&quot; rel=&quot;nofollow&quot; style=&quot;width: 50%&quot;&gt;Sign up&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;js-modal-download-mac py-2 px-3 d-none&quot;&gt;
+&lt;h4 class=&quot;lh-condensed mb-3&quot;&gt;Launching GitHub Desktop&lt;span class=&quot;animated-ellipsis-container&quot;&gt;&lt;span class=&quot;animated-ellipsis&quot;&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;p class=&quot;text-gray&quot;&gt;If nothing happens, &lt;a href=&quot;https://desktop.github.com/&quot;&gt;download GitHub Desktop&lt;/a&gt; and try again.&lt;/p&gt;
+&lt;p&gt;&lt;button class=&quot;btn-link js-get-repo-modal-download-back&quot;&gt;Go back&lt;/button&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;js-modal-download-windows py-2 px-3 d-none&quot;&gt;
+&lt;h4 class=&quot;lh-condensed mb-3&quot;&gt;Launching GitHub Desktop&lt;span class=&quot;animated-ellipsis-container&quot;&gt;&lt;span class=&quot;animated-ellipsis&quot;&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;p class=&quot;text-gray&quot;&gt;If nothing happens, &lt;a href=&quot;https://desktop.github.com/&quot;&gt;download GitHub Desktop&lt;/a&gt; and try again.&lt;/p&gt;
+&lt;p&gt;&lt;button class=&quot;btn-link js-get-repo-modal-download-back&quot;&gt;Go back&lt;/button&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;js-modal-download-xcode py-2 px-3 d-none&quot;&gt;
+&lt;h4 class=&quot;lh-condensed mb-3&quot;&gt;Launching Xcode&lt;span class=&quot;animated-ellipsis-container&quot;&gt;&lt;span class=&quot;animated-ellipsis&quot;&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;p class=&quot;text-gray&quot;&gt;If nothing happens, &lt;a href=&quot;https://developer.apple.com/xcode/&quot;&gt;download Xcode&lt;/a&gt; and try again.&lt;/p&gt;
+&lt;p&gt;&lt;button class=&quot;btn-link js-get-repo-modal-download-back&quot;&gt;Go back&lt;/button&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;js-modal-download-visual-studio py-2 px-3 d-none&quot;&gt;
+&lt;h4 class=&quot;lh-condensed mb-3&quot;&gt;Launching Visual Studio&lt;span class=&quot;animated-ellipsis-container&quot;&gt;&lt;span class=&quot;animated-ellipsis&quot;&gt;...&lt;/span&gt;&lt;/span&gt;&lt;/h4&gt;
+&lt;p class=&quot;text-gray&quot;&gt;If nothing happens, &lt;a href=&quot;https://visualstudio.github.com/&quot;&gt;download the GitHub extension for Visual Studio&lt;/a&gt; and try again.&lt;/p&gt;
+&lt;p&gt;&lt;button class=&quot;btn-link js-get-repo-modal-download-back&quot;&gt;Go back&lt;/button&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/details&gt;
+&lt;/div&gt;
+&lt;div class=&quot;commit-tease js-details-container Details d-flex rounded-top-1&quot; data-issue-and-pr-hovercards-enabled=&quot;&quot;&gt;
+&lt;div class=&quot;AvatarStack flex-self-start&quot;&gt;
+&lt;div aria-label=&quot;getify&quot; class=&quot;AvatarStack-body&quot;&gt;
+&lt;a class=&quot;avatar&quot; data-hovercard-type=&quot;user&quot; data-hovercard-url=&quot;/hovercards?user_id=150330&quot; data-octo-click=&quot;hovercard-link-click&quot; data-octo-dimensions=&quot;link_type:self&quot; data-skip-pjax=&quot;true&quot; href=&quot;/getify&quot;&gt;
+&lt;img alt=&quot;@getify&quot; height=&quot;20&quot; src=&quot;https://avatars0.githubusercontent.com/u/150330?s=60&amp;amp;v=4&quot; width=&quot;20&quot;&gt;
+&lt;/img&gt;&lt;/a&gt; &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;flex-auto f6 mr-3&quot;&gt;
+&lt;a aria-label=&quot;View all commits by getify&quot; class=&quot;commit-author tooltipped tooltipped-s user-mention&quot; href=&quot;/getify/BikechainJS/commits?author=getify&quot;&gt;getify&lt;/a&gt;
+&lt;a class=&quot;message text-inherit&quot; data-pjax=&quot;true&quot; href=&quot;/getify/BikechainJS/commit/b42b1a27762ac7cae2f1440fdda01550799e2a77&quot; title=&quot;v0.0.2 -- fixed LOTS of bugs with logging&quot;&gt;v0.0.2 -- fixed LOTS of bugs with logging&lt;/a&gt;
+&lt;/div&gt;
+&lt;div class=&quot;no-wrap&quot;&gt;
+      Latest commit
+      &lt;a class=&quot;commit-tease-sha&quot; data-pjax=&quot;&quot; href=&quot;/getify/BikechainJS/commit/b42b1a27762ac7cae2f1440fdda01550799e2a77&quot;&gt;
+        b42b1a2
+      &lt;/a&gt;
+&lt;span itemprop=&quot;dateModified&quot;&gt;&lt;relative-time datetime=&quot;2011-02-04T00:06:07Z&quot;&gt;Feb 4, 2011&lt;/relative-time&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;file-wrap&quot;&gt;
+&lt;a class=&quot;d-none js-permalink-shortcut&quot; data-hotkey=&quot;y&quot; href=&quot;/getify/BikechainJS/tree/b42b1a27762ac7cae2f1440fdda01550799e2a77&quot;&gt;Permalink&lt;/a&gt;
+&lt;table class=&quot;files js-navigation-container js-active-navigation-container&quot; data-pjax=&quot;&quot;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;span class=&quot;sr-only&quot;&gt;Type&lt;/span&gt;&lt;/th&gt;
+&lt;th&gt;&lt;span class=&quot;sr-only&quot;&gt;Name&lt;/span&gt;&lt;/th&gt;
+&lt;th&gt;&lt;span class=&quot;sr-only&quot;&gt;Latest commit message&lt;/span&gt;&lt;/th&gt;
+&lt;th&gt;&lt;span class=&quot;sr-only&quot;&gt;Commit time&lt;/span&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&quot;warning include-fragment-error&quot;&gt;
+&lt;td class=&quot;icon&quot;&gt;&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-alert&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/td&gt;
+&lt;td class=&quot;content&quot; colspan=&quot;3&quot;&gt;Failed to load latest commit information.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;js-navigation-item&quot;&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;svg aria-label=&quot;directory&quot; class=&quot;octicon octicon-file-directory&quot; height=&quot;16&quot; role=&quot;img&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;img alt=&quot;&quot; class=&quot;spinner&quot; height=&quot;16&quot; src=&quot;https://github.githubassets.com/images/spinners/octocat-spinner-32.gif&quot; width=&quot;16&quot;&gt;
+&lt;/img&gt;&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;a class=&quot;js-navigation-open&quot; href=&quot;/getify/BikechainJS/tree/master/engine&quot; id=&quot;ad1943a9fd6d3d7ee1e6af41a5b0d3e7-c534aff85e0b7f65f6481f8a3e523a65c0413865&quot; title=&quot;engine&quot;&gt;engine&lt;/a&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;message&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;
+&lt;a class=&quot;link-gray&quot; data-pjax=&quot;true&quot; href=&quot;/getify/BikechainJS/commit/b42b1a27762ac7cae2f1440fdda01550799e2a77&quot; title=&quot;v0.0.2 -- fixed LOTS of bugs with logging&quot;&gt;v0.0.2 -- fixed LOTS of bugs with logging&lt;/a&gt;
+&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;age&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;time-ago datetime=&quot;2011-02-04T00:06:07Z&quot;&gt;Feb 4, 2011&lt;/time-ago&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;js-navigation-item&quot;&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;svg aria-label=&quot;directory&quot; class=&quot;octicon octicon-file-directory&quot; height=&quot;16&quot; role=&quot;img&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;img alt=&quot;&quot; class=&quot;spinner&quot; height=&quot;16&quot; src=&quot;https://github.githubassets.com/images/spinners/octocat-spinner-32.gif&quot; width=&quot;16&quot;&gt;
+&lt;/img&gt;&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;a class=&quot;js-navigation-open&quot; href=&quot;/getify/BikechainJS/tree/master/logs&quot; id=&quot;2165e4fa5bddb65a31f6a0c495c2fa37-197a56220cad1446ccbbb5c62e61d9ae7f6414f2&quot; title=&quot;logs&quot;&gt;logs&lt;/a&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;message&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;
+&lt;a class=&quot;link-gray&quot; data-pjax=&quot;true&quot; href=&quot;/getify/BikechainJS/commit/b54fc6f18ff2c5d60d298bbb42f63dfab661e50f&quot; title=&quot;ignoring .gitignore itself, and any/all log files&quot;&gt;ignoring .gitignore itself, and any/all log files&lt;/a&gt;
+&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;age&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;time-ago datetime=&quot;2011-01-20T16:50:37Z&quot;&gt;Jan 20, 2011&lt;/time-ago&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;js-navigation-item&quot;&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;svg aria-label=&quot;directory&quot; class=&quot;octicon octicon-file-directory&quot; height=&quot;16&quot; role=&quot;img&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;img alt=&quot;&quot; class=&quot;spinner&quot; height=&quot;16&quot; src=&quot;https://github.githubassets.com/images/spinners/octocat-spinner-32.gif&quot; width=&quot;16&quot;&gt;
+&lt;/img&gt;&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;a class=&quot;js-navigation-open&quot; href=&quot;/getify/BikechainJS/tree/master/misc&quot; id=&quot;bc957e26ff41470c556ee5d09e96880b-a4d526365eea2dc14be042cd3571713eecddc393&quot; title=&quot;misc&quot;&gt;misc&lt;/a&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;message&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;
+&lt;a class=&quot;link-gray&quot; data-pjax=&quot;true&quot; href=&quot;/getify/BikechainJS/commit/fe439582591e19365d7b949a8e8894aecea84a3c&quot; title=&quot;v0.0.1.9 -- added config file parsing and basic logging facility, as well as corrected significant issues with working directory path detection&quot;&gt;v0.0.1.9 -- added config file parsing and basic logging facility, as …&lt;/a&gt;
+&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;age&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;time-ago datetime=&quot;2011-01-20T00:30:39Z&quot;&gt;Jan 20, 2011&lt;/time-ago&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;js-navigation-item&quot;&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;svg aria-label=&quot;directory&quot; class=&quot;octicon octicon-file-directory&quot; height=&quot;16&quot; role=&quot;img&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 14 16&quot; width=&quot;14&quot;&gt;&lt;path d=&quot;M13 4H7V3c0-.66-.31-1-1-1H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zM6 4H1V3h5v1z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;img alt=&quot;&quot; class=&quot;spinner&quot; height=&quot;16&quot; src=&quot;https://github.githubassets.com/images/spinners/octocat-spinner-32.gif&quot; width=&quot;16&quot;/&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;a class=&quot;js-navigation-open&quot; href=&quot;/getify/BikechainJS/tree/master/modules&quot; id=&quot;0eb9b3af2e4a00837a1b1a854c9ea18c-465bd9209e5bc3edb11c6c21194acbc4f007e01b&quot; title=&quot;modules&quot;&gt;modules&lt;/a&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;message&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;
+&lt;a class=&quot;link-gray&quot; data-pjax=&quot;true&quot; href=&quot;/getify/BikechainJS/commit/b42b1a27762ac7cae2f1440fdda01550799e2a77&quot; title=&quot;v0.0.2 -- fixed LOTS of bugs with logging&quot;&gt;v0.0.2 -- fixed LOTS of bugs with logging&lt;/a&gt;
+&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;age&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;time-ago datetime=&quot;2011-02-04T00:06:07Z&quot;&gt;Feb 4, 2011&lt;/time-ago&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;js-navigation-item&quot;&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;svg aria-label=&quot;file&quot; class=&quot;octicon octicon-file&quot; height=&quot;16&quot; role=&quot;img&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;12&quot;&gt;&lt;path d=&quot;M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;img alt=&quot;&quot; class=&quot;spinner&quot; height=&quot;16&quot; src=&quot;https://github.githubassets.com/images/spinners/octocat-spinner-32.gif&quot; width=&quot;16&quot;/&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;a class=&quot;js-navigation-open&quot; href=&quot;/getify/BikechainJS/blob/master/.gitignore&quot; id=&quot;a084b794bc0759e7a6b77810e01874f2-ccd768446a5c63a8f12de29036c7b70aa16b0de8&quot; title=&quot;.gitignore&quot;&gt;.gitignore&lt;/a&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;message&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;
+&lt;a class=&quot;link-gray&quot; data-pjax=&quot;true&quot; href=&quot;/getify/BikechainJS/commit/dd3e58aa3b33a08bfbfcc46f8daea30a8433e5e1&quot; title=&quot;ignore engine binary and makefile&quot;&gt;ignore engine binary and makefile&lt;/a&gt;
+&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;age&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;time-ago datetime=&quot;2011-01-20T18:38:50Z&quot;&gt;Jan 20, 2011&lt;/time-ago&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;js-navigation-item&quot;&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;svg aria-label=&quot;file&quot; class=&quot;octicon octicon-file&quot; height=&quot;16&quot; role=&quot;img&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;12&quot;&gt;&lt;path d=&quot;M6 5H2V4h4v1zM2 8h7V7H2v1zm0 2h7V9H2v1zm0 2h7v-1H2v1zm10-7.5V14c0 .55-.45 1-1 1H1c-.55 0-1-.45-1-1V2c0-.55.45-1 1-1h7.5L12 4.5zM11 5L8 2H1v12h10V5z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;img alt=&quot;&quot; class=&quot;spinner&quot; height=&quot;16&quot; src=&quot;https://github.githubassets.com/images/spinners/octocat-spinner-32.gif&quot; width=&quot;16&quot;/&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;a class=&quot;js-navigation-open&quot; href=&quot;/getify/BikechainJS/blob/master/README.txt&quot; id=&quot;26fd799ea07494916e9da9b91b2aac64-77ef6717ddc7159c63cc6327a03bd4e63415ca59&quot; title=&quot;README.txt&quot;&gt;README.txt&lt;/a&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;message&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;
+&lt;a class=&quot;link-gray&quot; data-pjax=&quot;true&quot; href=&quot;/getify/BikechainJS/commit/fe439582591e19365d7b949a8e8894aecea84a3c&quot; title=&quot;v0.0.1.9 -- added config file parsing and basic logging facility, as well as corrected significant issues with working directory path detection&quot;&gt;v0.0.1.9 -- added config file parsing and basic logging facility, as …&lt;/a&gt;
+&lt;/span&gt;
+&lt;/td&gt;
+&lt;td class=&quot;age&quot;&gt;
+&lt;span class=&quot;css-truncate css-truncate-target&quot;&gt;&lt;time-ago datetime=&quot;2011-01-20T00:30:39Z&quot;&gt;Jan 20, 2011&lt;/time-ago&gt;&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;Box Box--condensed instapaper_body txt js-code-block-container&quot; id=&quot;readme&quot;&gt;
+&lt;div class=&quot;Box-header d-flex flex-items-center flex-justify-between px-2&quot;&gt;
+&lt;h3 class=&quot;Box-title pr-3&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-book&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M3 5h4v1H3V5zm0 3h4V7H3v1zm0 2h4V9H3v1zm11-5h-4v1h4V5zm0 2h-4v1h4V7zm0 2h-4v1h4V9zm2-6v9c0 .55-.45 1-1 1H9.5l-1 1-1-1H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h5.5l1 1 1-1H15c.55 0 1 .45 1 1zm-8 .5L7.5 3H2v9h6V3.5zm7-.5H9.5l-.5.5V12h6V3z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+        README.txt
+      &lt;/h3&gt;
+&lt;/div&gt;
+&lt;div class=&quot;Box-body&quot;&gt;
+&lt;div class=&quot;plain&quot;&gt;&lt;pre style=&quot;white-space: pre-wrap&quot;&gt;BikechainJS Engine
+v0.0.1.9 (c) 2010 Kyle Simpson
+MIT License
+
+
+BikechainJS is a minimal server-side JavaScript wrapper environment (engine) around V8. It consists of a single executable &quot;engine&quot; which takes one or more JavaScript files as arguments, and executes them.
+
+&quot;engine.js&quot; is the bootstrapper for the global environment setup. It is required (in the same directory as the &quot;engine&quot;) and is automatically loaded, so must not be manually specified to be loaded.
+
+
+--------------
+
+Installation:
+
+1. Make sure you have a compiled, functional V8:  &lt;a href=&quot;http://code.google.com/p/v8/&quot; rel=&quot;nofollow&quot;&gt;http://code.google.com/p/v8/&lt;/a&gt;
+ -- NOTE: You need to use V8 v2.1.2+ because a bug was fixed with revision 3924
+
+2. If you created the &quot;shared&quot; V8 library (recommended), proceed to step 4.
+
+3. If you created the &quot;static&quot; V8 library, edit the makefile to reference to proper static library file.
+
+4. Run &quot;make install&quot; and then &quot;make clean&quot;.
+
+5. You should now have a &quot;engine&quot; executable in the [root]/engine/ directory. You can execute a JavaScript file by passing it as a parameter to engine, like this:
+
+./engine dosomething.js
+
+6. You can configure your BikechainJS instance by editing values in the engine.json file, also in the [root]/engine/ directory.
+
+7. Make sure the [root]/logs directory is writeable by the user/process executing bikechain.
+
+
+--------------
+
+Provided global environment:
+
+1. require(module-name): require() is used to load a module. The module name is case-sensitive and must not contain the file extension (.js). A loaded module does not automatically create anything in the global namespace. Instead, the module instance is instead returned from the require() call.
+
+2. include(path-to-file,[forceReload]): include() is used to load/parse a javascript file into the executing environment. The filename should be specified completely, including any relative or absolute path as necessary. &quot;forceReload&quot; is an optional bool parameter (defaults to false) forces the module sub-system to reload the module manually from the file system. Otherwise, modules are cached when loaded to improve performance.
+
+3. include_once(path-to-file): will ensure an exact file (via path) only gets loaded/parsed once.
+
+4. alert() maps to [system].stdout.print(). console.info(), console.log(), console.warn(), and console.error() all send messages to the logs.
+
+5. exit() to immediately stop execution of any javascript in this instance and flush output.
+
+
+--------------
+
+Modules (provided in [root]/modules/):
+
+Several modules are available to be loaded into the executing environment by using the global require() function.
+
+1. &quot;system&quot;: System (standard I/O)
+
+ *  [system].stdout.write(str): writes &quot;str&quot; to the standard output
+ *  [system].stdout.print(str): writes &quot;str&quot; to the standard output, followed by a new-line
+ *  [system].stdout.flush(): flushes the output buffer (if necessary)
+ *  [system].stdin.read(nonblocking[=true]): if non-blocking (default), if stdin has any buffered, reads from stdin up until an EOF. Otherwise, read returns empty immediately. If not non-blocking, read() blocks waiting for input.
+ *  [system].stderr.write(str): same as stdout.write()
+ *  [system].stderr.print(str): same as stdout.print()
+ *  [system].stderr.flush(): same as stdout.flush()
+
+
+2. &quot;fs&quot;: Filesystem (file I/O)
+
+ *  [fs].read(file): returns the entire contents of the file
+ *  [fs].write(file,str): writes &quot;str&quot; to &quot;file&quot;
+
+
+3. &quot;os&quot;: Operating System (process execution)
+
+ *  [os].execute(input, cmd, [..cmds, ..]): execute a command on the local system, specified by &quot;cmd&quot; and &quot;cmds&quot; parameters
+    -- returns iopipe:
+         [iopipe].stdout.read(): reads the output from the executed command
+
+
+4. &quot;promise&quot;: &quot;Promises&quot; (sync/async deferral)
+
+ * [promise](func): Example: var Promise = require(&quot;promise&quot;); Promise(func);
+   --Passes a promise &quot;P&quot; object to func as first parameter
+     -- &quot;P&quot; has a .fulfill([val]) function which specifies the promise is finished/fulfilled, and optionally passes along a &quot;val&quot; value.
+   --Returns an object that can be chained off of, with a .then(func) function, which gets a promise object &quot;P&quot; passed to it
+     -- &quot;P&quot; has a .value property which is the chained/passed value from the fulfilled promise
+
+ Example:
+
+ var Promise = require(&quot;promise&quot;);
+ Promise(function(P){
+    doAsync(function(){ P.fullfill(&quot;Done&quot;); });
+ })
+ .then(function(P){
+    alert(P.value); // &quot;Done&quot;
+ });
+
+
+5. &quot;sbfunction&quot;: &quot;Sandbox Functions&quot; (protects special core functions by sandboxing them)
+
+ * [sb](func): Example: var sbfunc = require(&quot;sbfunction&quot;); func = sbfunc(func);
+   --sandboxes the passed in function and returns it
+
+ Example:
+
+ function myfunc() { ... }
+
+ var sbfunc = require(&quot;sbfunction&quot;);
+ var myfunc = sbfunc(myfunc);
+
+6. &quot;request&quot;: Request Handler (utilities for managing the inbound REQUEST)
+
+ * [request].parse(REQUEST): parses the request for GET, POST, COOKIE, and other helpful environment variables
+   --Returns the augmented REQUEST object
+ * [request].value(REQUEST, name): retrieves the value (if any) of the variable `name` from GET or POST
+   --Returns the string value of variable `name`
+ * [request].exists(REQUEST, name): determines if the variable `name` exists in GET or POST
+   --Returns true/false boolean
+
+7. &quot;response&quot;: Response Handler (utilities for managing the outbound RESPONSE)
+
+ * [response].Header(name, value): sends a response header
+ * [response].Output(name, value): ends response headers' section and begin content body
+ * [response].SetCookie(name, value, domain, path, expires): sends a Set-Cookie header
+ * [response].SessionCookie(session_name, session_id, domain, path, expires): sends a session cookie header
+
+8. &quot;router&quot;: URI Router (handles routing decisions)
+
+ * [router].RegisterRouters(routes_filename): reads and registers route rules from `routes_filename`
+   --Returns true/false boolean
+ * [router].HandleRequest(REQUEST): determines if the REQUEST should be handled, based on the route rules
+   --Returns true/false boolean
+ * [router].RequestPath(): retrieves the RELATIVE_REQUEST_PATH from the REQUEST
+   --Returns the string value of the RELATIVE_REQUEST_PATH of the REQUEST
+
+9. &quot;storage&quot;: Storage (stateful &quot;LocalStorage/SessionStorage&quot; functionality in server-side middle-end)
+
+ * [storage].Init(sessionID=null): initializes the storage engine, either to an existing session (if sessionID
+                                   is passed) or starting a new session.
+   --Returns sessionID of session initialized
+
+NOTE: this module is still newly under development.
+
+  &lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;modal-backdrop js-touch-events&quot;&gt;&lt;/div&gt;
+
+
+
+
+&lt;div class=&quot;footer container-lg width-full px-3&quot; role=&quot;contentinfo&quot;&gt;
+&lt;div class=&quot;position-relative d-flex flex-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light&quot;&gt;
+&lt;ul class=&quot;list-style-none d-flex flex-wrap&quot;&gt;
+&lt;li class=&quot;mr-3&quot;&gt;© 2019 &lt;span title=&quot;0.21881s from unicorn-5494d8bf94-brf5b&quot;&gt;GitHub&lt;/span&gt;, Inc.&lt;/li&gt;
+&lt;li class=&quot;mr-3&quot;&gt;&lt;a data-ga-click=&quot;Footer, go to terms, text:terms&quot; href=&quot;https://github.com/site/terms&quot;&gt;Terms&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;mr-3&quot;&gt;&lt;a data-ga-click=&quot;Footer, go to privacy, text:privacy&quot; href=&quot;https://github.com/site/privacy&quot;&gt;Privacy&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;mr-3&quot;&gt;&lt;a data-ga-click=&quot;Footer, go to security, text:security&quot; href=&quot;https://github.com/security&quot;&gt;Security&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;mr-3&quot;&gt;&lt;a data-ga-click=&quot;Footer, go to status, text:status&quot; href=&quot;https://githubstatus.com/&quot;&gt;Status&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a data-ga-click=&quot;Footer, go to help, text:help&quot; href=&quot;https://help.github.com&quot;&gt;Help&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a aria-label=&quot;Homepage&quot; class=&quot;footer-octicon mx-lg-4&quot; href=&quot;https://github.com&quot; title=&quot;GitHub&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-mark-github&quot; height=&quot;24&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;24&quot;&gt;&lt;path d=&quot;M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/a&gt;
+&lt;ul class=&quot;list-style-none d-flex flex-wrap&quot;&gt;
+&lt;li class=&quot;mr-3&quot;&gt;&lt;a data-ga-click=&quot;Footer, go to contact, text:contact&quot; href=&quot;https://github.com/contact&quot;&gt;Contact GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;mr-3&quot;&gt;&lt;a data-ga-click=&quot;Footer, go to Pricing, text:Pricing&quot; href=&quot;https://github.com/pricing&quot;&gt;Pricing&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;mr-3&quot;&gt;&lt;a data-ga-click=&quot;Footer, go to api, text:api&quot; href=&quot;https://developer.github.com&quot;&gt;API&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;mr-3&quot;&gt;&lt;a data-ga-click=&quot;Footer, go to training, text:training&quot; href=&quot;https://training.github.com&quot;&gt;Training&lt;/a&gt;&lt;/li&gt;
+&lt;li class=&quot;mr-3&quot;&gt;&lt;a data-ga-click=&quot;Footer, go to blog, text:blog&quot; href=&quot;https://github.blog&quot;&gt;Blog&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a data-ga-click=&quot;Footer, go to about, text:about&quot; href=&quot;https://github.com/about&quot;&gt;About&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;d-flex flex-justify-center pb-6&quot;&gt;
+&lt;span class=&quot;f6 text-gray-light&quot;&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ajax-error-message flash flash-error&quot; id=&quot;ajax-error-message&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-alert&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;button aria-label=&quot;Dismiss error&quot; class=&quot;flash-close js-ajax-error-dismiss&quot; type=&quot;button&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-x&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;12&quot;&gt;&lt;path d=&quot;M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/button&gt;
+    You can’t perform that action at this time.
+  &lt;/div&gt;
+&lt;script crossorigin=&quot;anonymous&quot; integrity=&quot;sha512-5g98V2j8YTLsw7llCJHOsXoeKDJzBaS1EPqZe/YOBBiPXDE/+5S1WkRoX6AVs/hXTzyJGB3x95OKNDat4vpk0A==&quot; src=&quot;https://github.githubassets.com/assets/compat-bootstrap-3ee7f90c.js&quot; type=&quot;application/javascript&quot;&gt;&lt;/script&gt;
+&lt;script crossorigin=&quot;anonymous&quot; integrity=&quot;sha512-4ogGmCoGByNTJS1EuaHWf5OW9jaaUimTV7C1yWJY2cewmcDQ2BxWQA6/AULidNxvYt3uagTFcU1CQsobKN01XQ==&quot; src=&quot;https://github.githubassets.com/assets/frameworks-1f9870ed.js&quot; type=&quot;application/javascript&quot;&gt;&lt;/script&gt;
+&lt;script async=&quot;async&quot; crossorigin=&quot;anonymous&quot; integrity=&quot;sha512-ndUkGfxixq38E/uBsdXO4speen983F90aEEOnJrL67GsP+YOemia80Qo3NInrqoYqn5dDv5QpLvXcYlvUsyyTQ==&quot; src=&quot;https://github.githubassets.com/assets/github-bootstrap-afe22710.js&quot; type=&quot;application/javascript&quot;&gt;&lt;/script&gt;
+&lt;div class=&quot;js-stale-session-flash stale-session-flash flash flash-warn flash-banner&quot; hidden=&quot;&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-alert&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 16 16&quot; width=&quot;16&quot;&gt;&lt;path d=&quot;M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;span class=&quot;signed-in-tab-flash&quot;&gt;You signed in with another tab or window. &lt;a href=&quot;&quot;&gt;Reload&lt;/a&gt; to refresh your session.&lt;/span&gt;
+&lt;span class=&quot;signed-out-tab-flash&quot;&gt;You signed out in another tab or window. &lt;a href=&quot;&quot;&gt;Reload&lt;/a&gt; to refresh your session.&lt;/span&gt;
+&lt;/div&gt;
+&lt;template id=&quot;site-details-dialog&quot;&gt;
+&lt;details class=&quot;details-reset details-overlay details-overlay-dark lh-default text-gray-dark&quot; open=&quot;&quot;&gt;
+&lt;summary aria-haspopup=&quot;dialog&quot; aria-label=&quot;Close dialog&quot;&gt;&lt;/summary&gt;
+&lt;details-dialog class=&quot;Box Box--overlay d-flex flex-column anim-fade-in fast&quot;&gt;
+&lt;button aria-label=&quot;Close dialog&quot; class=&quot;Box-btn-octicon m-0 btn-octicon position-absolute right-0 top-0&quot; data-close-dialog=&quot;&quot; type=&quot;button&quot;&gt;
+&lt;svg aria-hidden=&quot;true&quot; class=&quot;octicon octicon-x&quot; height=&quot;16&quot; version=&quot;1.1&quot; viewbox=&quot;0 0 12 16&quot; width=&quot;12&quot;&gt;&lt;path d=&quot;M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z&quot; fill-rule=&quot;evenodd&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
+&lt;/button&gt;
+&lt;div class=&quot;octocat-spinner my-6 js-details-dialog-spinner&quot;&gt;&lt;/div&gt;
+&lt;/details-dialog&gt;
+&lt;/details&gt;
+&lt;/template&gt;
+&lt;div class=&quot;Popover js-hovercard-content position-absolute&quot; style=&quot;display: none; outline: none;&quot; tabindex=&quot;0&quot;&gt;
+&lt;div class=&quot;Popover-message Popover-message--bottom-left Popover-message--large Box box-shadow-large&quot; style=&quot;width:360px;&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div aria-live=&quot;polite&quot; class=&quot;js-global-screen-reader-notice sr-only&quot;&gt;&lt;/div&gt;
+</code></pre>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 66 pages and is available on <a href="https://github.com/rajacsp">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

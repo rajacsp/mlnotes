@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Gensim Similarity" />
+<meta property="og:description" content="-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/text-processing/gensim-similarity/" />
+<meta property="article:published_time" content="2019-04-21T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-21T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Gensim Similarity"/>
+<meta name="twitter:description" content="-"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Gensim Similarity",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/text-processing\/gensim-similarity\/",
+  "wordCount": "484",
+  "datePublished": "2019-04-21T00:00:00\x2b00:00",
+  "dateModified": "2019-04-21T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Rj"
+  },
+  "description": "-"
+}
+</script> 
+
+    <title>Gensim Similarity</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Gensim Similarity</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-21T00:00:00Z "> 21 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">nltk</span> 
+<span class="kn">import</span> <span class="nn">gensim</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">sample</span><span class="o">=</span><span class="s2">&#34;&#34;&#34;Renewed fighting has broken out in South Sudan between forces loyal to the president and vice-president. A reporter in the capital, Juba, told the BBC gunfire and large explosions could be heard all over the city; he said heavy artillery was being used. More than 200 people are reported to have died in clashes since Friday. The latest violence came hours after the UN Security Council called on the warring factions to immediately stop the fighting. In a unanimous statement, the council condemned the violence &#34;in the strongest terms&#34; and expressed &#34;particular shock and outrage&#34; at attacks on UN sites. It also called for additional peacekeepers to be sent to South Sudan.
+</span><span class="s2">Chinese media say two Chinese UN peacekeepers have now died in Juba. Several other peacekeepers have been injured, as well as a number of civilians who have been caught in crossfire. The latest round of violence erupted when troops loyal to President Salva Kiir and first Vice-President Riek Machar began shooting at each other in the streets of Juba. Relations between the two men have been fractious since South Sudan won independence from Sudan in 2011.
+</span><span class="s2">Their forces have fought a civil war. But despite a peace deal last year ending the conflict, both sides retain their military capabilities and have continued to accuse each other of bad faith. On Monday, there were reports of tanks on the streets of Juba and clashes close to the airport and UN camps sheltering civilians. The US embassy warned of &#34;serious fighting&#34; taking place. A BBC correspondent in the Kenyan capital, Nairobi, said it was not clear if Mr Kiir and Mr Machar remained in control of their forces. A UN spokeswoman in Juba, Shantal Persaud, said fighting over the past few days had caused hundreds of internally displaced people to take refuge in UN premises. She said both South Sudanese leaders were responsible for implementing last year&#39;s peace agreement, which included a permanent ceasefire and the deployment of forces away from Juba. Information Minister Michael Makuei told the BBC that the situation in the city was &#34;under full control&#34; and civilians who had fled should return to their homes. Mr Machar&#39;s military spokesman, Col William Gatjiath, accused officials loyal to the president of lying, and said there had been at least 10 hours of clashes on Sunday. &#34;The situation in South Sudan is uncontrollable because Salva Kiir and his followers are not ready to follow the peace agreement,&#34; he said. 
+</span><span class="s2">&#34;&#34;&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">sentences</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    
+<span class="c1">#print(sentences)</span>
+
+<span class="n">tokenized_sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">]</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Word2Vec</span><span class="p">(</span><span class="n">tokenized_sentences</span><span class="p">,</span> <span class="n">min_count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#print(model.most_similar(positive=[&#39;Sudan&#39;], topn=10))</span>
+<span class="c1">#print(model.most_similar(positive=[&#39;Sudan&#39;], negative=[&#39;UN&#39;], topn=10))</span>
+<span class="c1">#print(model.most_similar(positive=[&#39;Sudan&#39;, &#39;UN&#39;], topn=10))</span>
+
+<span class="n">south_sudan</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">similarity</span><span class="p">(</span><span class="s1">&#39;South&#39;</span><span class="p">,</span> <span class="s1">&#39;Sudan&#39;</span><span class="p">)</span>
+<span class="n">peace_sudan</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">similarity</span><span class="p">(</span><span class="s1">&#39;peace&#39;</span><span class="p">,</span> <span class="s1">&#39;Sudan&#39;</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">south_sudan</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">peace_sudan</span><span class="p">)</span></code></pre></div>
+<pre><code>-0.002689067
+0.26249856
+
+
+/Users/rajacsp/anaconda3/envs/py36/lib/python3.6/site-packages/ipykernel_launcher.py:12: DeprecationWarning: Call to deprecated `similarity` (Method will be removed in 4.0.0, use self.wv.similarity() instead).
+  if sys.path[0] == '':
+/Users/rajacsp/anaconda3/envs/py36/lib/python3.6/site-packages/ipykernel_launcher.py:13: DeprecationWarning: Call to deprecated `similarity` (Method will be removed in 4.0.0, use self.wv.similarity() instead).
+  del sys.path[0]
+</code></pre>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 66 pages and is available on <a href="https://github.com/rajacsp">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
