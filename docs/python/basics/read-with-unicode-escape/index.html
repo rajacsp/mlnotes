@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Read Online CSV with Unicode Escape" />
+<meta property="og:description" content="-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/basics/read-with-unicode-escape/" />
+<meta property="article:published_time" content="2019-04-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-20T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Read Online CSV with Unicode Escape"/>
+<meta name="twitter:description" content="-"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Read Online CSV with Unicode Escape",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/basics\/read-with-unicode-escape\/",
+  "wordCount": "279",
+  "datePublished": "2019-04-20T00:00:00\x2b00:00",
+  "dateModified": "2019-04-20T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Raja CSP Raman"
+  },
+  "description": "-"
+}
+</script> 
+
+    <title>Read Online CSV with Unicode Escape</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Read Online CSV with Unicode Escape</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-20T00:00:00Z "> 20 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s1">&#39;&#39;&#39;
+</span><span class="s1">https://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s
+</span><span class="s1">&#39;&#39;&#39;</span></code></pre></div>
+<pre><code>'\nhttps://stackoverflow.com/questions/22216076/unicodedecodeerror-utf8-codec-cant-decode-byte-0xa5-in-position-0-invalid-s\n'
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;https://www.sample-videos.com/csv/Sample-Spreadsheet-10-rows.csv&#39;</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;unicode_escape&#39;</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Eldon Base for stackable storage shelf, platinum</th>
+      <th>Muhammed MacIntyre</th>
+      <th>3</th>
+      <th>-213.25</th>
+      <th>38.94</th>
+      <th>35</th>
+      <th>Nunavut</th>
+      <th>Storage &amp; Organization</th>
+      <th>0.8</th>
+    </tr>
+    <tr>
+      <th>1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>1.7 Cubic Foot Compact "Cube" Office Refrigera...</td>
+      <td>Barry French</td>
+      <td>293</td>
+      <td>457.81</td>
+      <td>208.16</td>
+      <td>68.02</td>
+      <td>Nunavut</td>
+      <td>Appliances</td>
+      <td>0.58</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Cardinal Slant-D® Ring Binder, Heavy Gauge Vinyl</td>
+      <td>Barry French</td>
+      <td>293</td>
+      <td>46.71</td>
+      <td>8.69</td>
+      <td>2.99</td>
+      <td>Nunavut</td>
+      <td>Binders and Binder Accessories</td>
+      <td>0.39</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>R380</td>
+      <td>Clay Rozendal</td>
+      <td>483</td>
+      <td>1198.97</td>
+      <td>195.99</td>
+      <td>3.99</td>
+      <td>Nunavut</td>
+      <td>Telephones and Communication</td>
+      <td>0.58</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Holmes HEPA Air Purifier</td>
+      <td>Carlos Soltero</td>
+      <td>515</td>
+      <td>30.94</td>
+      <td>21.78</td>
+      <td>5.94</td>
+      <td>Nunavut</td>
+      <td>Appliances</td>
+      <td>0.50</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>G.E. Longer-Life Indoor Recessed Floodlight Bulbs</td>
+      <td>Carlos Soltero</td>
+      <td>515</td>
+      <td>4.43</td>
+      <td>6.64</td>
+      <td>4.95</td>
+      <td>Nunavut</td>
+      <td>Office Furnishings</td>
+      <td>0.37</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Eldon Base for stackable storage shelf, platinum</th>
+      <th>Muhammed MacIntyre</th>
+      <th>3</th>
+      <th>-213.25</th>
+      <th>38.94</th>
+      <th>35</th>
+      <th>Nunavut</th>
+      <th>Storage &amp; Organization</th>
+      <th>0.8</th>
+    </tr>
+    <tr>
+      <th>1</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>6</th>
+      <td>G.E. Longer-Life Indoor Recessed Floodlight Bulbs</td>
+      <td>Carlos Soltero</td>
+      <td>515</td>
+      <td>4.43</td>
+      <td>6.64</td>
+      <td>4.95</td>
+      <td>Nunavut</td>
+      <td>Office Furnishings</td>
+      <td>0.37</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Angle-D Binders with Locking Rings, Label Holders</td>
+      <td>Carl Jackson</td>
+      <td>613</td>
+      <td>-54.04</td>
+      <td>7.30</td>
+      <td>7.72</td>
+      <td>Nunavut</td>
+      <td>Binders and Binder Accessories</td>
+      <td>0.38</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>SAFCO Mobile Desk Side File, Wire Frame</td>
+      <td>Carl Jackson</td>
+      <td>613</td>
+      <td>127.70</td>
+      <td>42.76</td>
+      <td>6.22</td>
+      <td>Nunavut</td>
+      <td>Storage &amp; Organization</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>SAFCO Commercial Wire Shelving, Black</td>
+      <td>Monica Federle</td>
+      <td>643</td>
+      <td>-695.26</td>
+      <td>138.14</td>
+      <td>35.00</td>
+      <td>Nunavut</td>
+      <td>Storage &amp; Organization</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>Xerox 198</td>
+      <td>Dorothy Badders</td>
+      <td>678</td>
+      <td>-226.36</td>
+      <td>4.98</td>
+      <td>8.33</td>
+      <td>Nunavut</td>
+      <td>Paper</td>
+      <td>0.38</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 34 pages and is available on <a href="https://github.com/rajacsp">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
