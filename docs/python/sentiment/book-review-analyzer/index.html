@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Book Review Analyzer" />
+<meta property="og:description" content="List Test" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/sentiment/book-review-analyzer/" />
+<meta property="article:published_time" content="2019-04-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-20T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Book Review Analyzer"/>
+<meta name="twitter:description" content="List Test"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Book Review Analyzer",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/sentiment\/book-review-analyzer\/",
+  "wordCount": "685",
+  "datePublished": "2019-04-20T00:00:00\x2b00:00",
+  "dateModified": "2019-04-20T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Rj"
+  },
+  "description": "List Test"
+}
+</script> 
+
+    <title>Book Review Analyzer</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Book Review Analyzer</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-20T00:00:00Z "> 20 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">nltk.sentiment.vader</span> <span class="kn">import</span> <span class="n">SentimentIntensityAnalyzer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;book-review.json&#39;</span><span class="p">))</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">twt</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">twt</span></code></pre></div>
+<pre><code>'the text reveals the mentality of the CIA so that it reveals the group think which is necessary for understanding its philosophical shallowness'
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">tweet_index</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">tweet_date</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">positive_reviews</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">negative_reviews</span> <span class="o">=</span> <span class="p">[]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">tw_counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">def</span> <span class="nf">analyze_local</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">tw_date</span><span class="p">):</span>
+    <span class="n">sid</span> <span class="o">=</span> <span class="n">SentimentIntensityAnalyzer</span><span class="p">()</span>
+    
+    <span class="k">print</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="k">global</span> <span class="n">tw_counter</span>
+    <span class="n">tw_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">ss</span> <span class="o">=</span> <span class="n">sid</span><span class="o">.</span><span class="n">polarity_scores</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">])</span>
+    <span class="n">positive_reviews</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">])</span>
+    <span class="n">negative_reviews</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">ss</span><span class="p">[</span><span class="s1">&#39;neg&#39;</span><span class="p">])</span>    
+    <span class="n">tweet_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tw_counter</span><span class="p">)</span>
+    <span class="n">current_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">tw_date</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+    <span class="c1">#print(current_date)</span>
+    <span class="n">tweet_date</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_date</span><span class="p">)</span>
+    
+    <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">    for k in sorted(ss):
+</span><span class="s1">        #print(ss)
+</span><span class="s1">        print(&#39;{0}: {1}, &#39;.format(k, ss[k]), end = &#39;&#39;)
+</span><span class="s1">    &#39;&#39;&#39;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">plot_data</span><span class="p">():</span>
+    <span class="c1"># evenly sampled time at 200ms intervals</span>
+    
+    <span class="c1">#myneglist = [ -x for x in negative_reviews]</span>
+
+    <span class="c1"># red dashes, blue squares and green triangles</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sentiment Analysis : Positive (blue) and Negative (red)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tweet_date</span><span class="p">,</span> <span class="n">positive_reviews</span><span class="p">,</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">tweet_date</span><span class="p">,</span> <span class="n">negative_reviews</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
+    <span class="c1">#plt.plot(tweet_date, negative_reviews, &#39;r--&#39;)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>    
+
+<span class="n">total_reviews</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_reviews</span><span class="p">):</span>
+    <span class="n">analyze_local</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;created_at&#39;</span><span class="p">])</span>
+
+<span class="n">plot_data</span><span class="p">()</span> </code></pre></div>
+<pre><code>{'text': 'Much too concerned with the structure and functions of the CIA and not with the crentral theme suggested by the title.', 'created_at': 'Mon Jan 01 13:37:52 +0000 2018'}
+Much too concerned with the structure and functions of the CIA and not with the crentral theme suggested by the title.
+0.0
+the text reveals the mentality of the CIA so that it reveals the group think which is necessary for understanding its philosophical shallowness
+0.0
+The book is what I expected to be and more....now I have confirmation. Should I believe what I read........this is another question which the reader can only answer for his / her self. The world which we all live in has many twists on the truth and lies about everything....obviously our actions may they be positive or negative will be definitely affecting the out come of our lives. The book is worth reading as far has I'm concerned.
+0.125
+I guess a gag order is a gag order. I was disappointed with this book. There wasn't anything in it that you couldn't find on line with browser search. It seemed to be more pro Cia then his video's that talked about what his family was put through. Which only a couple of pages at the end spoke about in heavy blanked out sections. I would not buy any more of his other books if they are going to be like this one. He may have put his heart and soul into it but having the Cia approve everything that was written just doesn't cut it for me. Get books that aren't censored by Cia if you want real information. Like one reviewer said, this is not a whistle blower book.
+0.078
+The book is easy to read and follow. It is very understandable along with a lot of intrigue on the workings of the CIA. It's difficult to understand the treatment by the CIA of one of their officials and long time employee. His treatment by them was off the charts and some ot his co-workers, superiors and others were off the reservation. I recommend for anyone interested in how our loyal, patriotic public servants are treated when they don't adhere to a direction that is contrary to our Country.
+0.138
+Excellent source of information about our government and how corruption take s hold when we as citizens and political oversight management fail to pay attention.
+0.125
+Lots of info.Goes in line with other books I have read.This will open your eyes to what the gov is doing that the media will not tell you.
+0.0
+The detail of what an agent goes through was intriguing. The problem is, a lot of stuff he talked about regarding 9/11 and the Iraq war was regurgitated mainstream media talking points. He really didn't expose what really went on behind the scenes like real whistleblower agents already have. Very disappointing in that sense.
+0.068
+
+
+/Users/rajacsp/anaconda3/envs/py36/lib/python3.6/site-packages/pandas/plotting/_converter.py:129: FutureWarning: Using an implicitly registered datetime converter for a matplotlib plotting method. The converter was registered by pandas on import. Future versions of pandas will require you to explicitly register matplotlib converters.
+
+To register the converters:
+    &gt;&gt;&gt; from pandas.plotting import register_matplotlib_converters
+    &gt;&gt;&gt; register_matplotlib_converters()
+  warnings.warn(msg, FutureWarning)
+</code></pre>
+
+<p><img src="book-review-analyzer_8_2.png" alt="png" /></p>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 102 pages and is available on <a href="https://github.com/rajacsp">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>

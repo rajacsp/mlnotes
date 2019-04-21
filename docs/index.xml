@@ -139,6 +139,15 @@ Cialdini mentions studies of gamblers at a racetrack.</description>
     </item>
     
     <item>
+      <title>Args Sample</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/args-sample/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/args-sample/</guid>
+      <description>def print_everything(*args): for count, thing in enumerate(args): print( &amp;#39;{0}. {1}&amp;#39;.format(count, thing))print_everything(&amp;#39;apple&amp;#39;, &amp;#39;banana&amp;#39;, &amp;#39;cabbage&amp;#39;, &amp;#39;spinach&amp;#39;) 0. apple 1. banana 2. cabbage 3. spinach  </description>
+    </item>
+    
+    <item>
       <title>Article Reader</title>
       <link>https://rajacsp.github.io/mlnotes/python/basics/article-reader/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
@@ -154,6 +163,15 @@ Cialdini mentions studies of gamblers at a racetrack.</description>
       
       <guid>https://rajacsp.github.io/mlnotes/python/text-processing/bag-of-words/</guid>
       <description>import re from nltk.tokenize import word_tokenize from collections import Counterword_counter = Counter(word_tokenize(&amp;#34;&amp;#34;&amp;#34;The cat is in the box. The cat likes the box. The box is over the cat.&amp;#34;&amp;#34;&amp;#34;))print(word_counter) Counter({&#39;The&#39;: 3, &#39;cat&#39;: 3, &#39;the&#39;: 3, &#39;box&#39;: 3, &#39;.&#39;: 3, &#39;is&#39;: 2, &#39;in&#39;: 1, &#39;likes&#39;: 1, &#39;over&#39;: 1})  print(word_counter.most_common(4)) [(&#39;The&#39;, 3), (&#39;cat&#39;, 3), (&#39;the&#39;, 3), (&#39;box&#39;, 3)]  </description>
+    </item>
+    
+    <item>
+      <title>Book Review Analyzer</title>
+      <link>https://rajacsp.github.io/mlnotes/python/sentiment/book-review-analyzer/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/sentiment/book-review-analyzer/</guid>
+      <description>import json from pprint import pprint from nltk.sentiment.vader import SentimentIntensityAnalyzer import numpy as np import matplotlib.pyplot as plt import pandas as pddata = json.load(open(&amp;#39;book-review.json&amp;#39;))twt = data[&amp;#39;reviews&amp;#39;][1][&amp;#39;text&amp;#39;]twt &#39;the text reveals the mentality of the CIA so that it reveals the group think which is necessary for understanding its philosophical shallowness&#39;  tweet_index = [] tweet_date = [] positive_reviews = [] negative_reviews = []tw_counter = 0 def analyze_local(sentence, tw_date): sid = SentimentIntensityAnalyzer() print(sentence) global tw_counter tw_counter += 1 ss = sid.</description>
     </item>
     
     <item>
@@ -184,6 +202,24 @@ Cialdini mentions studies of gamblers at a racetrack.</description>
     </item>
     
     <item>
+      <title>DNS Lookup</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/dns-lookup/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/dns-lookup/</guid>
+      <description>import socketaddr1 = socket.gethostbyname(&amp;#39;google.com&amp;#39;) addr2 = socket.gethostbyname(&amp;#39;yahoo.com&amp;#39;)print(addr1) 172.217.0.238  print(addr2) 98.137.246.8  </description>
+    </item>
+    
+    <item>
+      <title>Date Util</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/date-util/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/date-util/</guid>
+      <description>import datetimenow = datetime.datetime.now()print(now.year) 2019  print (now.strftime(&amp;#34;%y&amp;#34;)) 19  print (now.strftime(&amp;#34;%d&amp;#34;)) 21  print (now.strftime(&amp;#34;%m&amp;#34;)) 04  print(datetime.datetime.today()) 2019-04-21 18:34:57.280555  cur_date = datetime.date.today() current_year = cur_date.year # Extract current year only current_month = cur_date.month # Extract current month only current_day = cur_date.day # Extract current day onlyprint(cur_date) 2019-04-21  print(current_month) 4  print(current_day) 21  current_date = cur_date.strftime(&amp;#34;%d-%m-%Y&amp;#34;) print(current_date) 21-04-2019  current_date = cur_date.strftime(&amp;#34;%d-%B-%Y&amp;#34;) print(current_date) 21-April-2019  </description>
+    </item>
+    
+    <item>
       <title>Decision Tree Prediction</title>
       <link>https://rajacsp.github.io/mlnotes/python/basics/decision-tree-prediction/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
@@ -208,6 +244,15 @@ Cialdini mentions studies of gamblers at a racetrack.</description>
       
       <guid>https://rajacsp.github.io/mlnotes/python/basics/decorator/</guid>
       <description>def rangetest(*argchecks): # validate positional arg ranges def onDecorator(func): def onCall(*args): print(&amp;#39;argchecks : &amp;#39;+str(argchecks)) for (ix, low, high) in argchecks: print(&amp;#39;ix : &amp;#39;+str(ix)) if args[ix] &amp;lt; low or args[ix] &amp;gt; high: errmsg = &amp;#39;Argument %snot in %s..%s&amp;#39; % (ix, low, high) raise TypeError(errmsg) return func(*args) return onCall return onDecoratorclass Person: &amp;#34;&amp;#34;&amp;#34; revisit the Person class to validate argument &amp;#34;&amp;#34;&amp;#34; def __init__(self, name, job, pay): self.job = job self.pay = pay # arg 0 is the self instance here @rangetest([1, 0.</description>
+    </item>
+    
+    <item>
+      <title>Decorator Sample 2</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/decorator-sample-2/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/decorator-sample-2/</guid>
+      <description>class my_decorator(object): def __init__(self, f): print(&amp;#34;inside my_decorator.__init__()&amp;#34;) f() # Prove that function definition has completed def __call__(self): print(&amp;#34;inside my_decorator.__call__()&amp;#34;)@my_decorator def aFunction(): print(&amp;#34;inside aFunction()&amp;#34;) inside my_decorator.__init__() inside aFunction()  print(&amp;#34;Finished decorating aFunction()&amp;#34;) Finished decorating aFunction()  aFunction() inside my_decorator.__call__()  </description>
     </item>
     
     <item>
@@ -236,6 +281,15 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
       
       <guid>https://rajacsp.github.io/mlnotes/python/basics/euclidean-distance/</guid>
       <description>def euclidean_distance(p, q): #make sure both array are in the same dimension assert len(p) == len(q) return max([abs(x-y) for x,y in zip(p,q)])acb = euclidean_distance([1,2,3],[1, 2, 3]) print(acb) 0  </description>
+    </item>
+    
+    <item>
+      <title>Euclidean Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/euclidean-simple/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/euclidean-simple/</guid>
+      <description>import math import numpy from random import uniformdef fastest_calc_dist(p1,p2): return math.sqrt((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2 + (p2[2] - p1[2]) ** 2) def math_calc_dist(p1,p2): return math.sqrt(math.pow((p2[0] - p1[0]), 2) + math.pow((p2[1] - p1[1]), 2) + math.pow((p2[2] - p1[2]), 2)) def numpy_calc_dist(p1,p2): return numpy.linalg.norm(numpy.array(p1)-numpy.array(p2))TOTAL_LOCATIONS = 1000 p1 = dict() p2 = dict() for i in range(0, TOTAL_LOCATIONS): p1[i] = (uniform(0,1000),uniform(0,1000),uniform(0,1000)) p2[i] = (uniform(0,1000),uniform(0,1000),uniform(0,1000)) total_dist = 0 for i in range(0, TOTAL_LOCATIONS): for j in range(0, TOTAL_LOCATIONS): dist = fastest_calc_dist(p1[i], p2[j]) #change this line for testing total_dist += dist print(total_dist) 656157444.</description>
     </item>
     
     <item>
@@ -290,6 +344,15 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
       
       <guid>https://rajacsp.github.io/mlnotes/python/sklearn/gaussian-nb-simple/</guid>
       <description>from sklearn import datasets from sklearn.naive_bayes import GaussianNBiris = datasets.load_iris()gnb = GaussianNB() y_pred = gnb.fit(iris.data, iris.target).predict(iris.data)print(&amp;#34;Number of mislabeled points out of a total %dpoints : %d&amp;#34; % (iris.data.shape[0],(iris.target != y_pred).sum())) Number of mislabeled points out of a total 150 points : 6  </description>
+    </item>
+    
+    <item>
+      <title>Get Encoding</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/get-encoding/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/get-encoding/</guid>
+      <description>import sysprint(sys.getdefaultencoding()) utf-8  </description>
     </item>
     
     <item>
@@ -392,6 +455,15 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
     </item>
     
     <item>
+      <title>Loop Dictionary</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/loop-dictionary/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/loop-dictionary/</guid>
+      <description>d = {&amp;#39;person&amp;#39;: 2, &amp;#39;cat&amp;#39;: 4, &amp;#39;spider&amp;#39;: 8}for animal in d: legs = d[animal] print (&amp;#39;A %shas %dlegs&amp;#39; % (animal, legs)) A person has 2 legs A cat has 4 legs A spider has 8 legs  </description>
+    </item>
+    
+    <item>
       <title>Min Max Mean</title>
       <link>https://rajacsp.github.io/mlnotes/python/numpy/min-max-mean/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
@@ -407,6 +479,33 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
       
       <guid>https://rajacsp.github.io/mlnotes/python/webreader/name-collector/</guid>
       <description>import requests from bs4 import BeautifulSoup# Collect and parse first page page = requests.get(&amp;#39;https://www.babble.com/pregnancy/1000-most-popular-boy-names/&amp;#39;) soup = BeautifulSoup(page.text, &amp;#39;html.parser&amp;#39;) #print(soup)  items = soup.select(&amp;#39;main.tm-single-content li a&amp;#39;) item_list = &amp;#39;&amp;#39; for item in items: #print(item.get_text()) item_list = item_list + &amp;#39;,&amp;#39; +str(item.get_text()) print(item_list) ,Liam,Noah,William,James,Logan,Benjamin,Mason,Elijah,Oliver,Jacob,Lucas,Michael,Alexander,Ethan,Daniel,Matthew,Aiden,Henry,Joseph,Jackson,Samuel,Sebastian,David,Carter,Wyatt,Jayden,John,Owen,Dylan,Luke,Gabriel,Anthony,Isaac,Grayson,Jack,Julian,Levi,Christopher,Joshua,Andrew,Lincoln,Mateo,Ryan,Jaxon,Nathan,Aaron,Isaiah,Thomas,Charles,Caleb,Josiah,Christian,Hunter,Eli,Jonathan,Connor,Landon,Adrian,Asher,Cameron,Leo,Theodore,Jeremiah,Hudson,Robert,Easton,Nolan,Nicholas,Ezra,Colton,Angel,Brayden,Jordan,Dominic,Austin,Ian,Adam,Elias,Greyson,Jose,Ezekiel,Carson,Evan,Maverick,Bryson,Jace,Cooper,Xavier,Parker,Roman,Jason,Santiago,Chase,Sawyer,Gavin,Leonardo,Ayden,Jameson,Kevin,Bentley,Zachary,Everett,Axel,Tyler,Micah,Vincent,Weston,Miles,Wesley,Nathaniel,Harrison,Brandon,Cole,Declan,Luis,Braxton,Damian,Silas,Ryder,Bennett,George,Emmett,Justin,Max,Diego,Carlos,Maxwell,Kingston,Ivan,Maddox,Juan,Jayce,Rowan,Eric,Jesus,Calvin,Abel,King,Camden,Amir,Blake,Alex,Brody,Malachi,Emmanuel,Jonah,Beau,Jude,Antonio,Alan,Elliott,Elliot,Waylon,Xander,Timothy,Victor,Bryce,Finn,Brantley,Edward,Abraham,Patrick,Grant,Hayden,Richard,Miguel,Joel,Gael,Rhett,Steven,Graham,Jasper,Jesse,Matteo,Dean,Preston,August,Oscar,Jeremy,Alejandro,Marcus,Dawson,Lorenzo,Zion,Maximus,Strong Boy Names That&#39;ll Empower Your Little Guy Right from Day 1,Biblical Boy Names That Have Stood the Test of Time,Classic Boy Names You&#39;ll Never Get Tired of Hearing,&#39;Star Wars&#39;-Inspired Baby Names Continue to Climb the Charts  </description>
+    </item>
+    
+    <item>
+      <title>New Axis</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/new-axis/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/new-axis/</guid>
+      <description>import numpy as npx1 = np.arange(1,10).reshape(3,3)x1 array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])  print(x1.shape) (3, 3)  x1_new = x1[:,np.newaxis]print(x1_new.shape) (3, 1, 3)  x1_new array([[[1, 2, 3]], [[4, 5, 6]], [[7, 8, 9]]])  </description>
+    </item>
+    
+    <item>
+      <title>Numpy Array Sample 2</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/numpy-array-sample-2/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/numpy-array-sample-2/</guid>
+      <description>import numpy as npa = np.array([1, 2, 3]) a array([1, 2, 3])  print (type(a))  &amp;lt;class &#39;numpy.ndarray&#39;&amp;gt;  print (a.shape)  (3,)  print (a[0], a[1], a[2]) 1 2 3  a[0] = 5 print (a)  [5 2 3]  b = np.array([[1,2,3],[4,5,6]]) print (b.shape) (2, 3)  print (b[0, 0], b[0, 1], b[1, 0]) 1 2 4  </description>
+    </item>
+    
+    <item>
+      <title>Numpy Array Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/numpy-array-simple/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/numpy-array-simple/</guid>
+      <description>import numpy as npx = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])print(x) [0 1 2 3 4 5 6 7 8 9]  x = x[1:7:5]x array([6])  x = np.array([ [ [1],[2],[3] ], [ [4],[5],[6] ] ])x array([[[1], [2], [3]], [[4], [5], [6]]])  x.shape (2, 3, 1)  </description>
     </item>
     
     <item>
@@ -434,6 +533,24 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
       
       <guid>https://rajacsp.github.io/mlnotes/python/basics/quick-sort/</guid>
       <description>def quicksort(arr): if len(arr) &amp;lt;= 1: return arr pivot = arr[len(arr) // 2] left = [x for x in arr if x &amp;lt; pivot] middle = [x for x in arr if x == pivot] right = [x for x in arr if x &amp;gt; pivot] return quicksort(left) + middle + quicksort(right)print(quicksort([3,6,8,10,1,2,1])) [1, 1, 2, 3, 6, 8, 10]  </description>
+    </item>
+    
+    <item>
+      <title>Random Binary</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/random-binary/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/random-binary/</guid>
+      <description>import randomMAX = 10 for x in range(MAX): val = random.randint(0, 1) print(val) 0 1 1 0 1 0 1 1 0 0  </description>
+    </item>
+    
+    <item>
+      <title>Random Max</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/random-max/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/random-max/</guid>
+      <description>import randomMAX = 8 for x in range(MAX): val = random.randint(14, 30) print(val) 17 21 27 30 17 22 14 20  </description>
     </item>
     
     <item>
@@ -636,6 +753,24 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
     
     <item>
       <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/euclidean-compare/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/euclidean-compare/</guid>
+      <description>import matplotlib import numpy import perfplot from scipy.spatial import distancedef linalg_norm(data): a, b = data return numpy.linalg.norm(a-b, axis=1)def sqrt_sum(data): a, b = data return numpy.sqrt(numpy.sum((a-b)**2, axis=1))def scipy_distance(data): a, b = data return map(distance.euclidean, a, b)def mpl_dist(data): a, b = data return map(matplotlib.mlab.dist, a, b)def sqrt_einsum(data): a, b = data return numpy.einsum(&amp;#39;ij,ij-&amp;gt;i&amp;#39;, a-b, a-b)**0.5perfplot.show( setup=lambda n: numpy.random.rand(2, n, 3), n_range=[2**k for k in range(15)], kernels=[linalg_norm, scipy_distance, mpl_dist, sqrt_sum, sqrt_einsum], logx=True, logy=True, xlabel=&amp;#39;len(x), len(y)&amp;#39; )  0%| | 0/15 [00:00&amp;lt;?</description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/euclidean-distance-vanilla/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/euclidean-distance-vanilla/</guid>
+      <description>import numpydef dist(x,y): return numpy.sqrt(numpy.sum((x-y)**2))a = numpy.array((1,2,3)) b = numpy.array((4,5,6)) dist_a_b = dist(a,b)print(dist_a_b) 5.196152422706632  </description>
+    </item>
+    
+    <item>
+      <title>Template</title>
       <link>https://rajacsp.github.io/mlnotes/python/basics/template/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -758,6 +893,15 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
       
       <guid>https://rajacsp.github.io/mlnotes/python/sentiment/sentiment/</guid>
       <description>import json from pprint import pprint from nltk.sentiment.vader import SentimentIntensityAnalyzer import numpy as np import matplotlib.pyplot as plt import pandas as pd import urllib.request, json data = None with urllib.request.urlopen(&amp;#34;https://gitlab.com/rajacsp/datasets/raw/master/trump.json&amp;#34;) as url: data = json.loads(url.read().decode())data[&amp;#39;tweets&amp;#39;][0] {&#39;created_at&#39;: &#39;Mon Jan 01 13:37:52 +0000 2018&#39;, &#39;favorite_count&#39;: 54056, &#39;id_str&#39;: &#39;947824196909961216&#39;, &#39;in_reply_to_user_id_str&#39;: None, &#39;is_retweet&#39;: False, &#39;retweet_count&#39;: 8656, &#39;source&#39;: &#39;Twitter for iPhone&#39;, &#39;text&#39;: &#39;Will be leaving Florida for Washington (D.C.) today at 4:00 P.M. Much work to be done, but it will be a great New Year!</description>
+    </item>
+    
+    <item>
+      <title>Unicode Dammit</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/unicode-dammit/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/unicode-dammit/</guid>
+      <description>from bs4 import UnicodeDammitprint(&amp;#34;inside main method&amp;#34;) dammit = UnicodeDammit(b&amp;#34;Sacr\xc3\xa9bleu!&amp;#34;) inside main method  print(type(dammit)) &amp;lt;class &#39;bs4.dammit.UnicodeDammit&#39;&amp;gt;  print(dammit.unicode_markup) SacrÃ© bleu!  print(type(dammit.unicode_markup)) &amp;lt;class &#39;str&#39;&amp;gt;  print(dammit.original_encoding) iso-8859-9  print(type(dammit.original_encoding)) &amp;lt;class &#39;str&#39;&amp;gt;  </description>
     </item>
     
     <item>
