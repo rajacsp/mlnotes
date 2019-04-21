@@ -319,5 +319,14 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
       <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
     </item>
     
+    <item>
+      <title>Text Similarity</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/text-similarity/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/text-similarity/</guid>
+      <description>import nltk, string from sklearn.feature_extraction.text import TfidfVectorizerstemmer = nltk.stem.porter.PorterStemmer() remove_punctuation_map = dict((ord(char), None) for char in string.punctuation)def stem_tokens(tokens): return [stemmer.stem(item) for item in tokens]&amp;#39;&amp;#39;&amp;#39;remove punctuation, lowercase, stem&amp;#39;&amp;#39;&amp;#39; def normalize(text): return stem_tokens(nltk.word_tokenize(text.lower().translate(remove_punctuation_map))) vectorizer = TfidfVectorizer(tokenizer=normalize, stop_words=&amp;#39;english&amp;#39;)def cosine_sim(text1, text2): tfidf = vectorizer.fit_transform([text1, text2]) return ((tfidf * tfidf.T).A)[0,1]text1 = &amp;#34;&amp;#34;&amp;#34;Multithreading refers to two or more tasks executing concurrently within a single program.&amp;#34;&amp;#34;&amp;#34;; text2 = &amp;#34;&amp;#34;&amp;#34;Multithreading referrinng to one or more tasks executing concurrently within a single program.</description>
+    </item>
+    
   </channel>
 </rss>
