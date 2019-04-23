@@ -275,12 +275,30 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
     </item>
     
     <item>
+      <title>Euclidean Compare</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/euclidean-compare/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/euclidean-compare/</guid>
+      <description>import matplotlib import numpy import perfplot from scipy.spatial import distancedef linalg_norm(data): a, b = data return numpy.linalg.norm(a-b, axis=1)def sqrt_sum(data): a, b = data return numpy.sqrt(numpy.sum((a-b)**2, axis=1))def scipy_distance(data): a, b = data return map(distance.euclidean, a, b)def mpl_dist(data): a, b = data return map(matplotlib.mlab.dist, a, b)def sqrt_einsum(data): a, b = data return numpy.einsum(&amp;#39;ij,ij-&amp;gt;i&amp;#39;, a-b, a-b)**0.5perfplot.show( setup=lambda n: numpy.random.rand(2, n, 3), n_range=[2**k for k in range(15)], kernels=[linalg_norm, scipy_distance, mpl_dist, sqrt_sum, sqrt_einsum], logx=True, logy=True, xlabel=&amp;#39;len(x), len(y)&amp;#39; )  0%| | 0/15 [00:00&amp;lt;?</description>
+    </item>
+    
+    <item>
       <title>Euclidean Distance</title>
       <link>https://rajacsp.github.io/mlnotes/python/basics/euclidean-distance/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/basics/euclidean-distance/</guid>
       <description>def euclidean_distance(p, q): #make sure both array are in the same dimension assert len(p) == len(q) return max([abs(x-y) for x,y in zip(p,q)])acb = euclidean_distance([1,2,3],[1, 2, 3]) print(acb) 0  </description>
+    </item>
+    
+    <item>
+      <title>Euclidean Distance Vanilla</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/euclidean-distance-vanilla/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/euclidean-distance-vanilla/</guid>
+      <description>import numpydef dist(x,y): return numpy.sqrt(numpy.sum((x-y)**2))a = numpy.array((1,2,3)) b = numpy.array((4,5,6)) dist_a_b = dist(a,b)print(dist_a_b) 5.196152422706632  </description>
     </item>
     
     <item>
@@ -505,7 +523,26 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/numpy/numpy-array-simple/</guid>
-      <description>import numpy as npx = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])print(x) [0 1 2 3 4 5 6 7 8 9]  x = x[1:7:5]x array([6])  x = np.array([ [ [1],[2],[3] ], [ [4],[5],[6] ] ])x array([[[1], [2], [3]], [[4], [5], [6]]])  x.shape (2, 3, 1)  </description>
+      <description>import numpy as npx = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])print(x) [0 1 2 3 4 5 6 7 8 9]  x = x[1:7:5]x array([6])  x = np.array([ [ [1],[2],[3] ], [ [4],[5],[6] ] ])x array([[[1], [2], [3]], [[4], [5], [6]]])  x.shape (2, 3, 1)  x.transpose() array([[[1, 4], [2, 5], [3, 6]]])  x.shape (2, 3, 1)  x.transpose() array([[[1, 4], [2, 5], [3, 6]]])  x.</description>
+    </item>
+    
+    <item>
+      <title>Numpy Shape</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/numpy-shape/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/numpy-shape/</guid>
+      <description>import numpy as npa = np.array([1, 2, 4, 5])print(a) [1 2 4 5]  a array([1, 2, 4, 5])  a.shape (4,)  # change the shape a.shape = (2, 2)a array([[1, 2], [4, 5]])  print(a) [[1 2] [4 5]]  b = np.array([[1, 3, 5, 2, 4], [8, 6, 9, 7, 10]])print(b) [[ 1 3 5 2 4] [ 8 6 9 7 10]]  b.shape (2, 5)  b.</description>
+    </item>
+    
+    <item>
+      <title>Numpy with Data Type</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/numpy-with-dtype/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/numpy-with-dtype/</guid>
+      <description>import numpy as npperson = np.dtype([(&amp;#39;name,&amp;#39;, &amp;#39;S5&amp;#39;), (&amp;#39;code&amp;#39;, &amp;#39;i2&amp;#39;)])p_array = np.array([(&amp;#39;one&amp;#39;, 21)], dtype=person)p_array array([(b&#39;one&#39;, 21)], dtype=[(&#39;name,&#39;, &#39;S5&#39;), (&#39;code&#39;, &#39;&amp;lt;i2&#39;)])  print(p_array) [(b&#39;one&#39;, 21)]  p_array = np.array([(&amp;#39;David&amp;#39;, 200), (&amp;#39;Sam&amp;#39;, 202), (&amp;#39;KevinKalvin&amp;#39;, 203)], dtype=person)print(p_array) [(b&#39;David&#39;, 200) (b&#39;Sam&#39;, 202) (b&#39;Kevin&#39;, 203)]  # note: even though we passed KevinKalvin, it prints only 5 letters as the dataype allows only 5 characters Other data types &amp;lsquo;b&amp;rsquo; − boolean
+&amp;lsquo;i&amp;rsquo; − (signed) integer</description>
     </item>
     
     <item>
@@ -753,24 +790,6 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
     
     <item>
       <title>Template</title>
-      <link>https://rajacsp.github.io/mlnotes/python/basics/euclidean-compare/</link>
-      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://rajacsp.github.io/mlnotes/python/basics/euclidean-compare/</guid>
-      <description>import matplotlib import numpy import perfplot from scipy.spatial import distancedef linalg_norm(data): a, b = data return numpy.linalg.norm(a-b, axis=1)def sqrt_sum(data): a, b = data return numpy.sqrt(numpy.sum((a-b)**2, axis=1))def scipy_distance(data): a, b = data return map(distance.euclidean, a, b)def mpl_dist(data): a, b = data return map(matplotlib.mlab.dist, a, b)def sqrt_einsum(data): a, b = data return numpy.einsum(&amp;#39;ij,ij-&amp;gt;i&amp;#39;, a-b, a-b)**0.5perfplot.show( setup=lambda n: numpy.random.rand(2, n, 3), n_range=[2**k for k in range(15)], kernels=[linalg_norm, scipy_distance, mpl_dist, sqrt_sum, sqrt_einsum], logx=True, logy=True, xlabel=&amp;#39;len(x), len(y)&amp;#39; )  0%| | 0/15 [00:00&amp;lt;?</description>
-    </item>
-    
-    <item>
-      <title>Template</title>
-      <link>https://rajacsp.github.io/mlnotes/python/basics/euclidean-distance-vanilla/</link>
-      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://rajacsp.github.io/mlnotes/python/basics/euclidean-distance-vanilla/</guid>
-      <description>import numpydef dist(x,y): return numpy.sqrt(numpy.sum((x-y)**2))a = numpy.array((1,2,3)) b = numpy.array((4,5,6)) dist_a_b = dist(a,b)print(dist_a_b) 5.196152422706632  </description>
-    </item>
-    
-    <item>
-      <title>Template</title>
       <link>https://rajacsp.github.io/mlnotes/python/basics/template/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
       
@@ -784,6 +803,24 @@ import matplotlib.pyplot as plts = np.random.dirichlet((10, 5, 3), 20).transpose
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/basics/twitter-sentiment/</guid>
+      <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/numpy-arange/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/numpy-arange/</guid>
+      <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/ss/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/ss/</guid>
       <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
     </item>
     
