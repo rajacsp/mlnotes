@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Text Classification - Naive Bayes - Stackoverflow Tags" />
+<meta property="og:description" content="-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/text-processing/text-classification-nb/" />
+<meta property="article:published_time" content="2019-04-21T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-21T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Text Classification - Naive Bayes - Stackoverflow Tags"/>
+<meta name="twitter:description" content="-"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Text Classification - Naive Bayes - Stackoverflow Tags",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/text-processing\/text-classification-nb\/",
+  "wordCount": "1264",
+  "datePublished": "2019-04-21T00:00:00\x2b00:00",
+  "dateModified": "2019-04-21T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Rj"
+  },
+  "description": "-"
+}
+</script> 
+
+    <title>Text Classification - Naive Bayes - Stackoverflow Tags</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Text Classification - Naive Bayes - Stackoverflow Tags</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-21T00:00:00Z "> 21 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Disclaimer: some code copied form this https://towardsdatascience.com/multi-class-text-classification-model-comparison-and-selection-5eb066197568</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">gensim</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">TfidfVectorizer</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="nn">requests</span></code></pre></div>
+<p>%matplotlib inline</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;https://gitlab.com/rajacsp/datasets/raw/master/stack-overflow-data.csv&#39;</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="p">))</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>post</th>
+      <th>tags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>what is causing this behavior  in our c# datet...</td>
+      <td>c#</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>have dynamic html load as if it was in an ifra...</td>
+      <td>asp.net</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>how to convert a float value in to min:sec  i ...</td>
+      <td>objective-c</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>.net framework 4 redistributable  just wonderi...</td>
+      <td>.net</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>trying to calculate and print the mean and its...</td>
+      <td>python</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># remove not null</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;tags&#39;</span><span class="p">])]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>post</th>
+      <th>tags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>40000</td>
+      <td>40000</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>40000</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>newbie - game development (iphone) - new to ob...</td>
+      <td>c#</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>1</td>
+      <td>2000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">shape</span></code></pre></div>
+<pre><code>(40000, 2)
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Count words</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>post</th>
+      <th>tags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>what is causing this behavior  in our c# datet...</td>
+      <td>c#</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>have dynamic html load as if it was in an ifra...</td>
+      <td>asp.net</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>how to convert a float value in to min:sec  i ...</td>
+      <td>objective-c</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>.net framework 4 redistributable  just wonderi...</td>
+      <td>.net</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>trying to calculate and print the mean and its...</td>
+      <td>python</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>how to give alias name for my website  i have ...</td>
+      <td>asp.net</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>window.open() returns null in angularjs  it wo...</td>
+      <td>angularjs</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>identifying server timeout quickly in iphone  ...</td>
+      <td>iphone</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>unknown method key  error in rails 2.3.8 unit ...</td>
+      <td>ruby-on-rails</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>from the include  how to show and hide the con...</td>
+      <td>angularjs</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">]</span></code></pre></div>
+<pre><code>0        what is causing this behavior  in our c# datet...
+1        have dynamic html load as if it was in an ifra...
+2        how to convert a float value in to min:sec  i ...
+3        .net framework 4 redistributable  just wonderi...
+4        trying to calculate and print the mean and its...
+5        how to give alias name for my website  i have ...
+6        window.open() returns null in angularjs  it wo...
+7        identifying server timeout quickly in iphone  ...
+8        unknown method key  error in rails 2.3.8 unit ...
+9        from the include  how to show and hide the con...
+10       when we need interface c# &lt;blockquote&gt;    &lt;str...
+11       how to install .ipa on jailbroken iphone over ...
+12       dynamic textbox text - asp.net  i m trying to ...
+13       rather than bubblesorting these names...the pr...
+14       site deployed in d: drive and uploaded files a...
+15       connection in .net  i got     &lt;blockquote&gt;    ...
+16       how to subtract 1 from an int  how do i subtra...
+17       ror console show syntax error  i want to add d...
+18       distance between 2 or more drop pins  i was do...
+19       sql query - how to exclude a record from anoth...
+20       java - hackerrank.com 30 days of code  day 6  ...
+21       clarification required on responsibility of  $...
+22       complicated min/max multi-table query  i need ...
+23       in asp.net mvc4 using javascript  when the but...
+24       jquery document ready with google  this is how...
+25       compiling a trusted resource url in angular th...
+26       syntax error when $eval a string inside a dire...
+27       delay on a function jquery  i have a hover eff...
+28       what are all the restrictions by apple for iph...
+29       objective-c instance variables accessor method...
+                               ...                        
+39970    converting from byte[] to string &lt;blockquote&gt; ...
+39971    needs to delete a line that matches with strin...
+39972    cannot load file error...but file definitely e...
+39973    images won t show on my website  i have a simp...
+39974    find a matching string in an array or a word i...
+39975    how to add button to cell in table view  i nee...
+39976    what is the difference between these two code ...
+39977    app terminates when erasing the image in ios  ...
+39978    how to customize react booststrap style   i am...
+39979    any legitimate way to bypass maxlength on html...
+39980    what is the best way for doing a real-world gu...
+39981    how to use x-y corrdinates and a radius to sim...
+39982    asp.net connection string error help needed  i...
+39983    403 error when upload file to google drive  i ...
+39984    rails after create not functioning as expected...
+39985    warning errors problem  &lt;strong&gt;program&lt;/stron...
+39986    iphone: decryption error  ***** with encipherm...
+39987    def help  trying to define pieces of code  not...
+39988    trying to get file name of the largest file  s...
+39989    i want to get the data from the access databas...
+39990    need to modify the geojson file for australia ...
+39991    having trouble converting a whole sentence fro...
+39992    php delete from multiple tables  i have a basi...
+39993    sql join multiple tables with pivot  i m tryin...
+39994    simple sql query not executing  i am familiar ...
+39995    different output if at end of function rather ...
+39996    multiple arrays  is there a way to access/stor...
+39997    c - how to differentiate a second same key pre...
+39998    state.go not working (#! &amp; url is being append...
+39999    understanding the mechanisms of intentservice ...
+Name: post, Length: 40000, dtype: object
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># count words</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span> <span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span> <span class="p">)</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span></code></pre></div>
+<pre><code>10286120
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">REPLACE_BY_SPACE_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s1">&#39;[/(){}\[\]\|@,;]&#39;</span><span class="p">)</span>
+<span class="n">BAD_SYMBOLS_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s1">&#39;[^0-9a-z #+_]&#39;</span><span class="p">)</span>
+<span class="n">STOPWORDS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">clean_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">        text: a string
+</span><span class="s2">        
+</span><span class="s2">        return: modified initial string
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&#34;lxml&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="c1"># HTML decoding</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="c1"># lowercase text</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">REPLACE_BY_SPACE_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="c1"># replace REPLACE_BY_SPACE_RE symbols by space in text</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">BAD_SYMBOLS_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="c1"># delete symbols which are in BAD_SYMBOLS_RE from text</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">STOPWORDS</span><span class="p">)</span> <span class="c1"># delete stopwors from text</span>
+    <span class="k">return</span> <span class="n">text</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">clean_text</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Check the words count again</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;post&#39;</span><span class="p">]</span><span class="o">.</span><span class="nb">apply</span> <span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span> <span class="p">)</span><span class="o">.</span><span class="nb">sum</span><span class="p">()</span></code></pre></div>
+<pre><code>3424297
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">post</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">tags</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Using NB</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">nb</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">()),</span>
+               <span class="p">(</span><span class="s1">&#39;tfidf&#39;</span><span class="p">,</span> <span class="n">TfidfTransformer</span><span class="p">()),</span>
+               <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">MultinomialNB</span><span class="p">()),</span>
+              <span class="p">])</span>
+<span class="n">nb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span></code></pre></div>
+<pre><code>Pipeline(memory=None,
+     steps=[('vect', CountVectorizer(analyzer='word', binary=False, decode_error='strict',
+        dtype=&lt;class 'numpy.int64'&gt;, encoding='utf-8', input='content',
+        lowercase=True, max_df=1.0, max_features=None, min_df=1,
+        ngram_range=(1, 1), preprocessor=None, stop_words=None,
+        strip...inear_tf=False, use_idf=True)), ('clf', MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True))])
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">nb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span></code></pre></div>
+<pre><code>Pipeline(memory=None,
+     steps=[('vect', CountVectorizer(analyzer='word', binary=False, decode_error='strict',
+        dtype=&lt;class 'numpy.int64'&gt;, encoding='utf-8', input='content',
+        lowercase=True, max_df=1.0, max_features=None, min_df=1,
+        ngram_range=(1, 1), preprocessor=None, stop_words=None,
+        strip...inear_tf=False, use_idf=True)), ('clf', MultinomialNB(alpha=1.0, class_prior=None, fit_prior=True))])
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;accuracy </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span></code></pre></div>
+<pre><code>accuracy 0.7395
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">my_tags</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;java&#39;</span><span class="p">,</span><span class="s1">&#39;html&#39;</span><span class="p">,</span><span class="s1">&#39;asp.net&#39;</span><span class="p">,</span><span class="s1">&#39;c#&#39;</span><span class="p">,</span><span class="s1">&#39;ruby-on-rails&#39;</span><span class="p">,</span><span class="s1">&#39;jquery&#39;</span><span class="p">,</span><span class="s1">&#39;mysql&#39;</span><span class="p">,</span><span class="s1">&#39;php&#39;</span><span class="p">,</span><span class="s1">&#39;ios&#39;</span><span class="p">,</span><span class="s1">&#39;javascript&#39;</span><span class="p">,</span><span class="s1">&#39;python&#39;</span><span class="p">,</span><span class="s1">&#39;c&#39;</span><span class="p">,</span><span class="s1">&#39;css&#39;</span><span class="p">,</span><span class="s1">&#39;android&#39;</span><span class="p">,</span><span class="s1">&#39;iphone&#39;</span><span class="p">,</span><span class="s1">&#39;sql&#39;</span><span class="p">,</span><span class="s1">&#39;objective-c&#39;</span><span class="p">,</span><span class="s1">&#39;c++&#39;</span><span class="p">,</span><span class="s1">&#39;angularjs&#39;</span><span class="p">,</span><span class="s1">&#39;.net&#39;</span><span class="p">]</span>
+
+
+<span class="k">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span><span class="n">target_names</span><span class="o">=</span><span class="n">my_tags</span><span class="p">))</span></code></pre></div>
+<pre><code>               precision    recall  f1-score   support
+
+         java       0.63      0.65      0.64       613
+         html       0.94      0.86      0.90       620
+      asp.net       0.87      0.92      0.90       587
+           c#       0.70      0.77      0.73       586
+ruby-on-rails       0.73      0.87      0.79       599
+       jquery       0.72      0.51      0.60       589
+        mysql       0.77      0.74      0.75       594
+          php       0.69      0.89      0.78       610
+          ios       0.63      0.59      0.61       617
+   javascript       0.57      0.65      0.60       587
+       python       0.70      0.50      0.59       611
+            c       0.79      0.78      0.79       594
+          css       0.84      0.59      0.69       619
+      android       0.66      0.84      0.74       574
+       iphone       0.64      0.83      0.72       584
+          sql       0.66      0.64      0.65       578
+  objective-c       0.79      0.77      0.78       591
+          c++       0.89      0.83      0.86       608
+    angularjs       0.94      0.89      0.91       638
+         .net       0.74      0.66      0.70       601
+
+    micro avg       0.74      0.74      0.74     12000
+    macro avg       0.74      0.74      0.74     12000
+ weighted avg       0.75      0.74      0.74     12000
+</code></pre>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 120 pages and is available on <a href="https://github.com/rajacsp">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
