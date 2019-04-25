@@ -40,12 +40,39 @@ csv = pd.read_csv(&amp;#39;uk-500.csv&amp;#39;)csv.head()  .dataframe tbody tr t
     </item>
     
     <item>
+      <title>Even Rows and 3 Columns</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/even-rows-and-first-3-columns/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/even-rows-and-first-3-columns/</guid>
+      <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;abc.csv&amp;#39;, sep=&amp;#39;,&amp;#39;, encoding=&amp;#39;utf-8&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    student language science maths history     0 kumar 90 56 34 34   1 kevin 10 34 32 67   2 sammy 90 23 12 32   3 janice 20 67 90 45   4 peter 30 56 45 65   5 prem 90 45 45 34   6 carrol 50 90 45 23     df_even = df[::2]df_even  .</description>
+    </item>
+    
+    <item>
       <title>Fill Random Marks</title>
       <link>https://rajacsp.github.io/mlnotes/python/pandas/fill-random-marks/</link>
       <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/pandas/fill-random-marks/</guid>
       <description>import numpy as np import pandas as pddatatype = [(&amp;#39;Science&amp;#39;, &amp;#39;int32&amp;#39;), (&amp;#39;Maths&amp;#39;, &amp;#39;int32&amp;#39;)]current_values = np.zeros(3, dtype=datatype)current_index = [&amp;#39;Row &amp;#39;+str(i) for i in range(1, 4)]df = pd.DataFrame(current_values, index=current_index)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    Science Maths     Row 1 0 0   Row 2 0 0   Row 3 0 0     df[&amp;#39;Science&amp;#39;] Row 1 0 Row 2 0 Row 3 0 Name: Science, dtype: int32  df[&amp;#39;Science&amp;#39;][0] = 45df[&amp;#39;Maths&amp;#39;][1] = 100df  .</description>
+    </item>
+    
+    <item>
+      <title>Filter by single column</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/filter-by-single-column/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/filter-by-single-column/</guid>
+      <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;abc.csv&amp;#39;)df.shape (7, 5)  df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    student language science maths history     0 kumar 90 56 34 34   1 kevin 10 34 32 67   2 sammy 90 23 12 32   3 janice 20 67 90 45   4 peter 30 56 45 65   5 prem 90 45 45 34   6 carrol 50 90 45 23     # We will get the students whoever passed science (considering 50 is the pass mark) df_passed_science = df[df.</description>
+    </item>
+    
+    <item>
+      <title>Filter with Query</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/filter-with-query/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/filter-with-query/</guid>
+      <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;abc.csv&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    student language science maths history     0 kumar 90 56 34 34   1 kevin 10 34 32 67   2 sammy 90 23 12 32   3 janice 20 67 90 45   4 peter 30 56 45 65   5 prem 90 45 45 34   6 carrol 50 90 45 23     df_passed = df.</description>
     </item>
     
     <item>
@@ -64,6 +91,24 @@ csv = pd.read_csv(&amp;#39;uk-500.csv&amp;#39;)csv.head()  .dataframe tbody tr t
       
       <guid>https://rajacsp.github.io/mlnotes/python/pandas/first-four-rows-of-csv/</guid>
       <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;data1.csv&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    capacity score length     0 1 10 30   1 2 20 30   2 3 30 40   3 3 40 30   4 2 30 40   5 7 10 23   6 3 20 22   7 8 20 11   8 2 30 2     df.</description>
+    </item>
+    
+    <item>
+      <title>Max as a New Column</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/max-as-new-column/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/max-as-new-column/</guid>
+      <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;abc.csv&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    student language science maths history     0 kumar 90 56 34 34   1 kevin 10 34 32 67   2 sammy 90 23 12 32   3 janice 20 67 90 45   4 peter 30 56 45 65   5 prem 90 45 45 34   6 carrol 50 90 45 23     df[&amp;#39;max&amp;#39;] = df.</description>
+    </item>
+    
+    <item>
+      <title>Min Max Avg as new Columns</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/min-max-avg-as-new-columns/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/min-max-avg-as-new-columns/</guid>
+      <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;abc.csv&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    student language science maths history     0 kumar 90 56 34 34   1 kevin 10 34 32 67   2 sammy 90 23 12 32   3 janice 20 67 90 45   4 peter 30 56 45 65   5 prem 90 45 45 34   6 carrol 50 90 45 23     df[&amp;#39;min&amp;#39;] = df.</description>
     </item>
     
     <item>
@@ -103,12 +148,48 @@ csv = pd.read_csv(&amp;#39;uk-500.csv&amp;#39;)csv.head()  .dataframe tbody tr t
     </item>
     
     <item>
-      <title>Template</title>
-      <link>https://rajacsp.github.io/mlnotes/python/pandas/template/</link>
+      <title>Select Column By Index</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/select-column-by-index/</link>
       <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://rajacsp.github.io/mlnotes/python/pandas/template/</guid>
-      <description>import numpy as np import pandas as pd</description>
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/select-column-by-index/</guid>
+      <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;abc.csv&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    student language science maths history     0 kumar 90 56 34 34   1 kevin 10 34 32 67   2 sammy 90 23 12 32   3 janice 20 67 90 45   4 peter 30 56 45 65   5 prem 90 45 45 34   6 carrol 50 90 45 23     df.</description>
+    </item>
+    
+    <item>
+      <title>Skip Multiple Rows</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/skip-multiple-rows/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/skip-multiple-rows/</guid>
+      <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;abc.csv&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    student language science maths history     0 kumar 90 56 34 34   1 kevin 10 34 32 67   2 sammy 90 23 12 32   3 janice 20 67 90 45   4 peter 30 56 45 65   5 prem 90 45 45 34   6 carrol 50 90 45 23     df1 = pd.</description>
+    </item>
+    
+    <item>
+      <title>Skip a single row</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/skip-a-single-row/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/skip-a-single-row/</guid>
+      <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;abc.csv&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    student language science maths history     0 kumar 90 56 34 34   1 kevin 10 34 32 67   2 sammy 90 23 12 32   3 janice 20 67 90 45   4 peter 30 56 45 65   5 prem 90 45 45 34   6 carrol 50 90 45 23     # You can skip the row while reading the csv df1 = pd.</description>
+    </item>
+    
+    <item>
+      <title>String to Dataframe</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/string-to-dataframe/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/string-to-dataframe/</guid>
+      <description>import numpy as np import pandas as pd from io import StringIOcontent = &amp;#34;&amp;#34;&amp;#34; 1, 2 3, 4 5, 6 &amp;#34;&amp;#34;&amp;#34;content &#39;\n 1, 2\n 3, 4\n 5, 6\n&#39;  df = pd.read_csv(StringIO(content), header=None)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    0 1     0 1 2   1 3 4   2 5 6     df.</description>
+    </item>
+    
+    <item>
+      <title>Sum as a new column</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/sum-as-new-column/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/sum-as-new-column/</guid>
+      <description>Note        import numpy as np import pandas as pddf = pd.read_csv(&amp;#39;abc.csv&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    student language science maths history     0 kumar 90 56 34 34   1 kevin 10 34 32 67   2 sammy 90 23 12 32   3 janice 20 67 90 45   4 peter 30 56 45 65   5 prem 90 45 45 34   6 carrol 50 90 45 23     df[&amp;#39;total&amp;#39;] = df.</description>
     </item>
     
     <item>
@@ -118,6 +199,15 @@ csv = pd.read_csv(&amp;#39;uk-500.csv&amp;#39;)csv.head()  .dataframe tbody tr t
       
       <guid>https://rajacsp.github.io/mlnotes/python/pandas/values-and-index/</guid>
       <description>import numpy as np import pandas as pddatatype = [(&amp;#39;one&amp;#39;, &amp;#39;int32&amp;#39;), (&amp;#39;two&amp;#39;, &amp;#39;int32&amp;#39;)]values = np.zeros(3, dtype = datatype)currrent_index = [&amp;#39;Row &amp;#39;+str(i) for i in range(1, 4)]df = pd.DataFrame(values, index = currrent_index)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    one two     Row 1 0 0   Row 2 0 0   Row 3 0 0     df.</description>
+    </item>
+    
+    <item>
+      <title>template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/pandas/template/</link>
+      <pubDate>Mon, 22 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/pandas/template/</guid>
+      <description>import numpy as np import pandas as pd</description>
     </item>
     
     <item>
