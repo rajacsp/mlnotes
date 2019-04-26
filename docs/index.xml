@@ -57,6 +57,15 @@
     </item>
     
     <item>
+      <title>Timeit Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/timeit-simple/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/timeit-simple/</guid>
+      <description>import timeit import numpy as npdef add(x, y): return x + yrepeat_number = 100000 e = timeit.repeat( stmt=&amp;#39;&amp;#39;&amp;#39;add(a, b)&amp;#39;&amp;#39;&amp;#39;, setup=&amp;#39;&amp;#39;&amp;#39;a=2; b=3;from __main__ import add&amp;#39;&amp;#39;&amp;#39;, repeat=3, number=repeat_number)print(&amp;#39;Method: {}, Avg.: {:.6f}&amp;#39;.format(&amp;#34;eta&amp;#34;, np.array(e).mean())) Method: eta, Avg.: 0.009691  </description>
+    </item>
+    
+    <item>
       <title>iLoc Position Slice</title>
       <link>https://rajacsp.github.io/mlnotes/python/pandas/iloc-position-slice/</link>
       <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
@@ -379,6 +388,15 @@ csv = pd.read_csv(&amp;#39;uk-500.csv&amp;#39;)csv.head()  .dataframe tbody tr t
       
       <guid>https://rajacsp.github.io/mlnotes/python/text-processing/jaccard-text-similarity-1/</guid>
       <description>def get_jaccard_similarity(content1, content2): content1_similarity = set(content1.split()) content2_similarity = set(content2.split()) intersection = content1_similarity.intersection(content2_similarity) return float(len(intersection)) / (len(content1_similarity) + len(content2_similarity) - len(intersection))# test 2  content1 = &amp;#34;These data could show that the people of Brazil are happy with product A, while the people of the US are happier with product B. With NLP, this knowledge can be found instantly (i.e. a real-time result). For example, search engines are a type of NLP that give the appropriate results to the right people at the right time.</description>
+    </item>
+    
+    <item>
+      <title>Levenshtein Distance</title>
+      <link>https://rajacsp.github.io/mlnotes/python/text-processing/levenshtein-distance/</link>
+      <pubDate>Sun, 21 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/text-processing/levenshtein-distance/</guid>
+      <description>import numpy as npdef levenshtein_distance(s, t): if s == &amp;#34;&amp;#34;: return len(t) if t == &amp;#34;&amp;#34;: return len(s) if s[-1] == t[-1]: cost = 0 else: cost = 1 res = min([levenshtein_distance(s[:-1], t)+1, levenshtein_distance(s, t[:-1])+1, levenshtein_distance(s[:-1], t[:-1]) + cost]) return reslevenshtein_distance(&amp;#34;Python&amp;#34;, &amp;#34;Pithon&amp;#34;) 1  levenshtein_distance(&amp;#34;Canada&amp;#34;, &amp;#34;Kanata&amp;#34;) 2  levenshtein_distance(&amp;#34;Australia&amp;#34;, &amp;#34;Boston&amp;#34;) 7  levenshtein_distance(&amp;#34;Peter&amp;#34;, &amp;#34;Beat It&amp;#34;) 5  </description>
     </item>
     
     <item>
@@ -729,6 +747,15 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
       
       <guid>https://rajacsp.github.io/mlnotes/python/basics/feeli-song-csv/</guid>
       <description>from io import BytesIO import requests import pandas as pdfilename = &amp;#39;https://docs.google.com/spreadsheet/ccc?key=1EfyD7A4YcdAzTfUO0t3yQ0HawetVF5pefS5pPyGVX4g&amp;amp;output=csv&amp;#39; r = requests.get(filename) data = r.contentdf = pd.read_csv(BytesIO(data), index_col=0)df.head()  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    Song Name Language YouTube link Genre Artist Emotion Tag Emotion Hint Geo Location Lyrics Collector   S. NO                1.</description>
+    </item>
+    
+    <item>
+      <title>Fibonacci</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/fibonacci/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/fibonacci/</guid>
+      <description>def fib(n): if n == 0: return 0 elif n == 1: return 1 else: return fib(n-1) + fib(n-2)print(fib(8)) 21  print(fib(89))</description>
     </item>
     
     <item>
@@ -1160,6 +1187,25 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
     </item>
     
     <item>
+      <title>Simple Entropy</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/simple-entropy/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/simple-entropy/</guid>
+      <description>import math from collections import Counter import timeit import numpy as npdef eta(data, unit=&amp;#39;natural&amp;#39;): base = { &amp;#39;shannon&amp;#39; : 2., &amp;#39;natural&amp;#39; : math.exp(1), &amp;#39;hartley&amp;#39; : 10. } if len(data) &amp;lt;= 1: return 0 counts = Counter() for d in data: counts[d] += 1 ent = 0 probs = [float(c) / len(data) for c in counts.values()] for p in probs: if p &amp;gt; 0.: ent -= p * math.log(p, base[unit]) return enteta([&amp;#39;Canada&amp;#39;, &amp;#39;is&amp;#39;, &amp;#39;the&amp;#39;, &amp;#39;sweetest&amp;#39;, &amp;#39;country&amp;#39;]) 1.</description>
+    </item>
+    
+    <item>
+      <title>Simple Match</title>
+      <link>https://rajacsp.github.io/mlnotes/python/regex/simple-match/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/regex/simple-match/</guid>
+      <description>import recontent = &amp;#34;Eminem means positive&amp;#34;a = re.search(&amp;#39;^Em.*ve$&amp;#39;, content)if(a): print(&amp;#39;matched&amp;#39;) else: print(&amp;#39;not matched&amp;#39;) matched  More situations
+ Match Canadian postal code Phone number Start with /home Contains /User/raja  </description>
+    </item>
+    
+    <item>
       <title>Simple Plot</title>
       <link>https://rajacsp.github.io/mlnotes/python/plot/simple-plot/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
@@ -1327,6 +1373,26 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/plot/template/</guid>
+      <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/regex/phone-number-search/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/regex/phone-number-search/</guid>
+      <description>import refh = open(&amp;#34;sample_phone_book.txt&amp;#34;) for line in fh: if re.search(r&amp;#34;J.*Neu&amp;#34;,line): print(line.rstrip()) if re.search(r&amp;#34;a*Neu&amp;#34;,line): print(line.rstrip()) fh.close() Allison Neu 555-8396 Cathy Neu 555-2362 Jack Neu 555-7666 Jack Neu 555-7666 Jeb Neu 555-5543 Jeb Neu 555-5543 Jennifer Neu 555-3652 Jennifer Neu 555-3652 Ken Neu 555-8752  Regex Tips The special sequences consist of &amp;ldquo;\&amp;rdquo; and a character from the following list:
+\d Matches any decimal digit; equivalent to the set [0-9].
+\D The complement of \d.</description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/regex/template/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/regex/template/</guid>
       <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
     </item>
     
