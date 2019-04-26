@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Partial Regression Plot" />
+<meta property="og:description" content="-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/statsmodel/partial-regression-plot/" />
+<meta property="article:published_time" content="2019-04-24T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-24T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Partial Regression Plot"/>
+<meta name="twitter:description" content="-"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Partial Regression Plot",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/statsmodel\/partial-regression-plot\/",
+  "wordCount": "898",
+  "datePublished": "2019-04-24T00:00:00\x2b00:00",
+  "dateModified": "2019-04-24T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Raja CSP Raman"
+  },
+  "description": "-"
+}
+</script> 
+
+    <title>Partial Regression Plot</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Partial Regression Plot</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-24T00:00:00Z "> 24 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="kn">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">patsy</span> <span class="kn">import</span> <span class="n">dmatrices</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_rdataset</span><span class="p">(</span><span class="s2">&#34;Guerry&#34;</span><span class="p">,</span> <span class="s2">&#34;HistData&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dept</th>
+      <th>Region</th>
+      <th>Department</th>
+      <th>Crime_pers</th>
+      <th>Crime_prop</th>
+      <th>Literacy</th>
+      <th>Donations</th>
+      <th>Infants</th>
+      <th>Suicides</th>
+      <th>MainCity</th>
+      <th>...</th>
+      <th>Crime_parents</th>
+      <th>Infanticide</th>
+      <th>Donation_clergy</th>
+      <th>Lottery</th>
+      <th>Desertion</th>
+      <th>Instruction</th>
+      <th>Prostitutes</th>
+      <th>Distance</th>
+      <th>Area</th>
+      <th>Pop1831</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>E</td>
+      <td>Ain</td>
+      <td>28870</td>
+      <td>15890</td>
+      <td>37</td>
+      <td>5098</td>
+      <td>33120</td>
+      <td>35039</td>
+      <td>2:Med</td>
+      <td>...</td>
+      <td>71</td>
+      <td>60</td>
+      <td>69</td>
+      <td>41</td>
+      <td>55</td>
+      <td>46</td>
+      <td>13</td>
+      <td>218.372</td>
+      <td>5762</td>
+      <td>346.03</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>N</td>
+      <td>Aisne</td>
+      <td>26226</td>
+      <td>5521</td>
+      <td>51</td>
+      <td>8901</td>
+      <td>14572</td>
+      <td>12831</td>
+      <td>2:Med</td>
+      <td>...</td>
+      <td>4</td>
+      <td>82</td>
+      <td>36</td>
+      <td>38</td>
+      <td>82</td>
+      <td>24</td>
+      <td>327</td>
+      <td>65.945</td>
+      <td>7369</td>
+      <td>513.00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>C</td>
+      <td>Allier</td>
+      <td>26747</td>
+      <td>7925</td>
+      <td>13</td>
+      <td>10973</td>
+      <td>17044</td>
+      <td>114121</td>
+      <td>2:Med</td>
+      <td>...</td>
+      <td>46</td>
+      <td>42</td>
+      <td>76</td>
+      <td>66</td>
+      <td>16</td>
+      <td>85</td>
+      <td>34</td>
+      <td>161.927</td>
+      <td>7340</td>
+      <td>298.26</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>E</td>
+      <td>Basses-Alpes</td>
+      <td>12935</td>
+      <td>7289</td>
+      <td>46</td>
+      <td>2733</td>
+      <td>23018</td>
+      <td>14238</td>
+      <td>1:Sm</td>
+      <td>...</td>
+      <td>70</td>
+      <td>12</td>
+      <td>37</td>
+      <td>80</td>
+      <td>32</td>
+      <td>29</td>
+      <td>2</td>
+      <td>351.399</td>
+      <td>6925</td>
+      <td>155.90</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>E</td>
+      <td>Hautes-Alpes</td>
+      <td>17488</td>
+      <td>8174</td>
+      <td>69</td>
+      <td>6962</td>
+      <td>23076</td>
+      <td>16171</td>
+      <td>1:Sm</td>
+      <td>...</td>
+      <td>22</td>
+      <td>23</td>
+      <td>64</td>
+      <td>79</td>
+      <td>35</td>
+      <td>7</td>
+      <td>1</td>
+      <td>320.280</td>
+      <td>5549</td>
+      <td>129.10</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 23 columns</p>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dept</th>
+      <th>Region</th>
+      <th>Department</th>
+      <th>Crime_pers</th>
+      <th>Crime_prop</th>
+      <th>Literacy</th>
+      <th>Donations</th>
+      <th>Infants</th>
+      <th>Suicides</th>
+      <th>MainCity</th>
+      <th>...</th>
+      <th>Crime_parents</th>
+      <th>Infanticide</th>
+      <th>Donation_clergy</th>
+      <th>Lottery</th>
+      <th>Desertion</th>
+      <th>Instruction</th>
+      <th>Prostitutes</th>
+      <th>Distance</th>
+      <th>Area</th>
+      <th>Pop1831</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>81</th>
+      <td>86</td>
+      <td>W</td>
+      <td>Vienne</td>
+      <td>15010</td>
+      <td>4710</td>
+      <td>25</td>
+      <td>8922</td>
+      <td>35224</td>
+      <td>21851</td>
+      <td>2:Med</td>
+      <td>...</td>
+      <td>20</td>
+      <td>1</td>
+      <td>44</td>
+      <td>40</td>
+      <td>38</td>
+      <td>65</td>
+      <td>18</td>
+      <td>170.523</td>
+      <td>6990</td>
+      <td>282.73</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>87</td>
+      <td>C</td>
+      <td>Haute-Vienne</td>
+      <td>16256</td>
+      <td>6402</td>
+      <td>13</td>
+      <td>13817</td>
+      <td>19940</td>
+      <td>33497</td>
+      <td>2:Med</td>
+      <td>...</td>
+      <td>68</td>
+      <td>6</td>
+      <td>78</td>
+      <td>55</td>
+      <td>11</td>
+      <td>84</td>
+      <td>7</td>
+      <td>198.874</td>
+      <td>5520</td>
+      <td>285.13</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>88</td>
+      <td>E</td>
+      <td>Vosges</td>
+      <td>18835</td>
+      <td>9044</td>
+      <td>62</td>
+      <td>4040</td>
+      <td>14978</td>
+      <td>33029</td>
+      <td>2:Med</td>
+      <td>...</td>
+      <td>58</td>
+      <td>34</td>
+      <td>5</td>
+      <td>14</td>
+      <td>85</td>
+      <td>11</td>
+      <td>43</td>
+      <td>174.477</td>
+      <td>5874</td>
+      <td>397.99</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>89</td>
+      <td>C</td>
+      <td>Yonne</td>
+      <td>18006</td>
+      <td>6516</td>
+      <td>47</td>
+      <td>4276</td>
+      <td>16616</td>
+      <td>12789</td>
+      <td>2:Med</td>
+      <td>...</td>
+      <td>32</td>
+      <td>22</td>
+      <td>35</td>
+      <td>51</td>
+      <td>66</td>
+      <td>27</td>
+      <td>272</td>
+      <td>81.797</td>
+      <td>7427</td>
+      <td>352.49</td>
+    </tr>
+    <tr>
+      <th>85</th>
+      <td>200</td>
+      <td>NaN</td>
+      <td>Corse</td>
+      <td>2199</td>
+      <td>4589</td>
+      <td>49</td>
+      <td>37015</td>
+      <td>24743</td>
+      <td>37016</td>
+      <td>2:Med</td>
+      <td>...</td>
+      <td>81</td>
+      <td>2</td>
+      <td>84</td>
+      <td>83</td>
+      <td>9</td>
+      <td>25</td>
+      <td>1</td>
+      <td>539.213</td>
+      <td>8680</td>
+      <td>195.41</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 23 columns</p>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">selective</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Department&#39;</span><span class="p">,</span> <span class="s1">&#39;Lottery&#39;</span><span class="p">,</span> <span class="s1">&#39;Literacy&#39;</span><span class="p">,</span> <span class="s1">&#39;Wealth&#39;</span><span class="p">,</span> <span class="s1">&#39;Region&#39;</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">selective</span></code></pre></div>
+<pre><code>['Department', 'Lottery', 'Literacy', 'Wealth', 'Region']
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">selective</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Department</th>
+      <th>Lottery</th>
+      <th>Literacy</th>
+      <th>Wealth</th>
+      <th>Region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Ain</td>
+      <td>41</td>
+      <td>37</td>
+      <td>73</td>
+      <td>E</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Aisne</td>
+      <td>38</td>
+      <td>51</td>
+      <td>22</td>
+      <td>N</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Allier</td>
+      <td>66</td>
+      <td>13</td>
+      <td>61</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Basses-Alpes</td>
+      <td>80</td>
+      <td>46</td>
+      <td>76</td>
+      <td>E</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Hautes-Alpes</td>
+      <td>79</td>
+      <td>69</td>
+      <td>83</td>
+      <td>E</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Department</th>
+      <th>Lottery</th>
+      <th>Literacy</th>
+      <th>Wealth</th>
+      <th>Region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>81</th>
+      <td>Vienne</td>
+      <td>40</td>
+      <td>25</td>
+      <td>68</td>
+      <td>W</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>Haute-Vienne</td>
+      <td>55</td>
+      <td>13</td>
+      <td>67</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>Vosges</td>
+      <td>14</td>
+      <td>62</td>
+      <td>82</td>
+      <td>E</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>Yonne</td>
+      <td>51</td>
+      <td>47</td>
+      <td>30</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>85</th>
+      <td>Corse</td>
+      <td>83</td>
+      <td>49</td>
+      <td>37</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># drop na</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Department</th>
+      <th>Lottery</th>
+      <th>Literacy</th>
+      <th>Wealth</th>
+      <th>Region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>80</th>
+      <td>Vendee</td>
+      <td>68</td>
+      <td>28</td>
+      <td>56</td>
+      <td>W</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>Vienne</td>
+      <td>40</td>
+      <td>25</td>
+      <td>68</td>
+      <td>W</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>Haute-Vienne</td>
+      <td>55</td>
+      <td>13</td>
+      <td>67</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>Vosges</td>
+      <td>14</td>
+      <td>62</td>
+      <td>82</td>
+      <td>E</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>Yonne</td>
+      <td>51</td>
+      <td>47</td>
+      <td>30</td>
+      <td>C</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">y</span><span class="p">,</span> <span class="n">X</span> <span class="o">=</span> <span class="n">dmatrices</span><span class="p">(</span><span class="s1">&#39;Lottery ~ Literacy + Wealth + Region&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;dataframe&#39;</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">y</span><span class="o">.</span><span class="n">tail</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Lottery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>80</th>
+      <td>68.0</td>
+    </tr>
+    <tr>
+      <th>81</th>
+      <td>40.0</td>
+    </tr>
+    <tr>
+      <th>82</th>
+      <td>55.0</td>
+    </tr>
+    <tr>
+      <th>83</th>
+      <td>14.0</td>
+    </tr>
+    <tr>
+      <th>84</th>
+      <td>51.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Lottery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>41.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>38.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>66.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>80.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>79.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">y</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Lottery</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>41.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>38.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>66.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">X</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Intercept</th>
+      <th>Region[T.E]</th>
+      <th>Region[T.N]</th>
+      <th>Region[T.S]</th>
+      <th>Region[T.W]</th>
+      <th>Literacy</th>
+      <th>Wealth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>37.0</td>
+      <td>73.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>51.0</td>
+      <td>22.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>13.0</td>
+      <td>61.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.0</td>
+      <td>1.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>46.0</td>
+      <td>76.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Model fit and Summary</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">OLS</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">res</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span></code></pre></div>
+<pre><code>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                Lottery   R-squared:                       0.338
+Model:                            OLS   Adj. R-squared:                  0.287
+Method:                 Least Squares   F-statistic:                     6.636
+Date:                Thu, 25 Apr 2019   Prob (F-statistic):           1.07e-05
+Time:                        20:54:07   Log-Likelihood:                -375.30
+No. Observations:                  85   AIC:                             764.6
+Df Residuals:                      78   BIC:                             781.7
+Df Model:                           6                                         
+Covariance Type:            nonrobust                                         
+===============================================================================
+                  coef    std err          t      P&gt;|t|      [0.025      0.975]
+-------------------------------------------------------------------------------
+Intercept      38.6517      9.456      4.087      0.000      19.826      57.478
+Region[T.E]   -15.4278      9.727     -1.586      0.117     -34.793       3.938
+Region[T.N]   -10.0170      9.260     -1.082      0.283     -28.453       8.419
+Region[T.S]    -4.5483      7.279     -0.625      0.534     -19.039       9.943
+Region[T.W]   -10.0913      7.196     -1.402      0.165     -24.418       4.235
+Literacy       -0.1858      0.210     -0.886      0.378      -0.603       0.232
+Wealth          0.4515      0.103      4.390      0.000       0.247       0.656
+==============================================================================
+Omnibus:                        3.049   Durbin-Watson:                   1.785
+Prob(Omnibus):                  0.218   Jarque-Bera (JB):                2.694
+Skew:                          -0.340   Prob(JB):                        0.260
+Kurtosis:                       2.454   Cond. No.                         371.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Check res params</span>
+
+<span class="n">res</span><span class="o">.</span><span class="n">params</span></code></pre></div>
+<pre><code>Intercept      38.651655
+Region[T.E]   -15.427785
+Region[T.N]   -10.016961
+Region[T.S]    -4.548257
+Region[T.W]   -10.091276
+Literacy       -0.185819
+Wealth          0.451475
+dtype: float64
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Check rsquared</span>
+
+<span class="n">res</span><span class="o">.</span><span class="n">rsquared</span></code></pre></div>
+<pre><code>0.337950869192882
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Rainbow test</span>
+
+<span class="n">sm</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">linear_rainbow</span><span class="p">(</span><span class="n">res</span><span class="p">)</span></code></pre></div>
+<pre><code>(0.8472339976156916, 0.6997965543621643)
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Plot </span>
+
+<span class="n">sm</span><span class="o">.</span><span class="n">graphics</span><span class="o">.</span><span class="n">plot_partregress</span><span class="p">(</span><span class="s1">&#39;Lottery&#39;</span><span class="p">,</span> <span class="s1">&#39;Wealth&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;Region&#39;</span> <span class="p">,</span><span class="s1">&#39;Literacy&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">obs_labels</span> <span class="o">=</span> <span class="bp">False</span><span class="p">)</span></code></pre></div>
+<p><img src="partial-regression-plot_23_0.png" alt="png" /></p>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 162 pages and is available on <a href="https://github.com/rajacsp">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
