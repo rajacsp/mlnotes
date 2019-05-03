@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Bag of word Counts" />
+<meta property="og:description" content="-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/gensim-samples/bow-counts/" />
+<meta property="article:published_time" content="2019-05-02T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-05-02T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Bag of word Counts"/>
+<meta name="twitter:description" content="-"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Bag of word Counts",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/gensim-samples\/bow-counts\/",
+  "wordCount": "451",
+  "datePublished": "2019-05-02T00:00:00\x2b00:00",
+  "dateModified": "2019-05-02T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Raja CSP Raman"
+  },
+  "description": "-"
+}
+</script> 
+
+    <title>Bag of word Counts</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Bag of word Counts</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-05-02T00:00:00Z "> 02 May 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">gensim.utils</span> <span class="kn">import</span> <span class="n">simple_preprocess</span>
+<span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&#34;The Star obtained a copy of the email outlining the latest in a series of Progressive Conservative provincial budget cuts that could cost the City of Toronto, over the next decade, billions of dollars in funding for transit, public health and more.&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;Toronto councillors and daycare advocates are expected to hold a news conference Friday demanding the Ford government reverse the elimination of a $50-million fund that helps licensed child-care centres cover increasing labour costs and shield parents from fee increases, along with other changes.&#34;</span>
+<span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">contents</span></code></pre></div>
+<pre><code>['The Star obtained a copy of the email outlining the latest in a series of Progressive Conservative provincial budget cuts that could cost the City of Toronto, over the next decade, billions of dollars in funding for transit, public health and more.',
+ 'Toronto councillors and daycare advocates are expected to hold a news conference Friday demanding the Ford government reverse the elimination of a $50-million fund that helps licensed child-care centres cover increasing labour costs and shield parents from fee increases, along with other changes.']
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Get the tokens</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">simple_preprocess</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">pprint</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></code></pre></div>
+<pre><code>[['the',
+  'star',
+  'obtained',
+  'copy',
+  'of',
+  'the',
+  'email',
+  'outlining',
+  'the',
+  'latest',
+  'in',
+  'series',
+  'of',
+  'progressive',
+  'conservative',
+  'provincial',
+  'budget',
+  'cuts',
+  'that',
+  'could',
+  'cost',
+  'the',
+  'city',
+  'of',
+  'toronto',
+  'over',
+  'the',
+  'next',
+  'decade',
+  'billions',
+  'of',
+  'dollars',
+  'in',
+  'funding',
+  'for',
+  'transit',
+  'public',
+  'health',
+  'and',
+  'more'],
+ ['toronto',
+  'councillors',
+  'and',
+  'daycare',
+  'advocates',
+  'are',
+  'expected',
+  'to',
+  'hold',
+  'news',
+  'conference',
+  'friday',
+  'demanding',
+  'the',
+  'ford',
+  'government',
+  'reverse',
+  'the',
+  'elimination',
+  'of',
+  'million',
+  'fund',
+  'that',
+  'helps',
+  'licensed',
+  'child',
+  'care',
+  'centres',
+  'cover',
+  'increasing',
+  'labour',
+  'costs',
+  'and',
+  'shield',
+  'parents',
+  'from',
+  'fee',
+  'increases',
+  'along',
+  'with',
+  'other',
+  'changes']]
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Create the dictionary</span>
+<span class="nb">dict</span> <span class="o">=</span> <span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">()</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Create the Corpus</span>
+<span class="n">corpus1</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">allow_update</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">word_counts</span> <span class="o">=</span> <span class="p">[[(</span><span class="nb">dict</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span> <span class="n">count</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">line</span><span class="p">]</span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">corpus1</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">pprint</span><span class="p">(</span><span class="n">word_counts</span><span class="p">)</span></code></pre></div>
+<pre><code>[[('and', 1),
+  ('billions', 1),
+  ('budget', 1),
+  ('city', 1),
+  ('conservative', 1),
+  ('copy', 1),
+  ('cost', 1),
+  ('could', 1),
+  ('cuts', 1),
+  ('decade', 1),
+  ('dollars', 1),
+  ('email', 1),
+  ('for', 1),
+  ('funding', 1),
+  ('health', 1),
+  ('in', 2),
+  ('latest', 1),
+  ('more', 1),
+  ('next', 1),
+  ('obtained', 1),
+  ('of', 4),
+  ('outlining', 1),
+  ('over', 1),
+  ('progressive', 1),
+  ('provincial', 1),
+  ('public', 1),
+  ('series', 1),
+  ('star', 1),
+  ('that', 1),
+  ('the', 5),
+  ('toronto', 1),
+  ('transit', 1)],
+ [('and', 2),
+  ('of', 1),
+  ('that', 1),
+  ('the', 2),
+  ('toronto', 1),
+  ('advocates', 1),
+  ('along', 1),
+  ('are', 1),
+  ('care', 1),
+  ('centres', 1),
+  ('changes', 1),
+  ('child', 1),
+  ('conference', 1),
+  ('costs', 1),
+  ('councillors', 1),
+  ('cover', 1),
+  ('daycare', 1),
+  ('demanding', 1),
+  ('elimination', 1),
+  ('expected', 1),
+  ('fee', 1),
+  ('ford', 1),
+  ('friday', 1),
+  ('from', 1),
+  ('fund', 1),
+  ('government', 1),
+  ('helps', 1),
+  ('hold', 1),
+  ('increases', 1),
+  ('increasing', 1),
+  ('labour', 1),
+  ('licensed', 1),
+  ('million', 1),
+  ('news', 1),
+  ('other', 1),
+  ('parents', 1),
+  ('reverse', 1),
+  ('shield', 1),
+  ('to', 1),
+  ('with', 1)]]
+</code></pre>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 217 pages and is available on <a href="https://github.com/rajacsp">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
