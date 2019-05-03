@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Text Index and Slicing" />
+<meta property="og:description" content="-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/text-processing/text-index-and-slicing/" />
+<meta property="article:published_time" content="2019-04-21T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-21T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Text Index and Slicing"/>
+<meta name="twitter:description" content="-"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Text Index and Slicing",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/text-processing\/text-index-and-slicing\/",
+  "wordCount": "986",
+  "datePublished": "2019-04-21T00:00:00\x2b00:00",
+  "dateModified": "2019-04-21T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Rj"
+  },
+  "description": "-"
+}
+</script> 
+
+    <title>Text Index and Slicing</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Text Index and Slicing</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-21T00:00:00Z "> 21 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">nltk</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">f</span> <span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;canola.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">raw</span></code></pre></div>
+<pre><code>'OTTAWA—The federal Liberals promised Wednesday to give Canada’s canola farmers much-needed financial aid to help lessen the impact of China’s decision to ban the product as part of a trade dispute with no immediate end in sight.\n\nThe changes made to a special agricultural program will raise loan limits to $1 million from $400,000, and the portion that will be interest-free is rising to $500,000 from $100,000 for canola producers.\n\nOTTAWA—The federal Liberals promised Wednesday to give Canada’s canola farmers much-needed financial aid to help lessen the impact of China’s decision to ban the product as part of a trade dispute with no immediate end in sight.\n\nThe changes made to a special agricultural program will raise loan limits to $1 million from $400,000, and the portion that will be interest-free is rising to $500,000 from $100,000 for canola producers.\n\n“We stand shoulder-to-shoulder with Canada’s canola producers and farm families across the country and we will continue to listen to their needs,” Agriculture Minister Marie-Claude Bibeau said on Parliament Hill Wednesday morning.\n\n“Canada has the best canola in the world as well as a very robust inspection system.”\n\nInternational Trade Diversification Minister Jim Carr said he will lead a canola trade mission to Japan and South Korea in early June to help farmers find new markets for their products.\n\nHe also said he will be promoting canola in all of his upcoming visits, including in France.\n\n“It is critical that Canadian exporters have other readily available markets when faced with trade disruptions,” he said.\n\n“Our country’s continued prosperity and job creation depends on security markets abroad.”\n\nConservative foreign affairs critic Erin O’Toole called Wednesday’s announcement positive, adding it is a step his party has long called for. But he warned it is a stop-gap measure that does not address the underlying diplomatic tensions.\n\n“The Trudeau government has allowed our diplomatic situation with China to descend into chaos, where we are not sure what commodity could be at risk next,” O’Toole said while standing outside the House of Commons.\n\nConservative Leader Andrew Scheer has previously called for the federal government to take a more confrontational approach with China, including launching a complaint with the World Trade Organization and cut Canadian funding to China’s Asian Infrastructure Investment Bank, to which the government has committed $256 million over five years.\n\nScheer has also pressed the Liberals to appoint a new ambassador to China. On his way into the weekly caucus meeting, Prime Minister Justin Trudeau said the government has a strong, career diplomat who is handling “the particulars of this very well.”\n\nCarr told reporters there is agreement across the sector, including with provincial governments and producers, that Canada should engage China on the basis of their allegation — that there are impurities in the canola inspected twice by the Canadian Food Inspection Agency. Canada will navigate this challenging period with China through careful, deliberate and strategic engagement, he said.\n\nSaskatchewan Premier Scott Moe said Wednesday’s announcement buys “some breathing space” for nervous farmers and suggested China will ultimately relent because it needs canola.\n\n“We just need to ensure that we have the relationship that we are actually able to trade that commerce and we are going to support our federal government in those conversations moving forward,” he said.\n\nChina’s refusal thus far to accept a Canadian delegation to work out a solution to an ongoing canola seed trade dispute that’s left farmers and exporters scrambling calls for more urgent action from Ottawa, says an industry group.\n\nThe Canola Council of Canada wants the federal government to “consider all available options” as weeks have passed since China suspended the licences of two major exporters of canola seed, citing concerns about pests, and Chinese companies stopped buying the product from Canadian producers.\n\n\nWinnipeg-based Richardson International Ltd.’s permit to export canola was revoked in early March, while Regina-based Viterra Inc.’s shipments were blocked later that month.\n\nThe government has said it wants to send a delegation to China to find a scientific solution to the dispute. Agriculture minister Marie-Claude Bibeau said earlier this month she sent a letter to her Chinese counterpart with that request.\n\nHowever, despite that letter being sent more than two weeks ago, the canola council has not been informed during its regular conversation with government if that request has been accepted, said Brian Innes, vice-president of public affairs for the Canola Council of Canada.\n\n“Time has ticked on without this meeting happening and that is costing the industry and growers significantly,” he said.\n\nThe group wants both governments to intensify efforts to make the meeting happen as quickly as possible, said Innes.\n\nIt recommends Canada appoint an ambassador to China as soon as possible. It wants the government to review diplomatic, technical and legal tools to engage Chinese officials in resuming trade.\n\nLastly, it wants support for producers, including helping growers pay their bills by expanding the advanced payments program, said Innes. The program provides farmers with credit, he explained.\n\nThe seed dispute comes after Canadian authorities arrested Chinese tech executive, Meng Wanzhou, in Vancouver in December at the behest of the U.S.\n\n\nChina’s been a major market for Canadian canola and accounts for about 40 per cent of all seed, oil and meal exports, according to the council. In 2018, canola seed exports to China were worth $2.7 billion, the council said, with very strong demand until recent disruptions.\n'
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">tokens</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">raw</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">text</span><span class="p">[</span><span class="mi">88</span><span class="p">]</span></code></pre></div>
+<pre><code>'canada'
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></code></pre></div>
+<pre><code>1031
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">text</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="s1">&#39;china&#39;</span><span class="p">)</span></code></pre></div>
+<pre><code>21
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">text</span><span class="p">[</span><span class="mi">100</span><span class="p">:</span><span class="mi">120</span><span class="p">]</span></code></pre></div>
+<pre><code>['impact',
+ 'of',
+ 'china',
+ '’',
+ 's',
+ 'decision',
+ 'to',
+ 'ban',
+ 'the',
+ 'product',
+ 'as',
+ 'part',
+ 'of',
+ 'a',
+ 'trade',
+ 'dispute',
+ 'with',
+ 'no',
+ 'immediate',
+ 'end']
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">text</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span></code></pre></div>
+<pre><code>['ottawa—the',
+ 'federal',
+ 'liberals',
+ 'promised',
+ 'wednesday',
+ 'to',
+ 'give',
+ 'canada',
+ '’',
+ 's',
+ 'canola',
+ 'farmers',
+ 'much-needed',
+ 'financial',
+ 'aid',
+ 'to',
+ 'help',
+ 'lessen',
+ 'the',
+ 'impact']
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="nb">sorted</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span></code></pre></div>
+<pre><code>['canada',
+ 'federal',
+ 'give',
+ 'liberals',
+ 'ottawa—the',
+ 'promised',
+ 's',
+ 'to',
+ 'wednesday',
+ '’']
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">fdist</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">FreqDist</span><span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">50</span><span class="p">:</span><span class="mi">70</span><span class="p">])</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">fdist</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cumulative</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span></code></pre></div>
+<p><img src="text-index-and-slicing_12_0.png" alt="png" /></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">text</span><span class="o">.</span><span class="n">collocations</span><span class="p">()</span></code></pre></div>
+<pre><code>changes made; financial aid; immediate end; loan limits; marie-claude
+bibeau; much-needed financial; raise loan; special agricultural; help
+lessen; liberals promised; agricultural program; agriculture minister;
+minister marie-claude; federal government; trade dispute; ottawa—the
+federal; promised wednesday; farmers much-needed; give canada; federal
+liberals
+</code></pre>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 213 pages and is available on <a href="https://github.com/rajacsp">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
