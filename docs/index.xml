@@ -134,7 +134,25 @@
       <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/template/</guid>
-      <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;</description>
+    </item>
+    
+    <item>
+      <title>Variables With Random Values</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/variables-with-random-values/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/variables-with-random-values/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.random_uniform((4, 4), 0, 1)a &amp;lt;tf.Tensor &#39;random_uniform_2:0&#39; shape=(4, 4) dtype=float32&amp;gt;  a_var = tf.Variable(initial_value=a)a_var &amp;lt;tf.Variable &#39;Variable_2:0&#39; shape=(4, 4) dtype=float32_ref&amp;gt;  sess = tf.Session()init = tf.global_variables_initializer()init &amp;lt;tf.Operation &#39;init_2&#39; type=NoOp&amp;gt;  init.run(session=sess)a_var.eval(session=sess) array([[0.36779773, 0.1853832 , 0.8348143 , 0.6921052 ], [0.57980347, 0.49014997, 0.6421398 , 0.91182387], [0.510636 , 0.11073005, 0.10901892, 0.11414111], [0.7472625 , 0.7295675 , 0.6236193 , 0.</description>
+    </item>
+    
+    <item>
+      <title>Variables with Type</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/variables-with-type/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/variables-with-type/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;w = tf.Variable([.2], dtype=tf.float32)b = tf.Variable([0.11], dtype=tf.float32)x = tf.placeholder(tf.float32)linear_model = w*x + blinear_model &amp;lt;tf.Tensor &#39;add:0&#39; shape=&amp;lt;unknown&amp;gt; dtype=float32&amp;gt;  # Note: variable is used with capital &amp;#39;V&amp;#39;. However, constants and placeholders start with small case.</description>
     </item>
     
     <item>
