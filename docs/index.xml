@@ -12,6 +12,43 @@
     
     
     <item>
+      <title>Add Method</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/add-method/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/add-method/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.Variable(0)b = tf.constant(1)c = tf.add(a, b)c &amp;lt;tf.Tensor &#39;Add_2:0&#39; shape=() dtype=int32&amp;gt;  # assign the new value to a update = tf.assign(a, c)a &amp;lt;tf.Variable &#39;Variable_4:0&#39; shape=() dtype=int32_ref&amp;gt;  # You can&amp;#39;t change the constant by using assign. # Initialize global variables init_op = tf.global_variables_initializer() session = tf.Session() session.run(init_op)print(session.run(a)) 0  session.run(update) 1  session.</description>
+    </item>
+    
+    <item>
+      <title>Add Method</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/placeholders/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/placeholders/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;# Initialize global variables init_op = tf.global_variables_initializer() session = tf.Session() session.run(init_op)a = tf.placeholder(tf.float32)b = a * a# feeding a placeholder with scalar result = session.run(b, feed_dict={a:4})print(result) 16.0  result1 = session.run(b, {a:8})result1 64.0  # passing one dimensional array to the placeholder result2 = session.run(b, {a : [1, 6, 2, 5] })print(result2) [ 1. 36.</description>
+    </item>
+    
+    <item>
+      <title>Census Data and Linear Classifier</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/census-data/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/census-data/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;import numpy as np import pandas as pdcensus = pd.read_csv(&amp;#34;/Users/rajacsp/datasets/census_data.csv&amp;#34;)census.head()  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    age workclass education education_num marital_status occupation relationship race gender capital_gain capital_loss hours_per_week native_country income_bracket     0 39 State-gov Bachelors 13 Never-married Adm-clerical Not-in-family White Male 2174 0 40 United-States &amp;lt;=50K   1 50 Self-emp-not-inc Bachelors 13 Married-civ-spouse Exec-managerial Husband White Male 0 0 13 United-States &amp;lt;=50K   2 38 Private HS-grad 9 Divorced Handlers-cleaners Not-in-family White Male 0 0 40 United-States &amp;lt;=50K   3 53 Private 11th 7 Married-civ-spouse Handlers-cleaners Husband Black Male 0 0 40 United-States &amp;lt;=50K   4 28 Private Bachelors 13 Married-civ-spouse Prof-specialty Wife Black Female 0 0 40 Cuba &amp;lt;=50K     census[&amp;#39;income_bracket&amp;#39;].</description>
+    </item>
+    
+    <item>
+      <title>Graph</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/graph/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/graph/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;graph = tf.get_default_graph()graph.get_operations() []  a = tf.constant(2, name = &amp;#34;one&amp;#34;)operations = graph.get_operations() operations
+b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#39; shape=() dtype=int32&amp;gt;  operations [&amp;lt;tf.Operation &#39;one&#39; type=Const&amp;gt;]  c = tf.add(a, b, name = &amp;#34;three&amp;#34;)c &amp;lt;tf.Tensor &#39;three:0&#39; shape=() dtype=int32&amp;gt;  operations [&amp;lt;tf.Operation &#39;one&#39; type=Const&amp;gt;, &amp;lt;tf.Operation &#39;one_1&#39; type=Const&amp;gt;, &amp;lt;tf.Operation &#39;three&#39; type=Add&amp;gt;, &amp;lt;tf.Operation &#39;one_2&#39; type=Const&amp;gt;]  session = tf.</description>
+    </item>
+    
+    <item>
       <title>Simple Session</title>
       <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/simple-session/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
@@ -39,6 +76,33 @@
     </item>
     
     <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/intialize-variables/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/intialize-variables/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;init_op = tf.global_variables_initializer()session = tf.Session()# initialize variables session.</description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/session-and-with-block/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/session-and-with-block/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.Variable(2)b = a * 4b &amp;lt;tf.Tensor &#39;mul:0&#39; shape=() dtype=int32&amp;gt;  init_op = tf.initialize_all_variables()with tf.Session() as session: session.run(init_op) result = session.run(a + b) print(result) 10  </description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/template/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/template/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;</description>
+    </item>
+    
+    <item>
       <title>Basic Plot</title>
       <link>https://rajacsp.github.io/mlnotes/python/plot/basic-plot/</link>
       <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
@@ -54,6 +118,28 @@
       
       <guid>https://rajacsp.github.io/mlnotes/python/plot/basic-plot-1/</guid>
       <description>import matplotlib.pyplot as pltx = [1, 2, 3, 4]y = [1, 4, 9, 16]z = [1, 8, 27, 64]x, y, z ([1, 2, 3, 4], [1, 4, 9, 16], [1, 8, 27, 64])  plt.plot(x, y, z) plt.axis([0, 10, 0, 80]) [0, 10, 0, 80]  </description>
+    </item>
+    
+    <item>
+      <title>Be A Visionary Leader</title>
+      <link>https://rajacsp.github.io/mlnotes/articles/hbr/you-dont-have-to-be-ceo-to-be-a-visionary-leader/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/articles/hbr/you-dont-have-to-be-ceo-to-be-a-visionary-leader/</guid>
+      <description>Best Lines   Creating a unifying vision for an organization is a fundamental skill for leaders.
+ A simple, bold, inspirational vision can feel almost magical: it brings people throughout the company together around a common goal and provides a focal point for developing strategies to achieve a better future.
+ Rotenberg convinced a skeptical CEO Paula Kerger that such an offering was consistent with the overall educational vision of the network, and could be developed cost-effectively to meet real audience needs that were not being addressed.</description>
+    </item>
+    
+    <item>
+      <title>Benefits of Boredom</title>
+      <link>https://rajacsp.github.io/mlnotes/articles/hbr/benefits-of-boredom/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/articles/hbr/benefits-of-boredom/</guid>
+      <description>Best Lines   At its core, boredom is “a search for neural stimulation that isn’t satisfied,” Mann says. “If we can’t find that, our mind will create it.”
+ Studies have shown, for example, that modern tools including work emails, social media and dating apps can strain mental health — so taking a break can be a valuable opportunity to recharge.
+ Mann says. Our cultural attachment to our phones, she says, is paradoxically both destroying our ability to be bored, and preventing us from ever being truly entertained.</description>
     </item>
     
     <item>
@@ -81,6 +167,15 @@
       
       <guid>https://rajacsp.github.io/mlnotes/python/scipy/fourier-transform/</guid>
       <description>from scipy.fftpack import fft import numpy as npx = np.array([1, 2, 3, 4])x array([1, 2, 3, 4])  y = fft(x)y array([10.+0.j, -2.+2.j, -2.+0.j, -2.-2.j])  import matplotlib.pyplot as pltplt.plot(x, y, &amp;#39;ro&amp;#39;) plt.axis([-5, 20, -5, 20]) plt.show() /Users/rajacsp/anaconda3/envs/py36/lib/python3.6/site-packages/numpy/core/numeric.py:538: ComplexWarning: Casting complex values to real discards the imaginary part return array(a, dtype, copy=False, order=order)  </description>
+    </item>
+    
+    <item>
+      <title>Histogram</title>
+      <link>https://rajacsp.github.io/mlnotes/python/plot/histogram/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/plot/histogram/</guid>
+      <description>import numpy as np import matplotlib.pyplot as pltnp.random.seed(13) arr_data = np.random.normal(0,1, 100)yhist, binedges = np.histogram(arr_data)bincenters = np.mean(np.vstack([binedges[0:-1],binedges[1:]]), axis=0) plt.bar(bincenters, yhist) &amp;lt;BarContainer object of 10 artists&amp;gt;  </description>
     </item>
     
     <item>
@@ -112,9 +207,10 @@
       <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/articles/hbr/template/</guid>
-      <description>4 Ways to become a better learner   Line1
+      <description>Best Lines   Line1
  Line2
  Line3
+ Line4
  Line4
    Check the complete article</description>
     </item>
@@ -126,15 +222,6 @@
       
       <guid>https://rajacsp.github.io/mlnotes/python/plot/template/</guid>
       <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
-    </item>
-    
-    <item>
-      <title>Template</title>
-      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/template/</link>
-      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/template/</guid>
-      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;</description>
     </item>
     
     <item>
