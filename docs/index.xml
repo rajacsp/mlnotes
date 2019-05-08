@@ -30,12 +30,53 @@
     </item>
     
     <item>
+      <title>Array Inverse</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/array-inverse/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/array-inverse/</guid>
+      <description>import numpy as npa = np.array([ [1, 2], [3, 4] ])a array([[1, 2], [3, 4]])  inverse_a = np.linalg.inv(a)print(inverse_a) [[-2. 1. ] [ 1.5 -0.5]]  </description>
+    </item>
+    
+    <item>
+      <title>Array vs Matrix</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/array-vs-matrix/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/array-vs-matrix/</guid>
+      <description>import numpy as npmat_a = np.mat(&amp;#39;1 2; 3 4&amp;#39;) mat_b = np.mat(&amp;#39;5 6; 7 8&amp;#39;)mat_a matrix([[1, 2], [3, 4]])  ar_a = np.array([ [1, 2], [3, 4] ]) ar_b = np.array([ [5, 6], [7, 8] ])ar_a array([[1, 2], [3, 4]])  # Matrix multiplication mat_c = mat_a * mat_bmat_c matrix([[19, 22], [43, 50]])  # Numpy array multiplication (element wise) ar_c = ar_a * ar_bar_c array([[ 5, 12], [21, 32]])  # Numpy dot multiplication ar_d = np.</description>
+    </item>
+    
+    <item>
       <title>Census Data and Linear Classifier</title>
       <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/census-data/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/census-data/</guid>
       <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;import numpy as np import pandas as pdcensus = pd.read_csv(&amp;#34;/Users/rajacsp/datasets/census_data.csv&amp;#34;)census.head()  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    age workclass education education_num marital_status occupation relationship race gender capital_gain capital_loss hours_per_week native_country income_bracket     0 39 State-gov Bachelors 13 Never-married Adm-clerical Not-in-family White Male 2174 0 40 United-States &amp;lt;=50K   1 50 Self-emp-not-inc Bachelors 13 Married-civ-spouse Exec-managerial Husband White Male 0 0 13 United-States &amp;lt;=50K   2 38 Private HS-grad 9 Divorced Handlers-cleaners Not-in-family White Male 0 0 40 United-States &amp;lt;=50K   3 53 Private 11th 7 Married-civ-spouse Handlers-cleaners Husband Black Male 0 0 40 United-States &amp;lt;=50K   4 28 Private Bachelors 13 Married-civ-spouse Prof-specialty Wife Black Female 0 0 40 Cuba &amp;lt;=50K     census[&amp;#39;income_bracket&amp;#39;].</description>
+    </item>
+    
+    <item>
+      <title>Einsum</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/einsum/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/einsum/</guid>
+      <description>import numpy as npa = np.array([1, 2])b = np.array([ [1, 2, 3], [4, 5, 6] ])a array([1, 2])  b array([[1, 2, 3], [4, 5, 6]])  (a[:, np.newaxis] * b) array([[ 1, 2, 3], [ 8, 10, 12]])  c = (a[:, np.newaxis] * b).sum(axis=1)c array([ 6, 30])  c_einsum = np.einsum(&amp;#39;i, ij-&amp;gt;i&amp;#39;, a, b)c_einsum array([ 6, 30])  More:
+https://stackoverflow.com/questions/26089893/understanding-numpys-einsum
+http://ajcr.net/Basic-guide-to-einsum/</description>
+    </item>
+    
+    <item>
+      <title>Einsum Basics</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/einsum-basics/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/einsum-basics/</guid>
+      <description>import numpy as npa = np.array([1, 2, 3, 4])a array([1, 2, 3, 4])  b = np.array([5, 6, 7, 8])b array([5, 6, 7, 8])  # Sum of array a np.einsum(&amp;#39;i-&amp;gt;&amp;#39;, a) 10  More
+http://ajcr.net/Basic-guide-to-einsum/
+https://stackoverflow.com/questions/26089893/understanding-numpys-einsum
+http://numpy-discussion.10968.n7.nabble.com/einsum-td11810.html</description>
     </item>
     
     <item>
@@ -46,6 +87,51 @@
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/graph/</guid>
       <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;graph = tf.get_default_graph()graph.get_operations() []  a = tf.constant(2, name = &amp;#34;one&amp;#34;)operations = graph.get_operations() operations
 b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#39; shape=() dtype=int32&amp;gt;  operations [&amp;lt;tf.Operation &#39;one&#39; type=Const&amp;gt;]  c = tf.add(a, b, name = &amp;#34;three&amp;#34;)c &amp;lt;tf.Tensor &#39;three:0&#39; shape=() dtype=int32&amp;gt;  operations [&amp;lt;tf.Operation &#39;one&#39; type=Const&amp;gt;, &amp;lt;tf.Operation &#39;one_1&#39; type=Const&amp;gt;, &amp;lt;tf.Operation &#39;three&#39; type=Add&amp;gt;, &amp;lt;tf.Operation &#39;one_2&#39; type=Const&amp;gt;]  session = tf.</description>
+    </item>
+    
+    <item>
+      <title>Initialize Variables</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/intialize-variables/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/intialize-variables/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;init_op = tf.global_variables_initializer()session = tf.Session()# initialize variables session.</description>
+    </item>
+    
+    <item>
+      <title>Matrix Inverse</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/matrix-inverse/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/matrix-inverse/</guid>
+      <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
+    </item>
+    
+    <item>
+      <title>Min Max</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/min-max/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/min-max/</guid>
+      <description>import numpy as npa = np.array([ [1, 2], [3, 4] ])a.min() 1  a.min(axis=0) array([1, 2])  a.min(axis=1) array([1, 3])  np.min(a) 1  np.min(a, axis=0) array([1, 2])  a.max() 4  a.max(axis=0) array([3, 4])  a.max(axis=1) array([2, 4])  </description>
+    </item>
+    
+    <item>
+      <title>Session 2</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/session-2/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/session-2/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.constant(1.2)b = tf.constant(2.8)c = a + bc &amp;lt;tf.Tensor &#39;add:0&#39; shape=() dtype=float32&amp;gt;  # You can see the value is not updated as it is just a modelwith tf.Session() as sess: print(sess.run(c)) print(c) 4.0 Tensor(&amp;quot;add:0&amp;quot;, shape=(), dtype=float32)  c &amp;lt;tf.Tensor &#39;add:0&#39; shape=() dtype=float32&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>Session and With Block</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/session-and-with-block/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/session-and-with-block/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.Variable(2)b = a * 4b &amp;lt;tf.Tensor &#39;mul:0&#39; shape=() dtype=int32&amp;gt;  init_op = tf.initialize_all_variables()with tf.Session() as session: session.run(init_op) result = session.run(a + b) print(result) 10  </description>
     </item>
     
     <item>
@@ -67,30 +153,32 @@ b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#
     </item>
     
     <item>
+      <title>Sum With Axis</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/sum-with-axis/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/sum-with-axis/</guid>
+      <description>import numpy as npa = np.array([ [1, 2], [3, 4] ])# Sum a.sum() 10  #  a.sum(axis=0) array([4, 6])  b = np.array([ [10, 20, 30, 40], [100, 200, 300, 400] ])b array([[ 10, 20, 30, 40], [100, 200, 300, 400]])  b.ndim 2  b.sum(axis=0) array([110, 220, 330, 440])  b.sum(axis=1) array([ 100, 1000])  More explained here:
+https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description>
+    </item>
+    
+    <item>
+      <title>Sum with Axis 3D</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/sum-with-axis-3d/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/sum-with-axis-3d/</guid>
+      <description>import numpy as npx = np.array([ [ [1,2], [3,4] ], [ [1,2], [3,4] ] ])x array([[[1, 2], [3, 4]], [[1, 2], [3, 4]]])  x.ndim 3  x[0] array([[1, 2], [3, 4]])  x[0][0] array([1, 2])  x[0][0][0] 1  x.sum(axis=0) array([[2, 4], [6, 8]])  More
+https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description>
+    </item>
+    
+    <item>
       <title>Template</title>
       <link>https://rajacsp.github.io/mlnotes/python/numpy/template/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/numpy/template/</guid>
       <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
-    </item>
-    
-    <item>
-      <title>Template</title>
-      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/intialize-variables/</link>
-      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/intialize-variables/</guid>
-      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;init_op = tf.global_variables_initializer()session = tf.Session()# initialize variables session.</description>
-    </item>
-    
-    <item>
-      <title>Template</title>
-      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/session-and-with-block/</link>
-      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/session-and-with-block/</guid>
-      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.Variable(2)b = a * 4b &amp;lt;tf.Tensor &#39;mul:0&#39; shape=() dtype=int32&amp;gt;  init_op = tf.initialize_all_variables()with tf.Session() as session: session.run(init_op) result = session.run(a + b) print(result) 10  </description>
     </item>
     
     <item>
@@ -1784,6 +1872,15 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
     </item>
     
     <item>
+      <title>Radar Chart Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/plot/radar-chart-simple/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/plot/radar-chart-simple/</guid>
+      <description>import matplotlib.pyplot as plt import pandas as pd from math import pidf = pd.DataFrame({ &amp;#39;group&amp;#39; : [&amp;#39;A&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;C&amp;#39;, &amp;#39;D&amp;#39;], &amp;#39;var1&amp;#39; : [10, 20, 30, 4], &amp;#39;var2&amp;#39; : [2, 88, 22, 2] })df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    group var1 var2     0 A 10 2   1 B 20 88   2 C 30 22   3 D 4 2     # number of variable categories = list(df)[1:] N = len(categories)# Assign values values = df.</description>
+    </item>
+    
+    <item>
       <title>Radar Simple</title>
       <link>https://rajacsp.github.io/mlnotes/python/plot/radar-simple-2/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
@@ -2019,6 +2116,15 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
     </item>
     
     <item>
+      <title>Sin Plot</title>
+      <link>https://rajacsp.github.io/mlnotes/python/plot/sin-plot/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/plot/sin-plot/</guid>
+      <description>import numpy as np import matplotlib.pylab as pltx = np.arange(20, 29)print(x) [20 21 22 23 24 25 26 27 28]  y = np.sin(x)print(y) [ 0.91294525 0.83665564 -0.00885131 -0.8462204 -0.90557836 -0.13235175 0.76255845 0.95637593 0.27090579]  plot = plt.plot(x, y) plt.grid(True)plt.show() </description>
+    </item>
+    
+    <item>
       <title>Sort Map By Key</title>
       <link>https://rajacsp.github.io/mlnotes/python/basics/sort-map-by-key/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
@@ -2133,24 +2239,6 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
       
       <guid>https://rajacsp.github.io/mlnotes/python/file-utils/template/</guid>
       <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
-    </item>
-    
-    <item>
-      <title>Template</title>
-      <link>https://rajacsp.github.io/mlnotes/python/plot/radar-chart-simple/</link>
-      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://rajacsp.github.io/mlnotes/python/plot/radar-chart-simple/</guid>
-      <description>import matplotlib.pyplot as plt import pandas as pd from math import pidf = pd.DataFrame({ &amp;#39;group&amp;#39; : [&amp;#39;A&amp;#39;, &amp;#39;B&amp;#39;, &amp;#39;C&amp;#39;, &amp;#39;D&amp;#39;], &amp;#39;var1&amp;#39; : [10, 20, 30, 4], &amp;#39;var2&amp;#39; : [2, 88, 22, 2] })df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    group var1 var2     0 A 10 2   1 B 20 88   2 C 30 22   3 D 4 2     # number of variable categories = list(df)[1:] N = len(categories)# Assign values values = df.</description>
-    </item>
-    
-    <item>
-      <title>Template</title>
-      <link>https://rajacsp.github.io/mlnotes/python/plot/sin-plot/</link>
-      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://rajacsp.github.io/mlnotes/python/plot/sin-plot/</guid>
-      <description>import numpy as np import matplotlib.pylab as pltx = np.arange(20, 29)print(x) [20 21 22 23 24 25 26 27 28]  y = np.sin(x)print(y) [ 0.91294525 0.83665564 -0.00885131 -0.8462204 -0.90557836 -0.13235175 0.76255845 0.95637593 0.27090579]  plot = plt.plot(x, y) plt.grid(True)plt.show() </description>
     </item>
     
     <item>
