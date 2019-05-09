@@ -80,6 +80,15 @@ http://numpy-discussion.10968.n7.nabble.com/einsum-td11810.html</description>
     </item>
     
     <item>
+      <title>Feed Dictionary</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/feed_dictionary/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/feed_dictionary/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.placeholder(tf.float32) b = tf.placeholder(tf.float32) c = tf.multiply(a, b) with tf.Session() as sess: print(sess.run([c], feed_dict={a:[2], b: [3]})) [array([6.], dtype=float32)]  </description>
+    </item>
+    
+    <item>
       <title>Graph</title>
       <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/graph/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
@@ -99,6 +108,15 @@ b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#
     </item>
     
     <item>
+      <title>Linear Regression</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/linear-regression/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/linear-regression/</guid>
+      <description>import numpy as np import seaborn import matplotlib.pyplot as plt# Define the input data x_ = np.arange(100, step=0.1) y_ = x_ + (20 * np.sin(x_/10)) # Plot input data plt.scatter(x_, y_) plt.show() </description>
+    </item>
+    
+    <item>
       <title>Matrix Inverse</title>
       <link>https://rajacsp.github.io/mlnotes/python/numpy/matrix-inverse/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
@@ -114,6 +132,25 @@ b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#
       
       <guid>https://rajacsp.github.io/mlnotes/python/numpy/min-max/</guid>
       <description>import numpy as npa = np.array([ [1, 2], [3, 4] ])a.min() 1  a.min(axis=0) array([1, 2])  a.min(axis=1) array([1, 3])  np.min(a) 1  np.min(a, axis=0) array([1, 2])  a.max() 4  a.max(axis=0) array([3, 4])  a.max(axis=1) array([2, 4])  </description>
+    </item>
+    
+    <item>
+      <title>Numpy 2 Tensor</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/numpy-2-tensor/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/numpy-2-tensor/</guid>
+      <description>import tensorflow as tf import numpy as np import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = np.zeros((3, 3)) ta = tf.convert_to_tensor(a) with tf.Session() as sess: print(sess.run(ta)) [[0. 0. 0.] [0. 0. 0.] [0. 0. 0.]]  </description>
+    </item>
+    
+    <item>
+      <title>Reshape</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/reshape/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/reshape/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;tf.InteractiveSession() a = tf.zeros((2, 2)) b = tf.ones((2, 2)) abc = tf.reduce_sum(b, reduction_indices=1).eval() #rray([2., 2.], dtype=float32) print(abc) print(a.get_shape()) # reshape ef = tf.reshape(a, (1, 4)).eval() print(ef) [2. 2.] (2, 2) [[0. 0. 0. 0.]]  Notes: Tensorflow compuations define a compuation graph that has no numerical value until
+InteractiveSession() will help you to keep a default session open in ipython</description>
     </item>
     
     <item>
@@ -183,11 +220,38 @@ https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description
     
     <item>
       <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/fetching-variable-state/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/fetching-variable-state/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.constant(2) b = tf.constant(3) c = tf.add(a, b) d = tf.multiply(a, b) &amp;#39;&amp;#39;&amp;#39; tf.mul, tf.sub and tf.neg are deprecated in favor of tf.multiply, tf.subtract and tf.negative. https://stackoverflow.com/questions/42217059/tensorflowattributeerror-module-object-has-no-attribute-mul &amp;#39;&amp;#39;&amp;#39; with tf.Session() as sess: # Calling sess.run(var) on a tf.Session() retrieves its value # We can retrieve multiple variables simultaneously like below result = sess.</description>
+    </item>
+    
+    <item>
+      <title>Template</title>
       <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/template/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/template/</guid>
       <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;</description>
+    </item>
+    
+    <item>
+      <title>Updating Variable State</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/updating_variable_state/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/updating_variable_state/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.Variable(0, name = &amp;#39;counter&amp;#39;) b = tf.add(a, tf.constant(2)) # update a with b value (which means a+1) update = tf.assign(a, b)with tf.Session() as sess: sess.run(tf.initialize_all_variables()) print(sess.run(a)) for _ in range(3): sess.run(update) print(sess.run(a)) 0 2 4 6  </description>
+    </item>
+    
+    <item>
+      <title>Variables and Session</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/variables-and-session/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/variables-and-session/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.ones((2, 2)) b = tf.Variable(tf.zeros((2, 2)), name = &amp;#39;weights&amp;#39;) with tf.Session() as sess: print(sess.run(a)) sess.run(tf.initialize_all_variables()) # commenting out this line will throw exception print(sess.run(b)) [[1. 1.] [1. 1.]] WARNING:tensorflow:From /Users/rajacsp/anaconda3/envs/py36/lib/python3.6/site-packages/tensorflow/python/util/tf_should_use.py:193: initialize_all_variables (from tensorflow.python.ops.variables) is deprecated and will be removed after 2017-03-02. Instructions for updating: Use `tf.global_variables_initializer` instead. [[0. 0.] [0. 0.]]  Notes Tensorflow variables must be initialized before they have values</description>
     </item>
     
     <item>
