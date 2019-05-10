@@ -6,10 +6,28 @@
     <description>Recent content on Raja CSP Raman</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 May 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://rajacsp.github.io/mlnotes/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Simple Multiplication</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/simple-multiplication/</link>
+      <pubDate>Thu, 09 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/simple-multiplication/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.random_normal([2, 2]) b = tf.random_normal([2, 2])a &amp;lt;tf.Tensor &#39;random_normal_3:0&#39; shape=(2, 2) dtype=float32&amp;gt;  c = tf.matmul(a, b)c &amp;lt;tf.Tensor &#39;MatMul_1:0&#39; shape=(2, 2) dtype=float32&amp;gt;  print(c) Tensor(&amp;quot;MatMul_1:0&amp;quot;, shape=(2, 2), dtype=float32)  sess = tf.Session()c_val = sess.run(c)c_val array([[-1.2824252, -0.3110683], [-2.3952909, 0.7716379]], dtype=float32)  c_val.shape (2, 2)  c_val.ndim 2  c.shape.as_list() [2, 2]  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/stack/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/stack/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.constant([1, 2]) b = tf.constant([3, 4]) c = tf.constant([10, 20])a &amp;lt;tf.Tensor &#39;Const_12:0&#39; shape=(2,) dtype=int32&amp;gt;  b &amp;lt;tf.Tensor &#39;Const_13:0&#39; shape=(2,) dtype=int32&amp;gt;  d = tf.stack([a, b, c])with tf.Session() as sess: d_val = sess.run(d) print(a) print(d) print(d_val) Tensor(&amp;quot;Const_12:0&amp;quot;, shape=(2,), dtype=int32) Tensor(&amp;quot;stack_2:0&amp;quot;, shape=(3, 2), dtype=int32) [[ 1 2] [ 3 4] [10 20]]  e = tf.</description>
+    </item>
     
     <item>
       <title>Add Method</title>
@@ -135,12 +153,30 @@ b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#
     </item>
     
     <item>
+      <title>Name Scope</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/name_scope/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/name_scope/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;# to clear the graph before new nodes tf.reset_default_graph() with tf.name_scope(&amp;#34;march&amp;#34;): a = tf.constant(1, name = &amp;#39;a&amp;#39;) print(a.name) b = tf.Variable(2, name = &amp;#39;b&amp;#39;) print(b.name) march/a:0 march/b:0  a &amp;lt;tf.Tensor &#39;march/a:0&#39; shape=() dtype=int32&amp;gt;  print(a.name) march/a:0  # Note: You can access the variable outside of the scope even after it is assigned.</description>
+    </item>
+    
+    <item>
       <title>Numpy 2 Tensor</title>
       <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/numpy-2-tensor/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/numpy-2-tensor/</guid>
       <description>import tensorflow as tf import numpy as np import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = np.zeros((3, 3)) ta = tf.convert_to_tensor(a) with tf.Session() as sess: print(sess.run(ta)) [[0. 0. 0.] [0. 0. 0.] [0. 0. 0.]]  </description>
+    </item>
+    
+    <item>
+      <title>Ones</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/ones/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/ones/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.ones([2, 5])a &amp;lt;tf.Tensor &#39;ones:0&#39; shape=(2, 5) dtype=float32&amp;gt;  with tf.Session() as sess: print(sess.run(a)) [[1. 1. 1. 1. 1.] [1. 1. 1. 1. 1.]]  b = tf.ones([1, 3], tf.int32)with tf.Session() as sess: print(sess.run(b)) [[1 1 1]]  </description>
     </item>
     
     <item>
@@ -151,6 +187,15 @@ b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/reshape/</guid>
       <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;tf.InteractiveSession() a = tf.zeros((2, 2)) b = tf.ones((2, 2)) abc = tf.reduce_sum(b, reduction_indices=1).eval() #rray([2., 2.], dtype=float32) print(abc) print(a.get_shape()) # reshape ef = tf.reshape(a, (1, 4)).eval() print(ef) [2. 2.] (2, 2) [[0. 0. 0. 0.]]  Notes: Tensorflow compuations define a compuation graph that has no numerical value until
 InteractiveSession() will help you to keep a default session open in ipython</description>
+    </item>
+    
+    <item>
+      <title>Reshape Extra</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/reshape-1/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/reshape-1/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.constant([1, 2, 3, 4, 5, 6, 7, 9])b = tf.reshape(a, [2, 4])a &amp;lt;tf.Tensor &#39;Const_1:0&#39; shape=(8,) dtype=int32&amp;gt;  b &amp;lt;tf.Tensor &#39;Reshape_2:0&#39; shape=(2, 4) dtype=int32&amp;gt;  with tf.Session() as sess: b_val = sess.run(b) print(b_val) [[1 2 3 4] [5 6 7 9]]  </description>
     </item>
     
     <item>
@@ -187,6 +232,15 @@ InteractiveSession() will help you to keep a default session open in ipython</de
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/simple-tensorflow/</guid>
       <description>import tensorflow as tf import os os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.constant(5.0)a &amp;lt;tf.Tensor &#39;Const:0&#39; shape=() dtype=float32&amp;gt;  b = tf.constant(3.0)b &amp;lt;tf.Tensor &#39;Const_1:0&#39; shape=() dtype=float32&amp;gt;  c = a * b# Lauch session sess = tf.Session()# Evaluate the tensor c print(sess.run(c)) 15.0  </description>
+    </item>
+    
+    <item>
+      <title>Stack Extra</title>
+      <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/stack-extra/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/stack-extra/</guid>
+      <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.constant([ [1, 2], [3, 4] ])a &amp;lt;tf.Tensor &#39;Const_4:0&#39; shape=(2, 2) dtype=int32&amp;gt;  b = tf.constant([ [11, 12], [13, 14] ])b &amp;lt;tf.Tensor &#39;Const_5:0&#39; shape=(2, 2) dtype=int32&amp;gt;  c = tf.constant([ [21, 22], [23, 24] ])c &amp;lt;tf.Tensor &#39;Const_6:0&#39; shape=(2, 2) dtype=int32&amp;gt;  d = tf.stack([a, b, c])d &amp;lt;tf.Tensor &#39;stack:0&#39; shape=(3, 2, 2) dtype=int32&amp;gt;  with tf.</description>
     </item>
     
     <item>
