@@ -66,6 +66,24 @@
     </item>
     
     <item>
+      <title>As Scalar Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/as_scalar_simple/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/as_scalar_simple/</guid>
+      <description>import numpy as npa = np.arange(12).reshape(2, 3, 2)a array([[[ 0, 1], [ 2, 3], [ 4, 5]], [[ 6, 7], [ 8, 9], [10, 11]]])  a.shape (2, 3, 2)  b = np.asscalar(a) --------------------------------------------------------------------------- ValueError Traceback (most recent call last) &amp;lt;ipython-input-8-dfb51e49d46b&amp;gt; in &amp;lt;module&amp;gt;() ----&amp;gt; 1 b = np.asscalar(a) ~/anaconda3/envs/py36/lib/python3.6/site-packages/numpy/lib/type_check.py in asscalar(a) 545 warnings.warn(&#39;np.asscalar(a) is deprecated since NumPy v1.16, use &#39; 546 &#39;a.item() instead&#39;, DeprecationWarning, stacklevel=1) --&amp;gt; 547 return a.item() 548 549 #----------------------------------------------------------------------------- ValueError: can only convert an array of size 1 to a Python scalar  b = a.</description>
+    </item>
+    
+    <item>
+      <title>Automatic Reshaping</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/automatic_reshaping/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/automatic_reshaping/</guid>
+      <description>import numpy as npa = np.arange(80)a.shape = 2, 5, -1a array([[[ 0, 1, 2, 3, 4, 5, 6, 7], [ 8, 9, 10, 11, 12, 13, 14, 15], [16, 17, 18, 19, 20, 21, 22, 23], [24, 25, 26, 27, 28, 29, 30, 31], [32, 33, 34, 35, 36, 37, 38, 39]], [[40, 41, 42, 43, 44, 45, 46, 47], [48, 49, 50, 51, 52, 53, 54, 55], [56, 57, 58, 59, 60, 61, 62, 63], [64, 65, 66, 67, 68, 69, 70, 71], [72, 73, 74, 75, 76, 77, 78, 79]]])  a.</description>
+    </item>
+    
+    <item>
       <title>Census Data and Linear Classifier</title>
       <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/census-data/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
@@ -95,6 +113,15 @@ http://ajcr.net/Basic-guide-to-einsum/</description>
 http://ajcr.net/Basic-guide-to-einsum/
 https://stackoverflow.com/questions/26089893/understanding-numpys-einsum
 http://numpy-discussion.10968.n7.nabble.com/einsum-td11810.html</description>
+    </item>
+    
+    <item>
+      <title>Expand Dimension</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/expand_dimension/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/expand_dimension/</guid>
+      <description>import numpy as npx = np.array([1, 2, 3, 4])x array([1, 2, 3, 4])  x.shape (4,)  x = np.expand_dims(x, axis=0)x array([[1, 2, 3, 4]])  x.shape (1, 4)  x = x.reshape(4, 1)x array([[1], [2], [3], [4]])  x.shape (4, 1)  </description>
     </item>
     
     <item>
@@ -153,6 +180,15 @@ b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#
     </item>
     
     <item>
+      <title>Move Axis Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/moveaxis_simple/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/moveaxis_simple/</guid>
+      <description>import numpy as npx = np.zeros((1, 2, 3, 4, 5)) x.shape (1, 2, 3, 4, 5)  print(np.moveaxis(x, 3, 0).shape) (4, 1, 2, 3, 5)  print(np.moveaxis(x, 3, 1).shape) (1, 4, 2, 3, 5)  print(np.moveaxis(x, 3, 2).shape) (1, 2, 4, 3, 5)  print(np.moveaxis(x, 3, 3).shape) (1, 2, 3, 4, 5)  print(np.moveaxis(x, 3, 4).shape) (1, 2, 3, 5, 4)  </description>
+    </item>
+    
+    <item>
       <title>Name Scope</title>
       <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/name_scope/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
@@ -168,6 +204,16 @@ b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/numpy-2-tensor/</guid>
       <description>import tensorflow as tf import numpy as np import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = np.zeros((3, 3)) ta = tf.convert_to_tensor(a) with tf.Session() as sess: print(sess.run(ta)) [[0. 0. 0.] [0. 0. 0.] [0. 0. 0.]]  </description>
+    </item>
+    
+    <item>
+      <title>One vs Two Dimensional Array</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/one-vs-two-dimensional-array/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/one-vs-two-dimensional-array/</guid>
+      <description>import numpy as npa = np.array([1, 2, 3, 4])a array([1, 2, 3, 4])  a.shape (4,)  b = np.array([ [1], [2], [3], [4] ])b array([[1], [2], [3], [4]])  b.shape (4, 1)  Diff between (4, ) and (4, 1)
+The difference between (4,) and (4,1) is that the first is the shape of a one-dimensional array, while the second is the shape of a 2-dimensional array whose 2nd dimension has length 1.</description>
     </item>
     
     <item>
@@ -205,6 +251,15 @@ InteractiveSession() will help you to keep a default session open in ipython</de
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/reshape-1/</guid>
       <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.constant([1, 2, 3, 4, 5, 6, 7, 9])b = tf.reshape(a, [2, 4])a &amp;lt;tf.Tensor &#39;Const_1:0&#39; shape=(8,) dtype=int32&amp;gt;  b &amp;lt;tf.Tensor &#39;Reshape_2:0&#39; shape=(2, 4) dtype=int32&amp;gt;  with tf.Session() as sess: b_val = sess.run(b) print(b_val) [[1 2 3 4] [5 6 7 9]]  </description>
+    </item>
+    
+    <item>
+      <title>Roll Axis Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/rollaxis_simple/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/rollaxis_simple/</guid>
+      <description>import numpy as npa = np.ones((4, 3, 2))a array([[[1., 1.], [1., 1.], [1., 1.]], [[1., 1.], [1., 1.], [1., 1.]], [[1., 1.], [1., 1.], [1., 1.]], [[1., 1.], [1., 1.], [1., 1.]]])  a.shape (4, 3, 2)  b = np.rollaxis(a, 2)b array([[[1., 1., 1.], [1., 1., 1.], [1., 1., 1.], [1., 1., 1.]], [[1., 1., 1.], [1., 1., 1.], [1., 1., 1.], [1., 1., 1.]]])  b.shape (2, 4, 3)  c = np.</description>
     </item>
     
     <item>
@@ -273,6 +328,15 @@ https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description
     </item>
     
     <item>
+      <title>Swap Axes</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/swap_axes/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/swap_axes/</guid>
+      <description>import numpy as npx = np.array([ [ [0,1],[2,3] ], [ [4,5],[6,7] ] ])x array([[[0, 1], [2, 3]], [[4, 5], [6, 7]]])  x.shape (2, 2, 2)  y = np.swapaxes(x, 0, 2)y array([[[0, 4], [2, 6]], [[1, 5], [3, 7]]])  y.shape (2, 2, 2)  a = np.ones((1, 2, 3, 4))a.shape (1, 2, 3, 4)  b = np.swapaxes(a, 3, 1)b.shape (1, 4, 3, 2)  b array([[[[1., 1.], [1.</description>
+    </item>
+    
+    <item>
       <title>Template</title>
       <link>https://rajacsp.github.io/mlnotes/python/image-analysis/template-copy1/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
@@ -315,6 +379,15 @@ https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/template/</guid>
       <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;</description>
+    </item>
+    
+    <item>
+      <title>Transpose Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/transpose_simple/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/transpose_simple/</guid>
+      <description>import numpy as npx = np.arange(4).reshape((2,2))x.shape (2, 2)  x array([[0, 1], [2, 3]])  y = np.transpose(x)y array([[0, 2], [1, 3]])  </description>
     </item>
     
     <item>
