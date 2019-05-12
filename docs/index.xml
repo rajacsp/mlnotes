@@ -93,6 +93,24 @@
     </item>
     
     <item>
+      <title>Compare Methods</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/compare_methods/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/compare_methods/</guid>
+      <description>import numpy import perfplotperfplot.show( setup=lambda n: numpy.random.rand(n), kernels=[ lambda a: numpy.r_[a, a], lambda a: numpy.stack([a, a]).reshape(-1), lambda a: numpy.hstack([a, a]), lambda a: numpy.concatenate([a, a]) ], labels=[&amp;#39;r_&amp;#39;, &amp;#39;stack+reshape&amp;#39;, &amp;#39;hstack&amp;#39;, &amp;#39;concatenate&amp;#39;], n_range=[2**k for k in range(19)], xlabel=&amp;#39;len(a)&amp;#39;, logx=True, logy=True, )  0%| | 0/19 [00:00&amp;lt;?, ?it/s] 0%| | 0/4 [00:00&amp;lt;?, ?it/s][A 25%|██▌ | 1/4 [00:00&amp;lt;00:00, 3.00it/s][A 50%|█████ | 2/4 [00:00&amp;lt;00:00, 3.68it/s][A 75%|███████▌ | 3/4 [00:00&amp;lt;00:00, 3.95it/s][A 5%|▌ | 1/19 [00:00&amp;lt;00:13, 1.30it/s][A 0%| | 0/4 [00:00&amp;lt;?</description>
+    </item>
+    
+    <item>
+      <title>Concatenate Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/concatenate_simple/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/concatenate_simple/</guid>
+      <description>import numpy as npa = np.array([ [1, 2, 4], [11, 22, 34], [2, 5, 7] ])a.shape (3, 3)  b = np.array([ [19, 18, 16], [9, -2, -14], [18, 15, 13] ])b.shape (3, 3)  c = np.concatenate(a, b) --------------------------------------------------------------------------- TypeError Traceback (most recent call last) &amp;lt;ipython-input-20-9fadeb0cc951&amp;gt; in &amp;lt;module&amp;gt;() ----&amp;gt; 1 c = np.concatenate(a, b) TypeError: only integer scalar arrays can be converted to a scalar index  # The above line is throwing an issue because it is passed as an argument instead of sequence of argument.</description>
+    </item>
+    
+    <item>
       <title>Einsum</title>
       <link>https://rajacsp.github.io/mlnotes/python/numpy/einsum/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
@@ -134,6 +152,33 @@ http://numpy-discussion.10968.n7.nabble.com/einsum-td11810.html</description>
     </item>
     
     <item>
+      <title>Geo Pandas Canada</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_canada/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_canada/</guid>
+      <description>import pandas as pd import geopandas import matplotlib.pyplot as plt from geopy.geocoders import Nominatimgeolocator = Nominatim(user_agent=&amp;#34;rajarcsp&amp;#34;)def get_lat_lang(city): location = geolocator.geocode(city) return location.latitude, location.longitudeto_lat, to_long = get_lat_lang(&amp;#39;Toronto&amp;#39;) mt_lat, mt_long = get_lat_lang(&amp;#39;Montreal&amp;#39;) wl_lat, wl_long = get_lat_lang(&amp;#39;Waterloo&amp;#39;)df = pd.DataFrame( {&amp;#39;City&amp;#39;: [&amp;#39;Toronto&amp;#39;, &amp;#39;Montreal&amp;#39;, &amp;#39;Waterloo&amp;#39;, ], &amp;#39;Country&amp;#39;: [&amp;#39;Canada&amp;#39;, &amp;#39;Canada&amp;#39;, &amp;#39;Canada&amp;#39;], &amp;#39;Latitude&amp;#39;: [to_lat, mt_lat, wl_lat], &amp;#39;Longitude&amp;#39;: [to_long, mt_long, wl_long]})gdf = geopandas.GeoDataFrame( df, geometry=geopandas.points_from_xy(df.Longitude, df.Latitude))print(gdf.head())  City Country Latitude Longitude \ 0 Toronto Canada 43.653963 -79.387207 1 Montreal Canada 45.</description>
+    </item>
+    
+    <item>
+      <title>Geo Pandas Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_simple-copy1/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_simple-copy1/</guid>
+      <description>import pandas as pd import geopandas import matplotlib.pyplot as pltdf = pd.DataFrame( {&amp;#39;City&amp;#39;: [&amp;#39;Buenos Aires&amp;#39;, &amp;#39;Brasilia&amp;#39;, &amp;#39;Santiago&amp;#39;, &amp;#39;Bogota&amp;#39;, &amp;#39;Caracas&amp;#39;], &amp;#39;Country&amp;#39;: [&amp;#39;Argentina&amp;#39;, &amp;#39;Brazil&amp;#39;, &amp;#39;Chile&amp;#39;, &amp;#39;Colombia&amp;#39;, &amp;#39;Venezuela&amp;#39;], &amp;#39;Latitude&amp;#39;: [-34.58, -15.78, -33.45, 4.60, 10.48], &amp;#39;Longitude&amp;#39;: [-58.66, -47.91, -70.66, -74.08, -66.86]})gdf = geopandas.GeoDataFrame( df, geometry=geopandas.points_from_xy(df.Longitude, df.Latitude))print(gdf.head())  City Country Latitude Longitude geometry 0 Buenos Aires Argentina -34.58 -58.66 POINT (-58.66 -34.58) 1 Brasilia Brazil -15.78 -47.91 POINT (-47.91 -15.78) 2 Santiago Chile -33.45 -70.66 POINT (-70.</description>
+    </item>
+    
+    <item>
+      <title>Geo Pandas Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_simple/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_simple/</guid>
+      <description>import pandas as pd import geopandas import matplotlib.pyplot as pltdf = pd.DataFrame( {&amp;#39;City&amp;#39;: [&amp;#39;Buenos Aires&amp;#39;, &amp;#39;Brasilia&amp;#39;, &amp;#39;Santiago&amp;#39;, &amp;#39;Bogota&amp;#39;, &amp;#39;Caracas&amp;#39;], &amp;#39;Country&amp;#39;: [&amp;#39;Argentina&amp;#39;, &amp;#39;Brazil&amp;#39;, &amp;#39;Chile&amp;#39;, &amp;#39;Colombia&amp;#39;, &amp;#39;Venezuela&amp;#39;], &amp;#39;Latitude&amp;#39;: [-34.58, -15.78, -33.45, 4.60, 10.48], &amp;#39;Longitude&amp;#39;: [-58.66, -47.91, -70.66, -74.08, -66.86]})gdf = geopandas.GeoDataFrame( df, geometry=geopandas.points_from_xy(df.Longitude, df.Latitude))print(gdf.head())  City Country Latitude Longitude geometry 0 Buenos Aires Argentina -34.58 -58.66 POINT (-58.66 -34.58) 1 Brasilia Brazil -15.78 -47.91 POINT (-47.91 -15.78) 2 Santiago Chile -33.45 -70.66 POINT (-70.</description>
+    </item>
+    
+    <item>
       <title>Graph</title>
       <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/graph/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
@@ -141,6 +186,15 @@ http://numpy-discussion.10968.n7.nabble.com/einsum-td11810.html</description>
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/graph/</guid>
       <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;graph = tf.get_default_graph()graph.get_operations() []  a = tf.constant(2, name = &amp;#34;one&amp;#34;)operations = graph.get_operations() operations
 b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#39; shape=() dtype=int32&amp;gt;  operations [&amp;lt;tf.Operation &#39;one&#39; type=Const&amp;gt;]  c = tf.add(a, b, name = &amp;#34;three&amp;#34;)c &amp;lt;tf.Tensor &#39;three:0&#39; shape=() dtype=int32&amp;gt;  operations [&amp;lt;tf.Operation &#39;one&#39; type=Const&amp;gt;, &amp;lt;tf.Operation &#39;one_1&#39; type=Const&amp;gt;, &amp;lt;tf.Operation &#39;three&#39; type=Add&amp;gt;, &amp;lt;tf.Operation &#39;one_2&#39; type=Const&amp;gt;]  session = tf.</description>
+    </item>
+    
+    <item>
+      <title>HSplit Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/hsplit/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/hsplit/</guid>
+      <description>import numpy as npa = np.arange(10).reshape(2, 5)a array([[0, 1, 2, 3, 4], [5, 6, 7, 8, 9]])  a.shape (2, 5)  x = np.hsplit(a, 5)x [array([[0], [5]]), array([[1], [6]]), array([[2], [7]]), array([[3], [8]]), array([[4], [9]])]  type(x) list  </description>
     </item>
     
     <item>
@@ -204,6 +258,15 @@ b = tf.constant(2, name = &amp;#34;two&amp;#34;)b &amp;lt;tf.Tensor &#39;two:0&#
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/numpy-2-tensor/</guid>
       <description>import tensorflow as tf import numpy as np import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = np.zeros((3, 3)) ta = tf.convert_to_tensor(a) with tf.Session() as sess: print(sess.run(ta)) [[0. 0. 0.] [0. 0. 0.] [0. 0. 0.]]  </description>
+    </item>
+    
+    <item>
+      <title>One D Transpose</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/transpose_on_one_dimensional/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/transpose_on_one_dimensional/</guid>
+      <description>import numpy as npa = [3,6,9]b = np.array(a)b array([3, 6, 9])  b.shape (3,)  c = b.Tc array([3, 6, 9])  c.shape (3,)  # c didn&amp;#39;t get the different shape because of the one De = np.array([a])e array([[3, 6, 9]])  e.shape (1, 3)  f = e.Tf array([[3], [6], [9]])  e.ndim 2  more: https://stackoverflow.com/questions/5954603/transposing-a-numpy-array</description>
     </item>
     
     <item>
@@ -338,6 +401,33 @@ https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description
     
     <item>
       <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/audio_analysis/template/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/audio_analysis/template/</guid>
+      <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/geopy_simple/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/geopy_simple/</guid>
+      <description>from geopy.geocoders import Nominatimgeolocator = Nominatim(user_agent=&amp;#34;rajarcsp&amp;#34;)location = geolocator.geocode(&amp;#34;175 5th Avenue NYC&amp;#34;)location Location(Flatiron Building, 175, 5th Avenue, Flatiron District, Manhattan, Manhattan Community Board 5, New York County, NYC, New York, 10010, USA, (40.7410861, -73.9896298241625, 0.0))  type(location) geopy.location.Location  location = geolocator.geocode(&amp;#34;Toronto&amp;#34;)location Location(Toronto, Ontario, M6K 1X9, Canada, (43.653963, -79.387207, 0.0))  def get_lat_lang(city): location = geolocator.geocode(city) return location.latitude, location.longitudelat, long = get_lat_lang(&amp;#34;Toronto&amp;#34;)lat, long (43.653963, -79.387207)    File &amp;quot;&amp;lt;ipython-input-16-a60e00896a16&amp;gt;&amp;quot;, line 1 http://geopandas.</description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/template/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/template/</guid>
+      <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
+    </item>
+    
+    <item>
+      <title>Template</title>
       <link>https://rajacsp.github.io/mlnotes/python/image-analysis/template-copy1/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
@@ -391,12 +481,39 @@ https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description
     </item>
     
     <item>
+      <title>Transpose vs Flatten</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/transpose_vs_flatten/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/transpose_vs_flatten/</guid>
+      <description>import numpy as npa = np.array([5,4])[np.newaxis]a array([[5, 4]])  a.shape (1, 2)  b = a.Tb array([[5], [4]])  c = np.array([ [1, 2], [1, 4], [4, 5] ])c array([[1, 2], [1, 4], [4, 5]])  c.shape (3, 2)  d = c.Td array([[1, 1, 4], [2, 4, 5]])  e = c.flatten()e array([1, 2, 1, 4, 4, 5])  e.shape (6,)  e.ndim 1  c.ndim 2  </description>
+    </item>
+    
+    <item>
       <title>Updating Variable State</title>
       <link>https://rajacsp.github.io/mlnotes/python/tensorflow-work/updating_variable_state/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/tensorflow-work/updating_variable_state/</guid>
       <description>import tensorflow as tf import os # Just disables the warning, doesn&amp;#39;t enable AVX/FMA os.environ[&amp;#39;TF_CPP_MIN_LOG_LEVEL&amp;#39;] = &amp;#39;2&amp;#39;a = tf.Variable(0, name = &amp;#39;counter&amp;#39;) b = tf.add(a, tf.constant(2)) # update a with b value (which means a+1) update = tf.assign(a, b)with tf.Session() as sess: sess.run(tf.initialize_all_variables()) print(sess.run(a)) for _ in range(3): sess.run(update) print(sess.run(a)) 0 2 4 6  </description>
+    </item>
+    
+    <item>
+      <title>VSplit Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/vsplit/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/vsplit/</guid>
+      <description>import numpy as npa = np.arange(10).reshape(2, 5)a array([[0, 1, 2, 3, 4], [5, 6, 7, 8, 9]])  x, y = np.vsplit(x, 2)x array([[0, 1, 2, 3, 4]])  y array([[5, 6, 7, 8, 9]])  a.shape (2, 5)  x.shape (1, 5)  y.shape (1, 5)  </description>
+    </item>
+    
+    <item>
+      <title>VStack Simple</title>
+      <link>https://rajacsp.github.io/mlnotes/python/numpy/vstack_simple/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/numpy/vstack_simple/</guid>
+      <description>import numpy as npa = np.array([1, 2, 3])b = np.array([19, 22, 33])c = np.vstack((a, b))c array([[ 1, 2, 3], [19, 22, 33]])  # It will stack row wise (vertically)a.shape (3,)  c.shape (2, 3)  c.ndim 2  </description>
     </item>
     
     <item>
