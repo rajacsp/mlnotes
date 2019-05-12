@@ -93,6 +93,24 @@
     </item>
     
     <item>
+      <title>Chloropleth Maps</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/chloropleth_maps/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/chloropleth_maps/</guid>
+      <description>import geopandasworld = geopandas.read_file(geopandas.datasets.get_path(&amp;#34;naturalearth_lowres&amp;#34;))world.head()  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    pop_est continent name iso_a3 gdp_md_est geometry     0 920938 Oceania Fiji FJI 8374.0 (POLYGON ((180 -16.06713266364245, 180 -16.555...   1 53950935 Africa Tanzania TZA 150600.0 POLYGON ((33.90371119710453 -0.950000000000000...   2 603253 Africa W. Sahara ESH 906.</description>
+    </item>
+    
+    <item>
+      <title>City Location</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/city_location/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/city_location/</guid>
+      <description>from geopy.geocoders import Nominatim geoloc = Nominatim(user_agent=&amp;#34;rajarcsp&amp;#34;, format_string=&amp;#34;%s, Toronto ON&amp;#34;)address, (lat, long) = geoloc.geocode(&amp;#34;26, Spadina Road&amp;#34;)address &#39;Spadina Road, The Annex, University—Rosedale, Old Toronto, Toronto, Ontario, M5R 2X3, Canada&#39;  </description>
+    </item>
+    
+    <item>
       <title>Compare Methods</title>
       <link>https://rajacsp.github.io/mlnotes/python/numpy/compare_methods/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
@@ -152,21 +170,30 @@ http://numpy-discussion.10968.n7.nabble.com/einsum-td11810.html</description>
     </item>
     
     <item>
+      <title>Geo Distance</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/geo_distance/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/geo_distance/</guid>
+      <description>from geopy.geocoders import Nominatim geolocator = Nominatim(user_agent=&amp;#34;rajarcsp&amp;#34;) from geopy import distancel_spadina = geolocator.geocode(&amp;#34;28 Spadina Road&amp;#34;)l_spadina_latlong = l_spadina.latitude, l_spadina.longitudel_spadina_latlong (43.6966329769175, -79.7940236288173)  l_north_york = geolocator.geocode(&amp;#34;5000 Yonge Street&amp;#34;)l_north_york_latlong = l_north_york.latitude, l_north_york.longitudel_north_york_latlong (43.6490951, -79.3778661)  c_distance = distance.distance(l_spadina_latlong, l_north_york_latlong)c_distance Distance(33.974290494387375)  c_distance.km 33.974290494387375  # The above information is wrong. It can&amp;#39;t be 31 KM between 20 and 286 Spadina Road # Let&amp;#39;s do in another waygeolocator = Nominatim(user_agent=&amp;#34;rajarcsp&amp;#34;, format_string=&amp;#34;%s, Toronto ON&amp;#34;) from geopy import distancel_spadina = geolocator.</description>
+    </item>
+    
+    <item>
+      <title>Geo Distance Method</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/geo_distance_method/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/geo_distance_method/</guid>
+      <description>from geopy.geocoders import Nominatim geolocator = Nominatim(user_agent=&amp;#34;rajarcsp&amp;#34;) from geopy import distancedef get_distance(one, two): cone = geolocator.geocode(one) ctwo = geolocator.geocode(two) one_latlong = cone.latitude, ctwo.longitude two_latlong = ctwo.latitude, ctwo.longitude return distance.distance(one_latlong, two_latlong).kmc_distance = get_distance(&amp;#34;Montreal&amp;#34;, &amp;#34;Toronto&amp;#34;)c_distance 204.82868885995472  # Google distance is 540 kmget_distance(&amp;#34;Montreal&amp;#34;, &amp;#34;Waterloo&amp;#34;) 225.6149620026681  # Google distance is 638 kmdef get_circle_distance(one, two): cone = geolocator.geocode(one) ctwo = geolocator.geocode(two) one_latlong = cone.latitude, ctwo.longitude two_latlong = ctwo.latitude, ctwo.longitude return distance.great_circle(one_latlong, two_latlong).kmget_circle_distance(&amp;#34;Montreal&amp;#34;, &amp;#34;Waterloo&amp;#34;) 225.</description>
+    </item>
+    
+    <item>
       <title>Geo Pandas Canada</title>
       <link>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_canada/</link>
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_canada/</guid>
       <description>import pandas as pd import geopandas import matplotlib.pyplot as plt from geopy.geocoders import Nominatimgeolocator = Nominatim(user_agent=&amp;#34;rajarcsp&amp;#34;)def get_lat_lang(city): location = geolocator.geocode(city) return location.latitude, location.longitudeto_lat, to_long = get_lat_lang(&amp;#39;Toronto&amp;#39;) mt_lat, mt_long = get_lat_lang(&amp;#39;Montreal&amp;#39;) wl_lat, wl_long = get_lat_lang(&amp;#39;Waterloo&amp;#39;)df = pd.DataFrame( {&amp;#39;City&amp;#39;: [&amp;#39;Toronto&amp;#39;, &amp;#39;Montreal&amp;#39;, &amp;#39;Waterloo&amp;#39;, ], &amp;#39;Country&amp;#39;: [&amp;#39;Canada&amp;#39;, &amp;#39;Canada&amp;#39;, &amp;#39;Canada&amp;#39;], &amp;#39;Latitude&amp;#39;: [to_lat, mt_lat, wl_lat], &amp;#39;Longitude&amp;#39;: [to_long, mt_long, wl_long]})gdf = geopandas.GeoDataFrame( df, geometry=geopandas.points_from_xy(df.Longitude, df.Latitude))print(gdf.head())  City Country Latitude Longitude \ 0 Toronto Canada 43.653963 -79.387207 1 Montreal Canada 45.</description>
-    </item>
-    
-    <item>
-      <title>Geo Pandas Simple</title>
-      <link>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_simple-copy1/</link>
-      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/geopandas_simple-copy1/</guid>
-      <description>import pandas as pd import geopandas import matplotlib.pyplot as pltdf = pd.DataFrame( {&amp;#39;City&amp;#39;: [&amp;#39;Buenos Aires&amp;#39;, &amp;#39;Brasilia&amp;#39;, &amp;#39;Santiago&amp;#39;, &amp;#39;Bogota&amp;#39;, &amp;#39;Caracas&amp;#39;], &amp;#39;Country&amp;#39;: [&amp;#39;Argentina&amp;#39;, &amp;#39;Brazil&amp;#39;, &amp;#39;Chile&amp;#39;, &amp;#39;Colombia&amp;#39;, &amp;#39;Venezuela&amp;#39;], &amp;#39;Latitude&amp;#39;: [-34.58, -15.78, -33.45, 4.60, 10.48], &amp;#39;Longitude&amp;#39;: [-58.66, -47.91, -70.66, -74.08, -66.86]})gdf = geopandas.GeoDataFrame( df, geometry=geopandas.points_from_xy(df.Longitude, df.Latitude))print(gdf.head())  City Country Latitude Longitude geometry 0 Buenos Aires Argentina -34.58 -58.66 POINT (-58.66 -34.58) 1 Brasilia Brazil -15.78 -47.91 POINT (-47.91 -15.78) 2 Santiago Chile -33.45 -70.66 POINT (-70.</description>
     </item>
     
     <item>
@@ -423,7 +450,7 @@ https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description
       <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/geopandas/template/</guid>
-      <description>print(&amp;#39;Hello Toronto&amp;#39;) Hello Toronto  </description>
+      <description>from geopy.geocoders import Nominatim geolocator = Nominatim(user_agent=&amp;#34;rajarcsp&amp;#34;)</description>
     </item>
     
     <item>
@@ -526,6 +553,15 @@ https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description
     </item>
     
     <item>
+      <title>World Map</title>
+      <link>https://rajacsp.github.io/mlnotes/python/geopandas/world_map/</link>
+      <pubDate>Tue, 07 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/geopandas/world_map/</guid>
+      <description>import geopandasworld = geopandas.read_file(geopandas.datasets.get_path(&amp;#34;naturalearth_lowres&amp;#34;))world  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    pop_est continent name iso_a3 gdp_md_est geometry     0 920938 Oceania Fiji FJI 8374.0 (POLYGON ((180 -16.06713266364245, 180 -16.555...   1 53950935 Africa Tanzania TZA 150600.0 POLYGON ((33.90371119710453 -0.950000000000000...   2 603253 Africa W. Sahara ESH 906.</description>
+    </item>
+    
+    <item>
       <title>Basic Plot</title>
       <link>https://rajacsp.github.io/mlnotes/python/plot/basic-plot/</link>
       <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
@@ -599,6 +635,17 @@ https://medium.com/@aerinykim/numpy-sum-axis-intuition-6eb94926a5d1</description
       
       <guid>https://rajacsp.github.io/mlnotes/python/plot/histogram/</guid>
       <description>import numpy as np import matplotlib.pyplot as pltnp.random.seed(13) arr_data = np.random.normal(0,1, 100)yhist, binedges = np.histogram(arr_data)bincenters = np.mean(np.vstack([binedges[0:-1],binedges[1:]]), axis=0) plt.bar(bincenters, yhist) &amp;lt;BarContainer object of 10 artists&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>Keep Your Team Safe</title>
+      <link>https://rajacsp.github.io/mlnotes/articles/hbr/keep-your-team-safe/</link>
+      <pubDate>Mon, 06 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/articles/hbr/keep-your-team-safe/</guid>
+      <description>Best Lines   Culture is an incredibly powerful driver of human thought and behavior. It tells us what’s sacred and profane, right and wrong, good and bad. It provides guardrails that keep us in line and ensure we think, say, and do the right thing.
+ And today, our organizations are our tribes.
+ They are so important to us, and so powerful, that far too often the rules of our organizational culture overshadow the values and the norms of the other cultures we belong to — national, community, even family.</description>
     </item>
     
     <item>
