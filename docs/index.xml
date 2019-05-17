@@ -2136,6 +2136,15 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
     </item>
     
     <item>
+      <title>Gaussian</title>
+      <link>https://rajacsp.github.io/mlnotes/python/sklearn/gaussian_1/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/sklearn/gaussian_1/</guid>
+      <description>from sklearn.naive_bayes import GaussianNB import numpy as np#assigning predictor and target variables x= np.array([[-3,7],[1,5], [1,2], [-2,0], [2,3], [-4,0], [-1,1], [1,1], [-2,2], [2,7], [-4,1], [-2,7]]) y = np.array([3, 3, 3, 3, 4, 3, 3, 4, 3, 4, 4, 4]) #Create a Gaussian Classifier model = GaussianNB() # Train the model using the training sets  model.fit(x, y) #Predict Output  predicted= model.predict([[1,2],[3,4]]) print(predicted) [3 4]  </description>
+    </item>
+    
+    <item>
       <title>Gaussian Breast Cancer Prediction</title>
       <link>https://rajacsp.github.io/mlnotes/python/sklearn/gaussian-breast-cancer-prediction/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
@@ -2358,6 +2367,15 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
       
       <guid>https://rajacsp.github.io/mlnotes/python/numpy/log-sample/</guid>
       <description>import numpy as np import numpy import matplotlib.pyplot as plt in_array = [1, 3, 5] print (&amp;#34;Input array : &amp;#34;, in_array) Input array : [1, 3, 5]  out_array = np.log1p(in_array) print (&amp;#34;Output array : &amp;#34;, out_array) Output array : [0.69314718 1.38629436 1.79175947]  y = out_array plt.plot(in_array, y, color = &amp;#39;blue&amp;#39;, marker = &amp;#34;*&amp;#34;) [&amp;lt;matplotlib.lines.Line2D at 0x10fefbe80&amp;gt;]  # red for numpy.log1xp()  plt.plot(out_array, y, color = &amp;#39;red&amp;#39;, marker = &amp;#34;o&amp;#34;) plt.</description>
+    </item>
+    
+    <item>
+      <title>Logistic Regression Breast Cancer</title>
+      <link>https://rajacsp.github.io/mlnotes/python/sklearn/logistic_regression_breast_cancer/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/sklearn/logistic_regression_breast_cancer/</guid>
+      <description>import numpy as np import pandas as pd from sklearn.datasets import load_breast_cancer import statsmodels.api as sm import scipy.stats as st from statsmodels.tools import add_constant as add_constantdf = load_breast_cancer() df_cancer = pd.DataFrame(np.c_[df[&amp;#39;data&amp;#39;], df[&amp;#39;target&amp;#39;]], columns = np.append(df[&amp;#39;feature_names&amp;#39;], [&amp;#39;target&amp;#39;])) df_constant = add_constant(df_cancer) print(df_constant.head()) st.chisqprob = lambda chisq, df_cancer: st.chi2.sf(chisq, df_cancer) cols=df_constant.columns[:-1] model=sm.Logit(df_cancer[&amp;#39;target&amp;#39;],df_constant[cols]) result = model.fit(method=&amp;#39;bfgs&amp;#39;) print(result.summary())  const mean radius mean texture mean perimeter mean area \ 0 1.0 17.99 10.38 122.80 1001.0 1 1.</description>
     </item>
     
     <item>
@@ -2626,6 +2644,15 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
       
       <guid>https://rajacsp.github.io/mlnotes/python/basics/random-numbers/</guid>
       <description>import random as rddef get_random(): return rd.randint(0, 100)get_random() 61  def get_random_year_duration(): return round(rd.uniform(1,2), 1)get_random_year_duration() 1.6  def get_random_price(): return round(rd.uniform(1, 100), 2)get_random_price() 43.21  def get_random_double(): return (rd.uniform(1, 100))get_random_double() 45.42541472652959  </description>
+    </item>
+    
+    <item>
+      <title>Random Timestamp</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/random_timestamp/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/random_timestamp/</guid>
+      <description>from random import randrange import datetimedef random_date(start,l): current = start while l &amp;gt;= 0: curr = current + datetime.timedelta(minutes=randrange(60)) yield curr l-=1def get_random_timestamp(max): startDate = datetime.datetime(2013, 9, 20,13,00) for x in random_date(startDate,10): #print(x.strftime(&amp;#34;%d/%m/%y %H:%M&amp;#34;)) #print(x) timestamp = datetime.datetime.timestamp(x) print(int(timestamp))get_random_timestamp(20) 1379697780 1379697540 1379697960 1379697420 1379697420 1379699760 1379698680 1379697120 1379697660 1379696460 1379696820  </description>
     </item>
     
     <item>
@@ -3236,6 +3263,26 @@ np.int64 - Integer - (-9223372036854775808 to 9223372036854775807)</description>
       <guid>https://rajacsp.github.io/mlnotes/python/image-analysis/online_image_to_array/</guid>
       <description> title: &amp;ldquo;Online Image to Array&amp;rdquo; author: &amp;ldquo;Raja CSP Raman&amp;rdquo; date: 2019-05-07 description: &amp;ldquo;-&amp;rdquo; type: technical_note
 draft: false from PIL import Image import numpy as np import urllib.requestimage_path = &amp;#39;https://multimedia.bbycastatic.ca/multimedia/products/500x500/107/10736/10736343.jpg&amp;#39;with urllib.request.urlopen(image_path) as url: with open(&amp;#39;temp.jpg&amp;#39;, &amp;#39;wb&amp;#39;) as f: f.write(url.read()) img = Image.open(&amp;#39;temp.jpg&amp;#39;)img print(img) &amp;lt;PIL.JpegImagePlugin.JpegImageFile image mode=RGB size=500x500 at 0x113092358&amp;gt;  image_array = np.asarray(Image.open(&amp;#39;temp.jpg&amp;#39;))image_array.shape (500, 500, 3)  </description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://rajacsp.github.io/mlnotes/python/scipy/cumulatiave_distribution_function_1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/scipy/cumulatiave_distribution_function_1/</guid>
+      <description>title: &amp;ldquo;Cumulative Distribution Function&amp;rdquo; author: &amp;ldquo;Raja CSP Raman&amp;rdquo; date: 2019-05-06 description: &amp;ldquo;-&amp;rdquo; type: technical_note
+draft: false import numpy as np import matplotlib.pyplot as pltdata = np.loadtxt(&amp;#39;random_timestamp.txt&amp;#39;) print(data) # Choose how many bins you want here num_bins = 20 # Use the histogram function to bin the data counts, bin_edges = np.histogram(data, bins=num_bins, normed=True) # Now find the cdf cdf = np.cumsum(counts) # And finally plot the cdf plt.plot(bin_edges[1:], cdf) plt.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://rajacsp.github.io/mlnotes/python/scipy/cumulatiave_distribution_function_2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/scipy/cumulatiave_distribution_function_2/</guid>
+      <description> title: &amp;ldquo;Cumulative Distribution Function 2&amp;rdquo; author: &amp;ldquo;Raja CSP Raman&amp;rdquo; date: 2019-05-06 description: &amp;ldquo;-&amp;rdquo; type: technical_note
+draft: false import numpy as np import matplotlib.pyplot as pltdata = np.loadtxt(&amp;#39;random_timestamp.txt&amp;#39;) print(data) sorted_data = np.sort(data) yvals=np.arange(len(sorted_data))/float(len(sorted_data)-1) plt.plot(sorted_data,yvals) plt.show() [1.37969832e+09 1.37969826e+09 1.37969682e+09 1.37969814e+09 1.37969802e+09 1.37969856e+09 1.37969664e+09 1.37969676e+09 1.37969940e+09 1.37969976e+09 1.37969850e+09]  </description>
     </item>
     
     <item>
