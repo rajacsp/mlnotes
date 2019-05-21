@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Get Specific Contents" />
+<meta property="og:description" content="-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/regex/get-specific-contents/" />
+<meta property="article:published_time" content="2019-04-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-20T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Get Specific Contents"/>
+<meta name="twitter:description" content="-"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Get Specific Contents",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/regex\/get-specific-contents\/",
+  "wordCount": "199",
+  "datePublished": "2019-04-20T00:00:00\x2b00:00",
+  "dateModified": "2019-04-20T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Raja CSP Raman"
+  },
+  "description": "-"
+}
+</script> 
+
+    <title>Get Specific Contents</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Get Specific Contents</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-20T00:00:00Z "> 20 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">content</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;&lt;!DOCTYPE html&gt;
+</span><span class="s2">
+</span><span class="s2">  &lt;!-- The following setting enables collapsible lists --&gt;
+</span><span class="s2">  &lt;p&gt;
+</span><span class="s2">  &lt;a href=&#34;#human&#34;&gt;Human&lt;/a&gt;&lt;/p&gt;
+</span><span class="s2">
+</span><span class="s2">  &lt;p class=&#34;collapse-section&#34;&gt;
+</span><span class="s2">  &lt;a class=&#34;collapsed collapse-toggle&#34; data-toggle=&#34;collapse&#34; 
+</span><span class="s2">  href=#mammals&gt;Mammals&lt;/a&gt;
+</span><span class="s2">  &lt;div class=&#34;collapse&#34; id=&#34;mammals&#34;&gt;
+</span><span class="s2">  &lt;ul&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#alpaca&#34;&gt;Alpaca&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#armadillo&#34;&gt;Armadillo&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#sequence_only&#34;&gt;Armadillo&lt;/a&gt; (sequence only)
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#baboon&#34;&gt;Baboon&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#bison&#34;&gt;Bison&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#bonobo&#34;&gt;Bonobo&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#brown_kiwi&#34;&gt;Brown kiwi&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#bushbaby&#34;&gt;Bushbaby&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#sequence_only&#34;&gt;Bushbaby&lt;/a&gt; (sequence only)
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#cat&#34;&gt;Cat&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#chimp&#34;&gt;Chimpanzee&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#chinese_hamster&#34;&gt;Chinese hamster&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#chinese_pangolin&#34;&gt;Chinese pangolin&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#cow&#34;&gt;Cow&lt;/a&gt;
+</span><span class="s2">  &lt;li&gt;&lt;a href=&#34;#crab-eating_macaque&#34;&gt;Crab-eating_macaque&lt;/a&gt;
+</span><span class="s2">  &lt;div class=&#34;gbFooterCopyright&#34;&gt;
+</span><span class="s2">  &amp;copy; 2017 The Regents of the University of California. All 
+</span><span class="s2">  Rights Reserved.
+</span><span class="s2">  &lt;br&gt;
+</span><span class="s2">  &lt;a href=&#34;https://genome.ucsc.edu/conditions.html&#34;&gt;Conditions of 
+</span><span class="s2">  Use&lt;/a&gt;
+</span><span class="s2">  &lt;/div&gt;&#34;&#34;&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">content</span></code></pre></div>
+<pre><code>'&lt;!DOCTYPE html&gt;\n\n  &lt;!-- The following setting enables collapsible lists --&gt;\n  &lt;p&gt;\n  &lt;a href=&quot;#human&quot;&gt;Human&lt;/a&gt;&lt;/p&gt;\n\n  &lt;p class=&quot;collapse-section&quot;&gt;\n  &lt;a class=&quot;collapsed collapse-toggle&quot; data-toggle=&quot;collapse&quot; \n  href=#mammals&gt;Mammals&lt;/a&gt;\n  &lt;div class=&quot;collapse&quot; id=&quot;mammals&quot;&gt;\n  &lt;ul&gt;\n  &lt;li&gt;&lt;a href=&quot;#alpaca&quot;&gt;Alpaca&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#armadillo&quot;&gt;Armadillo&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#sequence_only&quot;&gt;Armadillo&lt;/a&gt; (sequence only)\n  &lt;li&gt;&lt;a href=&quot;#baboon&quot;&gt;Baboon&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#bison&quot;&gt;Bison&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#bonobo&quot;&gt;Bonobo&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#brown_kiwi&quot;&gt;Brown kiwi&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#bushbaby&quot;&gt;Bushbaby&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#sequence_only&quot;&gt;Bushbaby&lt;/a&gt; (sequence only)\n  &lt;li&gt;&lt;a href=&quot;#cat&quot;&gt;Cat&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#chimp&quot;&gt;Chimpanzee&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#chinese_hamster&quot;&gt;Chinese hamster&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#chinese_pangolin&quot;&gt;Chinese pangolin&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#cow&quot;&gt;Cow&lt;/a&gt;\n  &lt;li&gt;&lt;a href=&quot;#crab-eating_macaque&quot;&gt;Crab-eating_macaque&lt;/a&gt;\n  &lt;div class=&quot;gbFooterCopyright&quot;&gt;\n  &amp;copy; 2017 The Regents of the University of California. All \n  Rights Reserved.\n  &lt;br&gt;\n  &lt;a href=&quot;https://genome.ucsc.edu/conditions.html&quot;&gt;Conditions of \n  Use&lt;/a&gt;\n  &lt;/div&gt;'
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="n">regex</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&#34;&lt;li.+?#[^s].+?&gt;(.+)?&lt;\/.+&gt;&#34;</span>
+
+<span class="n">find_matches</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">regex</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">matches</span> <span class="ow">in</span> <span class="n">find_matches</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span></code></pre></div>
+<pre><code>Alpaca
+Armadillo
+Baboon
+Bison
+Bonobo
+Brown kiwi
+Bushbaby
+Cat
+Chimpanzee
+Chinese hamster
+Chinese pangolin
+Cow
+Crab-eating_macaque
+</code></pre>
+
+<p>Source:</p>
+
+<pre><code>https://stackoverflow.com/questions/56223492/regex-for-extracting-specific-textcontent-in-html-tags
+</code></pre>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 417 pages and is available on <a href="https://github.com/rajacsp/mlnotes">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
