@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Min Max Avg as new Columns" />
+<meta property="og:description" content="-" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/data-wrangling/min-max-avg-as-new-columns/" />
+<meta property="article:published_time" content="2019-04-22T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-22T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Min Max Avg as new Columns"/>
+<meta name="twitter:description" content="-"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Min Max Avg as new Columns",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/data-wrangling\/min-max-avg-as-new-columns\/",
+  "wordCount": "286",
+  "datePublished": "2019-04-22T00:00:00\x2b00:00",
+  "dateModified": "2019-04-22T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Rj"
+  },
+  "description": "-"
+}
+</script> 
+
+    <title>Min Max Avg as new Columns</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Min Max Avg as new Columns</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-22T00:00:00Z "> 22 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;abc.csv&#39;</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>student</th>
+      <th>language</th>
+      <th>science</th>
+      <th>maths</th>
+      <th>history</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>kumar</td>
+      <td>90</td>
+      <td>56</td>
+      <td>34</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>kevin</td>
+      <td>10</td>
+      <td>34</td>
+      <td>32</td>
+      <td>67</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>sammy</td>
+      <td>90</td>
+      <td>23</td>
+      <td>12</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>janice</td>
+      <td>20</td>
+      <td>67</td>
+      <td>90</td>
+      <td>45</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>peter</td>
+      <td>30</td>
+      <td>56</td>
+      <td>45</td>
+      <td>65</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>prem</td>
+      <td>90</td>
+      <td>45</td>
+      <td>45</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>carrol</td>
+      <td>50</td>
+      <td>90</td>
+      <td>45</td>
+      <td>23</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;min&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="nb">min</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;max&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="nb">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;avg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>student</th>
+      <th>language</th>
+      <th>science</th>
+      <th>maths</th>
+      <th>history</th>
+      <th>min</th>
+      <th>max</th>
+      <th>avg</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>kumar</td>
+      <td>90</td>
+      <td>56</td>
+      <td>34</td>
+      <td>34</td>
+      <td>34</td>
+      <td>90</td>
+      <td>56.333333</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>kevin</td>
+      <td>10</td>
+      <td>34</td>
+      <td>32</td>
+      <td>67</td>
+      <td>10</td>
+      <td>67</td>
+      <td>36.666667</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>sammy</td>
+      <td>90</td>
+      <td>23</td>
+      <td>12</td>
+      <td>32</td>
+      <td>12</td>
+      <td>90</td>
+      <td>43.166667</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>janice</td>
+      <td>20</td>
+      <td>67</td>
+      <td>90</td>
+      <td>45</td>
+      <td>20</td>
+      <td>90</td>
+      <td>55.333333</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>peter</td>
+      <td>30</td>
+      <td>56</td>
+      <td>45</td>
+      <td>65</td>
+      <td>30</td>
+      <td>65</td>
+      <td>48.500000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>prem</td>
+      <td>90</td>
+      <td>45</td>
+      <td>45</td>
+      <td>34</td>
+      <td>34</td>
+      <td>90</td>
+      <td>56.333333</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>carrol</td>
+      <td>50</td>
+      <td>90</td>
+      <td>45</td>
+      <td>23</td>
+      <td>23</td>
+      <td>90</td>
+      <td>53.500000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="p">[</span><span class="s1">&#39;avg_int&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>student</th>
+      <th>language</th>
+      <th>science</th>
+      <th>maths</th>
+      <th>history</th>
+      <th>min</th>
+      <th>max</th>
+      <th>avg</th>
+      <th>avg_int</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>kumar</td>
+      <td>90</td>
+      <td>56</td>
+      <td>34</td>
+      <td>34</td>
+      <td>34</td>
+      <td>90</td>
+      <td>56.333333</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>kevin</td>
+      <td>10</td>
+      <td>34</td>
+      <td>32</td>
+      <td>67</td>
+      <td>10</td>
+      <td>67</td>
+      <td>36.666667</td>
+      <td>36</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>sammy</td>
+      <td>90</td>
+      <td>23</td>
+      <td>12</td>
+      <td>32</td>
+      <td>12</td>
+      <td>90</td>
+      <td>43.166667</td>
+      <td>43</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>janice</td>
+      <td>20</td>
+      <td>67</td>
+      <td>90</td>
+      <td>45</td>
+      <td>20</td>
+      <td>90</td>
+      <td>55.333333</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>peter</td>
+      <td>30</td>
+      <td>56</td>
+      <td>45</td>
+      <td>65</td>
+      <td>30</td>
+      <td>65</td>
+      <td>48.500000</td>
+      <td>48</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>prem</td>
+      <td>90</td>
+      <td>45</td>
+      <td>45</td>
+      <td>34</td>
+      <td>34</td>
+      <td>90</td>
+      <td>56.333333</td>
+      <td>56</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>carrol</td>
+      <td>50</td>
+      <td>90</td>
+      <td>45</td>
+      <td>23</td>
+      <td>23</td>
+      <td>90</td>
+      <td>53.500000</td>
+      <td>53</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 434 pages and is available on <a href="https://github.com/rajacsp/mlnotes">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
