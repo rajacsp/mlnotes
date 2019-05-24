@@ -1135,12 +1135,30 @@ np.argmax(a) 5  </description>
     </item>
     
     <item>
+      <title>Check Data Types</title>
+      <link>https://rajacsp.github.io/mlnotes/python/data-wrangling/check_datatypes/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/data-wrangling/check_datatypes/</guid>
+      <description>import numpy as np import pandas as pddf = pd.read_csv(&amp;#34;/Users/rajacsp/datasets/sales_data_types.csv&amp;#34;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    Customer Number Customer Name 2016 2017 Percent Growth Jan Units Month Day Year Active     0 10002.0 Quest Industries $125,000.00 $162500.00 30.00% 500 1 10 2015 Y   1 552278.</description>
+    </item>
+    
+    <item>
       <title>DataFrame With Random Data</title>
       <link>https://rajacsp.github.io/mlnotes/python/data-wrangling/dataframe-with-radom-data/</link>
       <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/data-wrangling/dataframe-with-radom-data/</guid>
       <description>import numpy as np import pandas as pd import randomdef xrange(x): return iter(range(x))rnd_1 = [random.randrange(1, 20) for x in xrange(10)]rnd_1 [16, 3, 18, 19, 1, 13, 17, 3, 4, 3]  rnd_2 = [random.randrange(1, 20) for x in xrange(10)]rnd_2 [12, 9, 14, 5, 16, 14, 11, 11, 12, 10]  date = pd.date_range(&amp;#39;2018-01-01&amp;#39;, &amp;#39;2018-01-10&amp;#39;)data = pd.DataFrame({ &amp;#39;date&amp;#39; : date, &amp;#39;rnd_1&amp;#39; : rnd_1, &amp;#39;rnd_2&amp;#39; : rnd_2 })data  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .</description>
+    </item>
+    
+    <item>
+      <title>Datatype Downcasting</title>
+      <link>https://rajacsp.github.io/mlnotes/python/data-wrangling/dataype_downcasting/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/data-wrangling/dataype_downcasting/</guid>
+      <description>import numpy as np import pandas as pdds = pd.Series([1, np.nan, 3, 4, 5])ds 0 1.0 1 NaN 2 3.0 3 4.0 4 5.0 dtype: float64  # ds = ds.astype(&amp;#39;int&amp;#39;) # will throw ValueError: Cannot convert non-finite values (NA or inf) to integerds = ds.astype(&amp;#39;float&amp;#39;)ds 0 1.0 1 NaN 2 3.0 3 4.0 4 5.0 dtype: float64  ds = pd.to_numeric(ds, downcast=&amp;#39;float&amp;#39;)ds 0 1.0 1 NaN 2 3.0 3 4.</description>
     </item>
     
     <item>
@@ -1171,12 +1189,57 @@ np.argmax(a) 5  </description>
     </item>
     
     <item>
+      <title>Infer Objects</title>
+      <link>https://rajacsp.github.io/mlnotes/python/data-wrangling/infer_objects/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/data-wrangling/infer_objects/</guid>
+      <description>import numpy as np import pandas as pddf = pd.DataFrame({&amp;#39;a&amp;#39;: [7, 1, 5], &amp;#39;b&amp;#39;: [&amp;#39;3&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;1&amp;#39;]}, dtype=&amp;#39;object&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    a b     0 7 3   1 1 2   2 5 1     df.dtypes a object b object dtype: object  df = df.</description>
+    </item>
+    
+    <item>
+      <title>Initalize With DataType</title>
+      <link>https://rajacsp.github.io/mlnotes/python/data-wrangling/initialize_with_datatype/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/data-wrangling/initialize_with_datatype/</guid>
+      <description>import numpy as np import pandas as pddf = pd.DataFrame({&amp;#39;a&amp;#39;: [7, 1, 5], &amp;#39;b&amp;#39;: [&amp;#39;3&amp;#39;,&amp;#39;2&amp;#39;,&amp;#39;1&amp;#39;]}, dtype=&amp;#39;object&amp;#39;)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    a b     0 7 3   1 1 2   2 5 1     df.dtypes a object b object dtype: object  # Let&amp;#39;s set the datatype as integer df1 = pd.</description>
+    </item>
+    
+    <item>
+      <title>Int and NaN</title>
+      <link>https://rajacsp.github.io/mlnotes/python/data-wrangling/int_and_nan/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/data-wrangling/int_and_nan/</guid>
+      <description>import numpy as np import pandas as pddf = pd.DataFrame({ &amp;#39;one&amp;#39;: [4, 5], &amp;#39;two&amp;#39;: [10, 20] })df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    one two     0 4 10   1 5 20     df[&amp;#39;one&amp;#39;]+2 0 6 1 7 Name: one, dtype: int64  df[&amp;#39;one&amp;#39;][0] 4  df[&amp;#39;one&amp;#39;][0] = np.</description>
+    </item>
+    
+    <item>
+      <title>Pandas Version</title>
+      <link>https://rajacsp.github.io/mlnotes/python/data-wrangling/pandas_version/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/data-wrangling/pandas_version/</guid>
+      <description>import pandas as pdpd.__version__ &#39;0.24.2&#39;  pd.show_versions(as_json=False) INSTALLED VERSIONS ------------------ commit: None python: 3.6.8.final.0 python-bits: 64 OS: Darwin OS-release: 18.5.0 machine: x86_64 processor: i386 byteorder: little LC_ALL: None LANG: en_CA.UTF-8 LOCALE: en_CA.UTF-8 pandas: 0.24.2 pytest: 4.5.0 pip: 19.0.3 setuptools: 40.8.0 Cython: None numpy: 1.16.3 scipy: 1.2.1 pyarrow: None xarray: 0.12.1 IPython: 6.2.1 sphinx: None patsy: 0.5.1 dateutil: 2.8.0 pytz: 2019.1 blosc: None bottleneck: None tables: None numexpr: None feather: None matplotlib: 3.</description>
+    </item>
+    
+    <item>
       <title>Partial Regression Plot</title>
       <link>https://rajacsp.github.io/mlnotes/python/statsmodel/partial-regression-plot/</link>
       <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/statsmodel/partial-regression-plot/</guid>
       <description>import statsmodels.api as sm import pandas as pd from patsy import dmatricesdf = sm.datasets.get_rdataset(&amp;#34;Guerry&amp;#34;, &amp;#34;HistData&amp;#34;).datadf.head()  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    dept Region Department Crime_pers Crime_prop Literacy Donations Infants Suicides MainCity ... Crime_parents Infanticide Donation_clergy Lottery Desertion Instruction Prostitutes Distance Area Pop1831     0 1 E Ain 28870 15890 37 5098 33120 35039 2:Med .</description>
+    </item>
+    
+    <item>
+      <title>Template</title>
+      <link>https://rajacsp.github.io/mlnotes/python/data-wrangling/template-copy1/</link>
+      <pubDate>Wed, 24 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/data-wrangling/template-copy1/</guid>
+      <description>import numpy as np import pandas as pdmarks = [ [90, 87], [90, 95], [92, 95] ]marks [[90, 87], [90, 95], [92, 95]]  df = pd.DataFrame(marks, columns=[&amp;#39;maths&amp;#39;, &amp;#39;science&amp;#39;])df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    maths science     0 90 87   1 90 95   2 92 95     # reassign some values to nan df[&amp;#39;maths&amp;#39;] 0 90 1 90 2 92 Name: maths, dtype: int64  df[&amp;#39;maths&amp;#39;][0] = np.</description>
     </item>
     
     <item>
@@ -3129,6 +3192,24 @@ It is a common mistake in Python to set a mutable object as the default value of
       
       <guid>https://rajacsp.github.io/mlnotes/python/basics/prettify-xml/</guid>
       <description>import xmltodict import pprint import json import xml.dom.minidomdom = xml.dom.minidom.parse(&amp;#39;sample.xml&amp;#39;) # or xml.dom.minidom.parseString(xml_string) pretty_xml_as_string = dom.toprettyxml()pretty_xml_as_string &#39;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; ?&amp;gt;\n&amp;lt;note&amp;gt;\n\t\n \n\t&amp;lt;to&amp;gt;Tove&amp;lt;/to&amp;gt;\n\t\n \n\t&amp;lt;from&amp;gt;Jani&amp;lt;/from&amp;gt;\n\t\n \n\t&amp;lt;heading&amp;gt;Reminder&amp;lt;/heading&amp;gt;\n\t\n \n\t&amp;lt;body&amp;gt;Don\&#39;t forget me this weekend!&amp;lt;/body&amp;gt;\n\t\n \n&amp;lt;/note&amp;gt;\n&#39;  dom &amp;lt;xml.dom.minidom.Document at 0x105ef7588&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>Pretty Print Json</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/pretty_print_json/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/pretty_print_json/</guid>
+      <description>import json import pprintcontent = &amp;#34;&amp;#34;&amp;#34;{&amp;#34;system&amp;#34;: {&amp;#34;commit&amp;#34;: None, &amp;#34;python&amp;#34;: &amp;#34;3.6.8.final.0&amp;#34;, &amp;#34;python-bits&amp;#34;: 64, &amp;#34;OS&amp;#34;: &amp;#34;Darwin&amp;#34;, &amp;#34;OS-release&amp;#34;: &amp;#34;18.5.0&amp;#34;, &amp;#34;machine&amp;#34;: &amp;#34;x86_64&amp;#34;, &amp;#34;processor&amp;#34;: &amp;#34;i386&amp;#34;, &amp;#34;byteorder&amp;#34;: &amp;#34;little&amp;#34;, &amp;#34;LC_ALL&amp;#34;: &amp;#34;None&amp;#34;, &amp;#34;LANG&amp;#34;: &amp;#34;en_CA.UTF-8&amp;#34;, &amp;#34;LOCALE&amp;#34;: &amp;#34;en_CA.UTF-8&amp;#34;}, &amp;#34;dependencies&amp;#34;: {&amp;#34;pandas&amp;#34;: &amp;#34;0.24.2&amp;#34;, &amp;#34;pytest&amp;#34;: &amp;#34;4.5.0&amp;#34;, &amp;#34;pip&amp;#34;: &amp;#34;19.0.3&amp;#34;, &amp;#34;setuptools&amp;#34;: &amp;#34;40.8.0&amp;#34;, &amp;#34;Cython&amp;#34;: None, &amp;#34;numpy&amp;#34;: &amp;#34;1.16.3&amp;#34;, &amp;#34;scipy&amp;#34;: &amp;#34;1.2.1&amp;#34;, &amp;#34;pyarrow&amp;#34;: None, &amp;#34;xarray&amp;#34;: &amp;#34;0.12.1&amp;#34;, &amp;#34;IPython&amp;#34;: &amp;#34;6.2.1&amp;#34;, &amp;#34;sphinx&amp;#34;: None, &amp;#34;patsy&amp;#34;: &amp;#34;0.5.1&amp;#34;, &amp;#34;dateutil&amp;#34;: &amp;#34;2.8.0&amp;#34;, &amp;#34;pytz&amp;#34;: &amp;#34;2019.1&amp;#34;, &amp;#34;blosc&amp;#34;: None, &amp;#34;bottleneck&amp;#34;: None, &amp;#34;tables&amp;#34;: None, &amp;#34;numexpr&amp;#34;: None, &amp;#34;feather&amp;#34;: None, &amp;#34;matplotlib&amp;#34;: &amp;#34;3.0.3&amp;#34;, &amp;#34;openpyxl&amp;#34;: None, &amp;#34;xlrd&amp;#34;: None, &amp;#34;xlwt&amp;#34;: None, &amp;#34;xlsxwriter&amp;#34;: None, &amp;#34;lxml.</description>
+    </item>
+    
+    <item>
+      <title>Pretty Print Online JSON</title>
+      <link>https://rajacsp.github.io/mlnotes/python/basics/pretty_print_online_json/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/basics/pretty_print_online_json/</guid>
+      <description>import pprint import json from urllib.request import urlopenr = urlopen(&amp;#34;https://mdn.github.io/fetch-examples/fetch-json/products.json&amp;#34;) text = r.read() pprint.pprint(json.loads(text)) {&#39;products&#39;: [{&#39;Location&#39;: &#39;Refrigerated foods&#39;, &#39;Name&#39;: &#39;Cheese&#39;, &#39;Price&#39;: 2.5}, {&#39;Location&#39;: &#39;the Snack isle&#39;, &#39;Name&#39;: &#39;Crisps&#39;, &#39;Price&#39;: 3}, {&#39;Location&#39;: &#39;Refrigerated foods&#39;, &#39;Name&#39;: &#39;Pizza&#39;, &#39;Price&#39;: 4}, {&#39;Location&#39;: &#39;the Snack isle&#39;, &#39;Name&#39;: &#39;Chocolate&#39;, &#39;Price&#39;: 1.5}, {&#39;Location&#39;: &#39;Home baking&#39;, &#39;Name&#39;: &#39;Self-raising flour&#39;, &#39;Price&#39;: 1.5}, {&#39;Location&#39;: &#39;Home baking&#39;, &#39;Name&#39;: &#39;Ground almonds&#39;, &#39;Price&#39;: 3}]}  </description>
     </item>
     
     <item>

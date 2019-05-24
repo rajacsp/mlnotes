@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Pretty Print Json" />
+<meta property="og:description" content="List Test" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/basics/pretty_print_json/" />
+<meta property="article:published_time" content="2019-04-20T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-04-20T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Pretty Print Json"/>
+<meta name="twitter:description" content="List Test"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Pretty Print Json",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/basics\/pretty_print_json\/",
+  "wordCount": "349",
+  "datePublished": "2019-04-20T00:00:00\x2b00:00",
+  "dateModified": "2019-04-20T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Rj"
+  },
+  "description": "List Test"
+}
+</script> 
+
+    <title>Pretty Print Json</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Pretty Print Json</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-04-20T00:00:00Z "> 20 Apr 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pprint</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">content</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;{&#34;system&#34;: {&#34;commit&#34;: None, &#34;python&#34;: &#34;3.6.8.final.0&#34;, &#34;python-bits&#34;: 64, &#34;OS&#34;: &#34;Darwin&#34;, &#34;OS-release&#34;: &#34;18.5.0&#34;, &#34;machine&#34;: &#34;x86_64&#34;, &#34;processor&#34;: &#34;i386&#34;, &#34;byteorder&#34;: &#34;little&#34;, &#34;LC_ALL&#34;: &#34;None&#34;, &#34;LANG&#34;: &#34;en_CA.UTF-8&#34;, &#34;LOCALE&#34;: &#34;en_CA.UTF-8&#34;}, &#34;dependencies&#34;: {&#34;pandas&#34;: &#34;0.24.2&#34;, &#34;pytest&#34;: &#34;4.5.0&#34;, &#34;pip&#34;: &#34;19.0.3&#34;, &#34;setuptools&#34;: &#34;40.8.0&#34;, &#34;Cython&#34;: None, &#34;numpy&#34;: &#34;1.16.3&#34;, &#34;scipy&#34;: &#34;1.2.1&#34;, &#34;pyarrow&#34;: None, &#34;xarray&#34;: &#34;0.12.1&#34;, &#34;IPython&#34;: &#34;6.2.1&#34;, &#34;sphinx&#34;: None, &#34;patsy&#34;: &#34;0.5.1&#34;, &#34;dateutil&#34;: &#34;2.8.0&#34;, &#34;pytz&#34;: &#34;2019.1&#34;, &#34;blosc&#34;: None, &#34;bottleneck&#34;: None, &#34;tables&#34;: None, &#34;numexpr&#34;: None, &#34;feather&#34;: None, &#34;matplotlib&#34;: &#34;3.0.3&#34;, &#34;openpyxl&#34;: None, &#34;xlrd&#34;: None, &#34;xlwt&#34;: None, &#34;xlsxwriter&#34;: None, &#34;lxml.etree&#34;: &#34;4.3.3&#34;, &#34;bs4&#34;: &#34;4.7.1&#34;, &#34;html5lib&#34;: &#34;1.0b10&#34;, &#34;sqlalchemy&#34;: &#34;1.3.3&#34;, &#34;pymysql&#34;: None, &#34;psycopg2&#34;: &#34;2.8.2 (dt dec pq3 ext lo64)&#34;, &#34;jinja2&#34;: &#34;2.10.1&#34;, &#34;s3fs&#34;: None, &#34;fastparquet&#34;: None, &#34;pandas_gbq&#34;: None, &#34;pandas_datareader&#34;: &#34;0.7.0&#34;, &#34;gcsfs&#34;: None}}&#34;&#34;&#34;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">content</span></code></pre></div>
+<pre><code>'{&quot;system&quot;: {&quot;commit&quot;: None, &quot;python&quot;: &quot;3.6.8.final.0&quot;, &quot;python-bits&quot;: 64, &quot;OS&quot;: &quot;Darwin&quot;, &quot;OS-release&quot;: &quot;18.5.0&quot;, &quot;machine&quot;: &quot;x86_64&quot;, &quot;processor&quot;: &quot;i386&quot;, &quot;byteorder&quot;: &quot;little&quot;, &quot;LC_ALL&quot;: &quot;None&quot;, &quot;LANG&quot;: &quot;en_CA.UTF-8&quot;, &quot;LOCALE&quot;: &quot;en_CA.UTF-8&quot;}, &quot;dependencies&quot;: {&quot;pandas&quot;: &quot;0.24.2&quot;, &quot;pytest&quot;: &quot;4.5.0&quot;, &quot;pip&quot;: &quot;19.0.3&quot;, &quot;setuptools&quot;: &quot;40.8.0&quot;, &quot;Cython&quot;: None, &quot;numpy&quot;: &quot;1.16.3&quot;, &quot;scipy&quot;: &quot;1.2.1&quot;, &quot;pyarrow&quot;: None, &quot;xarray&quot;: &quot;0.12.1&quot;, &quot;IPython&quot;: &quot;6.2.1&quot;, &quot;sphinx&quot;: None, &quot;patsy&quot;: &quot;0.5.1&quot;, &quot;dateutil&quot;: &quot;2.8.0&quot;, &quot;pytz&quot;: &quot;2019.1&quot;, &quot;blosc&quot;: None, &quot;bottleneck&quot;: None, &quot;tables&quot;: None, &quot;numexpr&quot;: None, &quot;feather&quot;: None, &quot;matplotlib&quot;: &quot;3.0.3&quot;, &quot;openpyxl&quot;: None, &quot;xlrd&quot;: None, &quot;xlwt&quot;: None, &quot;xlsxwriter&quot;: None, &quot;lxml.etree&quot;: &quot;4.3.3&quot;, &quot;bs4&quot;: &quot;4.7.1&quot;, &quot;html5lib&quot;: &quot;1.0b10&quot;, &quot;sqlalchemy&quot;: &quot;1.3.3&quot;, &quot;pymysql&quot;: None, &quot;psycopg2&quot;: &quot;2.8.2 (dt dec pq3 ext lo64)&quot;, &quot;jinja2&quot;: &quot;2.10.1&quot;, &quot;s3fs&quot;: None, &quot;fastparquet&quot;: None, &quot;pandas_gbq&quot;: None, &quot;pandas_datareader&quot;: &quot;0.7.0&quot;, &quot;gcsfs&quot;: None}}'
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">content</span><span class="p">)</span></code></pre></div>
+<pre><code>---------------------------------------------------------------------------
+
+JSONDecodeError                           Traceback (most recent call last)
+
+&lt;ipython-input-10-c81e5ee0b888&gt; in &lt;module&gt;()
+----&gt; 1 json_data = json.loads(content)
+
+
+~/anaconda3/envs/py36/lib/python3.6/json/__init__.py in loads(s, encoding, cls, object_hook, parse_float, parse_int, parse_constant, object_pairs_hook, **kw)
+    352             parse_int is None and parse_float is None and
+    353             parse_constant is None and object_pairs_hook is None and not kw):
+--&gt; 354         return _default_decoder.decode(s)
+    355     if cls is None:
+    356         cls = JSONDecoder
+
+
+~/anaconda3/envs/py36/lib/python3.6/json/decoder.py in decode(self, s, _w)
+    337 
+    338         &quot;&quot;&quot;
+--&gt; 339         obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+    340         end = _w(s, end).end()
+    341         if end != len(s):
+
+
+~/anaconda3/envs/py36/lib/python3.6/json/decoder.py in raw_decode(self, s, idx)
+    355             obj, end = self.scan_once(s, idx)
+    356         except StopIteration as err:
+--&gt; 357             raise JSONDecodeError(&quot;Expecting value&quot;, s, err.value) from None
+    358         return obj, end
+
+
+JSONDecodeError: Expecting value: line 1 column 23 (char 22)
+</code></pre>
+
+<p>(Jeez, I did something wrong here. Let me revisit this page and fix it for you)</p>
+
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 453 pages and is available on <a href="https://github.com/rajacsp/mlnotes">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
