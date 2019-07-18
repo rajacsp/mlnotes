@@ -16,6 +16,17 @@ import sys
 from glob import glob
 import shutil
 
+
+def get_folders():
+    # Handle The Folders
+    # Get all folders in directory
+    folders = [x[0] for x in os.walk(path)]
+
+    # Delete .ipynb checkpoint folders
+    folders = [ x for x in folders if ".ipynb_checkpoints" not in x ]
+
+    return folders
+
 def main():
     print('test1')
 
@@ -36,18 +47,20 @@ def main():
         print(ipf)
     '''
 
+    for file in ipynb_files:
+        print(file)
+
+    # Testing return (must be removed in PROD)
+    return
+
     # Convert All Jupyter Notebooks To Markdown
     # For each file
     for file in ipynb_files:
         # Convert into markdown
         os.system('jupyter nbconvert --to markdown {file}'.format(file=file))
 
-    # Handle The Folders
-    # Get all folders in directory
-    folders = [x[0] for x in os.walk(path)]
-
-    # Delete .ipynb checkpoint folders
-    folders = [ x for x in folders if ".ipynb_checkpoints" not in x ]
+    # Get the folder
+    folders = get_folders()
 
     # For each folder
     for folder_name in folders:
