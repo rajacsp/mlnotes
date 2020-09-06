@@ -12,12 +12,40 @@
     
     
     <item>
+      <title>Bar Plot with Table</title>
+      <link>https://rajacsp.github.io/mlnotes/python/plot/bar-plot-with-table/</link>
+      <pubDate>Sat, 05 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/plot/bar-plot-with-table/</guid>
+      <description># https://matplotlib.org/3.3.1/gallery/misc/table_demo.htmlimport numpy as np import matplotlib.pyplot as plt data = [[ 66386, 174296, 75131, 577908, 32015], [ 58230, 381139, 78045, 99308, 160454], [ 89135, 80552, 152558, 497981, 603535], [ 78415, 81858, 150656, 193263, 69638], [139361, 331509, 343164, 781380, 52269]] columns = (&amp;#39;Freeze&amp;#39;, &amp;#39;Wind&amp;#39;, &amp;#39;Flood&amp;#39;, &amp;#39;Quake&amp;#39;, &amp;#39;Hail&amp;#39;) rows = [&amp;#39;%dyear&amp;#39; % x for x in (100, 50, 20, 10, 5)] values = np.arange(0, 2500, 500) value_increment = 1000 # Get some pastel shades for the colors colors = plt.</description>
+    </item>
+    
+    <item>
+      <title>Count Plot (Buggy)</title>
+      <link>https://rajacsp.github.io/mlnotes/python/plot/count-plot/</link>
+      <pubDate>Sat, 05 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/plot/count-plot/</guid>
+      <description># https://www.machinelearningplus.com/plots/top-50-matplotlib-visualizations-the-master-plots-python/import matplotlib.pyplot as plt import numpy as np import pandas as pd import seaborn as sns import warnings; warnings.filterwarnings(action=&amp;#39;once&amp;#39;) # Import Data df = pd.read_csv(&amp;#34;https://raw.githubusercontent.com/selva86/datasets/master/mpg_ggplot2.csv&amp;#34;) df_counts = df.groupby([&amp;#39;hwy&amp;#39;, &amp;#39;cty&amp;#39;]).size().reset_index(name=&amp;#39;counts&amp;#39;) df.head()  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    manufacturer model displ year cyl trans drv cty hwy fl class     0 audi a4 1.</description>
+    </item>
+    
+    <item>
       <title>Read GitHub CSV</title>
       <link>https://rajacsp.github.io/mlnotes/python/basics/read-github-csv/</link>
       <pubDate>Sat, 05 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>https://rajacsp.github.io/mlnotes/python/basics/read-github-csv/</guid>
       <description>from io import BytesIO import requests import pandas as pdFILEPATH = &amp;#39;https://raw.githubusercontent.com/rajacsp/public-dataset/master/zynicide-wine-reviews/winemag-data-130k-v2.csv&amp;#39; r = requests.get(FILEPATH) data = r.content onlinedata = BytesIO(data)df = pd.read_csv(onlinedata, index_col=0)df.head()  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    country description designation points price province region_1 region_2 taster_name taster_twitter_handle title variety winery     0 Italy Aromas include tropical fruit, broom, brimston.</description>
+    </item>
+    
+    <item>
+      <title>Scatter Plot - Plotly</title>
+      <link>https://rajacsp.github.io/mlnotes/python/plotly/scatter-plot-plotly/</link>
+      <pubDate>Sat, 05 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/plotly/scatter-plot-plotly/</guid>
+      <description># x and y given as array_like objects import plotly.express as pxfig = px.scatter(x=[0, 1, 2, 3, 4], y=[0, 1, 4, 9, 16]) fig.show()   require([&#34;plotly&#34;], function(Plotly) { window.PLOTLYENV=window.PLOTLYENV || {}; if (document.getElementById(&#34;c00c79fc-1854-4a27-b81a-4683342acb47&#34;)) { Plotly.newPlot( &#39;c00c79fc-1854-4a27-b81a-4683342acb47&#39;, [{&#34;hovertemplate&#34;: &#34;x=%{x}
+y=%{y}&#34;, &#34;legendgroup&#34;: &#34;&#34;, &#34;marker&#34;: {&#34;color&#34;: &#34;#636efa&#34;, &#34;symbol&#34;: &#34;circle&#34;}, &#34;mode&#34;: &#34;markers&#34;, &#34;name&#34;: &#34;&#34;, &#34;orientation&#34;: &#34;v&#34;, &#34;showlegend&#34;: false, &#34;type&#34;: &#34;scatter&#34;, &#34;x&#34;: [0, 1, 2, 3, 4], &#34;xaxis&#34;: &#34;x&#34;, &#34;y&#34;: [0, 1, 4, 9, 16], &#34;</description>
     </item>
     
     <item>
@@ -40,6 +68,15 @@ import matplotlib.pyplot as plt import numpy as npfig, ax = plt.subplots() size 
       <description>Source:
 https://python-graph-gallery.com/163-donut-plot-with-subgroups/
 # Libraries import matplotlib.pyplot as plt # Make data: I have 3 groups and 7 subgroups group_names=[&amp;#39;groupA&amp;#39;, &amp;#39;groupB&amp;#39;, &amp;#39;groupC&amp;#39;] group_size=[12,11,30] subgroup_names=[&amp;#39;A.1&amp;#39;, &amp;#39;A.2&amp;#39;, &amp;#39;A.3&amp;#39;, &amp;#39;B.1&amp;#39;, &amp;#39;B.2&amp;#39;, &amp;#39;C.1&amp;#39;, &amp;#39;C.2&amp;#39;, &amp;#39;C.3&amp;#39;, &amp;#39;C.4&amp;#39;, &amp;#39;C.5&amp;#39;] subgroup_size=[4,3,5,6,5,10,5,5,4,6] # Create colors a, b, c=[plt.cm.Blues, plt.cm.Reds, plt.cm.Greens] # First Ring (outside) fig, ax = plt.subplots() ax.axis(&amp;#39;equal&amp;#39;) mypie, _ = ax.pie(group_size, radius=1.3, labels=group_names, colors=[a(0.6), b(0.6), c(0.6)] ) plt.setp( mypie, width=0.3, edgecolor=&amp;#39;white&amp;#39;) # Second Ring (Inside) mypie2, _ = ax.</description>
+    </item>
+    
+    <item>
+      <title>Show Negative values red</title>
+      <link>https://rajacsp.github.io/mlnotes/python/data-wrangling/show-negative-values-red/</link>
+      <pubDate>Thu, 05 Sep 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/data-wrangling/show-negative-values-red/</guid>
+      <description>import pandas as pddata = { &amp;#39;Month&amp;#39; : [1, 2, 3], &amp;#39;Temp&amp;#39; : [7, -18, -20] }data {&#39;Month&#39;: [1, 2, 3], &#39;Temp&#39;: [7, -18, -20]}  type(data) dict  df = pd.DataFrame(data)df  .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .dataframe thead th { text-align: right; }    Month Temp     0 1 7   1 2 -18   2 3 -20     def color_negative_red(val): &amp;#34;&amp;#34;&amp;#34; Takes a scalar and returns a string with the css property `&amp;#39;color: red&amp;#39;` for negative strings, black otherwise.</description>
     </item>
     
     <item>
@@ -1963,6 +2000,15 @@ filename = &amp;#39;https://gitlab.com/rajacsp/datasets/raw/master/stack-overflo
       
       <guid>https://rajacsp.github.io/mlnotes/python/sentiment/book-review-analyzer/</guid>
       <description>import json from pprint import pprint from nltk.sentiment.vader import SentimentIntensityAnalyzer import numpy as np import matplotlib.pyplot as plt import pandas as pddata = json.load(open(&amp;#39;book-review.json&amp;#39;))twt = data[&amp;#39;reviews&amp;#39;][1][&amp;#39;text&amp;#39;]twt &#39;the text reveals the mentality of the CIA so that it reveals the group think which is necessary for understanding its philosophical shallowness&#39;  tweet_index = [] tweet_date = [] positive_reviews = [] negative_reviews = []tw_counter = 0 def analyze_local(sentence, tw_date): sid = SentimentIntensityAnalyzer() print(sentence) global tw_counter tw_counter += 1 ss = sid.</description>
+    </item>
+    
+    <item>
+      <title>Box Plot </title>
+      <link>https://rajacsp.github.io/mlnotes/python/plot/box-plot-2/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://rajacsp.github.io/mlnotes/python/plot/box-plot-2/</guid>
+      <description>import matplotlib.pyplot as plt import numpy as np import pandas as pd import seaborn as sns import warnings; warnings.filterwarnings(action=&amp;#39;once&amp;#39;)# Import Data df = pd.read_csv(&amp;#34;https://github.com/selva86/datasets/raw/master/mpg_ggplot2.csv&amp;#34;)df.head() /Users/rajacsp/opt/anaconda3/envs/py38_jupyter/lib/python3.8/site-packages/ipykernel/ipkernel.py:287: DeprecationWarning: `should_run_async` will not call `transform_cell` automatically in the future. Please pass the result to `transformed_cell` argument and any exception that happen during thetransform in `preprocessing_exc_tuple` in IPython 7.17 and above. and should_run_async(code)   .dataframe tbody tr th:only-of-type { vertical-align: middle; } .dataframe tbody tr th { vertical-align: top; } .</description>
     </item>
     
     <item>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66582-32"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66582-32');
+    </script>
+
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<meta property="og:title" content="Show Negative values red" />
+<meta property="og:description" content="List Test" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rajacsp.github.io/mlnotes/python/data-wrangling/show-negative-values-red/" />
+<meta property="article:published_time" content="2019-09-05T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-09-05T00:00:00&#43;00:00"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Show Negative values red"/>
+<meta name="twitter:description" content="List Test"/>
+<meta name="generator" content="Hugo 0.55.2" /> 
+    
+    
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Show Negative values red",
+  "url": "https:\/\/rajacsp.github.io\/mlnotes\/python\/data-wrangling\/show-negative-values-red\/",
+  "wordCount": "253",
+  "datePublished": "2019-09-05T00:00:00\x2b00:00",
+  "dateModified": "2019-09-05T00:00:00\x2b00:00",
+  "author": {
+    "@type": "Person",
+    "name": "Rj"
+  },
+  "description": "List Test"
+}
+</script> 
+
+    <title>Show Negative values red</title>
+
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+
+    
+    <link href="https://rajacsp.github.io/mlnotes/css/custom.css" rel="stylesheet"> 
+    <link href="https://rajacsp.github.io/mlnotes/css/syntax.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:400,500,700" rel="stylesheet">
+        
+    <link href="" rel="alternate" type="application/rss+xml" title="Raja CSP Raman" /> 
+    
+    <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$'], ['\[','\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre','code'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+});
+</script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://rajacsp.github.io/mlnotes/">Raja CSP Raman</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav mr-auto"></ul>
+                <ul class="navbar-nav">
+                    
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            About
+                        </a>
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+
+                 
+
+
+<article>
+  <div class="technical_note">
+  <header>
+      
+    <h1 class="technical_note_title">Show Negative values red</h1>
+    <div class="technical_note_date">
+      <time datetime=" 2019-09-05T00:00:00Z "> 05 Sep 2019</time>
+    </div>
+  </header>
+  <div class="content">
+  <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Month&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s1">&#39;Temp&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">18</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">]</span>
+<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">data</span></code></pre></div>
+<pre><code>{'Month': [1, 2, 3], 'Temp': [7, -18, -20]}
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></code></pre></div>
+<pre><code>dict
+</code></pre>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Month</th>
+      <th>Temp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>-18</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>-20</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">color_negative_red</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">    Takes a scalar and returns a string with
+</span><span class="s2">    the css property `&#39;color: red&#39;` for negative
+</span><span class="s2">    strings, black otherwise.
+</span><span class="s2">    &#34;&#34;&#34;</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;black&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;color: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">color</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="n">color_negative_red</span><span class="p">)</span></code></pre></div>
+<p><style  type="text/css" >
+#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row0_col0,#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row0_col1,#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row1_col0,#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row2_col0{
+            color:  black;
+        }#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row1_col1,#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row2_col1{
+            color:  red;
+        }</style><table id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Month</th>        <th class="col_heading level0 col1" >Temp</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row0_col0" class="data row0 col0" >1</td>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row0_col1" class="data row0 col1" >7</td>
+            </tr>
+            <tr>
+                        <th id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row1_col0" class="data row1 col0" >2</td>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row1_col1" class="data row1 col1" >-18</td>
+            </tr>
+            <tr>
+                        <th id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row2_col0" class="data row2 col0" >3</td>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row2_col1" class="data row2 col1" >-20</td>
+            </tr>
+    </tbody></table></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span></code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Month</th>
+      <th>Temp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>-18</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>-20</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># Highlight max (axis = 0)</span>
+<span class="c1"># https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">highlight_max</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span></code></pre></div>
+<p><style  type="text/css" >
+#T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row0_col1,#T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row2_col0{
+            background-color:  yellow;
+        }</style><table id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Month</th>        <th class="col_heading level0 col1" >Temp</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row0_col0" class="data row0 col0" >1</td>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row0_col1" class="data row0 col1" >7</td>
+            </tr>
+            <tr>
+                        <th id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row1_col0" class="data row1 col0" >2</td>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row1_col1" class="data row1 col1" >-18</td>
+            </tr>
+            <tr>
+                        <th id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row2_col0" class="data row2 col0" >3</td>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row2_col1" class="data row2 col1" >-20</td>
+            </tr>
+    </tbody></table></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">highlight_max_rj</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">):</span>
+    <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">    highlight the maximum in a Series yellow.
+</span><span class="s1">    &#39;&#39;&#39;</span>
+    <span class="n">is_max</span> <span class="o">=</span> <span class="n">s</span> <span class="o">==</span> <span class="n">s</span><span class="o">.</span><span class="nb">max</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;background-color: &#39;</span><span class="o">+</span><span class="n">color</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">is_max</span><span class="p">]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">highlight_max_rj</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lightblue&#39;</span><span class="p">,</span>  <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">])</span></code></pre></div>
+<p><style  type="text/css" >
+#T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row0_col1{
+            background-color:  lightblue;
+        }</style><table id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Month</th>        <th class="col_heading level0 col1" >Temp</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row0_col0" class="data row0 col0" >1</td>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row0_col1" class="data row0 col1" >7</td>
+            </tr>
+            <tr>
+                        <th id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row1_col0" class="data row1 col0" >2</td>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row1_col1" class="data row1 col1" >-18</td>
+            </tr>
+            <tr>
+                        <th id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row2_col0" class="data row2 col0" >3</td>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row2_col1" class="data row2 col1" >-20</td>
+            </tr>
+    </tbody></table></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="nb">apply</span><span class="p">(</span><span class="n">highlight_max_rj</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">])</span></code></pre></div>
+<p><style  type="text/css" >
+#T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row0_col1,#T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row1_col1,#T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row2_col1{
+            background-color:  lightgreen;
+        }</style><table id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Month</th>        <th class="col_heading level0 col1" >Temp</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row0_col0" class="data row0 col0" >1</td>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row0_col1" class="data row0 col1" >7</td>
+            </tr>
+            <tr>
+                        <th id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row1_col0" class="data row1 col0" >2</td>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row1_col1" class="data row1 col1" >-18</td>
+            </tr>
+            <tr>
+                        <th id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row2_col0" class="data row2 col0" >3</td>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row2_col1" class="data row2 col1" >-20</td>
+            </tr>
+    </tbody></table></p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"></code></pre></div>
+</div>
+  <aside>
+      
+      </aside>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="footer text-center">
+        <div class="container">
+            <span class="text-muted">This project contains 446 pages and is available on <a href="https://github.com/rajacsp/mlnotes">GitHub</a>. Copyright &copy; Raja CSP Raman, <time datetime="2019">2019</time>.</span>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
