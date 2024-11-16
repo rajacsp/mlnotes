@@ -13,7 +13,8 @@ LINKS = (
 # Social widget
 SOCIAL = (
     ("GitHub", "https://github.com/rajasgs/"),
-    ("LinkedIn", "<linkedin handle>"),
+    ("LinkedIn", "https://www.linkedin.com/in/raja-csp-raman"),
+    ("LinkTree", "https://linktr.ee/rajacsp"),
 )
 
 ######## Advanced Settings (not recommended to to edited; take your own risk to touch the settings below) #############
