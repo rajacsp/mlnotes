@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Compile-Expressions</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/rjpy/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/rjpy">Python and ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/rjpy/compile-expressions.html" rel="bookmark"
+        title="Permalink to Compile-Expressions">Compile-Expressions</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-16T00:00:00-05:00">Sat 16 November 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># precompile regex patterns</span>
+<span class="n">regex_entries</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;awesome&#39;</span><span class="p">,</span> <span class="s1">&#39;ocean&#39;</span><span class="p">]</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content</span> <span class="o">=</span> <span class="s1">&#39;Duckduck go is awesome and it is getting better everyday&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Text : </span><span class="si">{!r}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">content</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nc">Text</span><span class="w"> </span><span class="err">:</span><span class="w"> </span><span class="s1">&#39;Duckduck go is awesome and it is getting better everyday&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">regex</span> <span class="ow">in</span> <span class="n">regex_entries</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finding  </span><span class="si">{}</span><span class="s1"> -&gt; &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">regex</span><span class="o">.</span><span class="n">pattern</span><span class="p">),</span> <span class="n">end</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">content</span><span class="p">)):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;matched&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;not matched&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Finding</span><span class="w">  </span><span class="n">awesome</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">  </span><span class="nf">matched</span>
+<span class="n">Finding</span><span class="w">  </span><span class="n">ocean</span><span class="w"> </span><span class="o">-&gt;</span><span class="w">  </span><span class="kr">not</span><span class="w"> </span><span class="nf">matched</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/regex.html">regex</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/rjpy/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/rjpy/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/textprocessing.html">textprocessing</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/rajasgs/">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/raja-csp-raman">LinkedIn</a></li>
+            <li><a href="https://linktr.ee/rajacsp">LinkTree</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>Python and ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>
