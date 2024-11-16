@@ -1,5 +1,5 @@
 ---
-title: Add-A-New-Column
+title: Add-A-New-Column-1
 date: 2024-11-16
 author: Your Name
 ---

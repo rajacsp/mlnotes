@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Add-A-New-Column</title>
+    <title>Categorical-To-Neumerical</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/foundation.min.css" />
@@ -44,36 +44,22 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/rjpy/add-a-new-column.html" rel="bookmark"
-        title="Permalink to Add-A-New-Column">Add-A-New-Column</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/rjpy/categorical-to-neumerical.html" rel="bookmark"
+        title="Permalink to Categorical-To-Neumerical">Categorical-To-Neumerical</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-11-16T00:00:00-05:00">Sat 16 November 2024
 </h6>
 
-Translations: 
-        <a href="https://rajasgs.github.io/rjpy/add-a-new-column.html">en</a>
 
-    <p>Add a New Column</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;city&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Toronto&#39;</span><span class="p">,</span> <span class="s1">&#39;Montreal&#39;</span><span class="p">,</span> <span class="s1">&#39;Waterloo&#39;</span><span class="p">],</span>
-    <span class="s1">&#39;points&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+    <span class="s1">&#39;sam&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;archery&#39;</span><span class="p">,</span> <span class="s1">&#39;badminton&#39;</span><span class="p">,</span> <span class="s1">&#39;athletics&#39;</span><span class="p">,</span> <span class="s1">&#39;cycling_road&#39;</span><span class="p">,</span> <span class="s1">&#39;canoe_sprint&#39;</span><span class="p">,</span> <span class="s1">&#39;boxing&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;medal&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;silver&#39;</span><span class="p">,</span> <span class="s1">&#39;bronze&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;gold&#39;</span><span class="p">,</span> <span class="s1">&#39;silver&#39;</span><span class="p">]</span>
 <span class="p">}</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">data</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>{&#39;city&#39;: [&#39;Toronto&#39;, &#39;Montreal&#39;, &#39;Waterloo&#39;], &#39;points&#39;: [80, 70, 90]}
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>dict
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -100,31 +86,59 @@ Translations:
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>city</th>
-      <th>points</th>
+      <th>sam</th>
+      <th>medal</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>Toronto</td>
-      <td>80</td>
+      <td>archery</td>
+      <td>gold</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Montreal</td>
-      <td>70</td>
+      <td>badminton</td>
+      <td>silver</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Waterloo</td>
-      <td>90</td>
+      <td>athletics</td>
+      <td>bronze</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>cycling_road</td>
+      <td>gold</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>canoe_sprint</td>
+      <td>gold</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>boxing</td>
+      <td>silver</td>
     </tr>
   </tbody>
 </table>
 </div>
 
-<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">code</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_medal_points</span><span class="p">(</span><span class="n">medal</span><span class="p">):</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">medal</span> <span class="o">==</span> <span class="s1">&#39;gold&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">10</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">medal</span> <span class="o">==</span> <span class="s1">&#39;silver&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">5</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">medal</span> <span class="o">==</span> <span class="s1">&#39;bronze&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="mi">0</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;medal_points&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;medal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_medal_points</span><span class="p">)</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">df</span>
@@ -148,29 +162,47 @@ Translations:
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>city</th>
-      <th>points</th>
-      <th>code</th>
+      <th>sam</th>
+      <th>medal</th>
+      <th>medal_points</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>Toronto</td>
-      <td>80</td>
-      <td>1</td>
+      <td>archery</td>
+      <td>gold</td>
+      <td>10</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Montreal</td>
-      <td>70</td>
-      <td>2</td>
+      <td>badminton</td>
+      <td>silver</td>
+      <td>5</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Waterloo</td>
-      <td>90</td>
-      <td>3</td>
+      <td>athletics</td>
+      <td>bronze</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>cycling_road</td>
+      <td>gold</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>canoe_sprint</td>
+      <td>gold</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>boxing</td>
+      <td>silver</td>
+      <td>5</td>
     </tr>
   </tbody>
 </table>
@@ -178,13 +210,11 @@ Translations:
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
-<p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/pandas-work.html">pandas-work</a>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a>
 
 </p>
 
 
-Translations: 
-        <a href="https://rajasgs.github.io/rjpy/add-a-new-column.html">en</a>
 
 
 </article>
@@ -204,7 +234,6 @@ Translations:
         <ul class="side-nav">
             <li><a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a></li>
-            <li><a href="https://rajasgs.github.io/rjpy/category/pandas-work.html">pandas-work</a></li>
    
         </ul>
 

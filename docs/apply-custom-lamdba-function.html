@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Add-A-New-Column</title>
+    <title>Apply-Custom-Lamdba-Function</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/foundation.min.css" />
@@ -44,18 +44,16 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/rjpy/add-a-new-column.html" rel="bookmark"
-        title="Permalink to Add-A-New-Column">Add-A-New-Column</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/rjpy/apply-custom-lamdba-function.html" rel="bookmark"
+        title="Permalink to Apply-Custom-Lamdba-Function">Apply-Custom-Lamdba-Function</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-11-16T00:00:00-05:00">Sat 16 November 2024
 </h6>
 
-Translations: 
-        <a href="https://rajasgs.github.io/rjpy/add-a-new-column.html">en</a>
 
-    <p>Add a New Column</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+    <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
@@ -124,7 +122,22 @@ Translations:
 </table>
 </div>
 
-<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">code</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_bonus</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">75</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">10</span>
+    <span class="k">return</span> <span class="n">x</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;new_points&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;points&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">get_bonus</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;new_points&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">0</span><span class="w">     </span><span class="mf">90</span>
+<span class="mf">1</span><span class="w">     </span><span class="mf">70</span>
+<span class="mf">2</span><span class="w">    </span><span class="mf">100</span>
+<span class="n">Name</span><span class="p">:</span><span class="w"> </span><span class="kr">new</span><span class="n">_points</span><span class="p">,</span><span class="w"> </span><span class="n">dtype</span><span class="p">:</span><span class="w"> </span><span class="nb">int</span><span class="mf">64</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">df</span>
@@ -150,7 +163,7 @@ Translations:
       <th></th>
       <th>city</th>
       <th>points</th>
-      <th>code</th>
+      <th>new_points</th>
     </tr>
   </thead>
   <tbody>
@@ -158,19 +171,19 @@ Translations:
       <th>0</th>
       <td>Toronto</td>
       <td>80</td>
-      <td>1</td>
+      <td>90</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Montreal</td>
       <td>70</td>
-      <td>2</td>
+      <td>70</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Waterloo</td>
       <td>90</td>
-      <td>3</td>
+      <td>100</td>
     </tr>
   </tbody>
 </table>
@@ -178,13 +191,11 @@ Translations:
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
-<p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/pandas-work.html">pandas-work</a>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a>
 
 </p>
 
 
-Translations: 
-        <a href="https://rajasgs.github.io/rjpy/add-a-new-column.html">en</a>
 
 
 </article>
@@ -204,7 +215,6 @@ Translations:
         <ul class="side-nav">
             <li><a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a></li>
-            <li><a href="https://rajasgs.github.io/rjpy/category/pandas-work.html">pandas-work</a></li>
    
         </ul>
 
