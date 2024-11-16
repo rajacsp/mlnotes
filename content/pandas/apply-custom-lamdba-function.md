@@ -2,6 +2,8 @@
 title: Apply-Custom-Lamdba-Function
 date: 2024-11-16
 author: Your Name
+cell_count: 11
+score: 10
 ---
 
 ```python
@@ -186,3 +188,7 @@ df
 ```python
 
 ```
+
+
+---
+**Score: 10**

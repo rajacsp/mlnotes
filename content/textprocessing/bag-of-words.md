@@ -2,6 +2,8 @@
 title: Bag-Of-Words
 date: 2024-11-16
 author: Your Name
+cell_count: 5
+score: 5
 ---
 
 ```python
@@ -51,3 +53,7 @@ word_counter.most_common(4)
 ```python
 
 ```
+
+
+---
+**Score: 5**

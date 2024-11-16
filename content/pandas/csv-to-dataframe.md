@@ -2,6 +2,8 @@
 title: Csv-To-Dataframe
 date: 2024-11-16
 author: Your Name
+cell_count: 9
+score: 5
 ---
 
 ```python
@@ -570,3 +572,7 @@ csv.describe()
 ```python
 
 ```
+
+
+---
+**Score: 5**

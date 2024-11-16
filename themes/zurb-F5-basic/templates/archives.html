@@ -5,12 +5,26 @@
 
 <table class="table-archive">
     <tbody>
-    {% for article in dates %}
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Title</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+
+        {% set total_score = dates | map(attribute='metadata.score') | map('int') | sum %}
+
+        <!-- Display the total score -->
+        <p><strong>Overall Score:</strong> {{ total_score }}</p>
+
+        {% for article in dates %}
         <tr>
-        <td>{{ article.locale_date }}</td>
-        <td><a href='{{ article.url }}'>{{ article.title }}</a></td>
+            <td>{{ article.locale_date }}</td>
+            <td><a href='{{ article.url }}'>{{ article.title }}</a></td>
+            <td>{{ article.metadata.score | default(0) }}</td>
         </tr>
-    {% endfor %}
+        {% endfor %}
     </tbody>
 </table>
 

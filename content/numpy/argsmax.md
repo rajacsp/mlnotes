@@ -2,6 +2,8 @@
 title: Argsmax
 date: 2024-11-16
 author: Your Name
+cell_count: 24
+score: 20
 ---
 
 ```python
@@ -247,3 +249,7 @@ https://stackoverflow.com/questions/28697993/numpy-what-is-the-logic-of-the-argm
 ```python
 
 ```
+
+
+---
+**Score: 20**

@@ -2,6 +2,8 @@
 title: Partial-Regression-Plot
 date: 2024-11-16
 author: Your Name
+cell_count: 24
+score: 20
 ---
 
 ```python
@@ -1009,3 +1011,7 @@ sm.graphics.plot_partregress('Lottery', 'Wealth', ['Region' ,'Literacy'], data=d
 ```python
 
 ```
+
+
+---
+**Score: 20**

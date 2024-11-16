@@ -2,6 +2,8 @@
 title: Age-Calculator
 date: 2024-11-16
 author: Your Name
+cell_count: 5
+score: 5
 ---
 
 ```python
@@ -39,3 +41,7 @@ age
 ```python
 
 ```
+
+
+---
+**Score: 5**

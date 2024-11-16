@@ -2,6 +2,8 @@
 title: Iris-Analysis
 date: 2024-11-16
 author: Your Name
+cell_count: 4
+score: 0
 ---
 
 ```python
@@ -84,3 +86,7 @@ Image(graph.create_png())
 ```python
 
 ```
+
+
+---
+**Score: 0**

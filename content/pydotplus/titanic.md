@@ -2,6 +2,8 @@
 title: Titanic
 date: 2024-11-16
 author: Your Name
+cell_count: 2
+score: 0
 ---
 
 ```python
@@ -69,3 +71,7 @@ Image(graph.create_png())
 ```python
 
 ```
+
+
+---
+**Score: 0**

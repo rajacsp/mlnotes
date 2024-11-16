@@ -2,6 +2,8 @@
 title: Compile-Expressions
 date: 2024-11-16
 author: Your Name
+cell_count: 5
+score: 5
 ---
 
 ```python
@@ -46,3 +48,7 @@ for regex in regex_entries:
 ```python
 
 ```
+
+
+---
+**Score: 5**

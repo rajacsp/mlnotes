@@ -2,6 +2,8 @@
 title: Accuracy-Score
 date: 2024-11-16
 author: Your Name
+cell_count: 4
+score: 0
 ---
 
 ```python
@@ -33,3 +35,7 @@ print(score2)
 ```python
 
 ```
+
+
+---
+**Score: 0**

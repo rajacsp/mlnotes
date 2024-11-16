@@ -2,6 +2,8 @@
 title: Ontario-Postal-Code
 date: 2024-11-16
 author: Your Name
+cell_count: 3
+score: 0
 ---
 
 ```python
@@ -31,3 +33,7 @@ for name in names:
 ```python
 
 ```
+
+
+---
+**Score: 0**
