@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Python and ML Notes - file-utils</title>
+    <title>Python and ML Notes - image-work</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/foundation.min.css" />
@@ -46,51 +46,38 @@
         
 
             <article>
-                <a href="https://rajasgs.github.io/rjpy/create-temp-file.html"><h3 class="article-title">Create-Temp-File</h3></a>
+                <a href="https://rajasgs.github.io/rjpy/image-with-matplot.html"><h3 class="article-title">Image-With-Matplot</h3></a>
 <h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
 </h6>
 
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tempfile</span>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">fp</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryFile</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code>Python 3.10.5
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">fp</span><span class="o">.</span><span class="n">name</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.image</span> <span class="k">as</span> <span class="nn">mpimg</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="mf">55</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Path to your PNG file</span>
+<span class="n">image_path</span> <span class="o">=</span> <span class="s1">&#39;deer.jpg&#39;</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Hey Toronto&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Load and display the image</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">mpimg</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>  <span class="c1"># Turn off axis</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="mf">11</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">0</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>b&#39;Hey Toronto&#39;
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Close the file</span>
-
-<span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div>
-
+<p><img alt="png" src="image-with-matplot_files/image-with-matplot_3_0.png"></p>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/file-utils.html">file-utils</a>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/image-work.html">image-work</a>
 
 </p>
 
@@ -106,31 +93,69 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/rjpy/current-location.html"><h3 class="article-title">Current-Location</h3></a>
+                <a href="https://rajasgs.github.io/rjpy/show-image.html"><h3 class="article-title">Show-Image</h3></a>
 <h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
 </h6>
 
 
-<div class="highlight"><pre><span></span><code><span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;du -sh ~/datasets&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="p">{</span><span class="n">cmd</span><span class="p">}</span>
+<div class="highlight"><pre><span></span><code>Python 3.10.5
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="mf">6.9</span><span class="n">G</span><span class="w">    </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">rajaraman</span><span class="o">/</span><span class="kd">data</span><span class="n">sets</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Path to your PNG file</span>
+<span class="n">image_path</span> <span class="o">=</span> <span class="s1">&#39;deer.jpg&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Display the image</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">image_path</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img alt="jpeg" src="show-image_files/show-image_3_0.jpg"></p>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/image-work.html">image-work</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/show-image.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/rjpy/test.html"><h3 class="article-title">Test</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>hello
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 0</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/file-utils.html">file-utils</a>
+<p><strong>Score: 0</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/image-work.html">image-work</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/current-location.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/test.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
