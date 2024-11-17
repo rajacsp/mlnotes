@@ -36,7 +36,7 @@ plt.show()
 
 
     
-![png](/images/image-with-matplot_3_0.png)
+![png](/rjpy/images/image-with-matplot_3_0.png)
     
 
 

@@ -77,7 +77,7 @@ Image(graph.create_png())
 
 
     
-![png](/images/iris-analysis_2_0.png)
+![png](/rjpy/images/iris-analysis_2_0.png)
     
 
 

@@ -60,7 +60,7 @@ Image(graph.create_png())
 
 
     
-![png](/images/student-hiring_0_0.png)
+![png](/rjpy/images/student-hiring_0_0.png)
     
 
 

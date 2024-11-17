@@ -100,7 +100,7 @@ Image(graph.create_png())
 
 
     
-![png](/images/decision-tree-graph_10_0.png)
+![png](/rjpy/images/decision-tree-graph_10_0.png)
     
 
 
