@@ -2,7 +2,7 @@
 title: Sample2
 date: 2024-11-17
 author: Your Name
-cell_count: 22
+cell_count: 23
 score: 20
 ---
 
@@ -216,6 +216,23 @@ drift_check.show()
 ```python
 
 ```
+
+
+```python
+from IPython.display import Image, display
+
+# Path to your PNG file
+image_path = 'newplot.png'
+
+# Display the image
+display(Image(filename=image_path))
+```
+
+
+    
+![png](sample2_files/sample2_21_0.png)
+    
+
 
 
 ```python
