@@ -40,9 +40,9 @@ def convert_notebooks_to_markdown(notebook_dir, output_dir):
         md_file = output_subdir / f"{notebook.stem}.md"
 
         # Skip if not recently modified
-        # if not is_recently_modified(notebook, md_file):
-        #     # print(f"Skipping {notebook}: No changes detected.")
-        #     continue
+        if not is_recently_modified(notebook, md_file):
+            # print(f"Skipping {notebook}: No changes detected.")
+            continue
 
         # print(f"Converting {notebook} to markdown...")
 
