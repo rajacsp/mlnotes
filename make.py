@@ -44,7 +44,7 @@ def convert_notebooks_to_markdown(notebook_dir, output_dir):
             # print(f"Skipping {notebook}: No changes detected.")
             continue
 
-        print(f"Converting {notebook} to markdown...")
+        # print(f"Converting {notebook} to markdown...")
 
         # Convert notebook to markdown
         cmd = [
