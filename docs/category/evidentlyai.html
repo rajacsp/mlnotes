@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Python and ML Notes - evidentlyai</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/rjpy/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/rjpy">Python and ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="https://rajasgs.github.io/rjpy/house-sales.html"><h3 class="article-title">House-Sales</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="c1"># !pip install kaggle</span>
+<span class="c1"># https://medium.com/@pumaline/easy-analysis-of-your-data-and-ml-model-using-evidently-ai-830ef0c1c4fd</span>
+<span class="c1"># https://xgboost.readthedocs.io/en/latest/python/python_api.html</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;~/datasets/kaggle/kc_house_data.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>date</th>
+      <th>price</th>
+      <th>bedrooms</th>
+      <th>bathrooms</th>
+      <th>sqft_living</th>
+      <th>sqft_lot</th>
+      <th>floors</th>
+      <th>waterfront</th>
+      <th>view</th>
+      <th>...</th>
+      <th>grade</th>
+      <th>sqft_above</th>
+      <th>sqft_basement</th>
+      <th>yr_built</th>
+      <th>yr_renovated</th>
+      <th>zipcode</th>
+      <th>lat</th>
+      <th>long</th>
+      <th>sqft_living15</th>
+      <th>sqft_lot15</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7129300520</td>
+      <td>20141013T000000</td>
+      <td>221900.0</td>
+      <td>3</td>
+      <td>1.00</td>
+      <td>1180</td>
+      <td>5650</td>
+      <td>1.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>7</td>
+      <td>1180</td>
+      <td>0</td>
+      <td>1955</td>
+      <td>0</td>
+      <td>98178</td>
+      <td>47.5112</td>
+      <td>-122.257</td>
+      <td>1340</td>
+      <td>5650</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6414100192</td>
+      <td>20141209T000000</td>
+      <td>538000.0</td>
+      <td>3</td>
+      <td>2.25</td>
+      <td>2570</td>
+      <td>7242</td>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>7</td>
+      <td>2170</td>
+      <td>400</td>
+      <td>1951</td>
+      <td>1991</td>
+      <td>98125</td>
+      <td>47.7210</td>
+      <td>-122.319</td>
+      <td>1690</td>
+      <td>7639</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5631500400</td>
+      <td>20150225T000000</td>
+      <td>180000.0</td>
+      <td>2</td>
+      <td>1.00</td>
+      <td>770</td>
+      <td>10000</td>
+      <td>1.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>6</td>
+      <td>770</td>
+      <td>0</td>
+      <td>1933</td>
+      <td>0</td>
+      <td>98028</td>
+      <td>47.7379</td>
+      <td>-122.233</td>
+      <td>2720</td>
+      <td>8062</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2487200875</td>
+      <td>20141209T000000</td>
+      <td>604000.0</td>
+      <td>4</td>
+      <td>3.00</td>
+      <td>1960</td>
+      <td>5000</td>
+      <td>1.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>7</td>
+      <td>1050</td>
+      <td>910</td>
+      <td>1965</td>
+      <td>0</td>
+      <td>98136</td>
+      <td>47.5208</td>
+      <td>-122.393</td>
+      <td>1360</td>
+      <td>5000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1954400510</td>
+      <td>20150218T000000</td>
+      <td>510000.0</td>
+      <td>3</td>
+      <td>2.00</td>
+      <td>1680</td>
+      <td>8080</td>
+      <td>1.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>8</td>
+      <td>1680</td>
+      <td>0</td>
+      <td>1987</td>
+      <td>0</td>
+      <td>98074</td>
+      <td>47.6168</td>
+      <td>-122.045</td>
+      <td>1800</td>
+      <td>7503</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;grade&#39;</span><span class="p">,</span><span class="s1">&#39;view&#39;</span><span class="p">,</span><span class="s1">&#39;waterfront&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;grade&#39;</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="s1">&#39;waterfront&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>date</th>
+      <th>price</th>
+      <th>bedrooms</th>
+      <th>bathrooms</th>
+      <th>sqft_living</th>
+      <th>sqft_lot</th>
+      <th>floors</th>
+      <th>waterfront</th>
+      <th>view</th>
+      <th>...</th>
+      <th>grade</th>
+      <th>sqft_above</th>
+      <th>sqft_basement</th>
+      <th>yr_built</th>
+      <th>yr_renovated</th>
+      <th>zipcode</th>
+      <th>lat</th>
+      <th>long</th>
+      <th>sqft_living15</th>
+      <th>sqft_lot15</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7129300520</td>
+      <td>20141013T000000</td>
+      <td>221900.0</td>
+      <td>3</td>
+      <td>1.00</td>
+      <td>1180</td>
+      <td>5650</td>
+      <td>1.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>7</td>
+      <td>1180</td>
+      <td>0</td>
+      <td>1955</td>
+      <td>0</td>
+      <td>98178</td>
+      <td>47.5112</td>
+      <td>-122.257</td>
+      <td>1340</td>
+      <td>5650</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6414100192</td>
+      <td>20141209T000000</td>
+      <td>538000.0</td>
+      <td>3</td>
+      <td>2.25</td>
+      <td>2570</td>
+      <td>7242</td>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>7</td>
+      <td>2170</td>
+      <td>400</td>
+      <td>1951</td>
+      <td>1991</td>
+      <td>98125</td>
+      <td>47.7210</td>
+      <td>-122.319</td>
+      <td>1690</td>
+      <td>7639</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5631500400</td>
+      <td>20150225T000000</td>
+      <td>180000.0</td>
+      <td>2</td>
+      <td>1.00</td>
+      <td>770</td>
+      <td>10000</td>
+      <td>1.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>6</td>
+      <td>770</td>
+      <td>0</td>
+      <td>1933</td>
+      <td>0</td>
+      <td>98028</td>
+      <td>47.7379</td>
+      <td>-122.233</td>
+      <td>2720</td>
+      <td>8062</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2487200875</td>
+      <td>20141209T000000</td>
+      <td>604000.0</td>
+      <td>4</td>
+      <td>3.00</td>
+      <td>1960</td>
+      <td>5000</td>
+      <td>1.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>7</td>
+      <td>1050</td>
+      <td>910</td>
+      <td>1965</td>
+      <td>0</td>
+      <td>98136</td>
+      <td>47.5208</td>
+      <td>-122.393</td>
+      <td>1360</td>
+      <td>5000</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1954400510</td>
+      <td>20150218T000000</td>
+      <td>510000.0</td>
+      <td>3</td>
+      <td>2.00</td>
+      <td>1680</td>
+      <td>8080</td>
+      <td>1.0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>8</td>
+      <td>1680</td>
+      <td>0</td>
+      <td>1987</td>
+      <td>0</td>
+      <td>98074</td>
+      <td>47.6168</td>
+      <td>-122.045</td>
+      <td>1800</td>
+      <td>7503</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 21 columns</p>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sqft_living&#39;</span><span class="p">,</span><span class="s1">&#39;grade&#39;</span><span class="p">,</span> <span class="s1">&#39;sqft_above&#39;</span><span class="p">,</span> <span class="s1">&#39;sqft_living15&#39;</span><span class="p">,</span> <span class="s1">&#39;bathrooms&#39;</span><span class="p">,</span><span class="s1">&#39;view&#39;</span><span class="p">,</span><span class="s1">&#39;sqft_basement&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;long&#39;</span><span class="p">,</span><span class="s1">&#39;waterfront&#39;</span><span class="p">,</span> <span class="s1">&#39;yr_built&#39;</span><span class="p">,</span><span class="s1">&#39;bedrooms&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ref_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[:</span><span class="mi">15000</span><span class="p">]</span>
+<span class="n">prod_data</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="mi">15000</span><span class="p">:]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">model_selection</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Delete entry with 33 bedrooms</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;bedrooms&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">33</span><span class="p">]</span>
+
+<span class="c1"># Create training and validation set</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">model_selection</span><span class="o">.</span><span class="n">train_test_split</span><span class="p">(</span><span class="n">ref_data</span><span class="p">[</span><span class="n">features</span><span class="p">],</span> <span class="n">ref_data</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">],</span>
+                 <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># one-hot encode categorical variables</span>
+<span class="n">categorical</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;grade&#39;</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="s1">&#39;waterfront&#39;</span><span class="p">]</span>
+<span class="n">ohe</span> <span class="o">=</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span> <span class="o">=</span> <span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">ohe</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">categorical</span><span class="p">])</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">preprocessing</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">ohe</span><span class="p">):</span>
+
+    <span class="c1"># Convert grade, view, waterfront to type object</span>
+    <span class="n">X</span><span class="p">[[</span><span class="s1">&#39;grade&#39;</span><span class="p">,</span><span class="s1">&#39;view&#39;</span><span class="p">,</span><span class="s1">&#39;waterfront&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">X</span><span class="p">[[</span><span class="s1">&#39;grade&#39;</span><span class="p">,</span><span class="s1">&#39;view&#39;</span><span class="p">,</span><span class="s1">&#39;waterfront&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;object&#39;</span><span class="p">)</span>
+
+    <span class="c1"># log transform the target varibale </span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># define categorical and numerical varibales </span>
+    <span class="n">categorical</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;grade&#39;</span><span class="p">,</span> <span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="s1">&#39;waterfront&#39;</span><span class="p">]</span>
+    <span class="n">numerical</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sqft_living&#39;</span><span class="p">,</span> <span class="s1">&#39;sqft_above&#39;</span><span class="p">,</span> <span class="s1">&#39;sqft_living15&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;bathrooms&#39;</span><span class="p">,</span><span class="s1">&#39;sqft_basement&#39;</span><span class="p">,</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="s1">&#39;long&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;yr_built&#39;</span><span class="p">,</span><span class="s1">&#39;bedrooms&#39;</span><span class="p">]</span>
+
+    <span class="c1"># one-hot encode categorical variables</span>
+    <span class="n">X_cat</span> <span class="o">=</span> <span class="n">ohe</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">categorical</span><span class="p">])</span><span class="o">.</span><span class="n">toarray</span><span class="p">()</span>
+
+    <span class="c1"># define numerical columns </span>
+    <span class="n">X_num</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">numerical</span><span class="p">])</span>
+
+    <span class="c1"># concatenate numerical and categorical variables</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">X_cat</span><span class="p">,</span> <span class="n">X_num</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Shape after one-hot encoding&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;X shape: </span><span class="si">{</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">ohe</span><span class="p">)</span>
+<span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">ohe</span><span class="p">)</span>
+<span class="n">X_prod</span><span class="p">,</span> <span class="n">y_prod</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="p">(</span><span class="n">prod_data</span><span class="p">[</span><span class="n">features</span><span class="p">],</span>  <span class="n">prod_data</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">],</span> <span class="n">ohe</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">Shape</span><span class="w"> </span><span class="nx">after</span><span class="w"> </span><span class="nx">one</span><span class="o">-</span><span class="nx">hot</span><span class="w"> </span><span class="nx">encoding</span>
+<span class="nx">X</span><span class="w"> </span><span class="nx">shape</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="mi">12000</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="nx">Shape</span><span class="w"> </span><span class="nx">after</span><span class="w"> </span><span class="nx">one</span><span class="o">-</span><span class="nx">hot</span><span class="w"> </span><span class="nx">encoding</span>
+<span class="nx">X</span><span class="w"> </span><span class="nx">shape</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+<span class="nx">Shape</span><span class="w"> </span><span class="nx">after</span><span class="w"> </span><span class="nx">one</span><span class="o">-</span><span class="nx">hot</span><span class="w"> </span><span class="nx">encoding</span>
+<span class="nx">X</span><span class="w"> </span><span class="nx">shape</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="mi">6613</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+
+
+<span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">ipykernel_993006</span><span class="o">/</span><span class="mi">2150309139</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="w"> </span><span class="nx">SettingWithCopyWarning</span><span class="p">:</span><span class="w"> </span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span>
+<span class="nx">Try</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="p">.</span><span class="nx">loc</span><span class="p">[</span><span class="nx">row_indexer</span><span class="p">,</span><span class="nx">col_indexer</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">instead</span>
+
+<span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">caveats</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">documentation</span><span class="p">:</span><span class="w"> </span><span class="nx">https</span><span class="p">:</span><span class="c1">//pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy</span>
+<span class="w">  </span><span class="nx">X</span><span class="p">[[</span><span class="err">&#39;</span><span class="nx">grade</span><span class="sc">&#39;,&#39;</span><span class="nx">view</span><span class="sc">&#39;,&#39;</span><span class="nx">waterfront</span><span class="err">&#39;</span><span class="p">]]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">X</span><span class="p">[[</span><span class="err">&#39;</span><span class="nx">grade</span><span class="sc">&#39;,&#39;</span><span class="nx">view</span><span class="sc">&#39;,&#39;</span><span class="nx">waterfront</span><span class="err">&#39;</span><span class="p">]].</span><span class="nx">astype</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">object</span><span class="err">&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># !pip install xgboost</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">xgboost</span> <span class="k">as</span> <span class="nn">xgb</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Initialize XGB with objective function</span>
+<span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;objective&quot;</span><span class="p">:</span> <span class="s1">&#39;reg:squarederror&#39;</span><span class="p">,</span>
+              <span class="s2">&quot;n_estimators&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+              <span class="s2">&quot;verbosity&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">xgb</span><span class="o">.</span><span class="n">XGBRegressor</span><span class="p">(</span><span class="o">**</span><span class="n">parameters</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># generate predictions</span>
+<span class="n">y_pred_train</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_val</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># calculate errors</span>
+<span class="n">rmse_train</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_pred_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">rmse_val</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">squared</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;rmse training: </span><span class="si">{</span><span class="n">rmse_train</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="se">\t</span><span class="s2"> rmse validation: </span><span class="si">{</span><span class="n">rmse_val</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">rmse</span><span class="w"> </span><span class="nx">training</span><span class="p">:</span><span class="w"> </span><span class="m m-Double">0.114</span><span class="w">     </span><span class="nx">rmse</span><span class="w"> </span><span class="nx">validation</span><span class="p">:</span><span class="w"> </span><span class="m m-Double">0.185</span>
+
+
+<span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">rajaraman</span><span class="o">/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml3105</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.10</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">sklearn</span><span class="o">/</span><span class="nx">metrics</span><span class="o">/</span><span class="nx">_regression</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">492</span><span class="p">:</span><span class="w"> </span><span class="nx">FutureWarning</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">squared</span><span class="err">&#39;</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">deprecated</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">version</span><span class="w"> </span><span class="m m-Double">1.4</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">removed</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m m-Double">1.6</span><span class="p">.</span><span class="w"> </span><span class="nx">To</span><span class="w"> </span><span class="nx">calculate</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">root</span><span class="w"> </span><span class="nx">mean</span><span class="w"> </span><span class="nx">squared</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="nx">use</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">function</span><span class="err">&#39;</span><span class="nx">root_mean_squared_error</span><span class="err">&#39;</span><span class="p">.</span>
+<span class="w">  </span><span class="nx">warnings</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span>
+<span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">rajaraman</span><span class="o">/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml3105</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.10</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">sklearn</span><span class="o">/</span><span class="nx">metrics</span><span class="o">/</span><span class="nx">_regression</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">492</span><span class="p">:</span><span class="w"> </span><span class="nx">FutureWarning</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">squared</span><span class="err">&#39;</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">deprecated</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">version</span><span class="w"> </span><span class="m m-Double">1.4</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">removed</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m m-Double">1.6</span><span class="p">.</span><span class="w"> </span><span class="nx">To</span><span class="w"> </span><span class="nx">calculate</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">root</span><span class="w"> </span><span class="nx">mean</span><span class="w"> </span><span class="nx">squared</span><span class="w"> </span><span class="nx">error</span><span class="p">,</span><span class="w"> </span><span class="nx">use</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">function</span><span class="err">&#39;</span><span class="nx">root_mean_squared_error</span><span class="err">&#39;</span><span class="p">.</span>
+<span class="w">  </span><span class="nx">warnings</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">X_train_full</span><span class="p">,</span> <span class="n">y_train_full</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="p">(</span><span class="n">ref_data</span><span class="p">[</span><span class="n">features</span><span class="p">],</span> <span class="n">ref_data</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">],</span> <span class="n">ohe</span><span class="p">)</span>
+<span class="n">ref_data</span><span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train_full</span><span class="p">)</span>
+<span class="n">prod_data</span><span class="p">[</span><span class="s1">&#39;prediction&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_prod</span><span class="p">)</span>
+<span class="n">ref_data</span><span class="p">[</span><span class="s1">&#39;price_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">ref_data</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">])</span>
+<span class="n">prod_data</span><span class="p">[</span><span class="s1">&#39;price_log&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log1p</span><span class="p">(</span><span class="n">prod_data</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">])</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">Shape</span><span class="w"> </span><span class="nx">after</span><span class="w"> </span><span class="nx">one</span><span class="o">-</span><span class="nx">hot</span><span class="w"> </span><span class="nx">encoding</span>
+<span class="nx">X</span><span class="w"> </span><span class="nx">shape</span><span class="p">:</span><span class="w"> </span><span class="p">(</span><span class="mi">15000</span><span class="p">,</span><span class="w"> </span><span class="mi">27</span><span class="p">)</span>
+
+
+<span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">ipykernel_993006</span><span class="o">/</span><span class="mi">2150309139</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="w"> </span><span class="nx">SettingWithCopyWarning</span><span class="p">:</span><span class="w"> </span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span>
+<span class="nx">Try</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="p">.</span><span class="nx">loc</span><span class="p">[</span><span class="nx">row_indexer</span><span class="p">,</span><span class="nx">col_indexer</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">instead</span>
+
+<span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">caveats</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">documentation</span><span class="p">:</span><span class="w"> </span><span class="nx">https</span><span class="p">:</span><span class="c1">//pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy</span>
+<span class="w">  </span><span class="nx">X</span><span class="p">[[</span><span class="err">&#39;</span><span class="nx">grade</span><span class="sc">&#39;,&#39;</span><span class="nx">view</span><span class="sc">&#39;,&#39;</span><span class="nx">waterfront</span><span class="err">&#39;</span><span class="p">]]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">X</span><span class="p">[[</span><span class="err">&#39;</span><span class="nx">grade</span><span class="sc">&#39;,&#39;</span><span class="nx">view</span><span class="sc">&#39;,&#39;</span><span class="nx">waterfront</span><span class="err">&#39;</span><span class="p">]].</span><span class="nx">astype</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">object</span><span class="err">&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># !pip install evidently==0.1.50.dev0</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">evidently</span>
+
+<span class="n">evidently</span><span class="o">.</span><span class="n">__version__</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;0.1.50.dev0&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># !conda uninstall -y numpy</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># !pip install numpy==1.26.3 --force</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="n">numpy</span><span class="o">.</span><span class="n">__version__</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;1.26.3&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">evidently.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
+<span class="kn">from</span> <span class="nn">evidently.pipeline.column_mapping</span> <span class="kn">import</span> <span class="n">ColumnMapping</span>
+<span class="c1"># packages for interactive dashboards</span>
+<span class="kn">from</span> <span class="nn">evidently.dashboard.tabs</span> <span class="kn">import</span> <span class="p">(</span>
+     <span class="n">DataDriftTab</span><span class="p">,</span> 
+     <span class="n">DataQualityTab</span><span class="p">,</span> 
+     <span class="n">NumTargetDriftTab</span><span class="p">,</span> 
+     <span class="n">RegressionPerformanceTab</span>
+    <span class="p">)</span>
+<span class="c1"># packages for json-profiles</span>
+<span class="kn">from</span> <span class="nn">evidently.model_profile</span> <span class="kn">import</span> <span class="n">Profile</span>
+<span class="kn">from</span> <span class="nn">evidently.model_profile.sections</span> <span class="kn">import</span> <span class="p">(</span>  
+     <span class="n">DataDriftProfileSection</span><span class="p">,</span> 
+     <span class="n">DataQualityProfileSection</span><span class="p">,</span> 
+     <span class="n">NumTargetDriftProfileSection</span><span class="p">,</span>
+     <span class="n">RegressionPerformanceProfileSection</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">rajaraman</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml3105</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">evidently</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">numpy_encoder</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">14</span><span class="p">:</span> <span class="ne">FutureWarning</span><span class="p">:</span> <span class="n">In</span> <span class="n">the</span> <span class="n">future</span> <span class="err">`</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="err">`</span> <span class="n">will</span> <span class="n">be</span> <span class="n">defined</span> <span class="k">as</span> <span class="n">the</span> <span class="n">corresponding</span> <span class="n">NumPy</span> <span class="n">scalar</span><span class="o">.</span>
+  <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">),</span> <span class="nb">bool</span><span class="p">),</span>
+
+
+
+<span class="o">---------------------------------------------------------------------------</span>
+
+<span class="ne">AttributeError</span>                            <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">)</span>
+
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">23</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="kn">from</span> <span class="nn">evidently.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
+      <span class="mi">2</span> <span class="kn">from</span> <span class="nn">evidently.pipeline.column_mapping</span> <span class="kn">import</span> <span class="n">ColumnMapping</span>
+      <span class="mi">3</span> <span class="c1"># packages for interactive dashboards</span>
+
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml3105</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">evidently</span><span class="o">/</span><span class="n">dashboard</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">4</span>
+      <span class="mi">1</span> <span class="c1">#!/usr/bin/env python</span>
+      <span class="mi">2</span> <span class="c1"># coding: utf-8</span>
+<span class="o">----&gt;</span> <span class="mi">4</span> <span class="kn">from</span> <span class="nn">.dashboard</span> <span class="kn">import</span> <span class="n">Dashboard</span>
+
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml3105</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">evidently</span><span class="o">/</span><span class="n">dashboard</span><span class="o">/</span><span class="n">dashboard</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">19</span>
+     <span class="mi">17</span> <span class="kn">from</span> <span class="nn">evidently.pipeline.column_mapping</span> <span class="kn">import</span> <span class="n">ColumnMapping</span>
+     <span class="mi">18</span> <span class="kn">from</span> <span class="nn">evidently.dashboard.tabs.base_tab</span> <span class="kn">import</span> <span class="n">Tab</span>
+<span class="o">---&gt;</span> <span class="mi">19</span> <span class="kn">from</span> <span class="nn">evidently.utils</span> <span class="kn">import</span> <span class="n">NumpyEncoder</span>
+     <span class="mi">22</span> <span class="nd">@dataclasses</span><span class="o">.</span><span class="n">dataclass</span><span class="p">()</span>
+     <span class="mi">23</span> <span class="k">class</span> <span class="nc">TemplateParams</span><span class="p">:</span>
+     <span class="mi">24</span>     <span class="n">dashboard_id</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml3105</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">evidently</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="kn">from</span> <span class="nn">.numpy_encoder</span> <span class="kn">import</span> <span class="n">NumpyEncoder</span>
+
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml3105</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">evidently</span><span class="o">/</span><span class="n">utils</span><span class="o">/</span><span class="n">numpy_encoder</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">14</span>
+      <span class="mi">3</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+      <span class="mi">4</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+      <span class="mi">7</span> <span class="n">_TYPES_MAPPING</span> <span class="o">=</span> <span class="p">(</span>
+      <span class="mi">8</span>     <span class="p">(</span>
+      <span class="mi">9</span>         <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">intc</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">intp</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">uint64</span><span class="p">),</span>
+     <span class="mi">10</span>         <span class="nb">int</span><span class="p">,</span>
+     <span class="mi">11</span>     <span class="p">),</span>
+     <span class="mi">12</span>     <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">float_</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="nb">float</span><span class="p">),</span>
+     <span class="mi">13</span>     <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,),</span> <span class="k">lambda</span> <span class="n">obj</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">tolist</span><span class="p">()),</span>
+<span class="o">---&gt;</span> <span class="mi">14</span>     <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="p">),</span> <span class="nb">bool</span><span class="p">),</span>
+     <span class="mi">15</span>     <span class="p">((</span><span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">),</span> <span class="nb">str</span><span class="p">),</span>
+     <span class="mi">16</span>     <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">void</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">NaT</span><span class="p">)),</span> <span class="k">lambda</span> <span class="n">obj</span><span class="p">:</span> <span class="kc">None</span><span class="p">),</span>
+     <span class="mi">17</span> <span class="p">)</span>
+     <span class="mi">20</span> <span class="k">class</span> <span class="nc">NumpyEncoder</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">JSONEncoder</span><span class="p">):</span>
+     <span class="mi">21</span>     <span class="s2">&quot;&quot;&quot;Numpy and Pandas data types to JSON types encoder&quot;&quot;&quot;</span>
+
+
+<span class="n">File</span> <span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml3105</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.10</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">numpy</span><span class="o">/</span><span class="fm">__init__</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">324</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+    <span class="mi">319</span>     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+    <span class="mi">320</span>         <span class="sa">f</span><span class="s2">&quot;In the future `np.</span><span class="si">{</span><span class="n">attr</span><span class="si">}</span><span class="s2">` will be defined as the &quot;</span>
+    <span class="mi">321</span>         <span class="s2">&quot;corresponding NumPy scalar.&quot;</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="mi">323</span> <span class="k">if</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">__former_attrs__</span><span class="p">:</span>
+<span class="o">--&gt;</span> <span class="mi">324</span>     <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">__former_attrs__</span><span class="p">[</span><span class="n">attr</span><span class="p">])</span>
+    <span class="mi">326</span> <span class="k">if</span> <span class="n">attr</span> <span class="o">==</span> <span class="s1">&#39;testing&#39;</span><span class="p">:</span>
+    <span class="mi">327</span>     <span class="kn">import</span> <span class="nn">numpy.testing</span> <span class="k">as</span> <span class="nn">testing</span>
+
+
+<span class="ne">AttributeError</span><span class="p">:</span> <span class="n">module</span> <span class="s1">&#39;numpy&#39;</span> <span class="n">has</span> <span class="n">no</span> <span class="n">attribute</span> <span class="s1">&#39;bool&#39;</span><span class="o">.</span>
+<span class="err">`</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="err">`</span> <span class="n">was</span> <span class="n">a</span> <span class="n">deprecated</span> <span class="n">alias</span> <span class="k">for</span> <span class="n">the</span> <span class="n">builtin</span> <span class="err">`</span><span class="nb">bool</span><span class="err">`</span><span class="o">.</span> <span class="n">To</span> <span class="n">avoid</span> <span class="n">this</span> <span class="n">error</span> <span class="ow">in</span> <span class="n">existing</span> <span class="n">code</span><span class="p">,</span> <span class="n">use</span> <span class="err">`</span><span class="nb">bool</span><span class="err">`</span> <span class="n">by</span> <span class="n">itself</span><span class="o">.</span> <span class="n">Doing</span> <span class="n">this</span> <span class="n">will</span> <span class="ow">not</span> <span class="n">modify</span> <span class="nb">any</span> <span class="n">behavior</span> <span class="ow">and</span> <span class="ow">is</span> <span class="n">safe</span><span class="o">.</span> <span class="n">If</span> <span class="n">you</span> <span class="n">specifically</span> <span class="n">wanted</span> <span class="n">the</span> <span class="n">numpy</span> <span class="n">scalar</span> <span class="nb">type</span><span class="p">,</span> <span class="n">use</span> <span class="err">`</span><span class="n">np</span><span class="o">.</span><span class="n">bool_</span><span class="err">`</span> <span class="n">here</span><span class="o">.</span>
+<span class="n">The</span> <span class="n">aliases</span> <span class="n">was</span> <span class="n">originally</span> <span class="n">deprecated</span> <span class="ow">in</span> <span class="n">NumPy</span> <span class="mf">1.20</span><span class="p">;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">details</span> <span class="ow">and</span> <span class="n">guidance</span> <span class="n">see</span> <span class="n">the</span> <span class="n">original</span> <span class="n">release</span> <span class="n">note</span> <span class="n">at</span><span class="p">:</span>
+    <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">numpy</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">devdocs</span><span class="o">/</span><span class="n">release</span><span class="o">/</span><span class="mf">1.20.0</span><span class="o">-</span><span class="n">notes</span><span class="o">.</span><span class="n">html</span><span class="c1">#deprecations</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 25</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/evidentlyai.html">evidentlyai</a>
+
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/rjpy/titnaic-evi.html"><h3 class="article-title">Titnaic-Evi</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># https://github.com/datasciencedojo/datasets/blob/master/titanic.csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">ls</span> <span class="o">../</span><span class="n">titanic</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="cp">../titanic.csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../titanic.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="kd">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">pandas</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">frame</span><span class="p">.</span><span class="nx">DataFrame</span><span class="err">&#39;</span><span class="p">&gt;</span>
+<span class="nx">RangeIndex</span><span class="p">:</span><span class="w"> </span><span class="mi">891</span><span class="w"> </span><span class="nx">entries</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="mi">890</span>
+<span class="nx">Data</span><span class="w"> </span><span class="nx">columns</span><span class="w"> </span><span class="p">(</span><span class="nx">total</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="nx">columns</span><span class="p">):</span>
+<span class="w"> </span><span class="err">#</span><span class="w">   </span><span class="nx">Column</span><span class="w">       </span><span class="nx">Non</span><span class="o">-</span><span class="nx">Null</span><span class="w"> </span><span class="nx">Count</span><span class="w">  </span><span class="nx">Dtype</span><span class="w">  </span>
+<span class="o">---</span><span class="w">  </span><span class="o">------</span><span class="w">       </span><span class="o">--------------</span><span class="w">  </span><span class="o">-----</span><span class="w">  </span>
+<span class="w"> </span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/evidentlyai.html">evidentlyai</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/titnaic-evi.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+            <!-- /#posts-list -->
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/rjpy/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/rjpy/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/textprocessing.html">textprocessing</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/rajasgs/">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/raja-csp-raman">LinkedIn</a></li>
+            <li><a href="https://linktr.ee/rajacsp">LinkTree</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>Python and ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

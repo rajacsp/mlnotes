@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Python and ML Notes</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/rjpy/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/rjpy">Python and ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/rjpy/sample2.html"><h3 class="article-title">Sample2</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Python 3.10.5
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="ch">#!pip install ipywidgets</span>
+<span class="c1">#!jupyter labextension install @jupyter-widgets/jupyterlab-manager</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">jupyter</span> <span class="n">labextension</span> <span class="nb">list</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">JupyterLab</span><span class="w"> </span><span class="nx">v4</span><span class="m m-Double">.2.6</span>
+<span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">rajaraman</span><span class="o">/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml3105</span><span class="o">/</span><span class="nx">share</span><span class="o">/</span><span class="nx">jupyter</span><span class="o">/</span><span class="nx">labextensions</span>
+<span class="w">        </span><span class="nx">jupyterlab_pygments</span><span class="w"> </span><span class="nx">v0</span><span class="m m-Double">.3.0</span><span class="w"> </span><span class="err"></span><span class="p">[</span><span class="mi">32</span><span class="nx">menabled</span><span class="err"></span><span class="p">[</span><span class="mi">0</span><span class="nx">m</span><span class="w"> </span><span class="err"></span><span class="p">[</span><span class="mi">32</span><span class="nx">mOK</span><span class="err"></span><span class="p">[</span><span class="mi">0</span><span class="nx">m</span><span class="w"> </span><span class="p">(</span><span class="nx">python</span><span class="p">,</span><span class="w"> </span><span class="nx">jupyterlab_pygments</span><span class="p">)</span>
+<span class="w">        </span><span class="nx">jupyterlab</span><span class="o">-</span><span class="nx">plotly</span><span class="w"> </span><span class="nx">v5</span><span class="m m-Double">.24.1</span><span class="w"> </span><span class="err"></span><span class="p">[</span><span class="mi">32</span><span class="nx">menabled …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/deepchecks.html">deepchecks</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/sample2.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/rjpy/simple-dataframe-for-statsmodel.html"><h3 class="article-title">Simple-Dataframe-For-Statsmodel</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">patsy</span> <span class="kn">import</span> <span class="n">dmatrices</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_rdataset</span><span class="p">(</span><span class="s2">&quot;Guerry&quot;</span><span class="p">,</span> <span class="s2">&quot;HistData&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>dept</th>
+      <th>Region</th>
+      <th>Department</th>
+      <th>Crime_pers</th>
+      <th>Crime_prop</th>
+      <th>Literacy …</th></tr></thead></table></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/statsmodel.html">statsmodel</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/simple-dataframe-for-statsmodel.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/rjpy/student-hiring.html"><h3 class="article-title">Student-Hiring</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">export_graphviz</span>
+<span class="kn">import</span> <span class="nn">pydotplus</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="c1"># Create a custom student dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;GPA&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">3.5</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">3.8</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">3.9</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">,</span> <span class="mf">3.7</span><span class="p">],</span>
+    <span class="s2">&quot;Internship …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/pydotplus.html">pydotplus</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/student-hiring.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/rjpy/titanic.html"><h3 class="article-title">Titanic</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">export_graphviz</span>
+<span class="kn">import</span> <span class="nn">pydotplus</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="c1"># Load the Titanic dataset</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv&quot;</span>
+<span class="n">titanic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># Preprocess the dataset</span>
+<span class="c1"># Select features and target variable</span>
+<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pclass …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/pydotplus.html">pydotplus</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/titanic.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/rjpy/titnaic-evi.html"><h3 class="article-title">Titnaic-Evi</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># https://github.com/datasciencedojo/datasets/blob/master/titanic.csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">ls</span> <span class="o">../</span><span class="n">titanic</span><span class="o">.</span><span class="n">csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="cp">../titanic.csv</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the dataset</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../titanic.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="kd">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">pandas</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">frame</span><span class="p">.</span><span class="nx">DataFrame</span><span class="err">&#39;</span><span class="p">&gt;</span>
+<span class="nx">RangeIndex</span><span class="p">:</span><span class="w"> </span><span class="mi">891</span><span class="w"> </span><span class="nx">entries</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="mi">890</span>
+<span class="nx">Data</span><span class="w"> </span><span class="nx">columns</span><span class="w"> </span><span class="p">(</span><span class="nx">total</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="nx">columns</span><span class="p">):</span>
+<span class="w"> </span><span class="err">#</span><span class="w">   </span><span class="nx">Column</span><span class="w">       </span><span class="nx">Non</span><span class="o">-</span><span class="nx">Null</span><span class="w"> </span><span class="nx">Count</span><span class="w">  </span><span class="nx">Dtype</span><span class="w">  </span>
+<span class="o">---</span><span class="w">  </span><span class="o">------</span><span class="w">       </span><span class="o">--------------</span><span class="w">  </span><span class="o">-----</span><span class="w">  </span>
+<span class="w"> </span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/evidentlyai.html">evidentlyai</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/titnaic-evi.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+            <!-- /#posts-list -->
+<div class="pagination-centered">
+<h6 class="subheader">Page 4 of 4</h6>
+
+<p>
+            <a href="https://rajasgs.github.io/rjpy/index3.html">&laquo; Prev</a>
+
+</p>
+</div>
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/rjpy/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/rjpy/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/textprocessing.html">textprocessing</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/rajasgs/">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/raja-csp-raman">LinkedIn</a></li>
+            <li><a href="https://linktr.ee/rajacsp">LinkTree</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>Python and ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,6 +1,6 @@
 ---
 title: Basic-Table
-date: 2024-11-16
+date: 2024-11-17
 author: Your Name
 cell_count: 21
 score: 20

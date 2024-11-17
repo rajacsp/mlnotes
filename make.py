@@ -9,6 +9,16 @@ from datetime import datetime
 NOTEBOOK_DIR = "./notebooks"  # Directory containing .ipynb files
 OUTPUT_DIR = "./content"     # Directory for .md files (Pelican content directory)
 
+def is_recently_modified(source_file, target_file):
+    """
+    Check if the source file is more recent than the target file.
+    Returns True if the source file is new or has been modified.
+    """
+    if not target_file.exists():
+        # If the target file doesn't exist, the source is considered new
+        return True
+    return source_file.stat().st_mtime > target_file.stat().st_mtime
+
 # Step 1: Convert notebooks to Markdown recursively
 def convert_notebooks_to_markdown(notebook_dir, output_dir):
     notebook_dir = Path(notebook_dir)
@@ -18,14 +28,23 @@ def convert_notebooks_to_markdown(notebook_dir, output_dir):
     for notebook in notebook_dir.rglob("*.ipynb"):  # Recursively find .ipynb files
         # Skip hidden directories like .ipynb_checkpoints
         if any(part.startswith('.') for part in notebook.parts):
-            print(f"Skipping hidden folder or file: {notebook}")
+            # print(f"Skipping hidden folder or file: {notebook}")
             continue
 
-        print(f"Converting {notebook} to markdown...")
         # Determine relative path for content organization
         relative_path = notebook.relative_to(notebook_dir)
         output_subdir = output_dir / relative_path.parent
         output_subdir.mkdir(parents=True, exist_ok=True)
+
+        # Determine the target .md file
+        md_file = output_subdir / f"{notebook.stem}.md"
+
+        # Skip if not recently modified
+        if not is_recently_modified(notebook, md_file):
+            # print(f"Skipping {notebook}: No changes detected.")
+            continue
+
+        print(f"Converting {notebook} to markdown...")
 
         # Convert notebook to markdown
         cmd = [
@@ -45,7 +64,7 @@ def convert_notebooks_to_markdown(notebook_dir, output_dir):
 
         # Add metadata to the generated Markdown file
         # Add metadata and cell count to the Markdown file
-        md_file = output_subdir / f"{notebook.stem}.md"
+
         add_metadata_to_markdown(md_file, cell_count, score)
 
 def calculate_score(cell_count):
