@@ -996,14 +996,14 @@ sm.graphics.plot_partregress('Lottery', 'Wealth', ['Region' ,'Literacy'], data=d
 
 
     
-![png](partial-regression-plot_files/partial-regression-plot_22_0.png)
+![png](/images/partial-regression-plot_22_0.png)
     
 
 
 
 
     
-![png](partial-regression-plot_files/partial-regression-plot_22_1.png)
+![png](/images/partial-regression-plot_22_1.png)
     
 
 

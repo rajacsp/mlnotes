@@ -27,7 +27,7 @@ plt.show()
 
 
     
-![png](two_files/two_0_0.png)
+![png](/images/two_0_0.png)
     
 
 

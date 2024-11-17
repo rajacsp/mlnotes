@@ -16,6 +16,12 @@
 
 5. run this
     python make.py
+
+    or
+
+    # for recreating all files
+    python make.py fresh
+
 ```
 
 ### Change Settings

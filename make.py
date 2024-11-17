@@ -4,10 +4,13 @@ import json
 import subprocess
 from pathlib import Path
 from datetime import datetime
+import shutil
+import sys
 
 # Directories
 NOTEBOOK_DIR = "./notebooks"  # Directory containing .ipynb files
 OUTPUT_DIR = "./content"     # Directory for .md files (Pelican content directory)
+GLOBAL_IMAGES_DIR = os.path.join(OUTPUT_DIR, "images")  # Central images directory
 
 def is_recently_modified(source_file, target_file):
     """
@@ -20,7 +23,7 @@ def is_recently_modified(source_file, target_file):
     return source_file.stat().st_mtime > target_file.stat().st_mtime
 
 # Step 1: Convert notebooks to Markdown recursively
-def convert_notebooks_to_markdown(notebook_dir, output_dir):
+def convert_notebooks_to_markdown(notebook_dir, output_dir, fresh = False):
     notebook_dir = Path(notebook_dir)
     output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -40,9 +43,10 @@ def convert_notebooks_to_markdown(notebook_dir, output_dir):
         md_file = output_subdir / f"{notebook.stem}.md"
 
         # Skip if not recently modified
-        if not is_recently_modified(notebook, md_file):
-            # print(f"Skipping {notebook}: No changes detected.")
-            continue
+        if not fresh:
+            if not is_recently_modified(notebook, md_file):
+            #     # print(f"Skipping {notebook}: No changes detected.")
+                continue
 
         # print(f"Converting {notebook} to markdown...")
 
@@ -66,6 +70,9 @@ def convert_notebooks_to_markdown(notebook_dir, output_dir):
         # Add metadata and cell count to the Markdown file
 
         add_metadata_to_markdown(md_file, cell_count, score)
+
+        # Update image references in Markdown
+        update_image_references(md_file)
 
 def calculate_score(cell_count):
     """
@@ -118,6 +125,55 @@ score: {score}
     with open(markdown_file, "w", encoding="utf-8") as f:
         f.write(metadata + "\n" + content + score_info)
 
+# New Step: Copy all images to the global images directory
+def copy_images_to_global_folder(content_dir, global_images_dir):
+    """
+    Scan the content directory for image files and copy them to the global images directory.
+    """
+    image_extensions = {".png", ".jpg", ".jpeg", ".gif", ".svg", ".bmp", ".webp"}
+    global_images_dir = Path(global_images_dir)
+    global_images_dir.mkdir(parents=True, exist_ok=True)
+
+    for root, _, files in os.walk(content_dir):
+        for file in files:
+            if file.lower().endswith(tuple(image_extensions)):
+                source = Path(root) / file
+                target = global_images_dir / file
+                if not target.exists():  # Avoid overwriting existing files
+                    shutil.copy2(source, target)
+                    print(f"Copied: {source} -> {target}")
+
+# Step 4: Update image references in Markdown
+def update_image_references(markdown_file):
+    """
+    Update image references in the Markdown file to point to the global 'images' folder.
+    Replaces paths like 'two_files/two_0_0.png' with 'images/two_0_0.png'.
+    """
+    with open(markdown_file, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    # Process each line and replace image paths
+    updated_content = []
+    for line in content.splitlines():
+        if "![png](" in line:  # Look for image references
+            # Extract the current image path
+            start_idx = line.find("![png](") + len("![png](")
+            end_idx = line.find(")", start_idx)
+            current_path = line[start_idx:end_idx]
+
+            # Get the image filename only (strip subdirectories)
+            file_name = current_path.split("/")[-1]
+
+            # Update to the global 'images' directory
+            new_path = f"/images/{file_name}"
+            line = line.replace(current_path, new_path)
+
+        updated_content.append(line)
+
+    # Write back the updated content to the file
+    with open(markdown_file, "w", encoding="utf-8") as f:
+        f.write("\n".join(updated_content))
+
 # Step 3: Generate site with Pelican
 def generate_site_with_pelican(content_dir):
     print("Generating site with Pelican...")
@@ -125,12 +181,18 @@ def generate_site_with_pelican(content_dir):
     subprocess.run(cmd, check=True)
 
 if __name__ == "__main__":
+
     # Ensure required directories exist
     Path(NOTEBOOK_DIR).mkdir(parents=True, exist_ok=True)
     Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
 
-    # Convert notebooks and generate site
-    convert_notebooks_to_markdown(NOTEBOOK_DIR, OUTPUT_DIR)
+    fresh = True if (len(sys.argv) > 1 and sys.argv[1] == "fresh") else False
+
+    print(f'fresh: {fresh}')
+
+    # # Convert notebooks and generate site
+    convert_notebooks_to_markdown(NOTEBOOK_DIR, OUTPUT_DIR, fresh = fresh)
+    copy_images_to_global_folder(OUTPUT_DIR, GLOBAL_IMAGES_DIR)
     generate_site_with_pelican(OUTPUT_DIR)
 
     print("Site generated successfully!")

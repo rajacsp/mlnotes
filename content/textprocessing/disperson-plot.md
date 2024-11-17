@@ -85,7 +85,7 @@ text3.dispersion_plot(["God", "heaven", "form", "light", "day", ""])
 
 
     
-![png](disperson-plot_files/disperson-plot_6_0.png)
+![png](/images/disperson-plot_6_0.png)
     
 
 
@@ -96,7 +96,7 @@ text3.dispersion_plot(["citizens", "democracy"])
 
 
     
-![png](disperson-plot_files/disperson-plot_7_0.png)
+![png](/images/disperson-plot_7_0.png)
     
 
 

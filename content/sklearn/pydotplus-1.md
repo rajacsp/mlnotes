@@ -28,7 +28,7 @@ Image(graph.create_png())
 
 
     
-![png](pydotplus-1_files/pydotplus-1_0_0.png)
+![png](/images/pydotplus-1_0_0.png)
     
 
 

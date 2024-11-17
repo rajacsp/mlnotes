@@ -60,7 +60,7 @@ Image(graph.create_png())
 
 
     
-![png](student-hiring_files/student-hiring_0_0.png)
+![png](/images/student-hiring_0_0.png)
     
 
 

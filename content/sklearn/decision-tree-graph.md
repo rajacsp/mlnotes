@@ -100,7 +100,7 @@ Image(graph.create_png())
 
 
     
-![png](decision-tree-graph_files/decision-tree-graph_10_0.png)
+![png](/images/decision-tree-graph_10_0.png)
     
 
 

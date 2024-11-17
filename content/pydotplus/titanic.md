@@ -62,7 +62,7 @@ Image(graph.create_png())
 
 
     
-![png](titanic_files/titanic_0_0.png)
+![png](/images/titanic_0_0.png)
     
 
 

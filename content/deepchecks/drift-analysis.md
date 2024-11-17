@@ -182,7 +182,7 @@ plt.show()
 
 
     
-![png](drift-analysis_files/drift-analysis_15_0.png)
+![png](/images/drift-analysis_15_0.png)
     
 
 
@@ -230,7 +230,7 @@ display(Image(filename=image_path))
 
 
     
-![png](drift-analysis_files/drift-analysis_21_0.png)
+![png](/images/drift-analysis_21_0.png)
     
 
 
