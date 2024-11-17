@@ -1,5 +1,5 @@
 ---
-title: Two
+title: Testtwo
 date: 2024-11-17
 author: Your Name
 cell_count: 2
@@ -27,7 +27,7 @@ plt.show()
 
 
     
-![png](/rjpy/images/two_0_0.png)
+![png](/rjpy/images/testtwo_0_0.png)
     
 
 

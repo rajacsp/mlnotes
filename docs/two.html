@@ -52,31 +52,44 @@
 </h6>
 
 
-    <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+    <div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div>
 
-<span class="c1"># Data</span>
-<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code>Python 3.10.5
+</code></pre></div>
 
-<span class="c1"># Create a plot</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
 
-<span class="c1"># Add labels and title</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;X-axis&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Y-axis&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Simple Line Plot&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the dataset</span>
+<span class="n">tips</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;tips&quot;</span><span class="p">)</span>
+</code></pre></div>
 
-<span class="c1"># Display the plot</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a PairGrid with regression and histogram plots</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">PairGrid</span><span class="p">(</span><span class="n">tips</span><span class="p">,</span> <span class="n">diag_sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set2&quot;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map_upper</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map_lower</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">kdeplot</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map_diag</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Add a title</span>
+<span class="n">g</span><span class="o">.</span><span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Pairwise Relationships in Tips Dataset&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+
+<span class="c1"># Customize legend</span>
+<span class="n">g</span><span class="o">.</span><span class="n">add_legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Gender&quot;</span><span class="p">,</span> <span class="n">adjust_subtitles</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Show plot</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </code></pre></div>
 
-<p><img alt="png" src="/rjpy/images/two_0_0.png"></p>
+<p><img alt="png" src="/rjpy/images/two_3_0.png"></p>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 0</strong></p>
-<p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/one.html">one</a>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/seaborn.html">seaborn</a>
 
 </p>
 
@@ -110,6 +123,7 @@
             <li><a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/pydotplus.html">pydotplus</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/seaborn.html">seaborn</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/sklearn.html">sklearn</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/sqlalchemy.html">sqlalchemy</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/statsmodel.html">statsmodel</a></li>
