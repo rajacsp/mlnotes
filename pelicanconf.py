@@ -61,7 +61,7 @@ THEME               = 'themes/zurb-F5-basic'
 IGNORE_FILES        = [".*", "*.swp", "*~"]  # Ignore hidden files and temporary files
 
 # Specify static paths to include in the output
-STATIC_PATHS = ['images']
+STATIC_PATHS = ['image']
 
 # STATIC_PATHS = [
 #     'one/two_files',

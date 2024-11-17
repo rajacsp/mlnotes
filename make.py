@@ -7,6 +7,17 @@ from datetime import datetime
 import shutil
 import sys
 
+# Local
+# import custom_constants as cons
+
+
+import os
+from git import Repo
+
+# Get the current repository name dynamically
+repo = Repo(os.getcwd())
+FOLDER_NAME = os.path.basename(repo.working_dir)
+
 # Directories
 NOTEBOOK_DIR = "./notebooks"  # Directory containing .ipynb files
 OUTPUT_DIR = "./content"     # Directory for .md files (Pelican content directory)
@@ -165,7 +176,7 @@ def update_image_references(markdown_file):
             file_name = current_path.split("/")[-1]
 
             # Update to the global 'images' directory
-            new_path = f"/images/{file_name}"
+            new_path = f"/{FOLDER_NAME}/images/{file_name}"
             line = line.replace(current_path, new_path)
 
         updated_content.append(line)
