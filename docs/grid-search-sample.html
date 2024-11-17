@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Grid-Search-Sample</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/rjpy/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/rjpy/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/rjpy">Python and ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/rjpy/grid-search-sample.html" rel="bookmark"
+        title="Permalink to Grid-Search-Sample">Grid-Search-Sample</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="vm">__doc__</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nv">Automatically</span><span class="w"> </span><span class="nv">created</span><span class="w"> </span><span class="nv">module</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">IPython</span><span class="w"> </span><span class="nv">interactive</span><span class="w"> </span><span class="nv">environment</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Loading the Digits dataset</span>
+<span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># To apply an classifier on this data, we need to flatten the image, to</span>
+<span class="c1"># turn the data in a (samples, feature) matrix:</span>
+<span class="n">n_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">n_samples</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">digits</span><span class="o">.</span><span class="n">target</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Split the dataset in two equal parts</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Set the parameters by cross-validation</span>
+<span class="n">tuned_parameters</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;rbf&#39;</span><span class="p">],</span> <span class="s1">&#39;gamma&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1e-3</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">],</span>
+                 <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]},</span>
+                <span class="p">{</span><span class="s1">&#39;kernel&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">],</span> <span class="s1">&#39;C&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]}]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">scores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="s1">&#39;recall&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">scores</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# Tuning hyper-parameters for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">score</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+    <span class="n">clf</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">SVC</span><span class="p">(),</span> <span class="n">tuned_parameters</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+                    <span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">_macro&#39;</span> <span class="o">%</span> <span class="n">score</span><span class="p">)</span>
+    <span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Best parameters set found on development set:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">clf</span><span class="o">.</span><span class="n">best_params_</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Grid scores on development set:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;mean_test_score&#39;</span><span class="p">]</span>
+    <span class="n">stds</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;std_test_score&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">mean</span><span class="p">,</span> <span class="n">std</span><span class="p">,</span> <span class="n">params</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">means</span><span class="p">,</span> <span class="n">stds</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">]):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%0.3f</span><span class="s2"> (+/-</span><span class="si">%0.03f</span><span class="s2">) for </span><span class="si">%r</span><span class="s2">&quot;</span>
+            <span class="o">%</span> <span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">params</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Detailed classification report:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The model is trained on the full development set.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The scores are computed on the full evaluation set.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+    <span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="nv">Tuning</span><span class="w"> </span><span class="nv">hyper</span><span class="o">-</span><span class="nv">parameters</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">precision</span>
+
+<span class="nv">Best</span><span class="w"> </span><span class="nv">parameters</span><span class="w"> </span><span class="nv">set</span><span class="w"> </span><span class="nv">found</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">development</span><span class="w"> </span><span class="nv">set</span>:
+
+{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">10</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+
+<span class="nv">Grid</span><span class="w"> </span><span class="nv">scores</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">development</span><span class="w"> </span><span class="nv">set</span>:
+
+<span class="mi">0</span>.<span class="mi">986</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">016</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">959</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">028</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">0001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">988</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">017</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">10</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">982</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">026</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">10</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">0001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">988</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">017</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">100</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">983</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">026</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">100</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">0001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">988</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">017</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1000</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">983</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">026</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1000</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">0001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">974</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">012</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;linear&#39;</span>}
+<span class="mi">0</span>.<span class="mi">974</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">012</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">10</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;linear&#39;</span>}
+<span class="mi">0</span>.<span class="mi">974</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">012</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">100</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;linear&#39;</span>}
+<span class="mi">0</span>.<span class="mi">974</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">012</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1000</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;linear&#39;</span>}
+
+<span class="nv">Detailed</span><span class="w"> </span><span class="nv">classification</span><span class="w"> </span><span class="nv">report</span>:
+
+<span class="nv">The</span><span class="w"> </span><span class="nv">model</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">trained</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">full</span><span class="w"> </span><span class="nv">development</span><span class="w"> </span><span class="nv">set</span>.
+<span class="nv">The</span><span class="w"> </span><span class="nv">scores</span><span class="w"> </span><span class="nv">are</span><span class="w"> </span><span class="nv">computed</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">full</span><span class="w"> </span><span class="nv">evaluation</span><span class="w"> </span><span class="nv">set</span>.
+
+<span class="w">              </span><span class="nv">precision</span><span class="w">    </span><span class="nv">recall</span><span class="w">  </span><span class="nv">f1</span><span class="o">-</span><span class="nv">score</span><span class="w">   </span><span class="nv">support</span>
+
+<span class="w">           </span><span class="mi">0</span><span class="w">       </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">        </span><span class="mi">89</span>
+<span class="w">           </span><span class="mi">1</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">97</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">        </span><span class="mi">90</span>
+<span class="w">           </span><span class="mi">2</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">        </span><span class="mi">92</span>
+<span class="w">           </span><span class="mi">3</span><span class="w">       </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">93</span>
+<span class="w">           </span><span class="mi">4</span><span class="w">       </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">        </span><span class="mi">76</span>
+<span class="w">           </span><span class="mi">5</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">       </span><span class="mi">108</span>
+<span class="w">           </span><span class="mi">6</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">89</span>
+<span class="w">           </span><span class="mi">7</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">78</span>
+<span class="w">           </span><span class="mi">8</span><span class="w">       </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">92</span>
+<span class="w">           </span><span class="mi">9</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">92</span>
+
+<span class="w">    </span><span class="nv">accuracy</span><span class="w">                           </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">       </span><span class="mi">899</span>
+<span class="w">   </span><span class="nv">macro</span><span class="w"> </span><span class="nv">avg</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">       </span><span class="mi">899</span>
+<span class="nv">weighted</span><span class="w"> </span><span class="nv">avg</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">       </span><span class="mi">899</span>
+
+
+#<span class="w"> </span><span class="nv">Tuning</span><span class="w"> </span><span class="nv">hyper</span><span class="o">-</span><span class="nv">parameters</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nv">recall</span>
+
+<span class="nv">Best</span><span class="w"> </span><span class="nv">parameters</span><span class="w"> </span><span class="nv">set</span><span class="w"> </span><span class="nv">found</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">development</span><span class="w"> </span><span class="nv">set</span>:
+
+{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">10</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+
+<span class="nv">Grid</span><span class="w"> </span><span class="nv">scores</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">development</span><span class="w"> </span><span class="nv">set</span>:
+
+<span class="mi">0</span>.<span class="mi">986</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">019</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">957</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">028</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">0001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">987</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">019</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">10</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">981</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">028</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">10</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">0001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">987</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">019</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">100</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">982</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">026</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">100</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">0001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">987</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">019</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1000</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">982</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">026</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1000</span>,<span class="w"> </span><span class="s1">&#39;gamma&#39;</span>:<span class="w"> </span><span class="mi">0</span>.<span class="mi">0001</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;rbf&#39;</span>}
+<span class="mi">0</span>.<span class="mi">971</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">010</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;linear&#39;</span>}
+<span class="mi">0</span>.<span class="mi">971</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">010</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">10</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;linear&#39;</span>}
+<span class="mi">0</span>.<span class="mi">971</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">010</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">100</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;linear&#39;</span>}
+<span class="mi">0</span>.<span class="mi">971</span><span class="w"> </span><span class="ss">(</span><span class="o">+/-</span><span class="mi">0</span>.<span class="mi">010</span><span class="ss">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>{<span class="s1">&#39;C&#39;</span>:<span class="w"> </span><span class="mi">1000</span>,<span class="w"> </span><span class="s1">&#39;kernel&#39;</span>:<span class="w"> </span><span class="s1">&#39;linear&#39;</span>}
+
+<span class="nv">Detailed</span><span class="w"> </span><span class="nv">classification</span><span class="w"> </span><span class="nv">report</span>:
+
+<span class="nv">The</span><span class="w"> </span><span class="nv">model</span><span class="w"> </span><span class="nv">is</span><span class="w"> </span><span class="nv">trained</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">full</span><span class="w"> </span><span class="nv">development</span><span class="w"> </span><span class="nv">set</span>.
+<span class="nv">The</span><span class="w"> </span><span class="nv">scores</span><span class="w"> </span><span class="nv">are</span><span class="w"> </span><span class="nv">computed</span><span class="w"> </span><span class="nv">on</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">full</span><span class="w"> </span><span class="nv">evaluation</span><span class="w"> </span><span class="nv">set</span>.
+
+<span class="w">              </span><span class="nv">precision</span><span class="w">    </span><span class="nv">recall</span><span class="w">  </span><span class="nv">f1</span><span class="o">-</span><span class="nv">score</span><span class="w">   </span><span class="nv">support</span>
+
+<span class="w">           </span><span class="mi">0</span><span class="w">       </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">        </span><span class="mi">89</span>
+<span class="w">           </span><span class="mi">1</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">97</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">        </span><span class="mi">90</span>
+<span class="w">           </span><span class="mi">2</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">        </span><span class="mi">92</span>
+<span class="w">           </span><span class="mi">3</span><span class="w">       </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">93</span>
+<span class="w">           </span><span class="mi">4</span><span class="w">       </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">        </span><span class="mi">76</span>
+<span class="w">           </span><span class="mi">5</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">       </span><span class="mi">108</span>
+<span class="w">           </span><span class="mi">6</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">89</span>
+<span class="w">           </span><span class="mi">7</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">78</span>
+<span class="w">           </span><span class="mi">8</span><span class="w">       </span><span class="mi">1</span>.<span class="mi">00</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">98</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">92</span>
+<span class="w">           </span><span class="mi">9</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">        </span><span class="mi">92</span>
+
+<span class="w">    </span><span class="nv">accuracy</span><span class="w">                           </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">       </span><span class="mi">899</span>
+<span class="w">   </span><span class="nv">macro</span><span class="w"> </span><span class="nv">avg</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">       </span><span class="mi">899</span>
+<span class="nv">weighted</span><span class="w"> </span><span class="nv">avg</span><span class="w">       </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">      </span><span class="mi">0</span>.<span class="mi">99</span><span class="w">       </span><span class="mi">899</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 10</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/sklearn.html">sklearn</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/rjpy/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/rjpy/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/misc.html">misc</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/xgboost.html">xgboost</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/rajasgs/">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/raja-csp-raman">LinkedIn</a></li>
+            <li><a href="https://linktr.ee/rajacsp">LinkTree</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>Python and ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>
