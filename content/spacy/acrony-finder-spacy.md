@@ -51,7 +51,8 @@ nlp = spacy.load("en_core_web_sm")
 
 ```python
 # Sample text
-text = "California Xgb is a great tool for machine learning. Another example is AI. NTLK is very slow and not recommended high speed ML scenarios"
+text = "California Xgb is a great tool for machine learning. Another example is AI. \
+NTLK is very slow and not recommended high speed ML scenarios. XGBoost, Claude, PrettyMetrics, Rl, Gan, Rnn"
 ```
 
 
@@ -80,7 +81,7 @@ acronyms = find_acronyms(text)
 print("Acronyms found:", acronyms)
 ```
 
-    Acronyms found: ['Xgb', 'AI', 'NTLK', 'ML']
+    Acronyms found: ['Xgb', 'AI', 'NTLK', 'ML', 'Gan', 'Rnn']
 
 
 
