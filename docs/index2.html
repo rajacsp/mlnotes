@@ -47,6 +47,63 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/rjpy/apply-custom-lamdba-function.html"><h3 class="article-title">Apply-Custom-Lamdba-Function</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;city&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Toronto&#39;</span><span class="p">,</span> <span class="s1">&#39;Montreal&#39;</span><span class="p">,</span> <span class="s1">&#39;Waterloo&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;points&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">data</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>{&#39;city&#39;: [&#39;Toronto&#39;, &#39;Montreal&#39;, &#39;Waterloo&#39;], &#39;points&#39;: [80, 70, 90]}
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>dict
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th …</style></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/pandas.html">pandas</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/apply-custom-lamdba-function.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/rjpy/apply-function.html"><h3 class="article-title">Apply-Function</h3></a>
 <h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
 </h6>
@@ -469,42 +526,6 @@
                 <hr  class="gradient"/>
             </article>
 
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/rjpy/bigrams.html"><h3 class="article-title">Bigrams</h3></a>
-<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk.collocations</span>
-<span class="kn">import</span> <span class="nn">nltk.corpus</span>
-<span class="kn">import</span> <span class="nn">collections</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># import nltk</span>
-<span class="c1"># nltk.download(&#39;brown&#39;)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">bgm</span>    <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramAssocMeasures</span><span class="p">()</span>
-<span class="n">finder</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramCollocationFinder</span><span class="o">.</span><span class="n">from_words</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">brown</span><span class="o">.</span><span class="n">words</span><span class="p">())</span>
-<span class="n">scored</span> <span class="o">=</span> <span class="n">finder</span><span class="o">.</span><span class="n">score_ngrams</span><span class="p">(</span> <span class="n">bgm</span><span class="o">.</span><span class="n">likelihood_ratio</span>  <span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Group bigrams by first word in bigram.                                        </span>
-<span class="n">prefix_keys</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">scores</span> <span class="ow">in</span> <span class="n">scored</span><span class="p">:</span>
-   <span class="n">prefix_keys</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/textprocessing.html">textprocessing</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/bigrams.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
             <!-- /#posts-list -->
 <div class="pagination-centered">
 <h6 class="subheader">Page 2 of 6</h6>
@@ -545,6 +566,7 @@
             <li><a href="https://rajasgs.github.io/rjpy/category/regex.html">regex</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/seaborn.html">seaborn</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/spacy.html">spacy</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/sqlalchemy.html">sqlalchemy</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/statsmodel.html">statsmodel</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/sysargs.html">sysargs</a></li>

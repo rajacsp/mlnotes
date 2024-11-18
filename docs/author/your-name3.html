@@ -47,6 +47,42 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/rjpy/bigrams.html"><h3 class="article-title">Bigrams</h3></a>
+<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk.collocations</span>
+<span class="kn">import</span> <span class="nn">nltk.corpus</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># import nltk</span>
+<span class="c1"># nltk.download(&#39;brown&#39;)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">bgm</span>    <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramAssocMeasures</span><span class="p">()</span>
+<span class="n">finder</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramCollocationFinder</span><span class="o">.</span><span class="n">from_words</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">brown</span><span class="o">.</span><span class="n">words</span><span class="p">())</span>
+<span class="n">scored</span> <span class="o">=</span> <span class="n">finder</span><span class="o">.</span><span class="n">score_ngrams</span><span class="p">(</span> <span class="n">bgm</span><span class="o">.</span><span class="n">likelihood_ratio</span>  <span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Group bigrams by first word in bigram.                                        </span>
+<span class="n">prefix_keys</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">scores</span> <span class="ow">in</span> <span class="n">scored</span><span class="p">:</span>
+   <span class="n">prefix_keys</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/bigrams.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/rjpy/california-xgb.html"><h3 class="article-title">California-Xgb</h3></a>
 <h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
 </h6>
@@ -477,45 +513,6 @@
                 <hr  class="gradient"/>
             </article>
 
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/rjpy/decision-tree-graph.html"><h3 class="article-title">Decision-Tree-Graph</h3></a>
-<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pydotplus</span>
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
-<span class="kn">import</span> <span class="nn">collections</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Data Collection</span>
-<span class="c1">#heigh, length of hair, voice pitch</span>
-<span class="n">X</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span><span class="mi">180</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>     
-      <span class="p">[</span><span class="mi">177</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
-      <span class="p">[</span><span class="mi">136</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
-      <span class="p">[</span><span class="mi">174</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
-      <span class="p">[</span><span class="mi">141</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Y</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;man&#39;</span><span class="p">,</span> <span class="s1">&#39;woman&#39;</span><span class="p">,</span> <span class="s1">&#39;woman&#39;</span><span class="p">,</span> <span class="s1">&#39;man&#39;</span><span class="p">,</span> <span class="s1">&#39;woman&#39;</span><span class="p">]</span>    
-
-<span class="n">data_feature_names</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="s1">&#39;hair length&#39;</span><span class="p">,</span> <span class="s1">&#39;voice pitch&#39;</span> <span class="p">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/sklearn.html">sklearn</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/decision-tree-graph.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
             <!-- /#posts-list -->
 <div class="pagination-centered">
 <h6 class="subheader">Page 3 of 6</h6>
@@ -556,6 +553,7 @@
             <li><a href="https://rajasgs.github.io/rjpy/category/regex.html">regex</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/seaborn.html">seaborn</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/rjpy/category/spacy.html">spacy</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/sqlalchemy.html">sqlalchemy</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/statsmodel.html">statsmodel</a></li>
             <li><a href="https://rajasgs.github.io/rjpy/category/sysargs.html">sysargs</a></li>
