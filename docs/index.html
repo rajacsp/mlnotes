@@ -46,6 +46,84 @@
         
 
             <article>
+                <a href="https://rajasgs.github.io/rjpy/abstract-with-ast.html"><h3 class="article-title">Abstract-With-Ast</h3></a>
+<h6 class="subheader" title="2024-11-18T00:00:00-05:00">Mon 18 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Python 3.12.4
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">ast</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Python code as a string</span>
+<span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">def greet(name):</span>
+<span class="s2">    return f&quot;Hello, </span><span class="si">{name}</span><span class="s2">!&quot;</span>
+
+<span class="s2">x = 10</span>
+<span class="s2">y = x + 20</span>
+<span class="s2">print(greet(&quot;Python&quot;))</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Parse the code into an AST</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Define a visitor class to analyze nodes</span>
+<span class="k">class</span> <span class="nc">CodeAnalyzer</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeVisitor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">visit_FunctionDef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function found: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">visit_Assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">targets</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">)]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Assignment to: </span><span class="si">{</span><span class="n">targets</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">visit_Call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function call: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Create an analyzer instance and visit nodes</span>
+<span class="n">analyzer</span> <span class="o">=</span> <span class="n">CodeAnalyzer</span><span class="p">()</span>
+<span class="n">analyzer</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Function found: greet
+Assignment to: [&#39;x&#39;]
+Assignment to: [&#39;y&#39;]
+Function call: print
+Function call: greet
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a>
+
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/rjpy/access-local-kaggle-dataset.html"><h3 class="article-title">Access-Local-Kaggle-Dataset</h3></a>
 <h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
 </h6>
@@ -100,151 +178,15 @@
       <th>zipcode</th>
       <th>lat</th>
       <th>long</th>
-      <th>sqft_living15</th>
-      <th>sqft_lot15</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>7129300520</td>
-      <td>20141013T000000</td>
-      <td>221900.0</td>
-      <td>3</td>
-      <td>1.00</td>
-      <td>1180</td>
-      <td>5650</td>
-      <td>1.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>7</td>
-      <td>1180</td>
-      <td>0</td>
-      <td>1955</td>
-      <td>0</td>
-      <td>98178</td>
-      <td>47.5112</td>
-      <td>-122.257</td>
-      <td>1340</td>
-      <td>5650</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>6414100192</td>
-      <td>20141209T000000</td>
-      <td>538000.0</td>
-      <td>3</td>
-      <td>2.25</td>
-      <td>2570</td>
-      <td>7242</td>
-      <td>2.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>7</td>
-      <td>2170</td>
-      <td>400</td>
-      <td>1951</td>
-      <td>1991</td>
-      <td>98125</td>
-      <td>47.7210</td>
-      <td>-122.319</td>
-      <td>1690</td>
-      <td>7639</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>5631500400</td>
-      <td>20150225T000000</td>
-      <td>180000.0</td>
-      <td>2</td>
-      <td>1.00</td>
-      <td>770</td>
-      <td>10000</td>
-      <td>1.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>6</td>
-      <td>770</td>
-      <td>0</td>
-      <td>1933</td>
-      <td>0</td>
-      <td>98028</td>
-      <td>47.7379</td>
-      <td>-122.233</td>
-      <td>2720</td>
-      <td>8062</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>2487200875</td>
-      <td>20141209T000000</td>
-      <td>604000.0</td>
-      <td>4</td>
-      <td>3.00</td>
-      <td>1960</td>
-      <td>5000</td>
-      <td>1.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>7</td>
-      <td>1050</td>
-      <td>910</td>
-      <td>1965</td>
-      <td>0</td>
-      <td>98136</td>
-      <td>47.5208</td>
-      <td>-122.393</td>
-      <td>1360</td>
-      <td>5000</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1954400510</td>
-      <td>20150218T000000</td>
-      <td>510000.0</td>
-      <td>3</td>
-      <td>2.00</td>
-      <td>1680</td>
-      <td>8080</td>
-      <td>1.0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>8</td>
-      <td>1680</td>
-      <td>0</td>
-      <td>1987</td>
-      <td>0</td>
-      <td>98074</td>
-      <td>47.6168</td>
-      <td>-122.045</td>
-      <td>1800</td>
-      <td>7503</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 21 columns</p>
-</div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/kaggle.html">kaggle</a>
+      <th>sqft_living15 …</th></tr></thead></table></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/kaggle.html">kaggle</a>
 
 </p>
 
 
 
-            </article>
-
-
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/access-local-kaggle-dataset.html">Read More</a>
                 <hr  class="gradient"/>
-
+            </article>
 
         
 
@@ -614,46 +556,6 @@
 
 
                 <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/apply-function.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/rjpy/args-sample.html"><h3 class="article-title">Args-Sample</h3></a>
-<h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">print_everything</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">thing</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
-            <span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">. </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">thing</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">print_everything</span><span class="p">(</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span> <span class="s1">&#39;banana&#39;</span><span class="p">,</span> <span class="s1">&#39;cabbage&#39;</span><span class="p">,</span> <span class="s1">&#39;spinach&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">0.</span><span class="w"> </span><span class="n">apple</span>
-<span class="mf">1.</span><span class="w"> </span><span class="n">banana</span>
-<span class="mf">2.</span><span class="w"> </span><span class="n">cabbage</span>
-<span class="mf">3.</span><span class="w"> </span><span class="n">spinach</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<hr>
-<p><strong>Score: 0</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/args-sample.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 

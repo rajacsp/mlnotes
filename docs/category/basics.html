@@ -46,6 +46,84 @@
         
 
             <article>
+                <a href="https://rajasgs.github.io/rjpy/abstract-with-ast.html"><h3 class="article-title">Abstract-With-Ast</h3></a>
+<h6 class="subheader" title="2024-11-18T00:00:00-05:00">Mon 18 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Python 3.12.4
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">ast</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Python code as a string</span>
+<span class="n">code</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">def greet(name):</span>
+<span class="s2">    return f&quot;Hello, </span><span class="si">{name}</span><span class="s2">!&quot;</span>
+
+<span class="s2">x = 10</span>
+<span class="s2">y = x + 20</span>
+<span class="s2">print(greet(&quot;Python&quot;))</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Parse the code into an AST</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">code</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Define a visitor class to analyze nodes</span>
+<span class="k">class</span> <span class="nc">CodeAnalyzer</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeVisitor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">visit_FunctionDef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function found: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">visit_Assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="n">targets</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">targets</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">)]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Assignment to: </span><span class="si">{</span><span class="n">targets</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">visit_Call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function call: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Create an analyzer instance and visit nodes</span>
+<span class="n">analyzer</span> <span class="o">=</span> <span class="n">CodeAnalyzer</span><span class="p">()</span>
+<span class="n">analyzer</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Function found: greet
+Assignment to: [&#39;x&#39;]
+Assignment to: [&#39;y&#39;]
+Function call: print
+Function call: greet
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a>
+
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/rjpy/add-padding-around-string.html"><h3 class="article-title">Add-Padding-Around-String</h3></a>
 <h6 class="subheader" title="2024-11-17T00:00:00-05:00">Sun 17 November 2024
 </h6>
@@ -80,28 +158,15 @@
 <div class="highlight"><pre><span></span><code>&#39;     Chapter 2      &#39;
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># Add * Of Padding On Each Side</span>
-<span class="nb">format</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;*^20&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&#39;*****Chapter 2******&#39;
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add * Of Padding On …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/rjpy/category/basics.html">basics</a>
 
 </p>
 
 
 
-            </article>
-
-
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/rjpy/add-padding-around-string.html">Read More</a>
                 <hr  class="gradient"/>
-
+            </article>
 
         
 
