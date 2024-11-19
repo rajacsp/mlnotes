@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content_title %}{% endblock %}
+
+{% block content %}
+{% if articles %}
+
+<main>
+    <div class="homepage">
+        <div class="row">
+            <div class="col-sm-12" style="padding-top: 40px;">
+                <h1>
+                    <span class="minor_line">Technical Notes</span>
+
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <h4 class="card-header">Regex</h4>
+                    <div class="card-body">
+                        <ul>
+                            {% for article in articles_page.object_list %}
+                            <li>
+                                <a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+
+{% else %}
+
+<h3>Pages</h3>
+{% for page in pages %}
+<li><a href="{{ SITEURL }}/{{ page.url }}">{{ page.title }}</a></li>
+{% endfor %}
+
+{% endif %}
+{% endblock content %}
