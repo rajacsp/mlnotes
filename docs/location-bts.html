@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Location-Bts</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">Python and ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/location-bts.html" rel="bookmark"
+        title="Permalink to Location-Bts">Location-Bts</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-20T00:00:00-05:00">Wed 20 November 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gliner</span> <span class="kn">import</span> <span class="n">GLiNER</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># https://genius.com/Genius-english-translations-bts-on-english-translation-lyrics</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Initialize GLiNER with a pre-trained model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">GLiNER</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;urchade/gliner_medium-v2.1&quot;</span><span class="p">)</span>  <span class="c1"># Adjust to a location-specific model if needed</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">Fetching</span><span class="w"> </span><span class="mf">5</span><span class="w"> </span><span class="nx">files</span><span class="o">:</span><span class="w">   </span><span class="mf">0</span><span class="o">%|</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mf">0</span><span class="o">/</span><span class="mf">5</span><span class="w"> </span><span class="p">[</span><span class="mo">00</span><span class="o">:</span><span class="mo">00</span><span class="cp">&lt;?</span><span class="p">,</span> <span class="o">?</span><span class="nx">it</span><span class="o">/</span><span class="nx">s</span><span class="p">]</span>
+
+
+<span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">rajaraman</span><span class="o">/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">transformers</span><span class="o">/</span><span class="nx">convert_slow_tokenizer</span><span class="o">.</span><span class="nx">py</span><span class="o">:</span><span class="mi">562</span><span class="o">:</span> <span class="nx">UserWarning</span><span class="o">:</span> <span class="nx">The</span> <span class="nx">sentencepiece</span> <span class="nx">tokenizer</span> <span class="nx">that</span> <span class="nx">you</span> <span class="nx">are</span> <span class="nx">converting</span> <span class="nx">to</span> <span class="nx">a</span> <span class="nx">fast</span> <span class="nx">tokenizer</span> <span class="nx">uses</span> <span class="nx">the</span> <span class="nx">byte</span> <span class="nx">fallback</span> <span class="nx">option</span> <span class="nx">which</span> <span class="nx">is</span> <span class="k">not</span> <span class="nx">implemented</span> <span class="nx">in</span> <span class="nx">the</span> <span class="nx">fast</span> <span class="nx">tokenizers</span><span class="o">.</span> <span class="nx">In</span> <span class="nx">practice</span> <span class="k">this</span> <span class="nx">means</span> <span class="nx">that</span> <span class="nx">the</span> <span class="nx">fast</span> <span class="nx">version</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">tokenizer</span> <span class="nx">can</span> <span class="nx">produce</span> <span class="nx">unknown</span> <span class="nx">tokens</span> <span class="nx">whereas</span> <span class="nx">the</span> <span class="nx">sentencepiece</span> <span class="nx">version</span> <span class="nx">would</span> <span class="nx">have</span> <span class="nx">converted</span> <span class="nx">these</span> <span class="nx">unknown</span> <span class="nx">tokens</span> <span class="nx">into</span> <span class="nx">a</span> <span class="nx">sequence</span> <span class="nx">of</span> <span class="nx">byte</span> <span class="nx">tokens</span> <span class="nx">matching</span> <span class="nx">the</span> <span class="nx">original</span> <span class="nx">piece</span> <span class="nx">of</span> <span class="nx">text</span><span class="o">.</span>
+  <span class="nx">warnings</span><span class="o">.</span><span class="nx">warn</span><span class="p">(</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Input text</span>
+<span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">[Verse 1: Jimin, V]</span>
+<span class="s2">I can&#39;t understand what people are sayin&#39;</span>
+<span class="s2">Who and what do I need to follow</span>
+<span class="s2">With each step then again grows the shadow</span>
+<span class="s2">Where is this place I open my eyes to</span>
+<span class="s2">Maybe Seoul or New York or Paris</span>
+<span class="s2">I get up, unsteady on my feet (Yeah)</span>
+
+<span class="s2">[Verse 2: RM]</span>
+<span class="s2">(Look) Look at my feet, look down</span>
+<span class="s2">The shadow resembles me</span>
+<span class="s2">Is it the shadow that&#39;s shaking</span>
+<span class="s2">Or is it my feet that are trembling</span>
+<span class="s2">Of course I&#39;m not unafraid</span>
+<span class="s2">Of course it&#39;s not all okay</span>
+<span class="s2">But I know</span>
+<span class="s2">Awkwardly I flow</span>
+<span class="s2">I fly together with that black wind</span>
+
+<span class="s2">[Pre-Chorus: Jimin, Jung Kook, Jin]</span>
+<span class="s2">(Hey, na-na-na) Gotta go insane to stay sane</span>
+<span class="s2">(Hey, na-na-na) Throw myself whole into both worlds</span>
+<span class="s2">(Hey, na-na-na) Can&#39;t hold me down &#39;cause you know I&#39;m a fighter</span>
+<span class="s2">Carried myself into this beautiful prison</span>
+<span class="s2">Find me and I&#39;m gonna live with ya</span>
+
+<span class="s2">[Chorus: Jung Kook &amp; Jimin, Jung Kook, Jimin]</span>
+<span class="s2">(Eh-oh) Bring it, bring the pain, oh yeah</span>
+<span class="s2">(Eh-oh) Come on up, bring the pain, oh yeah</span>
+<span class="s2">Rain be pourin&#39;, sky keep fallin&#39;</span>
+<span class="s2">Everyday, oh na-na-na</span>
+<span class="s2">(Eh-oh) Bring it, bring the pain, oh yeah</span>
+
+<span class="s2">[Verse 3: j-hope]</span>
+<span class="s2">Bring the pain</span>
+<span class="s2">It&#39;ll become my blood and flesh</span>
+<span class="s2">Bring the pain</span>
+<span class="s2">No fear, now that I know the way</span>
+<span class="s2">Breathe on the small things</span>
+<span class="s2">My air and my light in the dark</span>
+<span class="s2">The power of the things that make me, &quot;me&quot;</span>
+<span class="s2">Even if I fall, I come right up, scream</span>
+
+<span class="s2">[Verse 4: SUGA]</span>
+<span class="s2">Even if I fall, I come right up, scream</span>
+<span class="s2">That&#39;s how we&#39;ve always been</span>
+<span class="s2">Even if my knees drop to the ground</span>
+<span class="s2">As long as they don&#39;t get buried</span>
+<span class="s2">It&#39;s going to be just an ordinary happening</span>
+<span class="s2">Win no matter what</span>
+<span class="s2">Win no matter what</span>
+<span class="s2">Win no matter what</span>
+<span class="s2">Whatever you say, whatever they say</span>
+<span class="s2">I don&#39;t give a uhh</span>
+<span class="s2">I don&#39;t give a uhh</span>
+<span class="s2">I don&#39;t give a uhh, yeah</span>
+
+<span class="s2">[Pre-Chorus: Jimin, V, Jung Kook]</span>
+<span class="s2">(Hey, na-na-na) Gotta go insane to stay sane</span>
+<span class="s2">(Hey, na-na-na) Throw myself whole into both worlds</span>
+<span class="s2">(Hey, na-na-na) Can&#39;t hold me down &#39;cause you know I&#39;m a fighter</span>
+<span class="s2">Carried myself into this beautiful prison</span>
+<span class="s2">Find me and I&#39;m gonna live with ya</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Define the entity label for location extraction</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;LOCATION&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Perform entity prediction</span>
+<span class="n">locations</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_entities</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">rajaraman</span><span class="o">/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">gliner</span><span class="o">/</span><span class="nx">data_processing</span><span class="o">/</span><span class="nx">processor</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">269</span><span class="p">:</span><span class="w"> </span><span class="nx">UserWarning</span><span class="p">:</span><span class="w"> </span><span class="nx">Sentence</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">length</span><span class="w"> </span><span class="mi">484</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">been</span><span class="w"> </span><span class="nx">truncated</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="mi">384</span>
+<span class="w">  </span><span class="nx">warnings</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">f</span><span class="s">&quot;Sentence of length {len(tokens)} has been truncated to {max_len}&quot;</span><span class="p">)</span>
+<span class="nx">Asking</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">truncate</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">max_length</span><span class="w"> </span><span class="nx">but</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">maximum</span><span class="w"> </span><span class="nx">length</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">provided</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">model</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">predefined</span><span class="w"> </span><span class="nx">maximum</span><span class="w"> </span><span class="nx">length</span><span class="p">.</span><span class="w"> </span><span class="nx">Default</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">truncation</span><span class="p">.</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Display the extracted locations</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracted Locations:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">locations</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> =&gt; </span><span class="si">{</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Extracted Locations:
+Seoul =&gt; LOCATION
+New York =&gt; LOCATION
+Paris =&gt; LOCATION
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/misc.html">misc</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/rajasgs/">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/raja-csp-raman">LinkedIn</a></li>
+            <li><a href="https://linktr.ee/rajacsp">LinkTree</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>Python and ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>
