@@ -47,6 +47,50 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/barcode-validator.html"><h3 class="article-title">Barcode-Validator</h3></a>
+<h6 class="subheader" title="2024-11-20T00:00:00-05:00">Wed 20 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># !pip install colormap</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">colormap</span> <span class="kn">import</span> <span class="n">rgb2hex</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span>
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">isdir</span>
+<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">path</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">NON_BARCODE_PAR</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="k">def</span> <span class="nf">is_barcode_image</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+
+    <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="c1">#width, height = im.size</span>
+    <span class="n">pixel_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">im</span><span class="o">.</span><span class="n">getdata</span><span class="p">())</span>
+
+    <span class="c1">#print(pixel_values)</span>
+
+    <span class="n">color_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">for …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/barcode-validator.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/base.html"><h3 class="article-title">Base</h3></a>
 <h6 class="subheader" title="2024-11-20T00:00:00-05:00">Wed 20 November 2024
 </h6>
@@ -417,64 +461,6 @@
 
 
                 <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/compile-expressions.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/create-temp-file.html"><h3 class="article-title">Create-Temp-File</h3></a>
-<h6 class="subheader" title="2024-11-20T00:00:00-05:00">Wed 20 November 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tempfile</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fp</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryFile</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fp</span><span class="o">.</span><span class="n">name</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">55</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;Hey Toronto&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">11</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fp</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">0</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">fp</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>b&#39;Hey Toronto&#39;
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Close the file</span>
-
-<span class="n">fp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/create-temp-file.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
