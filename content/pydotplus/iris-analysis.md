@@ -1,6 +1,6 @@
 ---
 title: Iris-Analysis
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 4
 score: 0
@@ -77,7 +77,7 @@ Image(graph.create_png())
 
 
     
-![png](/rjpy/images/iris-analysis_2_0.png)
+![png](/mlnotes/images/iris-analysis_2_0.png)
     
 
 

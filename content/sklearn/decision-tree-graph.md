@@ -1,6 +1,6 @@
 ---
 title: Decision-Tree-Graph
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 12
 score: 10
@@ -100,7 +100,7 @@ Image(graph.create_png())
 
 
     
-![png](/rjpy/images/decision-tree-graph_10_0.png)
+![png](/mlnotes/images/decision-tree-graph_10_0.png)
     
 
 

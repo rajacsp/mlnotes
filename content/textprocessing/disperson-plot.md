@@ -1,6 +1,6 @@
 ---
 title: Disperson-Plot
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 9
 score: 5
@@ -85,7 +85,7 @@ text3.dispersion_plot(["God", "heaven", "form", "light", "day", ""])
 
 
     
-![png](/rjpy/images/disperson-plot_6_0.png)
+![png](/mlnotes/images/disperson-plot_6_0.png)
     
 
 
@@ -96,7 +96,7 @@ text3.dispersion_plot(["citizens", "democracy"])
 
 
     
-![png](/rjpy/images/disperson-plot_7_0.png)
+![png](/mlnotes/images/disperson-plot_7_0.png)
     
 
 

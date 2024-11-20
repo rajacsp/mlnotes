@@ -1,6 +1,6 @@
 ---
 title: Student-Hiring
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 2
 score: 0
@@ -60,7 +60,7 @@ Image(graph.create_png())
 
 
     
-![png](/rjpy/images/student-hiring_0_0.png)
+![png](/mlnotes/images/student-hiring_0_0.png)
     
 
 

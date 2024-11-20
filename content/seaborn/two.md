@@ -1,6 +1,6 @@
 ---
 title: Two
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 5
 score: 5
@@ -46,7 +46,7 @@ plt.show()
 
 
     
-![png](/rjpy/images/two_3_0.png)
+![png](/mlnotes/images/two_3_0.png)
     
 
 

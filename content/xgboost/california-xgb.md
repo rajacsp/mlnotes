@@ -1,6 +1,6 @@
 ---
 title: California-Xgb
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 13
 score: 10
@@ -117,7 +117,7 @@ plt.show()
 
 
     
-![png](/rjpy/images/california-xgb_9_0.png)
+![png](/mlnotes/images/california-xgb_9_0.png)
     
 
 
@@ -135,7 +135,7 @@ plt.show()
 
 
     
-![png](/rjpy/images/california-xgb_11_0.png)
+![png](/mlnotes/images/california-xgb_11_0.png)
     
 
 

@@ -1,6 +1,6 @@
 ---
 title: Astype-2
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 12
 score: 10

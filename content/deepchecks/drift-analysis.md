@@ -1,6 +1,6 @@
 ---
 title: Drift-Analysis
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 27
 score: 25
@@ -182,7 +182,7 @@ plt.show()
 
 
     
-![png](/rjpy/images/drift-analysis_15_0.png)
+![png](/mlnotes/images/drift-analysis_15_0.png)
     
 
 
@@ -230,7 +230,7 @@ display(Image(filename=image_path))
 
 
     
-![png](/rjpy/images/drift-analysis_21_0.png)
+![png](/mlnotes/images/drift-analysis_21_0.png)
     
 
 

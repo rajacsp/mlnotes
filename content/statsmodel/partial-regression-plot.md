@@ -1,6 +1,6 @@
 ---
 title: Partial-Regression-Plot
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 24
 score: 20
@@ -996,14 +996,14 @@ sm.graphics.plot_partregress('Lottery', 'Wealth', ['Region' ,'Literacy'], data=d
 
 
     
-![png](/rjpy/images/partial-regression-plot_22_0.png)
+![png](/mlnotes/images/partial-regression-plot_22_0.png)
     
 
 
 
 
     
-![png](/rjpy/images/partial-regression-plot_22_1.png)
+![png](/mlnotes/images/partial-regression-plot_22_1.png)
     
 
 

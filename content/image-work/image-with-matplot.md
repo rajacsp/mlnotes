@@ -1,6 +1,6 @@
 ---
 title: Image-With-Matplot
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 5
 score: 5
@@ -36,7 +36,7 @@ plt.show()
 
 
     
-![png](/rjpy/images/image-with-matplot_3_0.png)
+![png](/mlnotes/images/image-with-matplot_3_0.png)
     
 
 

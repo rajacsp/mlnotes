@@ -1,6 +1,6 @@
 ---
 title: Isotonic-1
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 7
 score: 5
@@ -478,7 +478,7 @@ plt.show()
 
 
     
-![png](/rjpy/images/isotonic-1_5_0.png)
+![png](/mlnotes/images/isotonic-1_5_0.png)
     
 
 

@@ -1,6 +1,6 @@
 ---
 title: Acrony-Finder-Spacy
-date: 2024-11-18
+date: 2024-11-20
 author: Your Name
 cell_count: 13
 score: 10

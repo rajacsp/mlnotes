@@ -1,6 +1,6 @@
 ---
 title: California-Xgb-Sns
-date: 2024-11-17
+date: 2024-11-20
 author: Your Name
 cell_count: 7
 score: 5
@@ -70,7 +70,7 @@ plt.show()
 
 
     
-![png](/rjpy/images/california-xgb-sns_5_0.png)
+![png](/mlnotes/images/california-xgb-sns_5_0.png)
     
 
 
