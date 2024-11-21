@@ -1,6 +1,6 @@
 ---
 title: Apply-Custom-Lamdba-Function
-date: 2024-11-20
+date: 2024-11-21
 author: Your Name
 cell_count: 11
 score: 10

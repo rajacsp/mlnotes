@@ -1,6 +1,6 @@
 ---
 title: Simple-Dataframe-For-Statsmodel
-date: 2024-11-20
+date: 2024-11-21
 author: Your Name
 cell_count: 6
 score: 5

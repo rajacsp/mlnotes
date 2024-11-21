@@ -1,6 +1,6 @@
 ---
 title: Isotonic-1
-date: 2024-11-20
+date: 2024-11-21
 author: Your Name
 cell_count: 7
 score: 5

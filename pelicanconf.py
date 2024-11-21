@@ -1,7 +1,7 @@
 
 
 AUTHOR          = 'Raja CSP RAman'  # use your name
-SITENAME        = 'Python and ML Notes' # use title
+SITENAME        = 'ML Notes' # use title
 GITHUB_USERNAME = 'rajasgs' # use your username
 
 
@@ -12,9 +12,8 @@ LINKS = (
 
 # Social widget
 SOCIAL = (
-    ("GitHub", "https://github.com/rajasgs/"),
-    ("LinkedIn", "https://www.linkedin.com/in/raja-csp-raman"),
-    ("LinkTree", "https://linktr.ee/rajacsp"),
+    ("GitHub", "https://github.com/<yourusername>/"),
+    ("LinkedIn", "<linkedin handle>"),
 )
 
 ######## Advanced Settings (not recommended to to edited; take your own risk to touch the settings below) #############
@@ -56,17 +55,11 @@ DEFAULT_PAGINATION          = 10
 # Use SITEURL for absolute paths; RELATIVE_URLS is typically for local preview
 RELATIVE_URLS = False
 
+# Ensure unique output paths
+ARTICLE_URL = '{slug}.html'
+ARTICLE_SAVE_AS = '{slug}.html'
+
 THEME               = 'themes/zurb-F5-basic'
 
 IGNORE_FILES        = [".*", "*.swp", "*~"]  # Ignore hidden files and temporary files
 
-# Specify static paths to include in the output
-STATIC_PATHS = ['images']
-
-# STATIC_PATHS = [
-#     'one/two_files',
-# ]
-
-# EXTRA_PATH_METADATA = {
-#     'one/two_files/two_0_0.png': {'path': 'two_files/two_0_0.png'},  # Output location
-# }
