@@ -1,11 +1,3 @@
----
-title: California-Xgb-Sns
-date: 2024-11-23
-author: Your Name
-cell_count: 7
-score: 5
----
-
 ```python
 !python --version
 ```
@@ -70,7 +62,7 @@ plt.show()
 
 
     
-![png](/mlnotes/images/california-xgb-sns_5_0.png)
+![png](california-xgb-sns_files/california-xgb-sns_5_0.png)
     
 
 
@@ -78,7 +70,3 @@ plt.show()
 ```python
 
 ```
-
-
----
-**Score: 5**

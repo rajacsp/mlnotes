@@ -1,11 +1,3 @@
----
-title: Titanic-Deepcheck-Analysis
-date: 2024-11-23
-author: Your Name
-cell_count: 15
-score: 15
----
-
 ```python
 !python --version
 ```
@@ -170,7 +162,3 @@ suite_result.show()
 ```python
 
 ```
-
-
----
-**Score: 15**

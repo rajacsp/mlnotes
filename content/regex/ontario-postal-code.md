@@ -1,11 +1,3 @@
----
-title: Ontario-Postal-Code
-date: 2024-11-23
-author: Your Name
-cell_count: 3
-score: 0
----
-
 ```python
 import re
 ```
@@ -33,7 +25,3 @@ for name in names:
 ```python
 
 ```
-
-
----
-**Score: 0**

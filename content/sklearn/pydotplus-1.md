@@ -1,11 +1,3 @@
----
-title: Pydotplus-1
-date: 2024-11-23
-author: Your Name
-cell_count: 2
-score: 0
----
-
 ```python
 from pydotplus import graphviz
 
@@ -28,7 +20,7 @@ Image(graph.create_png())
 
 
     
-![png](/mlnotes/images/pydotplus-1_0_0.png)
+![png](pydotplus-1_files/pydotplus-1_0_0.png)
     
 
 
@@ -37,7 +29,3 @@ Image(graph.create_png())
 ```python
 
 ```
-
-
----
-**Score: 0**

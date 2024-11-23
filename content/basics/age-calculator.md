@@ -1,11 +1,3 @@
----
-title: Age-Calculator
-date: 2024-11-23
-author: Your Name
-cell_count: 5
-score: 5
----
-
 ```python
 from datetime import datetime
 ```
@@ -41,7 +33,3 @@ age
 ```python
 
 ```
-
-
----
-**Score: 5**

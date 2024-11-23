@@ -1,11 +1,3 @@
----
-title: Address-Classification
-date: 2024-11-23
-author: Your Name
-cell_count: 7
-score: 5
----
-
 ```python
 from gliner import GLiNER
 ```
@@ -72,7 +64,3 @@ for entity in entities:
 ```python
 
 ```
-
-
----
-**Score: 5**

@@ -1,11 +1,3 @@
----
-title: Barcode-Validator
-date: 2024-11-23
-author: Your Name
-cell_count: 8
-score: 5
----
-
 ```python
 
 ```
@@ -98,7 +90,3 @@ test_single_image('nobar.png')
 ```python
 
 ```
-
-
----
-**Score: 5**

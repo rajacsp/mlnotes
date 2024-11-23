@@ -311,14 +311,14 @@ if __name__ == "__main__":
     Path(NOTEBOOK_DIR).mkdir(parents=True, exist_ok=True)
     Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
 
-    # fresh = True if (len(sys.argv) > 1 and sys.argv[1] == "fresh") else False
-    fresh = True
+    fresh = True if (len(sys.argv) > 1 and sys.argv[1] == "fresh") else False
+    # fresh = True
 
     print(f'fresh: {fresh}')
 
-    # if fresh:
-    #     clean_output_dir(OUTPUT_DIR)
-    #     clean_output_dir(DOCS_FOLDER)
+    if fresh:
+        clean_output_dir(OUTPUT_DIR)
+        clean_output_dir(DOCS_FOLDER)
 
     # # Convert notebooks and generate site
     convert_notebooks_to_markdown(NOTEBOOK_DIR, OUTPUT_DIR, fresh = fresh)

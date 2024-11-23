@@ -1,11 +1,3 @@
----
-title: Gaussian-Breast-Cancer
-date: 2024-11-23
-author: Your Name
-cell_count: 15
-score: 15
----
-
 ```python
 !python --version
 ```
@@ -179,7 +171,3 @@ print(accuracy_score(test_labels, preds))
 ```python
 
 ```
-
-
----
-**Score: 15**

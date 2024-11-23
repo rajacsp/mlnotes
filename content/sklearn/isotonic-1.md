@@ -1,11 +1,3 @@
----
-title: Isotonic-1
-date: 2024-11-23
-author: Your Name
-cell_count: 7
-score: 5
----
-
 ```python
 
 ```
@@ -478,7 +470,7 @@ plt.show()
 
 
     
-![png](/mlnotes/images/isotonic-1_5_0.png)
+![png](isotonic-1_files/isotonic-1_5_0.png)
     
 
 
@@ -486,7 +478,3 @@ plt.show()
 ```python
 
 ```
-
-
----
-**Score: 5**

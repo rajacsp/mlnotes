@@ -1,11 +1,3 @@
----
-title: Bag-Of-Words
-date: 2024-11-23
-author: Your Name
-cell_count: 5
-score: 5
----
-
 ```python
 import re
 from nltk.tokenize import word_tokenize
@@ -53,7 +45,3 @@ word_counter.most_common(4)
 ```python
 
 ```
-
-
----
-**Score: 5**

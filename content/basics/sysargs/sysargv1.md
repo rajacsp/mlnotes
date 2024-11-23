@@ -1,11 +1,3 @@
----
-title: Sysargv1
-date: 2024-11-23
-author: Your Name
-cell_count: 5
-score: 5
----
-
 ```python
 
 ```
@@ -40,7 +32,3 @@ print(f"Third argument: {sys.argv[3]}")
 ```python
 
 ```
-
-
----
-**Score: 5**

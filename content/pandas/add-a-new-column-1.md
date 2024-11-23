@@ -1,11 +1,3 @@
----
-title: Add-A-New-Column-1
-date: 2024-11-23
-author: Your Name
-cell_count: 10
-score: 10
----
-
 Add a New Column
 
 
@@ -167,7 +159,3 @@ df
 ```python
 
 ```
-
-
----
-**Score: 10**

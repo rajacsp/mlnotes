@@ -1,11 +1,3 @@
----
-title: Article-Reader
-date: 2024-11-23
-author: Your Name
-cell_count: 6
-score: 5
----
-
 ```python
 
 ```
@@ -44,7 +36,3 @@ content
 ```python
 
 ```
-
-
----
-**Score: 5**

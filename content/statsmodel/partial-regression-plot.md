@@ -1,11 +1,3 @@
----
-title: Partial-Regression-Plot
-date: 2024-11-23
-author: Your Name
-cell_count: 24
-score: 20
----
-
 ```python
 import statsmodels.api as sm
 import pandas as pd
@@ -996,14 +988,14 @@ sm.graphics.plot_partregress('Lottery', 'Wealth', ['Region' ,'Literacy'], data=d
 
 
     
-![png](/mlnotes/images/partial-regression-plot_22_0.png)
+![png](partial-regression-plot_files/partial-regression-plot_22_0.png)
     
 
 
 
 
     
-![png](/mlnotes/images/partial-regression-plot_22_1.png)
+![png](partial-regression-plot_files/partial-regression-plot_22_1.png)
     
 
 
@@ -1011,7 +1003,3 @@ sm.graphics.plot_partregress('Lottery', 'Wealth', ['Region' ,'Literacy'], data=d
 ```python
 
 ```
-
-
----
-**Score: 20**

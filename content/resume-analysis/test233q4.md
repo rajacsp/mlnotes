@@ -1,11 +1,3 @@
----
-title: Test233Q4
-date: 2024-11-23
-author: Your Name
-cell_count: 5
-score: 5
----
-
 ```python
 import math_csp_util as msu
 ```
@@ -69,7 +61,3 @@ msu.add(10, 20)
 ```python
 
 ```
-
-
----
-**Score: 5**

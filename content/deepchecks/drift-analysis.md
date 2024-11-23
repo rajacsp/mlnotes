@@ -1,11 +1,3 @@
----
-title: Drift-Analysis
-date: 2024-11-23
-author: Your Name
-cell_count: 27
-score: 25
----
-
 ```python
 !python --version
 ```
@@ -182,7 +174,7 @@ plt.show()
 
 
     
-![png](/mlnotes/images/drift-analysis_15_0.png)
+![png](drift-analysis_files/drift-analysis_15_0.png)
     
 
 
@@ -230,7 +222,7 @@ display(Image(filename=image_path))
 
 
     
-![png](/mlnotes/images/drift-analysis_21_0.png)
+![png](drift-analysis_files/drift-analysis_21_0.png)
     
 
 
@@ -258,7 +250,3 @@ display(Image(filename=image_path))
 ```python
 
 ```
-
-
----
-**Score: 25**

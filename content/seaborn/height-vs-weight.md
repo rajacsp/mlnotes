@@ -1,11 +1,3 @@
----
-title: Height-Vs-Weight
-date: 2024-11-23
-author: Your Name
-cell_count: 8
-score: 5
----
-
 ```python
 !python --version
 ```
@@ -54,7 +46,7 @@ plt.show()
 
 
     
-![png](/mlnotes/images/height-vs-weight_5_0.png)
+![png](height-vs-weight_files/height-vs-weight_5_0.png)
     
 
 
@@ -67,7 +59,3 @@ plt.show()
 ```python
 
 ```
-
-
----
-**Score: 5**
