@@ -1,3 +1,11 @@
+---
+title: Odd-Or-Even
+date: 2024-11-23
+author: Your Name
+cell_count: 7
+score: 5
+---
+
 Nov 20 2024
 
 Write a Python program that checks if a given number is odd or even.
@@ -64,3 +72,7 @@ check_odd_or_even(-1)
 ```python
 
 ```
+
+
+---
+**Score: 5**

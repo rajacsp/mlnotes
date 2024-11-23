@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Address-Analysis-With-Hf</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/address-analysis-with-hf.html" rel="bookmark"
+        title="Permalink to Address-Analysis-With-Hf">Address-Analysis-With-Hf</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="c1"># !pip install datasets</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForTokenClassification</span><span class="p">,</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">Trainer</span><span class="p">,</span> <span class="n">TrainingArguments</span>
+<span class="kn">from</span> <span class="nn">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Load data</span>
+<span class="n">dataset</span> <span class="o">=</span> <span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="n">data_files</span><span class="o">=</span><span class="s2">&quot;train_data.json&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Generating train split: 0 examples [00:00, ? examples/s]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">dataset</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>DatasetDict({
+    train: Dataset({
+        features: [&#39;text&#39;, &#39;entities&#39;],
+        num_rows: 1
+    })
+})
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Load model and tokenizer</span>
+<span class="c1"># model = AutoModelForTokenClassification.from_pretrained(&quot;urchade/gliner_medium-v2.1&quot;)</span>
+<span class="c1"># tokenizer = AutoTokenizer.from_pretrained(&quot;urchade/gliner_medium-v2.1&quot;)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoTokenizer</span><span class="p">,</span> <span class="n">AutoModelForTokenClassification</span><span class="p">,</span> <span class="n">AutoConfig</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Path to the local model directory</span>
+<span class="n">model_dir</span> <span class="o">=</span> <span class="s2">&quot;/home/rajaraman/datasets/gliner/gliner_medium-v2.1&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the configuration manually</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">AutoConfig</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">model_dir</span><span class="si">}</span><span class="s2">/gliner_config.json&quot;</span><span class="p">,</span> <span class="n">local_files_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">---------------------------------------------------------------------------</span>
+
+<span class="n">ValueError</span><span class="w">                                </span><span class="n">Traceback</span><span class="w"> </span><span class="p">(</span><span class="n">most</span><span class="w"> </span><span class="n">recent</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="k">last</span><span class="p">)</span>
+
+<span class="n">Cell</span><span class="w"> </span><span class="k">In</span><span class="err">[</span><span class="mi">14</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">      </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Load the configuration manually</span>
+<span class="o">----&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AutoConfig</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{model_dir}/gliner_config.json&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">local_files_only</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+
+
+<span class="k">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">transformers</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">auto</span><span class="o">/</span><span class="n">configuration_auto</span><span class="p">.</span><span class="n">py</span><span class="o">:</span><span class="mi">997</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">AutoConfig</span><span class="p">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="w"> </span><span class="n">pretrained_model_name_or_path</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">994</span><span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="n">pretrained_model_name_or_path</span><span class="p">)</span><span class="o">:</span>
+<span class="w">    </span><span class="mi">995</span><span class="w">             </span><span class="k">return</span><span class="w"> </span><span class="n">CONFIG_MAPPING</span><span class="err">[</span><span class="n">pattern</span><span class="err">]</span><span class="p">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">config_dict</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">unused_kwargs</span><span class="p">)</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">997</span><span class="w"> </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">998</span><span class="w">     </span><span class="n">f</span><span class="s2">&quot;Unrecognized model in {pretrained_model_name_or_path}. &quot;</span>
+<span class="w">    </span><span class="mi">999</span><span class="w">     </span><span class="n">f</span><span class="s2">&quot;Should have a `model_type` key in its {CONFIG_NAME}, or contain one of the following strings &quot;</span>
+<span class="w">   </span><span class="mi">1000</span><span class="w">     </span><span class="n">f</span><span class="s2">&quot;in its name: {&#39;, &#39;.join(CONFIG_MAPPING.keys())}&quot;</span>
+<span class="w">   </span><span class="mi">1001</span><span class="w"> </span><span class="p">)</span>
+
+
+<span class="n">ValueError</span><span class="o">:</span><span class="w"> </span><span class="n">Unrecognized</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">rajaraman</span><span class="o">/</span><span class="n">datasets</span><span class="o">/</span><span class="n">gliner</span><span class="o">/</span><span class="n">gliner_medium</span><span class="o">-</span><span class="n">v2</span><span class="mf">.1</span><span class="o">/</span><span class="n">gliner_config</span><span class="p">.</span><span class="kt">json</span><span class="p">.</span><span class="w"> </span><span class="n">Should</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n n-Quoted">`model_type`</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="kt">json</span><span class="p">,</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">contain</span><span class="w"> </span><span class="k">one</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">following</span><span class="w"> </span><span class="n">strings</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">its</span><span class="w"> </span><span class="k">name</span><span class="o">:</span><span class="w"> </span><span class="n">albert</span><span class="p">,</span><span class="w"> </span><span class="n">align</span><span class="p">,</span><span class="w"> </span><span class="n">altclip</span><span class="p">,</span><span class="w"> </span><span class="n">audio</span><span class="o">-</span><span class="n">spectrogram</span><span class="o">-</span><span class="n">transformer</span><span class="p">,</span><span class="w"> </span><span class="n">autoformer</span><span class="p">,</span><span class="w"> </span><span class="n">bark</span><span class="p">,</span><span class="w"> </span><span class="n">bart</span><span class="p">,</span><span class="w"> </span><span class="n">beit</span><span class="p">,</span><span class="w"> </span><span class="n">bert</span><span class="p">,</span><span class="w"> </span><span class="n">bert</span><span class="o">-</span><span class="n">generation</span><span class="p">,</span><span class="w"> </span><span class="n">big_bird</span><span class="p">,</span><span class="w"> </span><span class="n">bigbird_pegasus</span><span class="p">,</span><span class="w"> </span><span class="n">biogpt</span><span class="p">,</span><span class="w"> </span><span class="kt">bit</span><span class="p">,</span><span class="w"> </span><span class="n">blenderbot</span><span class="p">,</span><span class="w"> </span><span class="n">blenderbot</span><span class="o">-</span><span class="n">small</span><span class="p">,</span><span class="w"> </span><span class="n">blip</span><span class="p">,</span><span class="w"> </span><span class="n">blip</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">bloom</span><span class="p">,</span><span class="w"> </span><span class="n">bridgetower</span><span class="p">,</span><span class="w"> </span><span class="n">bros</span><span class="p">,</span><span class="w"> </span><span class="n">camembert</span><span class="p">,</span><span class="w"> </span><span class="n">canine</span><span class="p">,</span><span class="w"> </span><span class="n">chinese_clip</span><span class="p">,</span><span class="w"> </span><span class="n">chinese_clip_vision_model</span><span class="p">,</span><span class="w"> </span><span class="n">clap</span><span class="p">,</span><span class="w"> </span><span class="n">clip</span><span class="p">,</span><span class="w"> </span><span class="n">clip_vision_model</span><span class="p">,</span><span class="w"> </span><span class="n">clipseg</span><span class="p">,</span><span class="w"> </span><span class="n">clvp</span><span class="p">,</span><span class="w"> </span><span class="n">code_llama</span><span class="p">,</span><span class="w"> </span><span class="n">codegen</span><span class="p">,</span><span class="w"> </span><span class="n">cohere</span><span class="p">,</span><span class="w"> </span><span class="n">conditional_detr</span><span class="p">,</span><span class="w"> </span><span class="n">convbert</span><span class="p">,</span><span class="w"> </span><span class="n">convnext</span><span class="p">,</span><span class="w"> </span><span class="n">convnextv2</span><span class="p">,</span><span class="w"> </span><span class="n">cpmant</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl</span><span class="p">,</span><span class="w"> </span><span class="n">cvt</span><span class="p">,</span><span class="w"> </span><span class="n">data2vec</span><span class="o">-</span><span class="n">audio</span><span class="p">,</span><span class="w"> </span><span class="n">data2vec</span><span class="o">-</span><span class="kt">text</span><span class="p">,</span><span class="w"> </span><span class="n">data2vec</span><span class="o">-</span><span class="n">vision</span><span class="p">,</span><span class="w"> </span><span class="n">dbrx</span><span class="p">,</span><span class="w"> </span><span class="n">deberta</span><span class="p">,</span><span class="w"> </span><span class="n">deberta</span><span class="o">-</span><span class="n">v2</span><span class="p">,</span><span class="w"> </span><span class="n">decision_transformer</span><span class="p">,</span><span class="w"> </span><span class="n">deformable_detr</span><span class="p">,</span><span class="w"> </span><span class="n">deit</span><span class="p">,</span><span class="w"> </span><span class="n">depth_anything</span><span class="p">,</span><span class="w"> </span><span class="n">deta</span><span class="p">,</span><span class="w"> </span><span class="n">detr</span><span class="p">,</span><span class="w"> </span><span class="n">dinat</span><span class="p">,</span><span class="w"> </span><span class="n">dinov2</span><span class="p">,</span><span class="w"> </span><span class="n">distilbert</span><span class="p">,</span><span class="w"> </span><span class="n">donut</span><span class="o">-</span><span class="n">swin</span><span class="p">,</span><span class="w"> </span><span class="n">dpr</span><span class="p">,</span><span class="w"> </span><span class="n">dpt</span><span class="p">,</span><span class="w"> </span><span class="n">efficientformer</span><span class="p">,</span><span class="w"> </span><span class="n">efficientnet</span><span class="p">,</span><span class="w"> </span><span class="n">electra</span><span class="p">,</span><span class="w"> </span><span class="n">encodec</span><span class="p">,</span><span class="w"> </span><span class="n">encoder</span><span class="o">-</span><span class="n">decoder</span><span class="p">,</span><span class="w"> </span><span class="n">ernie</span><span class="p">,</span><span class="w"> </span><span class="n">ernie_m</span><span class="p">,</span><span class="w"> </span><span class="n">esm</span><span class="p">,</span><span class="w"> </span><span class="n">falcon</span><span class="p">,</span><span class="w"> </span><span class="n">fastspeech2_conformer</span><span class="p">,</span><span class="w"> </span><span class="n">flaubert</span><span class="p">,</span><span class="w"> </span><span class="n">flava</span><span class="p">,</span><span class="w"> </span><span class="n">fnet</span><span class="p">,</span><span class="w"> </span><span class="n">focalnet</span><span class="p">,</span><span class="w"> </span><span class="n">fsmt</span><span class="p">,</span><span class="w"> </span><span class="n">funnel</span><span class="p">,</span><span class="w"> </span><span class="n">fuyu</span><span class="p">,</span><span class="w"> </span><span class="n">gemma</span><span class="p">,</span><span class="w"> </span><span class="n">gemma2</span><span class="p">,</span><span class="w"> </span><span class="n">git</span><span class="p">,</span><span class="w"> </span><span class="n">glpn</span><span class="p">,</span><span class="w"> </span><span class="n">gpt</span><span class="o">-</span><span class="n">sw3</span><span class="p">,</span><span class="w"> </span><span class="n">gpt2</span><span class="p">,</span><span class="w"> </span><span class="n">gpt_bigcode</span><span class="p">,</span><span class="w"> </span><span class="n">gpt_neo</span><span class="p">,</span><span class="w"> </span><span class="n">gpt_neox</span><span class="p">,</span><span class="w"> </span><span class="n">gpt_neox_japanese</span><span class="p">,</span><span class="w"> </span><span class="n">gptj</span><span class="p">,</span><span class="w"> </span><span class="n">gptsan</span><span class="o">-</span><span class="n">japanese</span><span class="p">,</span><span class="w"> </span><span class="n">graphormer</span><span class="p">,</span><span class="w"> </span><span class="n">grounding</span><span class="o">-</span><span class="n">dino</span><span class="p">,</span><span class="w"> </span><span class="n">groupvit</span><span class="p">,</span><span class="w"> </span><span class="n">hubert</span><span class="p">,</span><span class="w"> </span><span class="n">ibert</span><span class="p">,</span><span class="w"> </span><span class="n">idefics</span><span class="p">,</span><span class="w"> </span><span class="n">idefics2</span><span class="p">,</span><span class="w"> </span><span class="n">imagegpt</span><span class="p">,</span><span class="w"> </span><span class="n">informer</span><span class="p">,</span><span class="w"> </span><span class="n">instructblip</span><span class="p">,</span><span class="w"> </span><span class="n">instructblipvideo</span><span class="p">,</span><span class="w"> </span><span class="n">jamba</span><span class="p">,</span><span class="w"> </span><span class="n">jetmoe</span><span class="p">,</span><span class="w"> </span><span class="n">jukebox</span><span class="p">,</span><span class="w"> </span><span class="n">kosmos</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">layoutlm</span><span class="p">,</span><span class="w"> </span><span class="n">layoutlmv2</span><span class="p">,</span><span class="w"> </span><span class="n">layoutlmv3</span><span class="p">,</span><span class="w"> </span><span class="n">led</span><span class="p">,</span><span class="w"> </span><span class="n">levit</span><span class="p">,</span><span class="w"> </span><span class="n">lilt</span><span class="p">,</span><span class="w"> </span><span class="n">llama</span><span class="p">,</span><span class="w"> </span><span class="n">llava</span><span class="p">,</span><span class="w"> </span><span class="n">llava</span><span class="o">-</span><span class="k">next</span><span class="o">-</span><span class="n">video</span><span class="p">,</span><span class="w"> </span><span class="n">llava_next</span><span class="p">,</span><span class="w"> </span><span class="n">longformer</span><span class="p">,</span><span class="w"> </span><span class="n">longt5</span><span class="p">,</span><span class="w"> </span><span class="n">luke</span><span class="p">,</span><span class="w"> </span><span class="n">lxmert</span><span class="p">,</span><span class="w"> </span><span class="n">m2m_100</span><span class="p">,</span><span class="w"> </span><span class="n">mamba</span><span class="p">,</span><span class="w"> </span><span class="n">marian</span><span class="p">,</span><span class="w"> </span><span class="n">markuplm</span><span class="p">,</span><span class="w"> </span><span class="n">mask2former</span><span class="p">,</span><span class="w"> </span><span class="n">maskformer</span><span class="p">,</span><span class="w"> </span><span class="n">maskformer</span><span class="o">-</span><span class="n">swin</span><span class="p">,</span><span class="w"> </span><span class="n">mbart</span><span class="p">,</span><span class="w"> </span><span class="n">mctct</span><span class="p">,</span><span class="w"> </span><span class="n">mega</span><span class="p">,</span><span class="w"> </span><span class="n">megatron</span><span class="o">-</span><span class="n">bert</span><span class="p">,</span><span class="w"> </span><span class="n">mgp</span><span class="o">-</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">mistral</span><span class="p">,</span><span class="w"> </span><span class="n">mixtral</span><span class="p">,</span><span class="w"> </span><span class="n">mobilebert</span><span class="p">,</span><span class="w"> </span><span class="n">mobilenet_v1</span><span class="p">,</span><span class="w"> </span><span class="n">mobilenet_v2</span><span class="p">,</span><span class="w"> </span><span class="n">mobilevit</span><span class="p">,</span><span class="w"> </span><span class="n">mobilevitv2</span><span class="p">,</span><span class="w"> </span><span class="n">mpnet</span><span class="p">,</span><span class="w"> </span><span class="n">mpt</span><span class="p">,</span><span class="w"> </span><span class="n">mra</span><span class="p">,</span><span class="w"> </span><span class="n">mt5</span><span class="p">,</span><span class="w"> </span><span class="n">musicgen</span><span class="p">,</span><span class="w"> </span><span class="n">musicgen_melody</span><span class="p">,</span><span class="w"> </span><span class="n">mvp</span><span class="p">,</span><span class="w"> </span><span class="n">nat</span><span class="p">,</span><span class="w"> </span><span class="n">nezha</span><span class="p">,</span><span class="w"> </span><span class="n">nllb</span><span class="o">-</span><span class="n">moe</span><span class="p">,</span><span class="w"> </span><span class="n">nougat</span><span class="p">,</span><span class="w"> </span><span class="n">nystromformer</span><span class="p">,</span><span class="w"> </span><span class="n">olmo</span><span class="p">,</span><span class="w"> </span><span class="n">oneformer</span><span class="p">,</span><span class="w"> </span><span class="k">open</span><span class="o">-</span><span class="n">llama</span><span class="p">,</span><span class="w"> </span><span class="n">openai</span><span class="o">-</span><span class="n">gpt</span><span class="p">,</span><span class="w"> </span><span class="n">opt</span><span class="p">,</span><span class="w"> </span><span class="n">owlv2</span><span class="p">,</span><span class="w"> </span><span class="n">owlvit</span><span class="p">,</span><span class="w"> </span><span class="n">paligemma</span><span class="p">,</span><span class="w"> </span><span class="n">patchtsmixer</span><span class="p">,</span><span class="w"> </span><span class="n">patchtst</span><span class="p">,</span><span class="w"> </span><span class="n">pegasus</span><span class="p">,</span><span class="w"> </span><span class="n">pegasus_x</span><span class="p">,</span><span class="w"> </span><span class="n">perceiver</span><span class="p">,</span><span class="w"> </span><span class="n">persimmon</span><span class="p">,</span><span class="w"> </span><span class="n">phi</span><span class="p">,</span><span class="w"> </span><span class="n">phi3</span><span class="p">,</span><span class="w"> </span><span class="n">pix2struct</span><span class="p">,</span><span class="w"> </span><span class="n">plbart</span><span class="p">,</span><span class="w"> </span><span class="n">poolformer</span><span class="p">,</span><span class="w"> </span><span class="n">pop2piano</span><span class="p">,</span><span class="w"> </span><span class="n">prophetnet</span><span class="p">,</span><span class="w"> </span><span class="n">pvt</span><span class="p">,</span><span class="w"> </span><span class="n">pvt_v2</span><span class="p">,</span><span class="w"> </span><span class="n">qdqbert</span><span class="p">,</span><span class="w"> </span><span class="n">qwen2</span><span class="p">,</span><span class="w"> </span><span class="n">qwen2_moe</span><span class="p">,</span><span class="w"> </span><span class="n">rag</span><span class="p">,</span><span class="w"> </span><span class="n">realm</span><span class="p">,</span><span class="w"> </span><span class="n">recurrent_gemma</span><span class="p">,</span><span class="w"> </span><span class="n">reformer</span><span class="p">,</span><span class="w"> </span><span class="n">regnet</span><span class="p">,</span><span class="w"> </span><span class="n">rembert</span><span class="p">,</span><span class="w"> </span><span class="n">resnet</span><span class="p">,</span><span class="w"> </span><span class="n">retribert</span><span class="p">,</span><span class="w"> </span><span class="n">roberta</span><span class="p">,</span><span class="w"> </span><span class="n">roberta</span><span class="o">-</span><span class="n">prelayernorm</span><span class="p">,</span><span class="w"> </span><span class="n">roc_bert</span><span class="p">,</span><span class="w"> </span><span class="n">roformer</span><span class="p">,</span><span class="w"> </span><span class="n">rt_detr</span><span class="p">,</span><span class="w"> </span><span class="n">rt_detr_resnet</span><span class="p">,</span><span class="w"> </span><span class="n">rwkv</span><span class="p">,</span><span class="w"> </span><span class="n">sam</span><span class="p">,</span><span class="w"> </span><span class="n">seamless_m4t</span><span class="p">,</span><span class="w"> </span><span class="n">seamless_m4t_v2</span><span class="p">,</span><span class="w"> </span><span class="n">segformer</span><span class="p">,</span><span class="w"> </span><span class="n">seggpt</span><span class="p">,</span><span class="w"> </span><span class="n">sew</span><span class="p">,</span><span class="w"> </span><span class="n">sew</span><span class="o">-</span><span class="n">d</span><span class="p">,</span><span class="w"> </span><span class="n">siglip</span><span class="p">,</span><span class="w"> </span><span class="n">siglip_vision_model</span><span class="p">,</span><span class="w"> </span><span class="n">speech</span><span class="o">-</span><span class="n">encoder</span><span class="o">-</span><span class="n">decoder</span><span class="p">,</span><span class="w"> </span><span class="n">speech_to_text</span><span class="p">,</span><span class="w"> </span><span class="n">speech_to_text_2</span><span class="p">,</span><span class="w"> </span><span class="n">speecht5</span><span class="p">,</span><span class="w"> </span><span class="n">splinter</span><span class="p">,</span><span class="w"> </span><span class="n">squeezebert</span><span class="p">,</span><span class="w"> </span><span class="n">stablelm</span><span class="p">,</span><span class="w"> </span><span class="n">starcoder2</span><span class="p">,</span><span class="w"> </span><span class="n">superpoint</span><span class="p">,</span><span class="w"> </span><span class="n">swiftformer</span><span class="p">,</span><span class="w"> </span><span class="n">swin</span><span class="p">,</span><span class="w"> </span><span class="n">swin2sr</span><span class="p">,</span><span class="w"> </span><span class="n">swinv2</span><span class="p">,</span><span class="w"> </span><span class="n">switch_transformers</span><span class="p">,</span><span class="w"> </span><span class="n">t5</span><span class="p">,</span><span class="w"> </span><span class="k">table</span><span class="o">-</span><span class="n">transformer</span><span class="p">,</span><span class="w"> </span><span class="n">tapas</span><span class="p">,</span><span class="w"> </span><span class="n">time_series_transformer</span><span class="p">,</span><span class="w"> </span><span class="n">timesformer</span><span class="p">,</span><span class="w"> </span><span class="n">timm_backbone</span><span class="p">,</span><span class="w"> </span><span class="n">trajectory_transformer</span><span class="p">,</span><span class="w"> </span><span class="n">transfo</span><span class="o">-</span><span class="n">xl</span><span class="p">,</span><span class="w"> </span><span class="n">trocr</span><span class="p">,</span><span class="w"> </span><span class="n">tvlt</span><span class="p">,</span><span class="w"> </span><span class="n">tvp</span><span class="p">,</span><span class="w"> </span><span class="n">udop</span><span class="p">,</span><span class="w"> </span><span class="n">umt5</span><span class="p">,</span><span class="w"> </span><span class="n">unispeech</span><span class="p">,</span><span class="w"> </span><span class="n">unispeech</span><span class="o">-</span><span class="n">sat</span><span class="p">,</span><span class="w"> </span><span class="n">univnet</span><span class="p">,</span><span class="w"> </span><span class="n">upernet</span><span class="p">,</span><span class="w"> </span><span class="n">van</span><span class="p">,</span><span class="w"> </span><span class="n">video_llava</span><span class="p">,</span><span class="w"> </span><span class="n">videomae</span><span class="p">,</span><span class="w"> </span><span class="n">vilt</span><span class="p">,</span><span class="w"> </span><span class="n">vipllava</span><span class="p">,</span><span class="w"> </span><span class="n">vision</span><span class="o">-</span><span class="n">encoder</span><span class="o">-</span><span class="n">decoder</span><span class="p">,</span><span class="w"> </span><span class="n">vision</span><span class="o">-</span><span class="kt">text</span><span class="o">-</span><span class="k">dual</span><span class="o">-</span><span class="n">encoder</span><span class="p">,</span><span class="w"> </span><span class="n">visual_bert</span><span class="p">,</span><span class="w"> </span><span class="n">vit</span><span class="p">,</span><span class="w"> </span><span class="n">vit_hybrid</span><span class="p">,</span><span class="w"> </span><span class="n">vit_mae</span><span class="p">,</span><span class="w"> </span><span class="n">vit_msn</span><span class="p">,</span><span class="w"> </span><span class="n">vitdet</span><span class="p">,</span><span class="w"> </span><span class="n">vitmatte</span><span class="p">,</span><span class="w"> </span><span class="n">vits</span><span class="p">,</span><span class="w"> </span><span class="n">vivit</span><span class="p">,</span><span class="w"> </span><span class="n">wav2vec2</span><span class="p">,</span><span class="w"> </span><span class="n">wav2vec2</span><span class="o">-</span><span class="n">bert</span><span class="p">,</span><span class="w"> </span><span class="n">wav2vec2</span><span class="o">-</span><span class="n">conformer</span><span class="p">,</span><span class="w"> </span><span class="n">wavlm</span><span class="p">,</span><span class="w"> </span><span class="n">whisper</span><span class="p">,</span><span class="w"> </span><span class="n">xclip</span><span class="p">,</span><span class="w"> </span><span class="n">xglm</span><span class="p">,</span><span class="w"> </span><span class="n">xlm</span><span class="p">,</span><span class="w"> </span><span class="n">xlm</span><span class="o">-</span><span class="n">prophetnet</span><span class="p">,</span><span class="w"> </span><span class="n">xlm</span><span class="o">-</span><span class="n">roberta</span><span class="p">,</span><span class="w"> </span><span class="n">xlm</span><span class="o">-</span><span class="n">roberta</span><span class="o">-</span><span class="n">xl</span><span class="p">,</span><span class="w"> </span><span class="n">xlnet</span><span class="p">,</span><span class="w"> </span><span class="n">xmod</span><span class="p">,</span><span class="w"> </span><span class="n">yolos</span><span class="p">,</span><span class="w"> </span><span class="n">yoso</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

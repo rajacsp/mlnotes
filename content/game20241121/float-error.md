@@ -1,3 +1,11 @@
+---
+title: Float-Error
+date: 2024-11-23
+author: Your Name
+cell_count: 2
+score: 0
+---
+
 ```python
 try:
     "soemthing".toFloat
@@ -14,3 +22,7 @@ except (ValueError, KeyError, AttributeError) as e:
 ```python
 
 ```
+
+
+---
+**Score: 0**

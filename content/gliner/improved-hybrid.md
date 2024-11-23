@@ -1,3 +1,11 @@
+---
+title: Improved-Hybrid
+date: 2024-11-23
+author: Your Name
+cell_count: 13
+score: 10
+---
+
 ```python
 import re
 from gliner import GLiNER
@@ -101,3 +109,7 @@ print("Final Combined Predictions:", final_predictions)
 ```python
 
 ```
+
+
+---
+**Score: 10**

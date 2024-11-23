@@ -1,3 +1,11 @@
+---
+title: Untitled
+date: 2024-11-23
+author: Your Name
+cell_count: 4
+score: 0
+---
+
 ```python
 !pip install smtplib
 ```
@@ -66,3 +74,7 @@ server.quit()
 ```python
 
 ```
+
+
+---
+**Score: 0**

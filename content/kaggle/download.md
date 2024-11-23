@@ -1,3 +1,11 @@
+---
+title: Download
+date: 2024-11-23
+author: Your Name
+cell_count: 8
+score: 5
+---
+
 ```python
 import os
 import pandas as pd
@@ -78,3 +86,7 @@ with zipfile.ZipFile(dataset_path, 'r') as z:
 ```python
 
 ```
+
+
+---
+**Score: 5**

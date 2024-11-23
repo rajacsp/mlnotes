@@ -1,3 +1,11 @@
+---
+title: Accuracy-Score
+date: 2024-11-23
+author: Your Name
+cell_count: 4
+score: 0
+---
+
 ```python
 import numpy as np
 from sklearn.metrics import accuracy_score
@@ -27,3 +35,7 @@ print(score2)
 ```python
 
 ```
+
+
+---
+**Score: 0**

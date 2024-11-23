@@ -1,3 +1,11 @@
+---
+title: House-Sales
+date: 2024-11-23
+author: Your Name
+cell_count: 28
+score: 25
+---
+
 ```python
 # !pip install kaggle
 # https://medium.com/@pumaline/easy-analysis-of-your-data-and-ml-model-using-evidently-ai-830ef0c1c4fd
@@ -679,3 +687,7 @@ from evidently.model_profile.sections import (
 ```python
 
 ```
+
+
+---
+**Score: 25**

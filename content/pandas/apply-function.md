@@ -1,3 +1,11 @@
+---
+title: Apply-Function
+date: 2024-11-23
+author: Your Name
+cell_count: 9
+score: 5
+---
+
 ```python
 import pandas as pd
 ```
@@ -162,3 +170,7 @@ df.groupby('city')['points'].apply(lambda x:x.rolling(window=2).mean())
 ```python
 
 ```
+
+
+---
+**Score: 5**

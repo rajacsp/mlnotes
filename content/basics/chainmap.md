@@ -1,3 +1,11 @@
+---
+title: Chainmap
+date: 2024-11-23
+author: Your Name
+cell_count: 17
+score: 15
+---
+
 ```python
 
 ```
@@ -132,3 +140,7 @@ https://docs.python.org/3/library/collections.html#collections.Counter
 ```python
 
 ```
+
+
+---
+**Score: 15**

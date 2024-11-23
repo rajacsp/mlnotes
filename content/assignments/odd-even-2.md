@@ -1,3 +1,11 @@
+---
+title: Odd-Even-2
+date: 2024-11-23
+author: Your Name
+cell_count: 7
+score: 5
+---
+
 ```python
 
 ```
@@ -66,3 +74,7 @@ for i in range(10):
 ```python
 
 ```
+
+
+---
+**Score: 5**

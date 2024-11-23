@@ -1,3 +1,11 @@
+---
+title: Two
+date: 2024-11-23
+author: Your Name
+cell_count: 5
+score: 5
+---
+
 ```python
 !python --version
 ```
@@ -38,7 +46,7 @@ plt.show()
 
 
     
-![png](two_files/two_3_0.png)
+![png](/mlnotes/images/two_3_0.png)
     
 
 
@@ -46,3 +54,7 @@ plt.show()
 ```python
 
 ```
+
+
+---
+**Score: 5**

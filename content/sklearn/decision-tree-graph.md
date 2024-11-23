@@ -1,3 +1,11 @@
+---
+title: Decision-Tree-Graph
+date: 2024-11-23
+author: Your Name
+cell_count: 12
+score: 10
+---
+
 ```python
 import pydotplus
 from sklearn.datasets import load_iris
@@ -92,7 +100,7 @@ Image(graph.create_png())
 
 
     
-![png](decision-tree-graph_files/decision-tree-graph_10_0.png)
+![png](/mlnotes/images/decision-tree-graph_10_0.png)
     
 
 
@@ -101,3 +109,7 @@ Image(graph.create_png())
 ```python
 
 ```
+
+
+---
+**Score: 10**

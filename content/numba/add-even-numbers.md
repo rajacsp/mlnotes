@@ -1,3 +1,11 @@
+---
+title: Add-Even-Numbers
+date: 2024-11-23
+author: Your Name
+cell_count: 5
+score: 5
+---
+
 ```python
 from numba import njit, prange
 import numpy as np
@@ -37,3 +45,7 @@ abc
 ```python
 
 ```
+
+
+---
+**Score: 5**

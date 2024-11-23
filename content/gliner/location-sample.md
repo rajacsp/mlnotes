@@ -1,3 +1,11 @@
+---
+title: Location-Sample
+date: 2024-11-23
+author: Your Name
+cell_count: 8
+score: 5
+---
+
 ```python
 
 ```
@@ -66,3 +74,7 @@ for loc in locations:
 ```python
 
 ```
+
+
+---
+**Score: 5**

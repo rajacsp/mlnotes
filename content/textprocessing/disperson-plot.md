@@ -1,3 +1,11 @@
+---
+title: Disperson-Plot
+date: 2024-11-23
+author: Your Name
+cell_count: 9
+score: 5
+---
+
 ```python
 import nltk
 # nltk.download('gutenberg')
@@ -77,7 +85,7 @@ text3.dispersion_plot(["God", "heaven", "form", "light", "day", ""])
 
 
     
-![png](disperson-plot_files/disperson-plot_6_0.png)
+![png](/mlnotes/images/disperson-plot_6_0.png)
     
 
 
@@ -88,7 +96,7 @@ text3.dispersion_plot(["citizens", "democracy"])
 
 
     
-![png](disperson-plot_files/disperson-plot_7_0.png)
+![png](/mlnotes/images/disperson-plot_7_0.png)
     
 
 
@@ -96,3 +104,7 @@ text3.dispersion_plot(["citizens", "democracy"])
 ```python
 
 ```
+
+
+---
+**Score: 5**
