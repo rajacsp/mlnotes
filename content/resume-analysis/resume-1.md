@@ -1,11 +1,3 @@
----
-title: Resume-1
-date: 2024-11-23
-author: Your Name
-cell_count: 18
-score: 15
----
-
 ```python
 !python --version
 ```
@@ -161,7 +153,3 @@ help(GLiNER.train)
 ```python
 
 ```
-
-
----
-**Score: 15**

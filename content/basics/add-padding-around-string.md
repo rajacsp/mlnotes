@@ -1,11 +1,3 @@
----
-title: Add-Padding-Around-String
-date: 2024-11-23
-author: Your Name
-cell_count: 9
-score: 5
----
-
 ```python
 
 ```
@@ -75,7 +67,3 @@ format(text, '*^20')
 ```python
 
 ```
-
-
----
-**Score: 5**

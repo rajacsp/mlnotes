@@ -1,11 +1,3 @@
----
-title: Canada-Facts
-date: 2024-11-23
-author: Your Name
-cell_count: 12
-score: 10
----
-
 ```python
 # https://python.langchain.com/docs/how_to/structured_output/
 # https://python.langchain.com/docs/how_to/
@@ -85,10 +77,13 @@ q()
 ```
 
 
+
+
+    CanadaFact(year='1867', info='Canada became a self-governing dominion within the British Empire on July 1, 1867, through the British North America Act.', category='History')
+
+
+
+
 ```python
 
 ```
-
-
----
-**Score: 10**

@@ -1,11 +1,3 @@
----
-title: Sample
-date: 2024-11-23
-author: Your Name
-cell_count: 9
-score: 5
----
-
 ```python
 # !pip install deepchecks
 ```
@@ -79,7 +71,3 @@ print(null_check)
 ```python
 
 ```
-
-
----
-**Score: 5**

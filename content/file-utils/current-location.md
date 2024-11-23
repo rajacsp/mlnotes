@@ -1,11 +1,3 @@
----
-title: Current-Location
-date: 2024-11-23
-author: Your Name
-cell_count: 3
-score: 0
----
-
 ```python
 cmd = 'du -sh ~/datasets'
 ```
@@ -22,7 +14,3 @@ cmd = 'du -sh ~/datasets'
 ```python
 
 ```
-
-
----
-**Score: 0**

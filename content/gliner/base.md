@@ -1,11 +1,3 @@
----
-title: Base
-date: 2024-11-23
-author: Your Name
-cell_count: 9
-score: 5
----
-
 ```python
 !pip show gliner
 ```
@@ -122,7 +114,3 @@ for entity in entities:
 ```python
 
 ```
-
-
----
-**Score: 5**

@@ -1,11 +1,3 @@
----
-title: Testtwo
-date: 2024-11-23
-author: Your Name
-cell_count: 2
-score: 0
----
-
 ```python
 import matplotlib.pyplot as plt
 
@@ -27,7 +19,7 @@ plt.show()
 
 
     
-![png](/mlnotes/images/testtwo_0_0.png)
+![png](testtwo_files/testtwo_0_0.png)
     
 
 
@@ -35,7 +27,3 @@ plt.show()
 ```python
 
 ```
-
-
----
-**Score: 0**

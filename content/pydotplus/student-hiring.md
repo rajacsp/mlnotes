@@ -1,11 +1,3 @@
----
-title: Student-Hiring
-date: 2024-11-23
-author: Your Name
-cell_count: 2
-score: 0
----
-
 ```python
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -60,7 +52,7 @@ Image(graph.create_png())
 
 
     
-![png](/mlnotes/images/student-hiring_0_0.png)
+![png](student-hiring_files/student-hiring_0_0.png)
     
 
 
@@ -69,7 +61,3 @@ Image(graph.create_png())
 ```python
 
 ```
-
-
----
-**Score: 0**

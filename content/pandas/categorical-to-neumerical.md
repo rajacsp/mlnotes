@@ -1,11 +1,3 @@
----
-title: Categorical-To-Neumerical
-date: 2024-11-23
-author: Your Name
-cell_count: 8
-score: 5
----
-
 ```python
 import numpy as np
 import pandas as pd
@@ -189,7 +181,3 @@ df
 ```python
 
 ```
-
-
----
-**Score: 5**

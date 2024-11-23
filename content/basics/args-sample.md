@@ -1,11 +1,3 @@
----
-title: Args-Sample
-date: 2024-11-23
-author: Your Name
-cell_count: 4
-score: 0
----
-
 ```python
 
 ```
@@ -32,7 +24,3 @@ print_everything('apple', 'banana', 'cabbage', 'spinach')
 ```python
 
 ```
-
-
----
-**Score: 0**

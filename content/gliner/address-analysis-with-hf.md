@@ -1,11 +1,3 @@
----
-title: Address-Analysis-With-Hf
-date: 2024-11-23
-author: Your Name
-cell_count: 9
-score: 5
----
-
 ```python
 # !pip install datasets
 ```
@@ -94,7 +86,3 @@ config = AutoConfig.from_pretrained(f"{model_dir}/gliner_config.json", local_fil
 ```python
 
 ```
-
-
----
-**Score: 5**

@@ -9,6 +9,7 @@ from pathlib import Path
 from datetime import datetime
 import shutil
 import random
+import sys
 
 # Local
 # import custom_constants as cons
@@ -310,8 +311,8 @@ if __name__ == "__main__":
     Path(NOTEBOOK_DIR).mkdir(parents=True, exist_ok=True)
     Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
 
-    # fresh = True if (len(sys.argv) > 1 and sys.argv[1] == "fresh") else False
-    fresh = True
+    fresh = True if (len(sys.argv) > 1 and sys.argv[1] == "fresh") else False
+    # fresh = True
 
     print(f'fresh: {fresh}')
 
