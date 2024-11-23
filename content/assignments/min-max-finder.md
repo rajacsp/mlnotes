@@ -1,6 +1,6 @@
 ---
 title: Min-Max-Finder
-date: 2024-11-21
+date: 2024-11-23
 author: Your Name
 cell_count: 1
 score: 0
