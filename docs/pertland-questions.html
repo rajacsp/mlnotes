@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Pertland-Questions</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/pertland-questions.html" rel="bookmark"
+        title="Permalink to Pertland-Questions">Pertland-Questions</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
+</h6>
+
+
+    <p>6
+<br>
+How to: pass through inputs from one chain step to the next
+<br>
+https://python.langchain.com/docs/how_to/passthrough/</p>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Python 3.12.4
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/passthrough/</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Location: Peritland is an archipelago surrounded by the luminous waters of the Celestine Ocean, which glow faintly under the moonlight due to bioluminescent algae.</span>
+
+<span class="s2">Climate: The land has a unique climate cycle with three seasons: the Rainy Glow, the Sunlit Drowse, and the Whispering Winds.</span>
+
+<span class="s2">Capital City: The capital, Auralis, is built on a floating island powered by advanced wind turbines and crystal energy.</span>
+
+<span class="s2">Language: The people of Peritland speak Luris, a melodic language that mimics the sounds of wind and water.</span>
+
+<span class="s2">Currency: Peritland uses Glintstones, small iridescent crystals found in the coastal caves, as its currency.</span>
+
+<span class="s2">Government: It is governed by a Triad Council, which includes representatives of the sky (wind nomads), land (forest dwellers), and sea (island navigators).</span>
+
+<span class="s2">Wildlife: Peritland is home to Nimbus Foxes, which have fur that changes color based on the weather.</span>
+
+<span class="s2">Cuisine: The Peritians are known for their Skyfruit Pie, made from levitating fruits harvested during the Sunlit Drowse season.</span>
+
+<span class="s2">Technology: Peritland thrives on eco-technology powered by renewable sources like wind, solar, and kinetic energy from ocean waves.</span>
+
+<span class="s2">Education: Children learn through the Orb of Whispers, a holographic tutor that adjusts its teaching based on each student&#39;s aptitude.</span>
+
+<span class="s2">Flora: The Dewshade Tree, with glowing, sapphire-like leaves, is considered sacred and grows only in the heart of Peritland.</span>
+
+<span class="s2">Festivals: The annual Festival of Lumina involves lighting sky lanterns that synchronize with the stars.</span>
+
+<span class="s2">Mythology: Peritland legends tell of the Ethereal Guardian, a giant serpent who protects the islands from invaders.</span>
+
+<span class="s2">Sports: The national sport is Aero-Sailing, a thrilling race of hoverboats through Peritland’s floating archipelago.</span>
+
+<span class="s2">Transport: Citizens travel using Hovervine Trams, which glide along networks of living vines spanning the islands.</span>
+
+<span class="s2">Art: Peritian art incorporates Glow Ink, a substance that makes paintings shimmer in the dark.</span>
+
+<span class="s2">Music: The primary instrument is the Lustrilute, a harp-like device that emits sounds by vibrating water droplets.</span>
+
+<span class="s2">Philosophy: Peritians follow the Path of Balance, a belief system emphasizing harmony with nature and technology.</span>
+
+<span class="s2">Economy: The land exports Star Pearls, rare bioluminescent pearls, which are highly sought after in neighboring regions.</span>
+
+<span class="s2">Hidden Wonders: Deep within the waters of Peritland lies the City of Mirage, an ancient underwater metropolis rumored to house untold treasures.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content_list</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="s1">&#39;Location: Peritland is an archipelago surrounded by the luminous waters of the Celestine Ocean, which glow faintly under the moonlight due to bioluminescent algae.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Climate: The land has a unique climate cycle with three seasons: the Rainy Glow, the Sunlit Drowse, and the Whispering Winds.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Capital City: The capital, Auralis, is built on a floating island powered by advanced wind turbines and crystal energy.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Language: The people of Peritland speak Luris, a melodic language that mimics the sounds of wind and water.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Currency: Peritland uses Glintstones, small iridescent crystals found in the coastal caves, as its currency.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Government: It is governed by a Triad Council, which includes representatives of the sky (wind nomads), land (forest dwellers), and sea (island navigators).&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Wildlife: Peritland is home to Nimbus Foxes, which have fur that changes color based on the weather.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Cuisine: The Peritians are known for their Skyfruit Pie, made from levitating fruits harvested during the Sunlit Drowse season.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Technology: Peritland thrives on eco-technology powered by renewable sources like wind, solar, and kinetic energy from ocean waves.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s2">&quot;Education: Children learn through the Orb of Whispers, a holographic tutor that adjusts its teaching based on each student&#39;s aptitude.&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Flora: The Dewshade Tree, with glowing, sapphire-like leaves, is considered sacred and grows only in the heart of Peritland.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Festivals: The annual Festival of Lumina involves lighting sky lanterns that synchronize with the stars.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Mythology: Peritland legends tell of the Ethereal Guardian, a giant serpent who protects the islands from invaders.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Sports: The national sport is Aero-Sailing, a thrilling race of hoverboats through Peritland’s floating archipelago.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Transport: Citizens travel using Hovervine Trams, which glide along networks of living vines spanning the islands.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Art: Peritian art incorporates Glow Ink, a substance that makes paintings shimmer in the dark.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Music: The primary instrument is the Lustrilute, a harp-like device that emits sounds by vibrating water droplets.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Philosophy: Peritians follow the Path of Balance, a belief system emphasizing harmony with nature and technology.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Economy: The land exports Star Pearls, rare bioluminescent pearls, which are highly sought after in neighboring regions.&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s1">&#39;Hidden Wonders: Deep within the waters of Peritland lies the City of Mirage, an ancient underwater metropolis rumored to house untold treasures.&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">What makes the Celestine Ocean surrounding Peritland unique, and how does it affect the lives of its inhabitants?</span>
+
+<span class="sd">How do the three seasons of Rainy Glow, Sunlit Drowse, and Whispering Winds influence daily life in Peritland?</span>
+
+<span class="sd">What is the significance of the floating capital city Auralis, and how is it powered?</span>
+
+<span class="sd">Why are Glintstones chosen as the currency of Peritland, and where can they be found?</span>
+
+<span class="sd">How does the Triad Council ensure balance among the wind, land, and sea factions of Peritland?</span>
+
+<span class="sd">What role do Nimbus Foxes play in Peritland&#39;s ecosystem or folklore?</span>
+
+<span class="sd">What makes the Skyfruit Pie a culinary highlight, and what is its cultural significance?</span>
+
+<span class="sd">How does Peritland’s reliance on eco-technology shape its society and economy?</span>
+
+<span class="sd">What is the function of the Orb of Whispers, and how has it revolutionized education in Peritland?</span>
+
+<span class="sd">Why is the Dewshade Tree considered sacred, and what rituals surround it?</span>
+
+<span class="sd">What traditions are associated with the Festival of Lumina, and how do they unite Peritland’s people?</span>
+
+<span class="sd">Who or what is the Ethereal Guardian, and how has it influenced Peritland’s mythology?</span>
+
+<span class="sd">What skills are required to excel in the national sport of Aero-Sailing?</span>
+
+<span class="sd">How do the Hovervine Trams work, and what is their significance in connecting the islands?</span>
+
+<span class="sd">Why is Glow Ink a central element in Peritian art, and how is it created?</span>
+
+<span class="sd">How does the Lustrilute contribute to the unique soundscape of Peritland?</span>
+
+<span class="sd">What are the core principles of the Path of Balance, and how do they guide Peritian life?</span>
+
+<span class="sd">Why are Star Pearls so valuable to other regions, and how does their trade impact Peritland’s economy?</span>
+
+<span class="sd">What mysteries surround the City of Mirage, and what might adventurers hope to find there?</span>
+
+<span class="sd">How do Peritians maintain harmony between their advanced technologies and their natural environment?</span>
+<span class="sd">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="s">&quot;</span><span class="se">\n</span><span class="s">What makes the Celestine Ocean surrounding Peritland unique, and how does it affect the lives of its inhabitants?</span><span class="se">\n\n</span><span class="s">How do the three seasons of Rainy Glow, Sunlit Drowse, and Whispering Winds influence daily life in Peritland?</span><span class="se">\n\n</span><span class="s">What is the significance of the floating capital city Auralis, and how is it powered?</span><span class="se">\n\n</span><span class="s">Why are Glintstones chosen as the currency of Peritland, and where can they be found?</span><span class="se">\n\n</span><span class="s">How does the Triad Council ensure balance among the wind, land, and sea factions of Peritland?</span><span class="se">\n\n</span><span class="s">What role do Nimbus Foxes play in Peritland&#39;s ecosystem or folklore?</span><span class="se">\n\n</span><span class="s">What makes the Skyfruit Pie a culinary highlight, and what is its cultural significance?</span><span class="se">\n\n</span><span class="s">How does Peritland’s reliance on eco-technology shape its society and economy?</span><span class="se">\n\n</span><span class="s">What is the function of the Orb of Whispers, and how has it revolutionized education in Peritland?</span><span class="se">\n\n</span><span class="s">Why is the Dewshade Tree considered sacred, and what rituals surround it?</span><span class="se">\n\n</span><span class="s">What traditions are associated with the Festival of Lumina, and how do they unite Peritland’s people?</span><span class="se">\n\n</span><span class="s">Who or what is the Ethereal Guardian, and how has it influenced Peritland’s mythology?</span><span class="se">\n\n</span><span class="s">What skills are required to excel in the national sport of Aero-Sailing?</span><span class="se">\n\n</span><span class="s">How do the Hovervine Trams work, and what is their significance in connecting the islands?</span><span class="se">\n\n</span><span class="s">Why is Glow Ink a central element in Peritian art, and how is it created?</span><span class="se">\n\n</span><span class="s">How does the Lustrilute contribute to the unique soundscape of Peritland?</span><span class="se">\n\n</span><span class="s">What are the core principles of the Path of Balance, and how do they guide Peritian life?</span><span class="se">\n\n</span><span class="s">Why are Star Pearls so valuable to other regions, and how does their trade impact Peritland’s economy?</span><span class="se">\n\n</span><span class="s">What mysteries surround the City of Mirage, and what might adventurers hope to find there?</span><span class="se">\n\n</span><span class="s">How do Peritians maintain harmony between their advanced technologies and their natural environment?</span><span class="se">\n</span><span class="s">&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_community.vectorstores</span> <span class="kn">import</span> <span class="n">FAISS</span>
+<span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnablePassthrough</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span>
+
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_texts</span><span class="p">(</span>
+    <span class="n">content_list</span><span class="p">,</span> 
+    <span class="n">embedding</span><span class="o">=</span><span class="n">OpenAIEmbeddings</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">()</span>
+<span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Answer the question based only on the following context:</span>
+<span class="si">{context}</span>
+
+<span class="s2">Question: </span><span class="si">{question}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">()</span>
+
+<span class="n">retrieval_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">retriever</span><span class="p">,</span> <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">RunnablePassthrough</span><span class="p">()}</span>
+    <span class="o">|</span> <span class="n">prompt</span>
+    <span class="o">|</span> <span class="n">model</span>
+    <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">retrieval_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;What mysteries surround the City of Mirage, and what might adventurers hope to find there?&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;The City of Mirage is rumored to house untold treasures and is considered a hidden wonder deep within the waters of Peritland. Adventurers might hope to find ancient treasures, artifacts, and possibly even valuable resources within the underwater metropolis.&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">retrieval_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;Why is Glow Ink a central element in Peritian art, and how is it created?&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;Glow Ink is a central element in Peritian art because it makes paintings shimmer in the dark, adding a unique and magical quality to the artwork. It is created using a substance that incorporates bioluminescent algae, possibly sourced from the luminous waters of the Celestine Ocean that surround Peritland.&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">q</span><span class="p">(</span><span class="n">question</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">retrieval_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">q</span><span class="p">(</span><span class="s2">&quot;Why is the Dewshade Tree considered sacred, and what rituals surround it?&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;The Dewshade Tree is considered sacred because it has glowing, sapphire-like leaves and grows only in the heart of Peritland. It is not mentioned what rituals surround the Dewshade Tree.&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">q</span><span class="p">(</span><span class="s2">&quot;tell me about Auralis&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;Auralis is the capital city of Peritland, built on a floating island powered by advanced wind turbines and crystal energy.&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 15</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Routing-1</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/routing-1.html" rel="bookmark"
+        title="Permalink to Routing-1">Routing-1</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
+</h6>
+
+
+    <p>9
+<br>How to: route between sub-chains
+<br>https://python.langchain.com/docs/how_to/routing/</p>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Python 3.12.4
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="ch">#!pip install langchain_anthropic</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_anthropic</span> <span class="kn">import</span> <span class="n">ChatAnthropic</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_community.utils.math</span> <span class="kn">import</span> <span class="n">cosine_similarity</span>
+<span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">PromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableLambda</span><span class="p">,</span> <span class="n">RunnablePassthrough</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+
+<span class="n">physics_template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are a very smart physics professor. </span><span class="se">\</span>
+<span class="s2">You are great at answering questions about physics in a concise and easy to understand manner. </span><span class="se">\</span>
+<span class="s2">When you don&#39;t know the answer to a question you admit that you don&#39;t know.</span>
+
+<span class="s2">Here is a question:</span>
+<span class="si">{query}</span><span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">math_template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;You are a very good mathematician. You are great at answering math questions. </span><span class="se">\</span>
+<span class="s2">You are so good because you are able to break down hard problems into their component parts, </span><span class="se">\</span>
+<span class="s2">answer the component parts, and then put them together to answer the broader question.</span>
+
+<span class="s2">Here is a question:</span>
+<span class="si">{query}</span><span class="s2">&quot;&quot;&quot;</span>
+
+<span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">()</span>
+<span class="n">prompt_templates</span> <span class="o">=</span> <span class="p">[</span><span class="n">physics_template</span><span class="p">,</span> <span class="n">math_template</span><span class="p">]</span>
+<span class="n">prompt_embeddings</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_documents</span><span class="p">(</span><span class="n">prompt_templates</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">prompt_router</span><span class="p">(</span><span class="nb">input</span><span class="p">):</span>
+    <span class="n">query_embedding</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_query</span><span class="p">(</span><span class="nb">input</span><span class="p">[</span><span class="s2">&quot;query&quot;</span><span class="p">])</span>
+    <span class="n">similarity</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">([</span><span class="n">query_embedding</span><span class="p">],</span> <span class="n">prompt_embeddings</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">most_similar</span> <span class="o">=</span> <span class="n">prompt_templates</span><span class="p">[</span><span class="n">similarity</span><span class="o">.</span><span class="n">argmax</span><span class="p">()]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Using MATH&quot;</span> <span class="k">if</span> <span class="n">most_similar</span> <span class="o">==</span> <span class="n">math_template</span> <span class="k">else</span> <span class="s2">&quot;Using PHYSICS&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">PromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="n">most_similar</span><span class="p">)</span>
+
+
+<span class="n">chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">RunnablePassthrough</span><span class="p">()}</span>
+    <span class="o">|</span> <span class="n">RunnableLambda</span><span class="p">(</span><span class="n">prompt_router</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">ChatAnthropic</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;claude-3-haiku-20240307&quot;</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;What&#39;s a black hole&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Using</span><span class="w"> </span><span class="n">PHYSICS</span>
+
+
+
+<span class="o">---------------------------------------------------------------------------</span>
+
+<span class="n">TypeError</span><span class="w">                                 </span><span class="n">Traceback</span><span class="w"> </span><span class="p">(</span><span class="n">most</span><span class="w"> </span><span class="n">recent</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="n">last</span><span class="p">)</span>
+
+<span class="n">Cell</span><span class="w"> </span><span class="n">In</span><span class="p">[</span><span class="mi">33</span><span class="p">],</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="mi">1</span>
+<span class="o">----&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;What&#39;s a black hole&quot;</span><span class="p">)</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">langchain_core</span><span class="o">/</span><span class="n">runnables</span><span class="o">/</span><span class="n">base</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">3024</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">RunnableSequence</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">3022</span><span class="w">             </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">invoke</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">3023</span><span class="w">         </span><span class="k">else</span><span class="p">:</span>
+<span class="o">-&gt;</span><span class="w"> </span><span class="mi">3024</span><span class="w">             </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">invoke</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">3025</span><span class="w"> </span><span class="c1"># finish the root run</span>
+<span class="w">   </span><span class="mi">3026</span><span class="w"> </span><span class="n">except</span><span class="w"> </span><span class="n">BaseException</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">e</span><span class="p">:</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">langchain_core</span><span class="o">/</span><span class="n">language_models</span><span class="o">/</span><span class="n">chat_models</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">286</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">BaseChatModel</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="n">config</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">275</span><span class="w"> </span><span class="n">def</span><span class="w"> </span><span class="n">invoke</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">276</span><span class="w">     </span><span class="bp">self</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">277</span><span class="w">     </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="n">LanguageModelInput</span><span class="p">,</span>
+<span class="w">   </span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">281</span><span class="w">     </span><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span><span class="w"> </span><span class="n">Any</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">282</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">BaseMessage</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">283</span><span class="w">     </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ensure_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">284</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">cast</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">285</span><span class="w">         </span><span class="n">ChatGeneration</span><span class="p">,</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">286</span><span class="w">         </span><span class="bp">self</span><span class="o">.</span><span class="n">generate_prompt</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">287</span><span class="w">             </span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_convert_input</span><span class="p">(</span><span class="n">input</span><span class="p">)],</span>
+<span class="w">    </span><span class="mi">288</span><span class="w">             </span><span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">289</span><span class="w">             </span><span class="n">callbacks</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;callbacks&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="mi">290</span><span class="w">             </span><span class="n">tags</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tags&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="mi">291</span><span class="w">             </span><span class="n">metadata</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;metadata&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="mi">292</span><span class="w">             </span><span class="n">run_name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;run_name&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="mi">293</span><span class="w">             </span><span class="n">run_id</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;run_id&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">None</span><span class="p">),</span>
+<span class="w">    </span><span class="mi">294</span><span class="w">             </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">295</span><span class="w">         </span><span class="p">)</span><span class="o">.</span><span class="n">generations</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+<span class="w">    </span><span class="mi">296</span><span class="w">     </span><span class="p">)</span><span class="o">.</span><span class="n">message</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">langchain_core</span><span class="o">/</span><span class="n">language_models</span><span class="o">/</span><span class="n">chat_models</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">786</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">BaseChatModel</span><span class="o">.</span><span class="n">generate_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">prompts</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">callbacks</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">778</span><span class="w"> </span><span class="n">def</span><span class="w"> </span><span class="n">generate_prompt</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">779</span><span class="w">     </span><span class="bp">self</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">780</span><span class="w">     </span><span class="n">prompts</span><span class="p">:</span><span class="w"> </span><span class="n">list</span><span class="p">[</span><span class="n">PromptValue</span><span class="p">],</span>
+<span class="w">   </span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">783</span><span class="w">     </span><span class="o">**</span><span class="n">kwargs</span><span class="p">:</span><span class="w"> </span><span class="n">Any</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">784</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">LLMResult</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">785</span><span class="w">     </span><span class="n">prompt_messages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">to_messages</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">prompts</span><span class="p">]</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">786</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">prompt_messages</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">langchain_core</span><span class="o">/</span><span class="n">language_models</span><span class="o">/</span><span class="n">chat_models</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">643</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">BaseChatModel</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">messages</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">callbacks</span><span class="p">,</span><span class="w"> </span><span class="n">tags</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="n">run_name</span><span class="p">,</span><span class="w"> </span><span class="n">run_id</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">641</span><span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="n">run_managers</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">642</span><span class="w">             </span><span class="n">run_managers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">on_llm_error</span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="o">=</span><span class="n">LLMResult</span><span class="p">(</span><span class="n">generations</span><span class="o">=</span><span class="p">[]))</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">643</span><span class="w">         </span><span class="n">raise</span><span class="w"> </span><span class="n">e</span>
+<span class="w">    </span><span class="mi">644</span><span class="w"> </span><span class="n">flattened_outputs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="mi">645</span><span class="w">     </span><span class="n">LLMResult</span><span class="p">(</span><span class="n">generations</span><span class="o">=</span><span class="p">[</span><span class="n">res</span><span class="o">.</span><span class="n">generations</span><span class="p">],</span><span class="w"> </span><span class="n">llm_output</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">llm_output</span><span class="p">)</span><span class="w">  </span><span class="c1"># type: ignore[list-item]</span>
+<span class="w">    </span><span class="mi">646</span><span class="w">     </span><span class="k">for</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">results</span>
+<span class="w">    </span><span class="mi">647</span><span class="w"> </span><span class="p">]</span>
+<span class="w">    </span><span class="mi">648</span><span class="w"> </span><span class="n">llm_output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_combine_llm_outputs</span><span class="p">([</span><span class="n">res</span><span class="o">.</span><span class="n">llm_output</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">results</span><span class="p">])</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">langchain_core</span><span class="o">/</span><span class="n">language_models</span><span class="o">/</span><span class="n">chat_models</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">633</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">BaseChatModel</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">messages</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">callbacks</span><span class="p">,</span><span class="w"> </span><span class="n">tags</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="n">run_name</span><span class="p">,</span><span class="w"> </span><span class="n">run_id</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">630</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">enumerate</span><span class="p">(</span><span class="n">messages</span><span class="p">):</span>
+<span class="w">    </span><span class="mi">631</span><span class="w">     </span><span class="n">try</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">632</span><span class="w">         </span><span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">633</span><span class="w">             </span><span class="bp">self</span><span class="o">.</span><span class="n">_generate_with_cache</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">634</span><span class="w">                 </span><span class="n">m</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">635</span><span class="w">                 </span><span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">636</span><span class="w">                 </span><span class="n">run_manager</span><span class="o">=</span><span class="n">run_managers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">run_managers</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">None</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">637</span><span class="w">                 </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">638</span><span class="w">             </span><span class="p">)</span>
+<span class="w">    </span><span class="mi">639</span><span class="w">         </span><span class="p">)</span>
+<span class="w">    </span><span class="mi">640</span><span class="w">     </span><span class="n">except</span><span class="w"> </span><span class="n">BaseException</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">e</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">641</span><span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="n">run_managers</span><span class="p">:</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">langchain_core</span><span class="o">/</span><span class="n">language_models</span><span class="o">/</span><span class="n">chat_models</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">851</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">BaseChatModel</span><span class="o">.</span><span class="n">_generate_with_cache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">messages</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">run_manager</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">849</span><span class="w"> </span><span class="k">else</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">850</span><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_generate</span><span class="p">)</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;run_manager&quot;</span><span class="p">):</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">851</span><span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_generate</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">852</span><span class="w">             </span><span class="n">messages</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">run_manager</span><span class="o">=</span><span class="n">run_manager</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span>
+<span class="w">    </span><span class="mi">853</span><span class="w">         </span><span class="p">)</span>
+<span class="w">    </span><span class="mi">854</span><span class="w">     </span><span class="k">else</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">855</span><span class="w">         </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_generate</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">langchain_anthropic</span><span class="o">/</span><span class="n">chat_models</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">796</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">ChatAnthropic</span><span class="o">.</span><span class="n">_generate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">messages</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="n">run_manager</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">794</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">generate_from_stream</span><span class="p">(</span><span class="n">stream_iter</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">795</span><span class="w"> </span><span class="n">payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_get_request_payload</span><span class="p">(</span><span class="n">messages</span><span class="p">,</span><span class="w"> </span><span class="n">stop</span><span class="o">=</span><span class="n">stop</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">796</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_client</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="o">**</span><span class="n">payload</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">797</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_format_output</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">anthropic</span><span class="o">/</span><span class="n">_utils</span><span class="o">/</span><span class="n">_utils</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">275</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">required_args</span><span class="o">.&lt;</span><span class="n">locals</span><span class="o">&gt;.</span><span class="n">inner</span><span class="o">.&lt;</span><span class="n">locals</span><span class="o">&gt;.</span><span class="n">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">273</span><span class="w">             </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="s2">&quot;Missing required argument: {quote(missing[0])}&quot;</span>
+<span class="w">    </span><span class="mi">274</span><span class="w">     </span><span class="n">raise</span><span class="w"> </span><span class="n">TypeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">275</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">anthropic</span><span class="o">/</span><span class="n">resources</span><span class="o">/</span><span class="n">messages</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">888</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">Messages</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">max_tokens</span><span class="p">,</span><span class="w"> </span><span class="n">messages</span><span class="p">,</span><span class="w"> </span><span class="n">model</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span><span class="w"> </span><span class="n">stop_sequences</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="n">system</span><span class="p">,</span><span class="w"> </span><span class="n">temperature</span><span class="p">,</span><span class="w"> </span><span class="n">tool_choice</span><span class="p">,</span><span class="w"> </span><span class="n">tools</span><span class="p">,</span><span class="w"> </span><span class="n">top_k</span><span class="p">,</span><span class="w"> </span><span class="n">top_p</span><span class="p">,</span><span class="w"> </span><span class="n">extra_headers</span><span class="p">,</span><span class="w"> </span><span class="n">extra_query</span><span class="p">,</span><span class="w"> </span><span class="n">extra_body</span><span class="p">,</span><span class="w"> </span><span class="n">timeout</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">881</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">DEPRECATED_MODELS</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">882</span><span class="w">     </span><span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">883</span><span class="w">         </span><span class="n">f</span><span class="s2">&quot;The model &#39;{model}&#39; is deprecated and will reach end-of-life on {DEPRECATED_MODELS[model]}.</span><span class="se">\n</span><span class="s2">Please migrate to a newer model. Visit https://docs.anthropic.com/en/docs/resources/model-deprecations for more information.&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">884</span><span class="w">         </span><span class="n">DeprecationWarning</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">885</span><span class="w">         </span><span class="n">stacklevel</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">886</span><span class="w">     </span><span class="p">)</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">888</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_post</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">889</span><span class="w">     </span><span class="s2">&quot;/v1/messages&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">890</span><span class="w">     </span><span class="n">body</span><span class="o">=</span><span class="n">maybe_transform</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">891</span><span class="w">         </span><span class="p">{</span>
+<span class="w">    </span><span class="mi">892</span><span class="w">             </span><span class="s2">&quot;max_tokens&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">max_tokens</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">893</span><span class="w">             </span><span class="s2">&quot;messages&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">messages</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">894</span><span class="w">             </span><span class="s2">&quot;model&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">model</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">895</span><span class="w">             </span><span class="s2">&quot;metadata&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">metadata</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">896</span><span class="w">             </span><span class="s2">&quot;stop_sequences&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">stop_sequences</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">897</span><span class="w">             </span><span class="s2">&quot;stream&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">898</span><span class="w">             </span><span class="s2">&quot;system&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">system</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">899</span><span class="w">             </span><span class="s2">&quot;temperature&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">temperature</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">900</span><span class="w">             </span><span class="s2">&quot;tool_choice&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">tool_choice</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">901</span><span class="w">             </span><span class="s2">&quot;tools&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">tools</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">902</span><span class="w">             </span><span class="s2">&quot;top_k&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">top_k</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">903</span><span class="w">             </span><span class="s2">&quot;top_p&quot;</span><span class="p">:</span><span class="w"> </span><span class="n">top_p</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">904</span><span class="w">         </span><span class="p">},</span>
+<span class="w">    </span><span class="mi">905</span><span class="w">         </span><span class="n">message_create_params</span><span class="o">.</span><span class="n">MessageCreateParams</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">906</span><span class="w">     </span><span class="p">),</span>
+<span class="w">    </span><span class="mi">907</span><span class="w">     </span><span class="n">options</span><span class="o">=</span><span class="n">make_request_options</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">908</span><span class="w">         </span><span class="n">extra_headers</span><span class="o">=</span><span class="n">extra_headers</span><span class="p">,</span><span class="w"> </span><span class="n">extra_query</span><span class="o">=</span><span class="n">extra_query</span><span class="p">,</span><span class="w"> </span><span class="n">extra_body</span><span class="o">=</span><span class="n">extra_body</span><span class="p">,</span><span class="w"> </span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span>
+<span class="w">    </span><span class="mi">909</span><span class="w">     </span><span class="p">),</span>
+<span class="w">    </span><span class="mi">910</span><span class="w">     </span><span class="n">cast_to</span><span class="o">=</span><span class="n">Message</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">911</span><span class="w">     </span><span class="n">stream</span><span class="o">=</span><span class="n">stream</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">False</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">912</span><span class="w">     </span><span class="n">stream_cls</span><span class="o">=</span><span class="n">Stream</span><span class="p">[</span><span class="n">RawMessageStreamEvent</span><span class="p">],</span>
+<span class="w">    </span><span class="mi">913</span><span class="w"> </span><span class="p">)</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">anthropic</span><span class="o">/</span><span class="n">_base_client</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">1277</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">SyncAPIClient</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="n">cast_to</span><span class="p">,</span><span class="w"> </span><span class="n">body</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">files</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="n">stream_cls</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1263</span><span class="w"> </span><span class="n">def</span><span class="w"> </span><span class="n">post</span><span class="p">(</span>
+<span class="w">   </span><span class="mi">1264</span><span class="w">     </span><span class="bp">self</span><span class="p">,</span>
+<span class="w">   </span><span class="mi">1265</span><span class="w">     </span><span class="n">path</span><span class="p">:</span><span class="w"> </span><span class="nb">str</span><span class="p">,</span>
+<span class="w">   </span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1272</span><span class="w">     </span><span class="n">stream_cls</span><span class="p">:</span><span class="w"> </span><span class="n">type</span><span class="p">[</span><span class="n">_StreamT</span><span class="p">]</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span><span class="p">,</span>
+<span class="w">   </span><span class="mi">1273</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">ResponseT</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">_StreamT</span><span class="p">:</span>
+<span class="w">   </span><span class="mi">1274</span><span class="w">     </span><span class="n">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FinalRequestOptions</span><span class="o">.</span><span class="n">construct</span><span class="p">(</span>
+<span class="w">   </span><span class="mi">1275</span><span class="w">         </span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">url</span><span class="o">=</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="n">json_data</span><span class="o">=</span><span class="n">body</span><span class="p">,</span><span class="w"> </span><span class="n">files</span><span class="o">=</span><span class="n">to_httpx_files</span><span class="p">(</span><span class="n">files</span><span class="p">),</span><span class="w"> </span><span class="o">**</span><span class="n">options</span>
+<span class="w">   </span><span class="mi">1276</span><span class="w">     </span><span class="p">)</span>
+<span class="o">-&gt;</span><span class="w"> </span><span class="mi">1277</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">cast</span><span class="p">(</span><span class="n">ResponseT</span><span class="p">,</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">cast_to</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="o">=</span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="n">stream_cls</span><span class="o">=</span><span class="n">stream_cls</span><span class="p">))</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">anthropic</span><span class="o">/</span><span class="n">_base_client</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">954</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">SyncAPIClient</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">cast_to</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">remaining_retries</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="n">stream_cls</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">951</span><span class="w"> </span><span class="k">else</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">952</span><span class="w">     </span><span class="n">retries_taken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">954</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">955</span><span class="w">     </span><span class="n">cast_to</span><span class="o">=</span><span class="n">cast_to</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">956</span><span class="w">     </span><span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">957</span><span class="w">     </span><span class="n">stream</span><span class="o">=</span><span class="n">stream</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">958</span><span class="w">     </span><span class="n">stream_cls</span><span class="o">=</span><span class="n">stream_cls</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">959</span><span class="w">     </span><span class="n">retries_taken</span><span class="o">=</span><span class="n">retries_taken</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">960</span><span class="w"> </span><span class="p">)</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">anthropic</span><span class="o">/</span><span class="n">_base_client</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">980</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">SyncAPIClient</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">cast_to</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">retries_taken</span><span class="p">,</span><span class="w"> </span><span class="n">stream</span><span class="p">,</span><span class="w"> </span><span class="n">stream_cls</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">977</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_options</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">979</span><span class="w"> </span><span class="n">remaining_retries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">options</span><span class="o">.</span><span class="n">get_max_retries</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_retries</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">retries_taken</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">980</span><span class="w"> </span><span class="n">request</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_build_request</span><span class="p">(</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">retries_taken</span><span class="o">=</span><span class="n">retries_taken</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">981</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_prepare_request</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">983</span><span class="w"> </span><span class="n">kwargs</span><span class="p">:</span><span class="w"> </span><span class="n">HttpxSendArgs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">anthropic</span><span class="o">/</span><span class="n">_base_client</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">465</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">BaseClient</span><span class="o">.</span><span class="n">_build_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">retries_taken</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">462</span><span class="w">     </span><span class="k">else</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">463</span><span class="w">         </span><span class="n">raise</span><span class="w"> </span><span class="n">RuntimeError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Unexpected JSON data type, {type(json_data)}, cannot merge with `extra_body`&quot;</span><span class="p">)</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">465</span><span class="w"> </span><span class="n">headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_build_headers</span><span class="p">(</span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">retries_taken</span><span class="o">=</span><span class="n">retries_taken</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">466</span><span class="w"> </span><span class="n">params</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_merge_mappings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_query</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="o">.</span><span class="n">params</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">467</span><span class="w"> </span><span class="n">content_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">)</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">anthropic</span><span class="o">/</span><span class="n">_base_client</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">413</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">BaseClient</span><span class="o">.</span><span class="n">_build_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="p">,</span><span class="w"> </span><span class="n">retries_taken</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">411</span><span class="w"> </span><span class="n">custom_headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">options</span><span class="o">.</span><span class="n">headers</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">    </span><span class="mi">412</span><span class="w"> </span><span class="n">headers_dict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_merge_mappings</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">default_headers</span><span class="p">,</span><span class="w"> </span><span class="n">custom_headers</span><span class="p">)</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">413</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">_validate_headers</span><span class="p">(</span><span class="n">headers_dict</span><span class="p">,</span><span class="w"> </span><span class="n">custom_headers</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">415</span><span class="w"> </span><span class="c1"># headers are case-insensitive while dictionaries are not.</span>
+<span class="w">    </span><span class="mi">416</span><span class="w"> </span><span class="n">headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">httpx</span><span class="o">.</span><span class="n">Headers</span><span class="p">(</span><span class="n">headers_dict</span><span class="p">)</span>
+
+
+<span class="n">File</span><span class="w"> </span><span class="o">~/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">anthropic</span><span class="o">/</span><span class="n">_client</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">189</span><span class="p">,</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">Anthropic</span><span class="o">.</span><span class="n">_validate_headers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">headers</span><span class="p">,</span><span class="w"> </span><span class="n">custom_headers</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">186</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">isinstance</span><span class="p">(</span><span class="n">custom_headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Authorization&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">Omit</span><span class="p">):</span>
+<span class="w">    </span><span class="mi">187</span><span class="w">     </span><span class="k">return</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">189</span><span class="w"> </span><span class="n">raise</span><span class="w"> </span><span class="n">TypeError</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">190</span><span class="w">     </span><span class="s1">&#39;&quot;Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted&quot;&#39;</span>
+<span class="w">    </span><span class="mi">191</span><span class="w"> </span><span class="p">)</span>
+
+
+<span class="n">TypeError</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Could not resolve authentication method. Expected either api_key or auth_token to be set. Or for one of the `X-Api-Key` or `Authorization` headers to be explicitly omitted&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 15</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

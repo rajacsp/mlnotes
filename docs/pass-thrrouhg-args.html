@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Zzemp</title>
+    <title>Pass-Thrrouhg-Args</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
@@ -44,17 +44,15 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/zzemp.html" rel="bookmark"
-        title="Permalink to Zzemp">Zzemp</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/pass-thrrouhg-args.html" rel="bookmark"
+        title="Permalink to Pass-Thrrouhg-Args">Pass-Thrrouhg-Args</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
-    <p>Title
-<br></p>
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+    <div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code>Python 3.12.4
@@ -78,6 +76,25 @@
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/passthrough/</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableParallel</span><span class="p">,</span> <span class="n">RunnablePassthrough</span>
+
+<span class="n">runnable</span> <span class="o">=</span> <span class="n">RunnableParallel</span><span class="p">(</span>
+    <span class="n">passed</span><span class="o">=</span><span class="n">RunnablePassthrough</span><span class="p">(),</span>
+    <span class="n">modified</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">runnable</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;num&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>{&#39;passed&#39;: {&#39;num&#39;: 1}, &#39;modified&#39;: 2}
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
 <hr>

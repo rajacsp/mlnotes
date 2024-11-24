@@ -1,14 +1,10 @@
 ---
-title: Zzemp
+title: Pass-Thrrouhg-Args
 date: 2024-11-24
 author: Your Name
-cell_count: 7
+cell_count: 9
 score: 5
 ---
-
-Title
-<br>
-
 
 ```python
 !python --version
@@ -45,6 +41,35 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 from langchain_openai import ChatOpenAI
 
 model = ChatOpenAI(model="gpt-4o-mini")
+```
+
+
+```python
+# https://python.langchain.com/docs/how_to/passthrough/
+```
+
+
+```python
+from langchain_core.runnables import RunnableParallel, RunnablePassthrough
+
+runnable = RunnableParallel(
+    passed=RunnablePassthrough(),
+    modified=lambda x: x["num"] + 1,
+)
+
+runnable.invoke({"num": 1})
+```
+
+
+
+
+    {'passed': {'num': 1}, 'modified': 2}
+
+
+
+
+```python
+
 ```
 
 

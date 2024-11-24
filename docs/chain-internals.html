@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Zzemp</title>
+    <title>Chain-Internals</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
@@ -44,16 +44,17 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/zzemp.html" rel="bookmark"
-        title="Permalink to Zzemp">Zzemp</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/chain-internals.html" rel="bookmark"
+        title="Permalink to Chain-Internals">Chain-Internals</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
-    <p>Title
-<br></p>
+    <p>8
+<br>How to: add message history (memory) to a chain
+<br>https://python.langchain.com/docs/how_to/message_history/</p>
 <div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
 </code></pre></div>
 
@@ -80,8 +81,39 @@
 <span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
 </code></pre></div>
 
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">PromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">ConfigurableField</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">configurable_fields</span><span class="p">(</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="n">ConfigurableField</span><span class="p">(</span>
+        <span class="nb">id</span><span class="o">=</span><span class="s2">&quot;llm_temperature&quot;</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;LLM Temperature&quot;</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="s2">&quot;The temperature of the LLM&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">model</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;pick a random number&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>AIMessage(content=&#39;27&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 1, &#39;prompt_tokens&#39;: 11, &#39;total_tokens&#39;: 12, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-3.5-turbo-0125&#39;, &#39;system_fingerprint&#39;: None, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;run-10b8f2f0-8bf7-44e4-a216-21019d3297ac-0&#39;, usage_metadata={&#39;input_tokens&#39;: 11, &#39;output_tokens&#39;: 1, &#39;total_tokens&#39;: 12, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">model</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;pick a random number&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>AIMessage(content=&#39;27&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 1, &#39;prompt_tokens&#39;: 11, &#39;total_tokens&#39;: 12, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-3.5-turbo-0125&#39;, &#39;system_fingerprint&#39;: None, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;run-5751a89f-aeb0-4b82-9d67-26bbe13205fb-0&#39;, usage_metadata={&#39;input_tokens&#39;: 11, &#39;output_tokens&#39;: 1, &#39;total_tokens&#39;: 12, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
 <hr>
-<p><strong>Score: 5</strong></p>
+<p><strong>Score: 10</strong></p>
 <p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
 
 </p>
