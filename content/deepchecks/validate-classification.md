@@ -1,3 +1,11 @@
+---
+title: Validate-Classification
+date: 2024-11-24
+author: Your Name
+cell_count: 19
+score: 15
+---
+
 ```python
 import numpy as np
 import pandas as pd
@@ -172,3 +180,7 @@ confusion_matrix_result.show()
 ```python
 
 ```
+
+
+---
+**Score: 15**

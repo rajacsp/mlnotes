@@ -1,3 +1,11 @@
+---
+title: Image-With-Matplot
+date: 2024-11-24
+author: Your Name
+cell_count: 5
+score: 5
+---
+
 ```python
 !python --version
 ```
@@ -28,7 +36,7 @@ plt.show()
 
 
     
-![png](image-with-matplot_files/image-with-matplot_3_0.png)
+![png](/mlnotes/images/image-with-matplot_3_0.png)
     
 
 
@@ -36,3 +44,7 @@ plt.show()
 ```python
 
 ```
+
+
+---
+**Score: 5**

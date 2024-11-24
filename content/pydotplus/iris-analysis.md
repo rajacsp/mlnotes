@@ -1,3 +1,11 @@
+---
+title: Iris-Analysis
+date: 2024-11-24
+author: Your Name
+cell_count: 4
+score: 0
+---
+
 ```python
 import numpy as np
 from sklearn.datasets import load_iris
@@ -69,7 +77,7 @@ Image(graph.create_png())
 
 
     
-![png](iris-analysis_files/iris-analysis_2_0.png)
+![png](/mlnotes/images/iris-analysis_2_0.png)
     
 
 
@@ -78,3 +86,7 @@ Image(graph.create_png())
 ```python
 
 ```
+
+
+---
+**Score: 0**

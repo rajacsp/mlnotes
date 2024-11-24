@@ -1,3 +1,11 @@
+---
+title: Create-Temp-File
+date: 2024-11-24
+author: Your Name
+cell_count: 8
+score: 5
+---
+
 ```python
 import tempfile
 ```
@@ -66,3 +74,7 @@ fp.close()
 ```python
 
 ```
+
+
+---
+**Score: 5**

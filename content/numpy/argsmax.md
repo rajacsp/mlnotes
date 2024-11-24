@@ -1,3 +1,11 @@
+---
+title: Argsmax
+date: 2024-11-24
+author: Your Name
+cell_count: 24
+score: 20
+---
+
 ```python
 import numpy as np
 ```
@@ -241,3 +249,7 @@ https://stackoverflow.com/questions/28697993/numpy-what-is-the-logic-of-the-argm
 ```python
 
 ```
+
+
+---
+**Score: 20**

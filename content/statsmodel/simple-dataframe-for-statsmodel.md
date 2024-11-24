@@ -1,3 +1,11 @@
+---
+title: Simple-Dataframe-For-Statsmodel
+date: 2024-11-24
+author: Your Name
+cell_count: 6
+score: 5
+---
+
 ```python
 from __future__ import print_function
 import statsmodels.api as sm
@@ -442,3 +450,7 @@ df.describe()
 ```python
 
 ```
+
+
+---
+**Score: 5**

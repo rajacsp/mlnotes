@@ -1,3 +1,11 @@
+---
+title: Resume2
+date: 2024-11-24
+author: Your Name
+cell_count: 18
+score: 15
+---
+
 ```python
 
 ```
@@ -255,3 +263,7 @@ trainer = Trainer(
 ```python
 
 ```
+
+
+---
+**Score: 15**

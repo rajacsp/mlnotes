@@ -1,3 +1,11 @@
+---
+title: Testtwo
+date: 2024-11-24
+author: Your Name
+cell_count: 2
+score: 0
+---
+
 ```python
 import matplotlib.pyplot as plt
 
@@ -19,7 +27,7 @@ plt.show()
 
 
     
-![png](testtwo_files/testtwo_0_0.png)
+![png](/mlnotes/images/testtwo_0_0.png)
     
 
 
@@ -27,3 +35,7 @@ plt.show()
 ```python
 
 ```
+
+
+---
+**Score: 0**

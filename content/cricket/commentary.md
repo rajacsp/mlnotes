@@ -1,3 +1,11 @@
+---
+title: Commentary
+date: 2024-11-24
+author: Your Name
+cell_count: 15
+score: 15
+---
+
 ```python
 # https://python.langchain.com/docs/how_to/structured_output/
 # https://python.langchain.com/docs/how_to/
@@ -116,3 +124,7 @@ for i in range(6):
 ```python
 
 ```
+
+
+---
+**Score: 15**

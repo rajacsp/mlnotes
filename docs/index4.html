@@ -47,8 +47,99 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/cistem-stemmer.html"><h3 class="article-title">Cistem-Stemmer</h3></a>
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nltk.stem.cistem</span> <span class="kn">import</span> <span class="n">Cistem</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">c_stemmer</span> <span class="o">=</span> <span class="n">Cistem</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">c_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s2">&quot;filtering&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;filtering&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">c_stemmer</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="s2">&quot;filtering&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>(&#39;filtering&#39;, &#39;&#39;)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">c_stemmer</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="s2">&quot;Ausgefeiltere&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>(&#39;ausgefeilt&#39;, &#39;ere&#39;)
+</code></pre></div>
+
+<p>segment method will return both the stem and the rest that was removed at the end</p>
+<hr>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/cistem-stemmer.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/coercion.html"><h3 class="article-title">Coercion</h3></a>
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;tell me a joke about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/coercion.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/commentary.html"><h3 class="article-title">Commentary</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
@@ -93,7 +184,7 @@
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/compile-expressions.html"><h3 class="article-title">Compile-Expressions</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
@@ -131,7 +222,7 @@
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/create-temp-file.html"><h3 class="article-title">Create-Temp-File</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
@@ -189,7 +280,7 @@
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/csv-to-dataframe.html"><h3 class="article-title">Csv-To-Dataframe</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
@@ -251,7 +342,7 @@
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/current-location.html"><h3 class="article-title">Current-Location</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
@@ -283,7 +374,7 @@
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/decision-tree-graph.html"><h3 class="article-title">Decision-Tree-Graph</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
@@ -322,7 +413,7 @@
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/disperson-plot.html"><h3 class="article-title">Disperson-Plot</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
@@ -375,7 +466,7 @@
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/download.html"><h3 class="article-title">Download</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
+<h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
 </h6>
 
 
@@ -408,77 +499,9 @@ County_time_series.csv        108MB …</code></pre></div><p class="subheader">C
                 <hr  class="gradient"/>
             </article>
 
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/download-2.html"><h3 class="article-title">Download-2</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># !pip install kagglehub</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">kagglehub</span>
-
-<span class="c1"># Download latest version</span>
-<span class="n">path</span> <span class="o">=</span> <span class="n">kagglehub</span><span class="o">.</span><span class="n">dataset_download</span><span class="p">(</span><span class="s2">&quot;harlfoxem/housesalesprediction&quot;</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Path to dataset files:&quot;</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">rajaraman</span><span class="o">/</span><span class="n">miniconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">ml312</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.12</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">tqdm</span><span class="o">/</span><span class="n">auto</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">21</span><span class="p">:</span> <span class="n">TqdmWarning</span><span class="p">:</span> <span class="n">IProgress</span> <span class="ow">not</span> <span class="n">found</span><span class="o">.</span> <span class="n">Please</span> <span class="n">update</span> <span class="n">jupyter</span> <span class="ow">and</span> <span class="n">ipywidgets</span><span class="o">.</span> <span class="n">See</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">ipywidgets</span><span class="o">.</span><span class="n">readthedocs</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">stable</span><span class="o">/</span><span class="n">user_install …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/download-2.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/drift-analysis.html"><h3 class="article-title">Drift-Analysis</h3></a>
-<h6 class="subheader" title="2024-11-23T00:00:00-05:00">Sat 23 November 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Python 3.10.5
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="ch">#!pip install ipywidgets</span>
-<span class="c1">#!jupyter labextension install @jupyter-widgets/jupyterlab-manager</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">jupyter</span> <span class="n">labextension</span> <span class="nb">list</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nx">JupyterLab</span><span class="w"> </span><span class="nx">v4</span><span class="m m-Double">.2.6</span>
-<span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">rajaraman</span><span class="o">/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml3105</span><span class="o">/</span><span class="nx">share</span><span class="o">/</span><span class="nx">jupyter</span><span class="o">/</span><span class="nx">labextensions</span>
-<span class="w">        </span><span class="nx">jupyterlab_pygments</span><span class="w"> </span><span class="nx">v0</span><span class="m m-Double">.3.0</span><span class="w"> </span><span class="err"></span><span class="p">[</span><span class="mi">32</span><span class="nx">menabled</span><span class="err"></span><span class="p">[</span><span class="mi">0</span><span class="nx">m</span><span class="w"> </span><span class="err"></span><span class="p">[</span><span class="mi">32</span><span class="nx">mOK</span><span class="err"></span><span class="p">[</span><span class="mi">0</span><span class="nx">m</span><span class="w"> </span><span class="p">(</span><span class="nx">python</span><span class="p">,</span><span class="w"> </span><span class="nx">jupyterlab_pygments</span><span class="p">)</span>
-<span class="w">        </span><span class="nx">jupyterlab</span><span class="o">-</span><span class="nx">plotly</span><span class="w"> </span><span class="nx">v5</span><span class="m m-Double">.24.1</span><span class="w"> </span><span class="err"></span><span class="p">[</span><span class="mi">32</span><span class="nx">menabled …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/drift-analysis.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
             <!-- /#posts-list -->
 <div class="pagination-centered">
-<h6 class="subheader">Page 4 of 8</h6>
+<h6 class="subheader">Page 4 of 10</h6>
 
 <p>
             <a href="https://rajasgs.github.io/mlnotes/index3.html">&laquo; Prev</a>

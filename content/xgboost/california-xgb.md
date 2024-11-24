@@ -1,3 +1,11 @@
+---
+title: California-Xgb
+date: 2024-11-24
+author: Your Name
+cell_count: 13
+score: 10
+---
+
 ```python
 !python --version
 ```
@@ -109,7 +117,7 @@ plt.show()
 
 
     
-![png](california-xgb_files/california-xgb_9_0.png)
+![png](/mlnotes/images/california-xgb_9_0.png)
     
 
 
@@ -127,7 +135,7 @@ plt.show()
 
 
     
-![png](california-xgb_files/california-xgb_11_0.png)
+![png](/mlnotes/images/california-xgb_11_0.png)
     
 
 
@@ -135,3 +143,7 @@ plt.show()
 ```python
 
 ```
+
+
+---
+**Score: 10**

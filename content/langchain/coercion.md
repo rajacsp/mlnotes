@@ -1,3 +1,11 @@
+---
+title: Coercion
+date: 2024-11-24
+author: Your Name
+cell_count: 10
+score: 10
+---
+
 ```python
 from constants import OPENAI_API_KEY
 ```
@@ -59,3 +67,7 @@ chain.invoke({"topic": "bears"})
 ```python
 
 ```
+
+
+---
+**Score: 10**

@@ -1,3 +1,11 @@
+---
+title: Abstract-With-Ast
+date: 2024-11-24
+author: Your Name
+cell_count: 7
+score: 5
+---
+
 ```python
 !python --version
 ```
@@ -66,3 +74,7 @@ analyzer.visit(tree)
 ```python
 
 ```
+
+
+---
+**Score: 5**

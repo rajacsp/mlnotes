@@ -1,3 +1,11 @@
+---
+title: Basic-Table
+date: 2024-11-24
+author: Your Name
+cell_count: 21
+score: 20
+---
+
 ```python
 import sqlalchemy
 from sqlalchemy import create_engine
@@ -209,3 +217,7 @@ for city in cities:
 ```python
 
 ```
+
+
+---
+**Score: 20**

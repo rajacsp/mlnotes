@@ -1,3 +1,11 @@
+---
+title: Word-Counter
+date: 2024-11-24
+author: Your Name
+cell_count: 5
+score: 5
+---
+
 Nov 20 2024
 
 Count Words in a Sentence
@@ -43,3 +51,7 @@ count_words("45-67 Maple")
 ```python
 
 ```
+
+
+---
+**Score: 5**

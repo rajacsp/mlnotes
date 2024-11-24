@@ -1,3 +1,11 @@
+---
+title: Csv-To-Dataframe
+date: 2024-11-24
+author: Your Name
+cell_count: 9
+score: 5
+---
+
 ```python
 import numpy as np
 import pandas as pd
@@ -564,3 +572,7 @@ csv.describe()
 ```python
 
 ```
+
+
+---
+**Score: 5**

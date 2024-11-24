@@ -1,3 +1,11 @@
+---
+title: Canada-Facts
+date: 2024-11-24
+author: Your Name
+cell_count: 12
+score: 10
+---
+
 ```python
 # https://python.langchain.com/docs/how_to/structured_output/
 # https://python.langchain.com/docs/how_to/
@@ -87,3 +95,7 @@ q()
 ```python
 
 ```
+
+
+---
+**Score: 10**
