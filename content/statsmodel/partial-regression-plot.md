@@ -2,8 +2,17 @@
 title: Partial-Regression-Plot
 date: 2024-11-24
 author: Your Name
-cell_count: 24
-score: 20
+cell_count: 25
+score: 25
+---
+
+---
+title: "Partial Regression Plot"
+author: "Raja CSP Raman"
+date: 2019-04-24
+description: "-"
+type: technical_note
+draft: false
 ---
 
 ```python
@@ -909,8 +918,8 @@ print(res.summary())
     Dep. Variable:                Lottery   R-squared:                       0.338
     Model:                            OLS   Adj. R-squared:                  0.287
     Method:                 Least Squares   F-statistic:                     6.636
-    Date:                Sat, 16 Nov 2024   Prob (F-statistic):           1.07e-05
-    Time:                        12:56:25   Log-Likelihood:                -375.30
+    Date:                Thu, 25 Apr 2019   Prob (F-statistic):           1.07e-05
+    Time:                        20:54:07   Log-Likelihood:                -375.30
     No. Observations:                  85   AIC:                             764.6
     Df Residuals:                      78   BIC:                             781.7
     Df Model:                           6                                         
@@ -932,7 +941,7 @@ print(res.summary())
     Kurtosis:                       2.454   Cond. No.                         371.
     ==============================================================================
     
-    Notes:
+    Warnings:
     [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
 
 
@@ -996,15 +1005,9 @@ sm.graphics.plot_partregress('Lottery', 'Wealth', ['Region' ,'Literacy'], data=d
 
 
     
-![png](/mlnotes/images/partial-regression-plot_22_0.png)
+![png](/mlnotes/images/partial-regression-plot_23_0.png)
     
 
-
-
-
-    
-![png](/mlnotes/images/partial-regression-plot_22_1.png)
-    
 
 
 
@@ -1014,4 +1017,4 @@ sm.graphics.plot_partregress('Lottery', 'Wealth', ['Region' ,'Literacy'], data=d
 
 
 ---
-**Score: 20**
+**Score: 25**

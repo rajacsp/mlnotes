@@ -2,8 +2,17 @@
 title: Decision-Tree-Graph
 date: 2024-11-24
 author: Your Name
-cell_count: 12
+cell_count: 11
 score: 10
+---
+
+---
+title: "Decision Tree Graph"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false
 ---
 
 ```python
@@ -86,29 +95,9 @@ graph
 
 
 
-    <pydotplus.graphviz.Dot at 0x7f2557b6a990>
+    <pydotplus.graphviz.Dot at 0x1209bf198>
 
 
-
-
-```python
-from IPython.display import Image
-Image(graph.create_png())
-```
-
-
-
-
-    
-![png](/mlnotes/images/decision-tree-graph_10_0.png)
-    
-
-
-
-
-```python
-
-```
 
 
 ---

@@ -2,8 +2,17 @@
 title: Bag-Of-Words
 date: 2024-11-24
 author: Your Name
-cell_count: 5
+cell_count: 6
 score: 5
+---
+
+---
+title: "Bag of Words"
+author: "Rj"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false
 ---
 
 ```python
@@ -19,34 +28,18 @@ word_counter = Counter(word_tokenize("""The cat is in the box. The cat likes the
 
 
 ```python
-word_counter
+print(word_counter)
 ```
 
-
-
-
-    Counter({'The': 3,
-             'cat': 3,
-             'is': 2,
-             'in': 1,
-             'the': 3,
-             'box': 3,
-             '.': 3,
-             'likes': 1,
-             'over': 1})
-
+    Counter({'The': 3, 'cat': 3, 'the': 3, 'box': 3, '.': 3, 'is': 2, 'in': 1, 'likes': 1, 'over': 1})
 
 
 
 ```python
-word_counter.most_common(4)
+print(word_counter.most_common(4))
 ```
 
-
-
-
     [('The', 3), ('cat', 3), ('the', 3), ('box', 3)]
-
 
 
 

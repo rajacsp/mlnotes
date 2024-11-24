@@ -2,14 +2,18 @@
 title: Grid-Search-Sample
 date: 2024-11-24
 author: Your Name
-cell_count: 10
-score: 10
+cell_count: 9
+score: 5
 ---
 
-```python
-
-```
-
+---
+title: "Grid Search Sample"
+author: "Rj"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false
+---
 
 ```python
 from __future__ import print_function
@@ -23,14 +27,8 @@ from sklearn.svm import SVC
 
 
 ```python
-print(__doc__)
-```
+# print(__doc__)
 
-    Automatically created module for IPython interactive environment
-
-
-
-```python
 # Loading the Digits dataset
 digits = datasets.load_digits()
 ```
@@ -107,17 +105,17 @@ for score in scores:
     Grid scores on development set:
     
     0.986 (+/-0.016) for {'C': 1, 'gamma': 0.001, 'kernel': 'rbf'}
-    0.959 (+/-0.028) for {'C': 1, 'gamma': 0.0001, 'kernel': 'rbf'}
+    0.959 (+/-0.029) for {'C': 1, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.988 (+/-0.017) for {'C': 10, 'gamma': 0.001, 'kernel': 'rbf'}
     0.982 (+/-0.026) for {'C': 10, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.988 (+/-0.017) for {'C': 100, 'gamma': 0.001, 'kernel': 'rbf'}
-    0.983 (+/-0.026) for {'C': 100, 'gamma': 0.0001, 'kernel': 'rbf'}
+    0.982 (+/-0.025) for {'C': 100, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.988 (+/-0.017) for {'C': 1000, 'gamma': 0.001, 'kernel': 'rbf'}
-    0.983 (+/-0.026) for {'C': 1000, 'gamma': 0.0001, 'kernel': 'rbf'}
-    0.974 (+/-0.012) for {'C': 1, 'kernel': 'linear'}
-    0.974 (+/-0.012) for {'C': 10, 'kernel': 'linear'}
-    0.974 (+/-0.012) for {'C': 100, 'kernel': 'linear'}
-    0.974 (+/-0.012) for {'C': 1000, 'kernel': 'linear'}
+    0.982 (+/-0.025) for {'C': 1000, 'gamma': 0.0001, 'kernel': 'rbf'}
+    0.975 (+/-0.014) for {'C': 1, 'kernel': 'linear'}
+    0.975 (+/-0.014) for {'C': 10, 'kernel': 'linear'}
+    0.975 (+/-0.014) for {'C': 100, 'kernel': 'linear'}
+    0.975 (+/-0.014) for {'C': 1000, 'kernel': 'linear'}
     
     Detailed classification report:
     
@@ -137,7 +135,7 @@ for score in scores:
                8       1.00      0.98      0.99        92
                9       0.99      0.99      0.99        92
     
-        accuracy                           0.99       899
+       micro avg       0.99      0.99      0.99       899
        macro avg       0.99      0.99      0.99       899
     weighted avg       0.99      0.99      0.99       899
     
@@ -151,17 +149,17 @@ for score in scores:
     Grid scores on development set:
     
     0.986 (+/-0.019) for {'C': 1, 'gamma': 0.001, 'kernel': 'rbf'}
-    0.957 (+/-0.028) for {'C': 1, 'gamma': 0.0001, 'kernel': 'rbf'}
+    0.957 (+/-0.029) for {'C': 1, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.987 (+/-0.019) for {'C': 10, 'gamma': 0.001, 'kernel': 'rbf'}
     0.981 (+/-0.028) for {'C': 10, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.987 (+/-0.019) for {'C': 100, 'gamma': 0.001, 'kernel': 'rbf'}
-    0.982 (+/-0.026) for {'C': 100, 'gamma': 0.0001, 'kernel': 'rbf'}
+    0.981 (+/-0.026) for {'C': 100, 'gamma': 0.0001, 'kernel': 'rbf'}
     0.987 (+/-0.019) for {'C': 1000, 'gamma': 0.001, 'kernel': 'rbf'}
-    0.982 (+/-0.026) for {'C': 1000, 'gamma': 0.0001, 'kernel': 'rbf'}
-    0.971 (+/-0.010) for {'C': 1, 'kernel': 'linear'}
-    0.971 (+/-0.010) for {'C': 10, 'kernel': 'linear'}
-    0.971 (+/-0.010) for {'C': 100, 'kernel': 'linear'}
-    0.971 (+/-0.010) for {'C': 1000, 'kernel': 'linear'}
+    0.981 (+/-0.026) for {'C': 1000, 'gamma': 0.0001, 'kernel': 'rbf'}
+    0.972 (+/-0.012) for {'C': 1, 'kernel': 'linear'}
+    0.972 (+/-0.012) for {'C': 10, 'kernel': 'linear'}
+    0.972 (+/-0.012) for {'C': 100, 'kernel': 'linear'}
+    0.972 (+/-0.012) for {'C': 1000, 'kernel': 'linear'}
     
     Detailed classification report:
     
@@ -181,7 +179,7 @@ for score in scores:
                8       1.00      0.98      0.99        92
                9       0.99      0.99      0.99        92
     
-        accuracy                           0.99       899
+       micro avg       0.99      0.99      0.99       899
        macro avg       0.99      0.99      0.99       899
     weighted avg       0.99      0.99      0.99       899
     
@@ -195,4 +193,4 @@ for score in scores:
 
 
 ---
-**Score: 10**
+**Score: 5**

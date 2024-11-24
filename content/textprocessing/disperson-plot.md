@@ -2,20 +2,18 @@
 title: Disperson-Plot
 date: 2024-11-24
 author: Your Name
-cell_count: 9
-score: 5
+cell_count: 10
+score: 10
 ---
 
-```python
-import nltk
-# nltk.download('gutenberg')
-# nltk.download('genesis')
-# nltk.download('inaugural')
-# nltk.download('nps_chat')
-# nltk.download('webtext')
-# nltk.download('treebank')
-```
-
+---
+title: "Disperson Plot"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false
+---
 
 ```python
 from nltk.book import text3
@@ -106,5 +104,10 @@ text3.dispersion_plot(["citizens", "democracy"])
 ```
 
 
+```python
+
+```
+
+
 ---
-**Score: 5**
+**Score: 10**

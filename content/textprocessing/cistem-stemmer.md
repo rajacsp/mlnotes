@@ -2,8 +2,17 @@
 title: Cistem-Stemmer
 date: 2024-11-24
 author: Your Name
-cell_count: 6
+cell_count: 8
 score: 5
+---
+
+---
+title: "Cistem Stemmer"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false
 ---
 
 ```python
@@ -17,41 +26,34 @@ c_stemmer = Cistem()
 
 
 ```python
-c_stemmer.stem("filtering")
+print(c_stemmer.stem("filtering"))
 ```
 
-
-
-
-    'filtering'
-
+    filtering
 
 
 
 ```python
-c_stemmer.segment("filtering")
+print(c_stemmer.segment("filtering"))
 ```
-
-
-
 
     ('filtering', '')
 
 
 
-
 ```python
-c_stemmer.segment("Ausgefeiltere")
+print(c_stemmer.segment("Ausgefeiltere"))
 ```
-
-
-
 
     ('ausgefeilt', 'ere')
 
 
+* segment method will return both the stem and the rest that was removed at the end
 
-segment method will return both the stem and the rest that was removed at the end
+
+```python
+
+```
 
 
 ---

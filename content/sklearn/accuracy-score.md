@@ -2,8 +2,17 @@
 title: Accuracy-Score
 date: 2024-11-24
 author: Your Name
-cell_count: 4
-score: 0
+cell_count: 5
+score: 5
+---
+
+---
+title: "Accuracy Score"
+author: "Rj"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false
 ---
 
 ```python
@@ -28,7 +37,7 @@ score2 = accuracy_score(y_true, y_pred, normalize=False)
 print(score2)
 ```
 
-    2.0
+    2
 
 
 
@@ -38,4 +47,4 @@ print(score2)
 
 
 ---
-**Score: 0**
+**Score: 5**

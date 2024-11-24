@@ -2,14 +2,18 @@
 title: Chainmap
 date: 2024-11-24
 author: Your Name
-cell_count: 17
+cell_count: 15
 score: 15
 ---
 
-```python
-
-```
-
+---
+title: "Chainmap"
+author: "Rj"
+date: 2019-04-20
+description: "List Test"
+type: technical_note
+draft: false
+---
 
 ```python
 city = {'name': 'Toronto', 'short_name': 'TO'}
@@ -43,11 +47,6 @@ number
     {'a': 2, 'b': 3, 'c': 4}
 
 
-
-
-```python
-
-```
 
 
 ```python
@@ -89,11 +88,11 @@ for k, v in ab.items():
     print(k , "==>", v)
 ```
 
-    a ==> 2
+    short_name ==> TO
     b ==> 3
     c ==> 4
+    a ==> 2
     name ==> Toronto
-    short_name ==> TO
 
 
 
@@ -109,7 +108,7 @@ ab_list
 
 
 
-    ['a', 'b', 'c', 'name', 'short_name']
+    ['short_name', 'b', 'c', 'a', 'name']
 
 
 
@@ -126,20 +125,15 @@ ab_tuple
 
 
 
-    ('a', 'b', 'c', 'name', 'short_name')
+    ('short_name', 'b', 'c', 'a', 'name')
 
 
 
-Ref:
+more: 
 
 https://stackoverflow.com/questions/23392976/what-is-the-purpose-of-collections-chainmap
 
 https://docs.python.org/3/library/collections.html#collections.Counter
-
-
-```python
-
-```
 
 
 ---
