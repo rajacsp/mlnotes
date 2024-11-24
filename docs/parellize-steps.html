@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Template-Copy1</title>
+    <title>Parellize-Steps</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
@@ -44,8 +44,8 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/template-copy1.html" rel="bookmark"
-        title="Permalink to Template-Copy1">Template-Copy1</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/parellize-steps.html" rel="bookmark"
+        title="Permalink to Parellize-Steps">Parellize-Steps</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
@@ -76,6 +76,28 @@
 <div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/parallel/</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableParallel</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">()</span>
+<span class="n">joke_chain</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;tell me a joke about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">model</span>
+<span class="n">poem_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;write a 2-line poem about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">model</span>
+<span class="p">)</span>
+
+<span class="n">map_chain</span> <span class="o">=</span> <span class="n">RunnableParallel</span><span class="p">(</span><span class="n">joke</span><span class="o">=</span><span class="n">joke_chain</span><span class="p">,</span> <span class="n">poem</span><span class="o">=</span><span class="n">poem_chain</span><span class="p">)</span>
+
+<span class="n">map_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;bear&quot;</span><span class="p">})</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>{&#39;joke&#39;: AIMessage(content=&#39;Why did the bear bring a flashlight to the party? \n\nBecause he wanted to be the life of the &quot;bear&quot;-ty!&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 26, &#39;prompt_tokens&#39;: 13, &#39;total_tokens&#39;: 39, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-3.5-turbo-0125&#39;, &#39;system_fingerprint&#39;: None, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;run-c5d048a4-40ab-4348-afcc-e42fad7889e3-0&#39;, usage_metadata={&#39;input_tokens&#39;: 13, &#39;output_tokens&#39;: 26, &#39;total_tokens&#39;: 39, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}}),
+ &#39;poem&#39;: AIMessage(content=&quot;In the forest&#39;s embrace, the bear roams free,\nStrength and grace intertwined, a majestic sight to see.&quot;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 23, &#39;prompt_tokens&#39;: 15, &#39;total_tokens&#39;: 38, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-3.5-turbo-0125&#39;, &#39;system_fingerprint&#39;: None, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;run-82a2c7d0-1f2f-4beb-8681-f3237f7ed624-0&#39;, usage_metadata={&#39;input_tokens&#39;: 15, &#39;output_tokens&#39;: 23, &#39;total_tokens&#39;: 38, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})}
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code>
