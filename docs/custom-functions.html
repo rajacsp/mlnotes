@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Parellize-Steps</title>
+    <title>Custom-Functions</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
@@ -44,8 +44,8 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/parellize-steps.html" rel="bookmark"
-        title="Permalink to Parellize-Steps">Parellize-Steps</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/custom-functions.html" rel="bookmark"
+        title="Permalink to Custom-Functions">Custom-Functions</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
@@ -78,27 +78,58 @@
 <span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/parallel/</span>
+<div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
-<span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableParallel</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+
+<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableLambda</span>
 <span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
 
+
+<span class="k">def</span> <span class="nf">length_function</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_multiple_length_function</span><span class="p">(</span><span class="n">text1</span><span class="p">,</span> <span class="n">text2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">text1</span><span class="p">)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">text2</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">multiple_length_function</span><span class="p">(</span><span class="n">_dict</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">_multiple_length_function</span><span class="p">(</span><span class="n">_dict</span><span class="p">[</span><span class="s2">&quot;text1&quot;</span><span class="p">],</span> <span class="n">_dict</span><span class="p">[</span><span class="s2">&quot;text2&quot;</span><span class="p">])</span>
+
+
 <span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">()</span>
-<span class="n">joke_chain</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;tell me a joke about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">model</span>
-<span class="n">poem_chain</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;write a 2-line poem about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">model</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;what is </span><span class="si">{a}</span><span class="s2"> + </span><span class="si">{b}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">chain1</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;a&quot;</span><span class="p">:</span> <span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">RunnableLambda</span><span class="p">(</span><span class="n">length_function</span><span class="p">),</span>
+        <span class="s2">&quot;b&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;text1&quot;</span><span class="p">:</span> <span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">),</span> <span class="s2">&quot;text2&quot;</span><span class="p">:</span> <span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">)}</span>
+        <span class="o">|</span> <span class="n">RunnableLambda</span><span class="p">(</span><span class="n">multiple_length_function</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="o">|</span> <span class="n">prompt</span>
+    <span class="o">|</span> <span class="n">model</span>
 <span class="p">)</span>
-
-<span class="n">map_chain</span> <span class="o">=</span> <span class="n">RunnableParallel</span><span class="p">(</span><span class="n">joke</span><span class="o">=</span><span class="n">joke_chain</span><span class="p">,</span> <span class="n">poem</span><span class="o">=</span><span class="n">poem_chain</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">timeit</span>
-<span class="n">map_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;bear&quot;</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code>AIMessage(content=&#39;12&#39;, additional_kwargs={&#39;refusal&#39;: None}, response_metadata={&#39;token_usage&#39;: {&#39;completion_tokens&#39;: 1, &#39;prompt_tokens&#39;: 14, &#39;total_tokens&#39;: 15, &#39;completion_tokens_details&#39;: {&#39;accepted_prediction_tokens&#39;: 0, &#39;audio_tokens&#39;: 0, &#39;reasoning_tokens&#39;: 0, &#39;rejected_prediction_tokens&#39;: 0}, &#39;prompt_tokens_details&#39;: {&#39;audio_tokens&#39;: 0, &#39;cached_tokens&#39;: 0}}, &#39;model_name&#39;: &#39;gpt-3.5-turbo-0125&#39;, &#39;system_fingerprint&#39;: None, &#39;finish_reason&#39;: &#39;stop&#39;, &#39;logprobs&#39;: None}, id=&#39;run-3af15294-79ee-49da-9117-d7fddf6aa313-0&#39;, usage_metadata={&#39;input_tokens&#39;: 14, &#39;output_tokens&#39;: 1, &#39;total_tokens&#39;: 15, &#39;input_token_details&#39;: {&#39;audio&#39;: 0, &#39;cache_read&#39;: 0}, &#39;output_token_details&#39;: {&#39;audio&#39;: 0, &#39;reasoning&#39;: 0}})
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="mf">931</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="err">±</span><span class="w"> </span><span class="mf">167</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="p">(</span><span class="n">mean</span><span class="w"> </span><span class="err">±</span><span class="w"> </span><span class="n">std</span><span class="mf">.</span><span class="w"> </span><span class="n">dev</span><span class="mf">.</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="mf">7</span><span class="w"> </span><span class="kr">run</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">each</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;foo&quot;</span><span class="p">:</span> <span class="s2">&quot;ball&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">:</span> <span class="s2">&quot;gah&quot;</span><span class="p">})</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">JSON</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">JSON</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&lt;IPython.core.display.JSON object&gt;
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code>

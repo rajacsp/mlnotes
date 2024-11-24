@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Parellize-Steps</title>
+    <title>Binding-Stop-Sequence</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
@@ -44,8 +44,8 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/parellize-steps.html" rel="bookmark"
-        title="Permalink to Parellize-Steps">Parellize-Steps</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/binding-stop-sequence.html" rel="bookmark"
+        title="Permalink to Binding-Stop-Sequence">Binding-Stop-Sequence</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-11-24T00:00:00-05:00">Sun 24 November 2024
@@ -78,27 +78,58 @@
 <span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/parallel/</span>
+<div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/binding/</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
-<span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableParallel</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnablePassthrough</span>
 <span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
 
-<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">()</span>
-<span class="n">joke_chain</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;tell me a joke about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">model</span>
-<span class="n">poem_chain</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;write a 2-line poem about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">model</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="p">(</span>
+            <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Write out the following equation using algebraic symbols then solve it. Use the format</span><span class="se">\n\n</span><span class="s2">EQUATION:...</span><span class="se">\n</span><span class="s2">SOLUTION:...</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;human&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{equation_statement}</span><span class="s2">&quot;</span><span class="p">),</span>
+    <span class="p">]</span>
 <span class="p">)</span>
 
-<span class="n">map_chain</span> <span class="o">=</span> <span class="n">RunnableParallel</span><span class="p">(</span><span class="n">joke</span><span class="o">=</span><span class="n">joke_chain</span><span class="p">,</span> <span class="n">poem</span><span class="o">=</span><span class="n">poem_chain</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">runnable</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;equation_statement&quot;</span><span class="p">:</span> <span class="n">RunnablePassthrough</span><span class="p">()}</span> <span class="o">|</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="o">%%</span><span class="n">timeit</span>
-<span class="n">map_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;bear&quot;</span><span class="p">})</span>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">runnable</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;x raised to the third plus seven equals 12&quot;</span><span class="p">))</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="mf">931</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="err">±</span><span class="w"> </span><span class="mf">167</span><span class="w"> </span><span class="n">ms</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="p">(</span><span class="n">mean</span><span class="w"> </span><span class="err">±</span><span class="w"> </span><span class="n">std</span><span class="mf">.</span><span class="w"> </span><span class="n">dev</span><span class="mf">.</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="mf">7</span><span class="w"> </span><span class="kr">run</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mf">1</span><span class="w"> </span><span class="n">loop</span><span class="w"> </span><span class="n">each</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">EQUATION</span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span>
+
+<span class="n">SOLUTION</span><span class="o">:</span><span class="w"> </span>
+<span class="n">Subtract</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">both</span><span class="w"> </span><span class="n">sides</span><span class="o">:</span>
+<span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+
+<span class="n">Take</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">cube</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">both</span><span class="w"> </span><span class="n">sides</span><span class="o">:</span>
+<span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">∛</span><span class="mi">5</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">runnable</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span><span class="s2">&quot;equation_statement&quot;</span><span class="p">:</span> <span class="n">RunnablePassthrough</span><span class="p">()}</span>
+    <span class="o">|</span> <span class="n">prompt</span>
+    <span class="o">|</span> <span class="n">model</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="s2">&quot;SOLUTION&quot;</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">runnable</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="s2">&quot;x raised to the third plus seven equals 12&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">EQUATION</span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">^</span><span class="mi">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code>
