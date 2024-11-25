@@ -9,7 +9,6 @@ from pathlib import Path
 from datetime import datetime
 import shutil
 import random
-import sys
 
 # Local
 # import custom_constants as cons
