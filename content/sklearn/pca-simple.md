@@ -1,6 +1,6 @@
 ---
 title: Pca-Simple
-date: 2024-11-24
+date: 2024-11-25
 author: Your Name
 cell_count: 12
 score: 10
