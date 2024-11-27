@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>ML Notes - sentiment</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/book-review-analyzer.html"><h3 class="article-title">Book-Review-Analyzer</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Book Review Analyzer"
+author: "Rj"
+date: 2019-04-20
+description: "List Test"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">nltk.sentiment.vader</span> <span class="kn">import</span> <span class="n">SentimentIntensityAnalyzer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;book-review.json&#39;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">twt</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">twt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="s1">&#39;the text reveals the mentality of the CIA so that it reveals the group think which is necessary for understanding its philosophical shallowness&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">tweet_index</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">tweet_date</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">positive_reviews</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">negative_reviews</span> <span class="o">=</span> <span class="p">[]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">tw_counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">def</span> <span class="nf">analyze_local</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span> <span class="n">tw_date</span><span class="p">):</span>
+    <span class="n">sid</span> <span class="o">=</span> <span class="n">SentimentIntensityAnalyzer</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="k">global</span> <span class="n">tw_counter</span>
+    <span class="n">tw_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">ss</span> <span class="o">=</span> <span class="n">sid</span><span class="o">.</span><span class="n">polarity_scores</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">])</span>
+    <span class="n">positive_reviews</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ss</span><span class="p">[</span><span class="s1">&#39;pos&#39;</span><span class="p">])</span>
+    <span class="n">negative_reviews</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">ss</span><span class="p">[</span><span class="s1">&#39;neg&#39;</span><span class="p">])</span>    
+    <span class="n">tweet_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tw_counter</span><span class="p">)</span>
+    <span class="n">current_date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">tw_date</span><span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+    <span class="c1">#print(current_date)</span>
+    <span class="n">tweet_date</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_date</span><span class="p">)</span>
+
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    for k in sorted(ss):</span>
+<span class="sd">        #print(ss)</span>
+<span class="sd">        print(&#39;{0}: {1}, &#39;.format(k, ss[k]), end = &#39;&#39;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_data</span><span class="p">():</span>
+    <span class="c1"># evenly sampled time at 200ms intervals</span>
+
+    <span class="c1">#myneglist = [ -x for x in negative_reviews]</span>
+
+    <span class="c1"># red dashes, blue squares and green triangles</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Sentiment Analysis : Positive (blue) and Negative (red)&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">tweet_date</span><span class="p">,</span> <span class="n">positive_reviews</span><span class="p">,</span> <span class="s1">&#39;b--&#39;</span><span class="p">,</span> <span class="n">tweet_date</span><span class="p">,</span> <span class="n">negative_reviews</span><span class="p">,</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
+    <span class="c1">#plt.plot(tweet_date, negative_reviews, &#39;r--&#39;)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>    
+
+<span class="n">total_reviews</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_reviews</span><span class="p">):</span>
+    <span class="n">analyze_local</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">],</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;reviews&#39;</span><span class="p">][</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;created_at&#39;</span><span class="p">])</span>
+
+<span class="n">plot_data</span><span class="p">()</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="err">&#39;</span><span class="nx">text</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Much</span><span class="w"> </span><span class="nx">too</span><span class="w"> </span><span class="nx">concerned</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">structure</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">functions</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">CIA</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">crentral</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="nx">suggested</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">title</span><span class="p">.</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">created_at</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Mon</span><span class="w"> </span><span class="nx">Jan</span><span class="w"> </span><span class="mi">01</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="mi">52</span><span class="w"> </span><span class="o">+</span><span class="mi">0000</span><span class="w"> </span><span class="mi">2018</span><span class="err">&#39;</span><span class="p">}</span>
+<span class="nx">Much</span><span class="w"> </span><span class="nx">too</span><span class="w"> </span><span class="nx">concerned</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">structure</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">functions</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">CIA</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">crentral</span><span class="w"> </span><span class="nx">theme</span><span class="w"> </span><span class="nx">suggested</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">title</span><span class="p">.</span>
+<span class="m m-Double">0.0</span>
+<span class="nx">the</span><span class="w"> </span><span class="nx">text</span><span class="w"> </span><span class="nx">reveals</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">mentality</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">CIA</span><span class="w"> </span><span class="nx">so</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">reveals</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">group</span><span class="w"> </span><span class="nx">think</span><span class="w"> </span><span class="nx">which</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">necessary</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">understanding</span><span class="w"> </span><span class="nx">its</span><span class="w"> </span><span class="nx">philosophical</span><span class="w"> </span><span class="nx">shallowness</span>
+<span class="m m-Double">0.0</span>
+<span class="nx">The</span><span class="w"> </span><span class="nx">book</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">what</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">expected</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">more</span><span class="o">...</span><span class="p">.</span><span class="nx">now</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">confirmation</span><span class="p">.</span><span class="w"> </span><span class="nx">Should</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">believe</span><span class="w"> </span><span class="nx">what</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">read</span><span class="o">......</span><span class="p">..</span><span class="nx">this</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">another</span><span class="w"> </span><span class="nx">question</span><span class="w"> </span><span class="nx">which</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">reader</span><span class="w"> </span><span class="nx">can</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="nx">answer</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">his</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nx">her</span><span class="w"> </span><span class="kp">self</span><span class="p">.</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">world</span><span class="w"> </span><span class="nx">which</span><span class="w"> </span><span class="nx">we</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">live</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">many</span><span class="w"> </span><span class="nx">twists</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">truth</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">lies</span><span class="w"> </span><span class="nx">about</span><span class="w"> </span><span class="nx">everything</span><span class="o">...</span><span class="p">.</span><span class="nx">obviously</span><span class="w"> </span><span class="nx">our</span><span class="w"> </span><span class="nx">actions</span><span class="w"> </span><span class="nx">may</span><span class="w"> </span><span class="nx">they</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">positive</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="nx">negative</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">definitely</span><span class="w"> </span><span class="nx">affecting</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="nx">come</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">our</span><span class="w"> </span><span class="nx">lives</span><span class="p">.</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">book</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">worth</span><span class="w"> </span><span class="nx">reading</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">far</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">I</span><span class="err">&#39;</span><span class="nx">m</span><span class="w"> </span><span class="nx">concerned</span><span class="p">.</span>
+<span class="m m-Double">0.125</span>
+<span class="nx">I</span><span class="w"> </span><span class="nx">guess</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">gag</span><span class="w"> </span><span class="nx">order</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">gag</span><span class="w"> </span><span class="nx">order</span><span class="p">.</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">disappointed</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">book</span><span class="p">.</span><span class="w"> </span><span class="nx">There</span><span class="w"> </span><span class="nx">wasn</span><span class="err">&#39;</span><span class="nx">t</span><span class="w"> </span><span class="nx">anything</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">couldn</span><span class="err">&#39;</span><span class="nx">t</span><span class="w"> </span><span class="nx">find</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">browser</span><span class="w"> </span><span class="nx">search</span><span class="p">.</span><span class="w"> </span><span class="nx">It</span><span class="w"> </span><span class="nx">seemed</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">more</span><span class="w"> </span><span class="nx">pro</span><span class="w"> </span><span class="nx">Cia</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="nx">his</span><span class="w"> </span><span class="nx">video</span><span class="err">&#39;</span><span class="nx">s</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">talked</span><span class="w"> </span><span class="nx">about</span><span class="w"> </span><span class="nx">what</span><span class="w"> </span><span class="nx">his</span><span class="w"> </span><span class="nx">family</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">put</span><span class="w"> </span><span class="nx">through</span><span class="p">.</span><span class="w"> </span><span class="nx">Which</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">couple</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">pages</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">end</span><span class="w"> </span><span class="nx">spoke</span><span class="w"> </span><span class="nx">about</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">heavy</span><span class="w"> </span><span class="nx">blanked</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="nx">sections</span><span class="p">.</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">would</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">buy</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">more</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">his</span><span class="w"> </span><span class="nx">other</span><span class="w"> </span><span class="nx">books</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">they</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">going</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">one</span><span class="p">.</span><span class="w"> </span><span class="nx">He</span><span class="w"> </span><span class="nx">may</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">put</span><span class="w"> </span><span class="nx">his</span><span class="w"> </span><span class="nx">heart</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">soul</span><span class="w"> </span><span class="nx">into</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">but</span><span class="w"> </span><span class="nx">having</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Cia</span><span class="w"> </span><span class="nx">approve</span><span class="w"> </span><span class="nx">everything</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">written</span><span class="w"> </span><span class="nx">just</span><span class="w"> </span><span class="nx">doesn</span><span class="err">&#39;</span><span class="nx">t</span><span class="w"> </span><span class="nx">cut</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">me</span><span class="p">.</span><span class="w"> </span><span class="nx">Get</span><span class="w"> </span><span class="nx">books</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">aren</span><span class="err">&#39;</span><span class="nx">t</span><span class="w"> </span><span class="nx">censored</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">Cia</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">want</span><span class="w"> </span><span class="nx">real</span><span class="w"> </span><span class="nx">information</span><span class="p">.</span><span class="w"> </span><span class="nx">Like</span><span class="w"> </span><span class="nx">one</span><span class="w"> </span><span class="nx">reviewer</span><span class="w"> </span><span class="nx">said</span><span class="p">,</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">whistle</span><span class="w"> </span><span class="nx">blower</span><span class="w"> </span><span class="nx">book</span><span class="p">.</span>
+<span class="m m-Double">0.078</span>
+<span class="nx">The</span><span class="w"> </span><span class="nx">book</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">easy</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">read</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">follow</span><span class="p">.</span><span class="w"> </span><span class="nx">It</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">very</span><span class="w"> </span><span class="nx">understandable</span><span class="w"> </span><span class="nx">along</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">lot</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">intrigue</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">workings</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">CIA</span><span class="p">.</span><span class="w"> </span><span class="nx">It</span><span class="err">&#39;</span><span class="nx">s</span><span class="w"> </span><span class="nx">difficult</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">understand</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">treatment</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">CIA</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">one</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">their</span><span class="w"> </span><span class="nx">officials</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">long</span><span class="w"> </span><span class="nx">time</span><span class="w"> </span><span class="nx">employee</span><span class="p">.</span><span class="w"> </span><span class="nx">His</span><span class="w"> </span><span class="nx">treatment</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">them</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">off</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">charts</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">some</span><span class="w"> </span><span class="nx">ot</span><span class="w"> </span><span class="nx">his</span><span class="w"> </span><span class="nx">co</span><span class="o">-</span><span class="nx">workers</span><span class="p">,</span><span class="w"> </span><span class="nx">superiors</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">others</span><span class="w"> </span><span class="nx">were</span><span class="w"> </span><span class="nx">off</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">reservation</span><span class="p">.</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">recommend</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">anyone</span><span class="w"> </span><span class="nx">interested</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">how</span><span class="w"> </span><span class="nx">our</span><span class="w"> </span><span class="nx">loyal</span><span class="p">,</span><span class="w"> </span><span class="nx">patriotic</span><span class="w"> </span><span class="nx">public</span><span class="w"> </span><span class="nx">servants</span><span class="w"> </span><span class="nx">are</span><span class="w"> </span><span class="nx">treated</span><span class="w"> </span><span class="nx">when</span><span class="w"> </span><span class="nx">they</span><span class="w"> </span><span class="nx">don</span><span class="err">&#39;</span><span class="nx">t</span><span class="w"> </span><span class="nx">adhere</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">direction</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">contrary</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">our</span><span class="w"> </span><span class="nx">Country</span><span class="p">.</span>
+<span class="m m-Double">0.138</span>
+<span class="nx">Excellent</span><span class="w"> </span><span class="nx">source</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">information</span><span class="w"> </span><span class="nx">about</span><span class="w"> </span><span class="nx">our</span><span class="w"> </span><span class="nx">government</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">how</span><span class="w"> </span><span class="nx">corruption</span><span class="w"> </span><span class="nx">take</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="nx">hold</span><span class="w"> </span><span class="nx">when</span><span class="w"> </span><span class="nx">we</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">citizens</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">political</span><span class="w"> </span><span class="nx">oversight</span><span class="w"> </span><span class="nx">management</span><span class="w"> </span><span class="nx">fail</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">pay</span><span class="w"> </span><span class="nx">attention</span><span class="p">.</span>
+<span class="m m-Double">0.125</span>
+<span class="nx">Lots</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">info</span><span class="p">.</span><span class="nx">Goes</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">other</span><span class="w"> </span><span class="nx">books</span><span class="w"> </span><span class="nx">I</span><span class="w"> </span><span class="nx">have</span><span class="w"> </span><span class="nx">read</span><span class="p">.</span><span class="nx">This</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">open</span><span class="w"> </span><span class="nx">your</span><span class="w"> </span><span class="nx">eyes</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">what</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">gov</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">doing</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">media</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">tell</span><span class="w"> </span><span class="nx">you</span><span class="p">.</span>
+<span class="m m-Double">0.0</span>
+<span class="nx">The</span><span class="w"> </span><span class="nx">detail</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">what</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">agent</span><span class="w"> </span><span class="nx">goes</span><span class="w"> </span><span class="nx">through</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">intriguing</span><span class="p">.</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">problem</span><span class="w"> </span><span class="k">is</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">lot</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">stuff</span><span class="w"> </span><span class="nx">he</span><span class="w"> </span><span class="nx">talked</span><span class="w"> </span><span class="nx">about</span><span class="w"> </span><span class="nx">regarding</span><span class="w"> </span><span class="mi">9</span><span class="o">/</span><span class="mi">11</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Iraq</span><span class="w"> </span><span class="nx">war</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">regurgitated</span><span class="w"> </span><span class="nx">mainstream</span><span class="w"> </span><span class="nx">media</span><span class="w"> </span><span class="nx">talking</span><span class="w"> </span><span class="nx">points</span><span class="p">.</span><span class="w"> </span><span class="nx">He</span><span class="w"> </span><span class="nx">really</span><span class="w"> </span><span class="nx">didn</span><span class="err">&#39;</span><span class="nx">t</span><span class="w"> </span><span class="nx">expose</span><span class="w"> </span><span class="nx">what</span><span class="w"> </span><span class="nx">really</span><span class="w"> </span><span class="nx">went</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">behind</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">scenes</span><span class="w"> </span><span class="k">like</span><span class="w"> </span><span class="nx">real</span><span class="w"> </span><span class="nx">whistleblower</span><span class="w"> </span><span class="nx">agents</span><span class="w"> </span><span class="nx">already</span><span class="w"> </span><span class="nx">have</span><span class="p">.</span><span class="w"> </span><span class="nx">Very</span><span class="w"> </span><span class="nx">disappointing</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">that</span><span class="w"> </span><span class="nx">sense</span><span class="p">.</span>
+<span class="m m-Double">0.068</span>
+
+
+<span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">rajacsp</span><span class="o">/</span><span class="nx">anaconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">py36</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.6</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">pandas</span><span class="o">/</span><span class="nx">plotting</span><span class="o">/</span><span class="nx">_converter</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">129</span><span class="p">:</span><span class="w"> </span><span class="nx">FutureWarning</span><span class="p">:</span><span class="w"> </span><span class="nx">Using</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">implicitly</span><span class="w"> </span><span class="nx">registered</span><span class="w"> </span><span class="nx">datetime</span><span class="w"> </span><span class="nx">converter</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">matplotlib</span><span class="w"> </span><span class="nx">plotting</span><span class="w"> </span><span class="nx">method</span><span class="p">.</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="nx">converter</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">registered</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">pandas</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="kn">import</span><span class="p">.</span><span class="w"> </span><span class="nx">Future</span><span class="w"> </span><span class="nx">versions</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">pandas</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">require</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">explicitly</span><span class="w"> </span><span class="nx">register</span><span class="w"> </span><span class="nx">matplotlib</span><span class="w"> </span><span class="nx">converters</span><span class="p">.</span>
+
+<span class="nx">To</span><span class="w"> </span><span class="nx">register</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">converters</span><span class="p">:</span>
+<span class="w">    </span><span class="o">&gt;&gt;</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">pandas</span><span class="p">.</span><span class="nx">plotting</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nx">register_matplotlib_converters</span>
+<span class="w">    </span><span class="o">&gt;&gt;</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">register_matplotlib_converters</span><span class="p">()</span>
+<span class="w">  </span><span class="nx">warnings</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">msg</span><span class="p">,</span><span class="w"> </span><span class="nx">FutureWarning</span><span class="p">)</span>
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/book-review-analyzer_8_2.png"></p>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 10</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a>
+
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/sentiment.html"><h3 class="article-title">Sentiment</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Twitter Sentiment Analysis"
+author: "Rj"
+date: 2019-04-20
+description: "List Test"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">nltk.sentiment.vader</span> <span class="kn">import</span> <span class="n">SentimentIntensityAnalyzer</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">urllib.request</span><span class="o">,</span> <span class="nn">json</span> 
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">with</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlopen …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/sentiment.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/twitter-analysis.html"><h3 class="article-title">Twitter-Analysis</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Twitter Analysis"
+author: "Rj"
+date: 2019-04-20
+description: "List Test"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">nltk.probability</span> <span class="kn">import</span> <span class="n">FreqDist</span><span class="p">,</span> <span class="n">DictionaryProbDist</span><span class="p">,</span> <span class="n">ELEProbDist</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">pos_tweets</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;I love this car&#39;</span><span class="p">,</span> <span class="s1">&#39;positive&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;This view is amazing&#39;</span><span class="p">,</span> <span class="s1">&#39;positive&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;I feel great this morning&#39;</span><span class="p">,</span> <span class="s1">&#39;positive&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;I am so excited about the concert&#39;</span><span class="p">,</span> <span class="s1">&#39;positive&#39;</span><span class="p">),</span>
+              <span class="p">(</span><span class="s1">&#39;He is …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/twitter-analysis.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+            <!-- /#posts-list -->
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

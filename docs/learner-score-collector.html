@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Learner-Score-Collector</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/learner-score-collector.html" rel="bookmark"
+        title="Permalink to Learner-Score-Collector">Learner-Score-Collector</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">beautifulsoup4</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">4.12</span><span class="o">.</span><span class="mi">3</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+
+<span class="c1"># URL to scrape</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://stevesanjay.github.io/pynotes/archives.html&quot;</span>
+
+<span class="c1"># Send a GET request</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># Parse the HTML content</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+
+<span class="c1"># Find the element containing the &quot;overall-score&quot;</span>
+<span class="c1"># Modify the tag and class based on the structure of the HTML</span>
+<span class="n">overall_score_element</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">class_</span><span class="o">=</span><span class="s2">&quot;overall-score&quot;</span><span class="p">)</span>  <span class="c1"># Assuming it has this class</span>
+
+<span class="c1"># Extract and print the score</span>
+<span class="k">if</span> <span class="n">overall_score_element</span><span class="p">:</span>
+    <span class="n">overall_score</span> <span class="o">=</span> <span class="n">overall_score_element</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall Score:&quot;</span><span class="p">,</span> <span class="n">overall_score</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall Score not found.&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Overall Score not found.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># URL of the page</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://stevesanjay.github.io/pynotes/archives.html&quot;</span>
+
+<span class="c1"># Fetch the page content</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+<span class="c1"># Parse the HTML content</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+
+<span class="c1"># Find the &lt;p&gt; tag that contains &quot;Overall Score:&quot;</span>
+<span class="n">overall_score_element</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">and</span> <span class="s2">&quot;Overall Score:&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">ipykernel_4024956</span><span class="o">/</span><span class="mi">3784387840</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">11</span><span class="p">:</span><span class="w"> </span><span class="nx">DeprecationWarning</span><span class="p">:</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">text</span><span class="err">&#39;</span><span class="w"> </span><span class="nx">argument</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">find</span><span class="p">()</span><span class="o">-</span><span class="k">type</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">deprecated</span><span class="p">.</span><span class="w"> </span><span class="nx">Use</span><span class="w"> </span><span class="err">&#39;</span><span class="kt">string</span><span class="err">&#39;</span><span class="w"> </span><span class="nx">instead</span><span class="p">.</span>
+<span class="w">  </span><span class="nx">overall_score_element</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">soup</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="p">=</span><span class="nx">lambda</span><span class="w"> </span><span class="nx">x</span><span class="p">:</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="s">&quot;Overall Score:&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">x</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">overall_score_element</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">all_p</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">all_p</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[<span class="nt">&lt;p&gt;&lt;strong&gt;</span>Overall<span class="w"> </span>Score:<span class="nt">&lt;/strong&gt;</span><span class="w"> </span>510<span class="nt">&lt;/p&gt;</span>]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">overall_score_element</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="ow">and</span> <span class="s2">&quot;Overall Score:&quot;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">ipykernel_4024956</span><span class="o">/</span><span class="mi">145144256</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="nx">DeprecationWarning</span><span class="p">:</span><span class="w"> </span><span class="nx">The</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">text</span><span class="err">&#39;</span><span class="w"> </span><span class="nx">argument</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">find</span><span class="p">()</span><span class="o">-</span><span class="k">type</span><span class="w"> </span><span class="nx">methods</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">deprecated</span><span class="p">.</span><span class="w"> </span><span class="nx">Use</span><span class="w"> </span><span class="err">&#39;</span><span class="kt">string</span><span class="err">&#39;</span><span class="w"> </span><span class="nx">instead</span><span class="p">.</span>
+<span class="w">  </span><span class="nx">overall_score_element</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">soup</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="sc">&#39;p&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">text</span><span class="p">=</span><span class="nx">lambda</span><span class="w"> </span><span class="nx">x</span><span class="p">:</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="s">&quot;Overall Score:&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">x</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">overall_score_element</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">overall_score_element</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>  <span class="c1"># Locate the &lt;p&gt; tag</span>
+<span class="k">if</span> <span class="n">overall_score_element</span><span class="p">:</span>
+    <span class="n">strong_tag</span> <span class="o">=</span> <span class="n">overall_score_element</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;strong&#39;</span><span class="p">)</span>  <span class="c1"># Locate the &lt;strong&gt; tag inside &lt;p&gt;</span>
+    <span class="k">if</span> <span class="n">strong_tag</span> <span class="ow">and</span> <span class="s2">&quot;Overall Score:&quot;</span> <span class="ow">in</span> <span class="n">strong_tag</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+        <span class="n">overall_score</span> <span class="o">=</span> <span class="n">overall_score_element</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Overall Score:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall Score:&quot;</span><span class="p">,</span> <span class="n">overall_score</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Strong tag with &#39;Overall Score&#39; not found.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Overall Score not found.&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Overall Score: 510
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 10</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

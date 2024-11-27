@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>ML Notes - textprocessing</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/bag-of-words.html"><h3 class="article-title">Bag-Of-Words</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Bag of Words"
+author: "Rj"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">word_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">word_tokenize</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;The cat is in the box. The cat likes the box. The box is over the cat.&quot;&quot;&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">word_counter</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Counter({&#39;The&#39;: 3, &#39;cat&#39;: 3, &#39;the&#39;: 3, &#39;box&#39;: 3, &#39;.&#39;: 3, &#39;is&#39;: 2, &#39;in&#39;: 1, &#39;likes&#39;: 1, &#39;over&#39;: 1})
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">word_counter</span><span class="o">.</span><span class="n">most_common</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[(&#39;The&#39;, 3), (&#39;cat&#39;, 3), (&#39;the&#39;, 3), (&#39;box&#39;, 3)]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+            </article>
+
+
+                <hr  class="gradient"/>
+
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/bi-grams.html"><h3 class="article-title">Bi-Grams</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Bigrams"
+author: "Rj"
+date: 2019-04-29
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk.collocations</span>
+<span class="kn">import</span> <span class="nn">nltk.corpus</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">bgm</span>    <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramAssocMeasures</span><span class="p">()</span>
+<span class="n">finder</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramCollocationFinder</span><span class="o">.</span><span class="n">from_words</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">brown</span><span class="o">.</span><span class="n">words</span><span class="p">())</span>
+<span class="n">scored</span> <span class="o">=</span> <span class="n">finder</span><span class="o">.</span><span class="n">score_ngrams</span><span class="p">(</span> <span class="n">bgm</span><span class="o">.</span><span class="n">likelihood_ratio</span>  <span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Group bigrams by first word in bigram.                                        </span>
+<span class="n">prefix_keys</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/bi-grams.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/bigrams.html"><h3 class="article-title">Bigrams</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk.collocations</span>
+<span class="kn">import</span> <span class="nn">nltk.corpus</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># import nltk</span>
+<span class="c1"># nltk.download(&#39;brown&#39;)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">bgm</span>    <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramAssocMeasures</span><span class="p">()</span>
+<span class="n">finder</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramCollocationFinder</span><span class="o">.</span><span class="n">from_words</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">brown</span><span class="o">.</span><span class="n">words</span><span class="p">())</span>
+<span class="n">scored</span> <span class="o">=</span> <span class="n">finder</span><span class="o">.</span><span class="n">score_ngrams</span><span class="p">(</span> <span class="n">bgm</span><span class="o">.</span><span class="n">likelihood_ratio</span>  <span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Group bigrams by first word in bigram.                                        </span>
+<span class="n">prefix_keys</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">scores</span> <span class="ow">in</span> <span class="n">scored</span><span class="p">:</span>
+   <span class="n">prefix_keys</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/bigrams.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/cistem-stemmer.html"><h3 class="article-title">Cistem-Stemmer</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Cistem Stemmer"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nltk.stem.cistem</span> <span class="kn">import</span> <span class="n">Cistem</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">c_stemmer</span> <span class="o">=</span> <span class="n">Cistem</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">c_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s2">&quot;filtering&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>filtering
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">c_stemmer</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="s2">&quot;filtering&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>(&#39;filtering&#39;, &#39;&#39;)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">c_stemmer</span><span class="o">.</span><span class="n">segment</span><span class="p">(</span><span class="s2">&quot;Ausgefeiltere&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>(&#39;ausgefeilt&#39;, &#39;ere&#39;)
+</code></pre></div>
+
+<ul>
+<li>segment method will return both the stem and the rest that was removed at …</li></ul><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/cistem-stemmer.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/dispersion-plot-on-custom-file.html"><h3 class="article-title">Dispersion-Plot-On-Custom-File</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Disperson Plot on Custom File"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">f</span> <span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;canola.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">raw</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="s">&#39;OTTAWA—The federal Liberals promised Wednesday to give Canada’s canola farmers much-needed financial aid to help lessen the impact of China’s decision …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/dispersion-plot-on-custom-file.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/disperson-plot.html"><h3 class="article-title">Disperson-Plot</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Disperson Plot"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nltk.book</span> <span class="kn">import</span> <span class="n">text3</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">text3</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&lt;Text: The Book of Genesis&gt;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">type</span><span class="p">(</span><span class="n">text3</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>nltk.text.Text
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">len</span><span class="p">(</span><span class="n">text3</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">44764</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">text3</span><span class="o">.</span><span class="n">tokens</span><span class="p">:</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">content</span> <span class="o">+=</span> <span class="n">token</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">counter</span> <span class="o">&gt;</span> <span class="mi">200</span><span class="p">):</span>
+        <span class="k">break</span>
+
+<span class="n">content</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;In the …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/disperson-plot.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/frequency-distribution.html"><h3 class="article-title">Frequency-Distribution</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Frequeyncy Distribution"
+author: "Rj"
+date: 2019-04-29
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="c1"># https://www.azlyrics.com/lyrics/fifthharmony/worthit.html</span>
+<span class="n">lyrics</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Give it to me, I&#39;m worth it</span>
+<span class="s2">Baby, I&#39;m worth it</span>
+<span class="s2">Uh huh I&#39;m worth it</span>
+<span class="s2">Gimme gimme I&#39;m worth it</span>
+<span class="s2">Give it to me …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/frequency-distribution.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/generate-news.html"><h3 class="article-title">Generate-News</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "generate news"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">tokenizer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">tokenize</span><span class="o">.</span><span class="n">RegexpTokenizer</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\w+|[^\w\s]+&#39;</span><span class="p">)</span>
+
+<span class="n">content_text</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;They’re interested in local government, free TV licences, pension credits and child </span>
+<span class="s2">trust fund, Carrousel Capital, run by local Liberal Democrats. TV Exclusive Trouser </span>
+<span class="s2">Clegg Nick …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/generate-news.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/gensim-similarity.html"><h3 class="article-title">Gensim-Similarity</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Gensim Similarity"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span> 
+<span class="kn">import</span> <span class="nn">gensim</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">sample</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Renewed fighting has broken out in South Sudan between forces loyal to the president and vice-president. A reporter in the capital, Juba, told the BBC gunfire and large explosions could be heard all …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/gensim-similarity.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/jaccard-text-similarity.html"><h3 class="article-title">Jaccard-Text-Similarity</h3></a>
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+<hr>
+<p>title: "Jaccard Text Similarity"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_jaccard_sim</span><span class="p">(</span><span class="n">str1</span><span class="p">,</span> <span class="n">str2</span><span class="p">):</span> 
+    <span class="n">a</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">str1</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> 
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">str2</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content1</span> <span class="o">=</span> <span class="s2">&quot;AI is our friend and it has been friendly&quot;</span>
+<span class="n">content2 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/jaccard-text-similarity.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+            <!-- /#posts-list -->
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 5</h6>
+
+<p>
+
+        <a href="https://rajasgs.github.io/mlnotes/category/textprocessing2.html">Next &raquo;</a>
+</p>
+</div>
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>
