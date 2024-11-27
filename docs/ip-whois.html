@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Ip Whois</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/ip-whois.html" rel="bookmark"
+        title="Permalink to Ip Whois">Ip Whois</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "IP Whois Simple"
+author: "Rj"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">ipwhois</span> <span class="kn">import</span> <span class="n">IPWhois</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">obj</span> <span class="o">=</span> <span class="n">IPWhois</span><span class="p">(</span><span class="s1">&#39;133.1.2.5&#39;</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">lookup_whois</span><span class="p">(</span><span class="n">inc_nir</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="err">&#39;</span><span class="nx">asn</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">4730</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">asn_cidr</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="m m-Double">133.1.0.0</span><span class="o">/</span><span class="mi">16</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">asn_country_code</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">JP</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">asn_date</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">1997</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">asn_description</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">ODINS</span><span class="w"> </span><span class="nx">Osaka</span><span class="w"> </span><span class="nx">University</span><span class="p">,</span><span class="w"> </span><span class="nx">JP</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">asn_registry</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">apnic</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">nets</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="nx">address</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Urbannet</span><span class="o">-</span><span class="nx">Kanda</span><span class="w"> </span><span class="nx">Bldg</span><span class="w"> </span><span class="mi">4</span><span class="nx">F</span><span class="err">\</span><span class="nx">n</span><span class="err">&#39;</span>
+<span class="w">                      </span><span class="err">&#39;</span><span class="mi">3</span><span class="o">-</span><span class="mi">6</span><span class="o">-</span><span class="mi">2</span><span class="w"> </span><span class="nx">Uchi</span><span class="o">-</span><span class="nx">Kanda</span><span class="err">\</span><span class="nx">n</span><span class="err">&#39;</span>
+<span class="w">                      </span><span class="err">&#39;</span><span class="nx">Chiyoda</span><span class="o">-</span><span class="nx">ku</span><span class="p">,</span><span class="w"> </span><span class="nx">Tokyo</span><span class="w"> </span><span class="mi">101</span><span class="o">-</span><span class="mi">0047</span><span class="p">,</span><span class="nx">Japan</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">cidr</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="m m-Double">133.0.0.0</span><span class="o">/</span><span class="mi">8</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">city</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">country</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">JP</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">created</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">description</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Japan</span><span class="w"> </span><span class="nx">Network</span><span class="w"> </span><span class="nx">Information</span><span class="w"> </span><span class="nx">Center</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">emails</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="nx">hostmaster</span><span class="err">@</span><span class="nx">nic</span><span class="p">.</span><span class="nx">ad</span><span class="p">.</span><span class="nx">jp</span><span class="err">&#39;</span><span class="p">],</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">handle</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">JNIC1</span><span class="o">-</span><span class="nx">AP</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">name</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">JPNIC</span><span class="o">-</span><span class="nx">NET</span><span class="o">-</span><span class="nx">JP</span><span class="o">-</span><span class="nx">ERX</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">postal_code</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">range</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="m m-Double">133.0.0.0</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m m-Double">133.255.255.255</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">state</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">,</span>
+<span class="w">           </span><span class="err">&#39;</span><span class="nx">updated</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">}],</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">nir</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="nx">nets</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="err">&#39;</span><span class="nx">address</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">,</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">cidr</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="m m-Double">133.1.0.0</span><span class="o">/</span><span class="mi">16</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">contacts</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="nx">admin</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="nx">division</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Department</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="err">&#39;</span>
+<span class="w">                                                      </span><span class="err">&#39;</span><span class="nx">Information</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="err">&#39;</span>
+<span class="w">                                                      </span><span class="err">&#39;</span><span class="nx">Communications</span><span class="w"> </span><span class="err">&#39;</span>
+<span class="w">                                                      </span><span class="err">&#39;</span><span class="nx">Technology</span><span class="w"> </span><span class="nx">Services</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                          </span><span class="err">&#39;</span><span class="nx">email</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">odins</span><span class="o">-</span><span class="nx">room</span><span class="err">@</span><span class="nx">odins</span><span class="p">.</span><span class="nx">osaka</span><span class="o">-</span><span class="nx">u</span><span class="p">.</span><span class="nx">ac</span><span class="p">.</span><span class="nx">jp</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                          </span><span class="err">&#39;</span><span class="nx">fax</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">06</span><span class="o">-</span><span class="mi">6879</span><span class="o">-</span><span class="mi">8988</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                          </span><span class="err">&#39;</span><span class="nx">name</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Yoshihide</span><span class="p">,</span><span class="w"> </span><span class="nx">Minami</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                          </span><span class="err">&#39;</span><span class="nx">organization</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Osaka</span><span class="w"> </span><span class="nx">University</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                          </span><span class="err">&#39;</span><span class="nx">phone</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">06</span><span class="o">-</span><span class="mi">6879</span><span class="o">-</span><span class="mi">8815</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                          </span><span class="err">&#39;</span><span class="nx">reply_email</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">reg</span><span class="err">@</span><span class="nx">jpdirect</span><span class="p">.</span><span class="nx">jp</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                          </span><span class="err">&#39;</span><span class="nx">title</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Specialist</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                          </span><span class="err">&#39;</span><span class="nx">updated</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">13</span><span class="nx">T09</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">34</span><span class="err">&#39;</span><span class="p">},</span>
+<span class="w">                                </span><span class="err">&#39;</span><span class="nx">tech</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="err">&#39;</span><span class="nx">division</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Department</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="err">&#39;</span>
+<span class="w">                                                     </span><span class="err">&#39;</span><span class="nx">Information</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="err">&#39;</span>
+<span class="w">                                                     </span><span class="err">&#39;</span><span class="nx">Communications</span><span class="w"> </span><span class="err">&#39;</span>
+<span class="w">                                                     </span><span class="err">&#39;</span><span class="nx">Technology</span><span class="w"> </span><span class="nx">Services</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                         </span><span class="err">&#39;</span><span class="nx">email</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">odins</span><span class="o">-</span><span class="nx">room</span><span class="err">@</span><span class="nx">odins</span><span class="p">.</span><span class="nx">osaka</span><span class="o">-</span><span class="nx">u</span><span class="p">.</span><span class="nx">ac</span><span class="p">.</span><span class="nx">jp</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                         </span><span class="err">&#39;</span><span class="nx">fax</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">06</span><span class="o">-</span><span class="mi">6879</span><span class="o">-</span><span class="mi">8988</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                         </span><span class="err">&#39;</span><span class="nx">name</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Yoshihide</span><span class="p">,</span><span class="w"> </span><span class="nx">Minami</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                         </span><span class="err">&#39;</span><span class="nx">organization</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Osaka</span><span class="w"> </span><span class="nx">University</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                         </span><span class="err">&#39;</span><span class="nx">phone</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">06</span><span class="o">-</span><span class="mi">6879</span><span class="o">-</span><span class="mi">8815</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                         </span><span class="err">&#39;</span><span class="nx">reply_email</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">reg</span><span class="err">@</span><span class="nx">jpdirect</span><span class="p">.</span><span class="nx">jp</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                         </span><span class="err">&#39;</span><span class="nx">title</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Specialist</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                         </span><span class="err">&#39;</span><span class="nx">updated</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">2015</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">13</span><span class="nx">T09</span><span class="p">:</span><span class="mi">08</span><span class="p">:</span><span class="mi">34</span><span class="err">&#39;</span><span class="p">}},</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">country</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">JP</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">created</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">,</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">handle</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">OSAKAU</span><span class="o">-</span><span class="nx">NET</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">name</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Osaka</span><span class="w"> </span><span class="nx">University</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">nameservers</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="err">&#39;</span><span class="nx">a</span><span class="p">.</span><span class="nx">osaka</span><span class="o">-</span><span class="nx">u</span><span class="p">.</span><span class="nx">ac</span><span class="p">.</span><span class="nx">jp</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                   </span><span class="err">&#39;</span><span class="nx">b</span><span class="p">.</span><span class="nx">osaka</span><span class="o">-</span><span class="nx">u</span><span class="p">.</span><span class="nx">ac</span><span class="p">.</span><span class="nx">jp</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                                   </span><span class="err">&#39;</span><span class="nx">dns</span><span class="o">-</span><span class="nx">x</span><span class="p">.</span><span class="nx">sinet</span><span class="p">.</span><span class="nx">ad</span><span class="p">.</span><span class="nx">jp</span><span class="err">&#39;</span><span class="p">],</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">postal_code</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">,</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">range</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="m m-Double">133.1.0.1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m m-Double">133.1.255.255</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">                   </span><span class="err">&#39;</span><span class="nx">updated</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">2015</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">14</span><span class="nx">T02</span><span class="p">:</span><span class="mi">50</span><span class="p">:</span><span class="mi">03</span><span class="err">&#39;</span><span class="p">}],</span>
+<span class="w">         </span><span class="err">&#39;</span><span class="nx">query</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="m m-Double">133.1.2.5</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">         </span><span class="err">&#39;</span><span class="nx">raw</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">},</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">query</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="m m-Double">133.1.2.5</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">raw</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">raw_referral</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">referral</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">None</span><span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 0</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

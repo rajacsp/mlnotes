@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>File-To-Dictionary</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/file-to-dictionary.html" rel="bookmark"
+        title="Permalink to File-To-Dictionary">File-To-Dictionary</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "File To Dictionary"
+author: "Raja CSP Raman"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">gensim</span>
+<span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span>
+<span class="kn">from</span> <span class="nn">gensim.utils</span> <span class="kn">import</span> <span class="n">simple_preprocess</span>
+<span class="kn">from</span> <span class="nn">smart_open</span> <span class="kn">import</span> <span class="n">smart_open</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">dictionary</span> <span class="o">=</span> <span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Create gensim dictionary form a single tet file</span>
+<span class="n">dictionary</span> <span class="o">=</span> <span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">(</span><span class="n">simple_preprocess</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">deacc</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;sample.txt&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">dictionary</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Dictionary(78 unique tokens: [&#39;account&#39;, &#39;agenda&#39;, &#39;also&#39;, &#39;an&#39;, &#39;balanced&#39;]...)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">dictionary</span><span class="o">.</span><span class="n">token2id</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">{&#39;</span><span class="n">about</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">25</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">according</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">66</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">account</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">0</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">agenda</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">1</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">also</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">2</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">an</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">3</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="k">and</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">26</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">are</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">45</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">assigned</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">67</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">association</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">68</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">authenticity</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">27</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">balanced</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">4</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">be</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">69</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">between</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">28</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">canadian</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">46</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">canadians</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">57</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">cannot</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">70</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">cent</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">29</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">clicking</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">5</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">conducted</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">58</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">day</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">59</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">distinguish</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">30</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">doubts</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">31</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">election</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">47</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">error</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">71</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">expecting</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">6</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">fact</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">32</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">falsehood</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">33</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">federal</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">48</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">find</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">7</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">findings</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">49</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">five</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">60</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">found</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">34</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">foundation</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">50</span><span class="p">,</span>
+<span class="w"> </span><span class="mh">&#39;had</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">35</span><span class="p">,</span>
+<span class="w"> </span><span class="mh">&#39;ha</span><span class="n">lf</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">8</span><span class="p">,</span>
+<span class="w"> </span><span class="mh">&#39;head</span><span class="n">line</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">9</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">in</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">36</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">intelligence</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">72</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">journalism</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">51</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">jumped</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">37</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">last</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">61</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">margin</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">73</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">marketing</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">74</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">month</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">62</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">more</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">10</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">news</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">11</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">of</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">12</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">on</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">13</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">online</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">75</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">only</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">14</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">over</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">63</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">participants</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">15</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">particularly</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">52</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">past</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">38</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">per</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">39</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">period</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">64</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">polls</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">76</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">pushing</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">16</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">read</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">17</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">reported</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">18</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">research</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">77</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">respondents</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">40</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">run</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">53</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">sampled</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">65</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">says</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">54</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">stories</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">41</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">story</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">19</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">struggled</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">42</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">survey</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">20</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">than</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">21</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">the</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">22</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">to</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">23</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">troubling</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">55</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">up</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">56</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">was</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">24</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="k">while</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">43</span><span class="p">,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">year</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="mh">44</span><span class="p">}</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

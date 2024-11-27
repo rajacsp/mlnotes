@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Pretty Print Json</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/pretty-print-json.html" rel="bookmark"
+        title="Permalink to Pretty Print Json">Pretty Print Json</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "Pretty Print Json"
+author: "Rj"
+date: 2019-04-20
+description: "List Test"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;{&quot;system&quot;: {&quot;commit&quot;: None, &quot;python&quot;: &quot;3.6.8.final.0&quot;, &quot;python-bits&quot;: 64, &quot;OS&quot;: &quot;Darwin&quot;, &quot;OS-release&quot;: &quot;18.5.0&quot;, &quot;machine&quot;: &quot;x86_64&quot;, &quot;processor&quot;: &quot;i386&quot;, &quot;byteorder&quot;: &quot;little&quot;, &quot;LC_ALL&quot;: &quot;None&quot;, &quot;LANG&quot;: &quot;en_CA.UTF-8&quot;, &quot;LOCALE&quot;: &quot;en_CA.UTF-8&quot;}, &quot;dependencies&quot;: {&quot;pandas&quot;: &quot;0.24.2&quot;, &quot;pytest&quot;: &quot;4.5.0&quot;, &quot;pip&quot;: &quot;19.0.3&quot;, &quot;setuptools&quot;: &quot;40.8.0&quot;, &quot;Cython&quot;: None, &quot;numpy&quot;: &quot;1.16.3&quot;, &quot;scipy&quot;: &quot;1.2.1&quot;, &quot;pyarrow&quot;: None, &quot;xarray&quot;: &quot;0.12.1&quot;, &quot;IPython&quot;: &quot;6.2.1&quot;, &quot;sphinx&quot;: None, &quot;patsy&quot;: &quot;0.5.1&quot;, &quot;dateutil&quot;: &quot;2.8.0&quot;, &quot;pytz&quot;: &quot;2019.1&quot;, &quot;blosc&quot;: None, &quot;bottleneck&quot;: None, &quot;tables&quot;: None, &quot;numexpr&quot;: None, &quot;feather&quot;: None, &quot;matplotlib&quot;: &quot;3.0.3&quot;, &quot;openpyxl&quot;: None, &quot;xlrd&quot;: None, &quot;xlwt&quot;: None, &quot;xlsxwriter&quot;: None, &quot;lxml.etree&quot;: &quot;4.3.3&quot;, &quot;bs4&quot;: &quot;4.7.1&quot;, &quot;html5lib&quot;: &quot;1.0b10&quot;, &quot;sqlalchemy&quot;: &quot;1.3.3&quot;, &quot;pymysql&quot;: None, &quot;psycopg2&quot;: &quot;2.8.2 (dt dec pq3 ext lo64)&quot;, &quot;jinja2&quot;: &quot;2.10.1&quot;, &quot;s3fs&quot;: None, &quot;fastparquet&quot;: None, &quot;pandas_gbq&quot;: None, &quot;pandas_datareader&quot;: &quot;0.7.0&quot;, &quot;gcsfs&quot;: None}}&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="s1">&#39;{&quot;system&quot;: {&quot;commit&quot;: None, &quot;python&quot;: &quot;3.6.8.final.0&quot;, &quot;python-bits&quot;: 64, &quot;OS&quot;: &quot;Darwin&quot;, &quot;OS-release&quot;: &quot;18.5.0&quot;, &quot;machine&quot;: &quot;x86_64&quot;, &quot;processor&quot;: &quot;i386&quot;, &quot;byteorder&quot;: &quot;little&quot;, &quot;LC_ALL&quot;: &quot;None&quot;, &quot;LANG&quot;: &quot;en_CA.UTF-8&quot;, &quot;LOCALE&quot;: &quot;en_CA.UTF-8&quot;}, &quot;dependencies&quot;: {&quot;pandas&quot;: &quot;0.24.2&quot;, &quot;pytest&quot;: &quot;4.5.0&quot;, &quot;pip&quot;: &quot;19.0.3&quot;, &quot;setuptools&quot;: &quot;40.8.0&quot;, &quot;Cython&quot;: None, &quot;numpy&quot;: &quot;1.16.3&quot;, &quot;scipy&quot;: &quot;1.2.1&quot;, &quot;pyarrow&quot;: None, &quot;xarray&quot;: &quot;0.12.1&quot;, &quot;IPython&quot;: &quot;6.2.1&quot;, &quot;sphinx&quot;: None, &quot;patsy&quot;: &quot;0.5.1&quot;, &quot;dateutil&quot;: &quot;2.8.0&quot;, &quot;pytz&quot;: &quot;2019.1&quot;, &quot;blosc&quot;: None, &quot;bottleneck&quot;: None, &quot;tables&quot;: None, &quot;numexpr&quot;: None, &quot;feather&quot;: None, &quot;matplotlib&quot;: &quot;3.0.3&quot;, &quot;openpyxl&quot;: None, &quot;xlrd&quot;: None, &quot;xlwt&quot;: None, &quot;xlsxwriter&quot;: None, &quot;lxml.etree&quot;: &quot;4.3.3&quot;, &quot;bs4&quot;: &quot;4.7.1&quot;, &quot;html5lib&quot;: &quot;1.0b10&quot;, &quot;sqlalchemy&quot;: &quot;1.3.3&quot;, &quot;pymysql&quot;: None, &quot;psycopg2&quot;: &quot;2.8.2 (dt dec pq3 ext lo64)&quot;, &quot;jinja2&quot;: &quot;2.10.1&quot;, &quot;s3fs&quot;: None, &quot;fastparquet&quot;: None, &quot;pandas_gbq&quot;: None, &quot;pandas_datareader&quot;: &quot;0.7.0&quot;, &quot;gcsfs&quot;: None}}&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">json_data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">---------------------------------------------------------------------------</span>
+
+<span class="n">JSONDecodeError</span><span class="w">                           </span><span class="n">Traceback</span><span class="w"> </span><span class="p">(</span><span class="n">most</span><span class="w"> </span><span class="n">recent</span><span class="w"> </span><span class="n">call</span><span class="w"> </span><span class="n">last</span><span class="p">)</span>
+
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="n">input</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="n">c81e5ee0b888</span><span class="o">&gt;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="o">----&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">json_data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+
+
+<span class="o">~/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py36</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">6</span><span class="o">/</span><span class="n">json</span><span class="o">/</span><span class="n">__init__</span><span class="o">.</span><span class="n">py</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">loads</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">encoding</span><span class="p">,</span><span class="w"> </span><span class="n">cls</span><span class="p">,</span><span class="w"> </span><span class="n">object_hook</span><span class="p">,</span><span class="w"> </span><span class="n">parse_float</span><span class="p">,</span><span class="w"> </span><span class="n">parse_int</span><span class="p">,</span><span class="w"> </span><span class="n">parse_constant</span><span class="p">,</span><span class="w"> </span><span class="n">object_pairs_hook</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">352</span><span class="w">             </span><span class="n">parse_int</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">parse_float</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="ow">and</span>
+<span class="w">    </span><span class="mi">353</span><span class="w">             </span><span class="n">parse_constant</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">object_pairs_hook</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">kw</span><span class="p">):</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">354</span><span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="n">_default_decoder</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">355</span><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="n">cls</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">None</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">356</span><span class="w">         </span><span class="n">cls</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">JSONDecoder</span>
+
+
+<span class="o">~/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py36</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">6</span><span class="o">/</span><span class="n">json</span><span class="o">/</span><span class="n">decoder</span><span class="o">.</span><span class="n">py</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">_w</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">337</span><span class="w"> </span>
+<span class="w">    </span><span class="mi">338</span><span class="w">         </span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">--&gt; 339         obj, end = self.raw_decode(s, idx=_w(s, 0).end())</span>
+<span class="s2">    340         end = _w(s, end).end()</span>
+<span class="s2">    341         if end != len(s):</span>
+
+
+<span class="s2">~/anaconda3/envs/py36/lib/python3.6/json/decoder.py in raw_decode(self, s, idx)</span>
+<span class="s2">    355             obj, end = self.scan_once(s, idx)</span>
+<span class="s2">    356         except StopIteration as err:</span>
+<span class="s2">--&gt; 357             raise JSONDecodeError(&quot;Expecting value&quot;, s, err.value) from None</span>
+<span class="s2">    358         return obj, end</span>
+
+
+<span class="s2">JSONDecodeError: Expecting value: line 1 column 23 (char 22)</span>
+</code></pre></div>
+
+<p>(Jeez, I did something wrong here. Let me revisit this page and fix it for you)</p>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

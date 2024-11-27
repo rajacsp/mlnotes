@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Chloropleth Maps</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/chloropleth-maps.html" rel="bookmark"
+        title="Permalink to Chloropleth Maps">Chloropleth Maps</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "Chloropleth Maps"
+author: "Raja CSP Raman"
+date: 2019-05-07
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">geopandas</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">world</span> <span class="o">=</span> <span class="n">geopandas</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">geopandas</span><span class="o">.</span><span class="n">datasets</span><span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s2">&quot;naturalearth_lowres&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">world</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>pop_est</th>
+      <th>continent</th>
+      <th>name</th>
+      <th>iso_a3</th>
+      <th>gdp_md_est</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>920938</td>
+      <td>Oceania</td>
+      <td>Fiji</td>
+      <td>FJI</td>
+      <td>8374.0</td>
+      <td>(POLYGON ((180 -16.06713266364245, 180 -16.555...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>53950935</td>
+      <td>Africa</td>
+      <td>Tanzania</td>
+      <td>TZA</td>
+      <td>150600.0</td>
+      <td>POLYGON ((33.90371119710453 -0.950000000000000...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>603253</td>
+      <td>Africa</td>
+      <td>W. Sahara</td>
+      <td>ESH</td>
+      <td>906.5</td>
+      <td>POLYGON ((-8.665589565454809 27.65642588959236...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>35623680</td>
+      <td>North America</td>
+      <td>Canada</td>
+      <td>CAN</td>
+      <td>1674000.0</td>
+      <td>(POLYGON ((-122.84 49.00000000000011, -122.974...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>326625791</td>
+      <td>North America</td>
+      <td>United States of America</td>
+      <td>USA</td>
+      <td>18560000.0</td>
+      <td>(POLYGON ((-122.84 49.00000000000011, -120 49....</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="n">world</span> <span class="o">=</span> <span class="n">world</span><span class="p">[(</span><span class="n">world</span><span class="o">.</span><span class="n">pop_est</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">continent</span> <span class="o">!=</span> <span class="s1">&#39;Antarctica&#39;</span><span class="p">)]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">world</span><span class="p">[</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">gdp_md_est</span> <span class="o">/</span> <span class="n">world</span><span class="o">.</span><span class="n">pop_est</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">world</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x126780ac8&gt;
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/chloropleth_maps_6_1.png"></p>
+<div class="highlight"><pre><span></span><code><span class="n">world</span><span class="o">.</span><span class="n">continent</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">array</span><span class="p">([</span><span class="err">&#39;</span><span class="nx">Oceania</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Africa</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">North</span><span class="w"> </span><span class="nx">America</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Asia</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">South</span><span class="w"> </span><span class="nx">America</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">       </span><span class="err">&#39;</span><span class="nx">Europe</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">Seven</span><span class="w"> </span><span class="nx">seas</span><span class="w"> </span><span class="p">(</span><span class="nx">open</span><span class="w"> </span><span class="nx">ocean</span><span class="p">)</span><span class="err">&#39;</span><span class="p">],</span><span class="w"> </span><span class="nx">dtype</span><span class="p">=</span><span class="nx">object</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Show only Asia</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">asia</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="n">world</span><span class="o">.</span><span class="n">continent</span> <span class="o">==</span> <span class="s1">&#39;Asia&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">asia</span><span class="p">[</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">asia</span><span class="o">.</span><span class="n">gdp_md_est</span> <span class="o">/</span> <span class="n">asia</span><span class="o">.</span><span class="n">pop_est</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">rajacsp</span><span class="o">/</span><span class="nx">anaconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">py36</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.6</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">ipykernel_launcher</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="w"> </span><span class="nx">SettingWithCopyWarning</span><span class="p">:</span><span class="w"> </span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span>
+<span class="nx">Try</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="p">.</span><span class="nx">loc</span><span class="p">[</span><span class="nx">row_indexer</span><span class="p">,</span><span class="nx">col_indexer</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">instead</span>
+
+<span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">caveats</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">documentation</span><span class="p">:</span><span class="w"> </span><span class="nx">http</span><span class="p">:</span><span class="c1">//pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy</span>
+<span class="w">  </span><span class="s">&quot;&quot;</span><span class="err">&quot;</span><span class="nx">Entry</span><span class="w"> </span><span class="nx">point</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">launching</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">IPython</span><span class="w"> </span><span class="nx">kernel</span><span class="p">.</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">asia</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1268cf668&gt;
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/chloropleth_maps_11_1.png"></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Show only Europe</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">eu</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="n">world</span><span class="o">.</span><span class="n">continent</span> <span class="o">==</span> <span class="s1">&#39;Europe&#39;</span><span class="p">]</span>
+<span class="n">eu</span><span class="p">[</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">eu</span><span class="o">.</span><span class="n">gdp_md_est</span> <span class="o">/</span> <span class="n">eu</span><span class="o">.</span><span class="n">pop_est</span>
+<span class="n">eu</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">rajacsp</span><span class="o">/</span><span class="nx">anaconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">py36</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.6</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">ipykernel_launcher</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="w"> </span><span class="nx">SettingWithCopyWarning</span><span class="p">:</span><span class="w"> </span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span>
+<span class="nx">Try</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="p">.</span><span class="nx">loc</span><span class="p">[</span><span class="nx">row_indexer</span><span class="p">,</span><span class="nx">col_indexer</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">instead</span>
+
+<span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">caveats</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">documentation</span><span class="p">:</span><span class="w"> </span><span class="nx">http</span><span class="p">:</span><span class="c1">//pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy</span>
+
+
+
+
+
+
+<span class="p">&lt;</span><span class="nx">matplotlib</span><span class="p">.</span><span class="nx">axes</span><span class="p">.</span><span class="nx">_subplots</span><span class="p">.</span><span class="nx">AxesSubplot</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x126a12ef0</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/chloropleth_maps_13_2.png"></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># South America</span>
+
+<span class="n">sa</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="n">world</span><span class="o">.</span><span class="n">continent</span> <span class="o">==</span> <span class="s1">&#39;South America&#39;</span><span class="p">]</span>
+<span class="n">sa</span><span class="p">[</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">gdp_md_est</span> <span class="o">/</span> <span class="n">sa</span><span class="o">.</span><span class="n">pop_est</span>
+<span class="n">sa</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span><span class="o">=</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">rajacsp</span><span class="o">/</span><span class="nx">anaconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">py36</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.6</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">ipykernel_launcher</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="w"> </span><span class="nx">SettingWithCopyWarning</span><span class="p">:</span><span class="w"> </span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span>
+<span class="nx">Try</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="p">.</span><span class="nx">loc</span><span class="p">[</span><span class="nx">row_indexer</span><span class="p">,</span><span class="nx">col_indexer</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">instead</span>
+
+<span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">caveats</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">documentation</span><span class="p">:</span><span class="w"> </span><span class="nx">http</span><span class="p">:</span><span class="c1">//pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy</span>
+<span class="w">  </span><span class="nx">after</span><span class="w"> </span><span class="nx">removing</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">cwd</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span>
+
+
+
+
+
+<span class="p">&lt;</span><span class="nx">matplotlib</span><span class="p">.</span><span class="nx">axes</span><span class="p">.</span><span class="nx">_subplots</span><span class="p">.</span><span class="nx">AxesSubplot</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x126bc0470</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/chloropleth_maps_14_2.png"></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># With Legend</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">sa</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="n">world</span><span class="o">.</span><span class="n">continent</span> <span class="o">==</span> <span class="s1">&#39;South America&#39;</span><span class="p">]</span>
+<span class="n">sa</span><span class="p">[</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sa</span><span class="o">.</span><span class="n">gdp_md_est</span> <span class="o">/</span> <span class="n">sa</span><span class="o">.</span><span class="n">pop_est</span>
+
+<span class="n">sa</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;pop_est&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">rajacsp</span><span class="o">/</span><span class="nx">anaconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">py36</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.6</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">ipykernel_launcher</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="w"> </span><span class="nx">SettingWithCopyWarning</span><span class="p">:</span><span class="w"> </span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span>
+<span class="nx">Try</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="p">.</span><span class="nx">loc</span><span class="p">[</span><span class="nx">row_indexer</span><span class="p">,</span><span class="nx">col_indexer</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">instead</span>
+
+<span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">caveats</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">documentation</span><span class="p">:</span><span class="w"> </span><span class="nx">http</span><span class="p">:</span><span class="c1">//pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy</span>
+<span class="w">  </span><span class="nx">after</span><span class="w"> </span><span class="nx">removing</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">cwd</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span>
+
+
+
+
+
+<span class="p">&lt;</span><span class="nx">matplotlib</span><span class="p">.</span><span class="nx">axes</span><span class="p">.</span><span class="nx">_subplots</span><span class="p">.</span><span class="nx">AxesSubplot</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x126b8c588</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/chloropleth_maps_17_2.png"></p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">asia</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="n">world</span><span class="o">.</span><span class="n">continent</span> <span class="o">==</span> <span class="s1">&#39;Asia&#39;</span><span class="p">]</span>
+<span class="n">asia</span><span class="p">[</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">asia</span><span class="o">.</span><span class="n">gdp_md_est</span> <span class="o">/</span> <span class="n">asia</span><span class="o">.</span><span class="n">pop_est</span>
+
+<span class="n">asia</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;pop_est&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">rajacsp</span><span class="o">/</span><span class="nx">anaconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">py36</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.6</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">ipykernel_launcher</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="w"> </span><span class="nx">SettingWithCopyWarning</span><span class="p">:</span><span class="w"> </span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span>
+<span class="nx">Try</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="p">.</span><span class="nx">loc</span><span class="p">[</span><span class="nx">row_indexer</span><span class="p">,</span><span class="nx">col_indexer</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">instead</span>
+
+<span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">caveats</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">documentation</span><span class="p">:</span><span class="w"> </span><span class="nx">http</span><span class="p">:</span><span class="c1">//pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy</span>
+<span class="w">  </span><span class="nx">after</span><span class="w"> </span><span class="nx">removing</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">cwd</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span>
+
+
+
+
+
+<span class="p">&lt;</span><span class="nx">matplotlib</span><span class="p">.</span><span class="nx">axes</span><span class="p">.</span><span class="nx">_subplots</span><span class="p">.</span><span class="nx">AxesSubplot</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x127002ef0</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/chloropleth_maps_18_2.png"></p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">asia</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Asia&#39;</span><span class="p">]</span>
+<span class="n">asia</span><span class="p">[</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">asia</span><span class="p">[</span><span class="s1">&#39;gdp_md_est&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">asia</span><span class="p">[</span><span class="s1">&#39;pop_est&#39;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
+
+<span class="n">divider</span> <span class="o">=</span> <span class="n">make_axes_locatable</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">cax</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;4%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">asia</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;pop_est&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">rajacsp</span><span class="o">/</span><span class="nx">anaconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">py36</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.6</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">ipykernel_launcher</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="w"> </span><span class="nx">SettingWithCopyWarning</span><span class="p">:</span><span class="w"> </span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span>
+<span class="nx">Try</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="p">.</span><span class="nx">loc</span><span class="p">[</span><span class="nx">row_indexer</span><span class="p">,</span><span class="nx">col_indexer</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">instead</span>
+
+<span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">caveats</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">documentation</span><span class="p">:</span><span class="w"> </span><span class="nx">http</span><span class="p">:</span><span class="c1">//pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy</span>
+<span class="w">  </span><span class="nx">after</span><span class="w"> </span><span class="nx">removing</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">cwd</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span>
+
+
+
+
+
+<span class="p">&lt;</span><span class="nx">matplotlib</span><span class="p">.</span><span class="nx">axes</span><span class="p">.</span><span class="nx">_subplots</span><span class="p">.</span><span class="nx">AxesSubplot</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x127e412e8</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/chloropleth_maps_19_2.png"></p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">asia</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;continent&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Asia&#39;</span><span class="p">]</span>
+<span class="n">asia</span><span class="p">[</span><span class="s1">&#39;gdp_per_cap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">asia</span><span class="p">[</span><span class="s1">&#39;gdp_md_est&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">asia</span><span class="p">[</span><span class="s1">&#39;pop_est&#39;</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
+
+<span class="n">divider</span> <span class="o">=</span> <span class="n">make_axes_locatable</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">cax</span> <span class="o">=</span> <span class="n">divider</span><span class="o">.</span><span class="n">append_axes</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s2">&quot;4%&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+
+<span class="n">asia</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">column</span> <span class="o">=</span> <span class="s1">&#39;pop_est&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="n">cax</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;YlOrRd&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="nx">Users</span><span class="o">/</span><span class="nx">rajacsp</span><span class="o">/</span><span class="nx">anaconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">py36</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.6</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">ipykernel_launcher</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="w"> </span><span class="nx">SettingWithCopyWarning</span><span class="p">:</span><span class="w"> </span>
+<span class="nx">A</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">trying</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">slice</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span>
+<span class="nx">Try</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="p">.</span><span class="nx">loc</span><span class="p">[</span><span class="nx">row_indexer</span><span class="p">,</span><span class="nx">col_indexer</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">value</span><span class="w"> </span><span class="nx">instead</span>
+
+<span class="nx">See</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">caveats</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">documentation</span><span class="p">:</span><span class="w"> </span><span class="nx">http</span><span class="p">:</span><span class="c1">//pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy</span>
+<span class="w">  </span><span class="nx">after</span><span class="w"> </span><span class="nx">removing</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">cwd</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">sys</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span>
+
+
+
+
+
+<span class="p">&lt;</span><span class="nx">matplotlib</span><span class="p">.</span><span class="nx">axes</span><span class="p">.</span><span class="nx">_subplots</span><span class="p">.</span><span class="nx">AxesSubplot</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x1282e8f98</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/chloropleth_maps_20_2.png"></p>
+<hr>
+<p><strong>Score: 20</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Product-Summary-Classification-Nb</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/product-summary-classification-nb.html" rel="bookmark"
+        title="Permalink to Product-Summary-Classification-Nb">Product-Summary-Classification-Nb</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "Text Classification - Naive Bayes - Product Summary"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="c1"># Disclaimer: some code copied form this https://towardsdatascience.com/multi-class-text-classification-model-comparison-and-selection-5eb066197568</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">random</span>
+<span class="kn">import</span> <span class="nn">gensim</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">TfidfVectorizer</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">stopwords</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+</code></pre></div>
+
+<p>%matplotlib inline</p>
+<div class="highlight"><pre><span></span><code><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;https://docs.google.com/spreadsheet/ccc?key=1sN_OwRH8evSuMjjpjUJTonuJ3vKWC5iZj8yiEAF728k&amp;output=csv&#39;</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>link</th>
+      <th>title</th>
+      <th>summary</th>
+      <th>category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>https://www.walmart.ca/en/ip/seiki-50-class-4k...</td>
+      <td>NaN</td>
+      <td>Introducing the Seiki 50 Inch ULTRA HD (2160P)...</td>
+      <td>electronics</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>https://www.walmart.ca/en/ip/sharp-60-class-4k...</td>
+      <td>NaN</td>
+      <td>Enjoy Ultra HD entertainment on a amazing look...</td>
+      <td>electronics</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>https://www.walmart.ca/en/ip/rca-24-led-hd-tv/...</td>
+      <td>NaN</td>
+      <td>The RCA 24" 720p Class 60Hz LED D TV features ...</td>
+      <td>electronics</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>https://www.walmart.ca/en/ip/rca-32-tvdvd-comb...</td>
+      <td>NaN</td>
+      <td>The RCA 32" ultra-slim 720p 60HZ LED-LCD HDTV ...</td>
+      <td>electronics</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>https://www.walmart.ca/en/ip/rca-65-4k-ultra-h...</td>
+      <td>NaN</td>
+      <td>With the RTUC6520 Curved TV, enjoy 4K Ultra HD...</td>
+      <td>electronics</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># remove not null</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;category&#39;</span><span class="p">])]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>(19, 4)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Count words</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>link</th>
+      <th>title</th>
+      <th>summary</th>
+      <th>category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>https://www.walmart.ca/en/ip/seiki-50-class-4k...</td>
+      <td>NaN</td>
+      <td>Introducing the Seiki 50 Inch ULTRA HD (2160P)...</td>
+      <td>electronics</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>https://www.walmart.ca/en/ip/sharp-60-class-4k...</td>
+      <td>NaN</td>
+      <td>Enjoy Ultra HD entertainment on a amazing look...</td>
+      <td>electronics</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>https://www.walmart.ca/en/ip/rca-24-led-hd-tv/...</td>
+      <td>NaN</td>
+      <td>The RCA 24" 720p Class 60Hz LED D TV features ...</td>
+      <td>electronics</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>https://www.walmart.ca/en/ip/rca-32-tvdvd-comb...</td>
+      <td>NaN</td>
+      <td>The RCA 32" ultra-slim 720p 60HZ LED-LCD HDTV ...</td>
+      <td>electronics</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>https://www.walmart.ca/en/ip/rca-65-4k-ultra-h...</td>
+      <td>NaN</td>
+      <td>With the RTUC6520 Curved TV, enjoy 4K Ultra HD...</td>
+      <td>electronics</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>https://www.walmart.ca/en/ip/movelo-algonquin-...</td>
+      <td>NaN</td>
+      <td>\nMetallic purple with sky blue streaks, the M...</td>
+      <td>bikes</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>https://www.walmart.ca/en/ip/movelo-algonquin-...</td>
+      <td>NaN</td>
+      <td>\nSix speeds, hand brakes and a metallic blue ...</td>
+      <td>bikes</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>https://www.walmart.ca/en/ip/movelo-algonquin-...</td>
+      <td>NaN</td>
+      <td>Six speeds, hand brakes and a striking blue ap...</td>
+      <td>bikes</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>https://www.walmart.ca/en/ip/275-hyper-bicycle...</td>
+      <td>NaN</td>
+      <td>Popular for trails and casual riding; full sus...</td>
+      <td>bikes</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>https://www.walmart.ca/en/ip/26-hyper-bicycles...</td>
+      <td>NaN</td>
+      <td>Popular for trails and casual riding; full sus...</td>
+      <td>bikes</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">notnull</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">])]</span>
+
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">0</span><span class="w">     </span><span class="nb">Int</span><span class="n">roducing</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Seiki</span><span class="w"> </span><span class="mf">50</span><span class="w"> </span><span class="n">Inch</span><span class="w"> </span><span class="n">ULTRA</span><span class="w"> </span><span class="n">HD</span><span class="w"> </span><span class="p">(</span><span class="mf">2160</span><span class="n">P</span><span class="p">)</span><span class="mf">...</span>
+<span class="mf">1</span><span class="w">     </span><span class="n">Enjoy</span><span class="w"> </span><span class="n">Ultra</span><span class="w"> </span><span class="n">HD</span><span class="w"> </span><span class="n">entertainment</span><span class="w"> </span><span class="kr">on</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">amazing</span><span class="w"> </span><span class="n">look</span><span class="mf">...</span>
+<span class="mf">2</span><span class="w">     </span><span class="n">The</span><span class="w"> </span><span class="n">RCA</span><span class="w"> </span><span class="mf">24</span><span class="s">&quot; 720p Class 60Hz LED D TV features ...</span>
+<span class="mf">3</span><span class="w">     </span><span class="n">The</span><span class="w"> </span><span class="n">RCA</span><span class="w"> </span><span class="mf">32</span><span class="s">&quot; ultra-slim 720p 60HZ LED-LCD HDTV ...</span>
+<span class="mf">4</span><span class="w">     </span><span class="n">With</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">RTUC6520</span><span class="w"> </span><span class="n">Curved</span><span class="w"> </span><span class="n">TV</span><span class="p">,</span><span class="w"> </span><span class="n">enjoy</span><span class="w"> </span><span class="mf">4</span><span class="n">K</span><span class="w"> </span><span class="n">Ultra</span><span class="w"> </span><span class="n">HD</span><span class="mf">...</span>
+<span class="mf">5</span><span class="w">     </span><span class="err">\</span><span class="n">nMetallic</span><span class="w"> </span><span class="n">purple</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">sky</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="n">streaks</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">M</span><span class="mf">...</span>
+<span class="mf">6</span><span class="w">     </span><span class="err">\</span><span class="n">nSix</span><span class="w"> </span><span class="n">speeds</span><span class="p">,</span><span class="w"> </span><span class="n">hand</span><span class="w"> </span><span class="n">brakes</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">metallic</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="mf">...</span>
+<span class="mf">7</span><span class="w">     </span><span class="n">Six</span><span class="w"> </span><span class="n">speeds</span><span class="p">,</span><span class="w"> </span><span class="n">hand</span><span class="w"> </span><span class="n">brakes</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">striking</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="n">ap</span><span class="mf">...</span>
+<span class="mf">8</span><span class="w">     </span><span class="n">Popular</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">trails</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">casual</span><span class="w"> </span><span class="n">riding</span><span class="p">;</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="n">sus</span><span class="mf">...</span>
+<span class="mf">9</span><span class="w">     </span><span class="n">Popular</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">trails</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">casual</span><span class="w"> </span><span class="n">riding</span><span class="p">;</span><span class="w"> </span><span class="n">full</span><span class="w"> </span><span class="n">sus</span><span class="mf">...</span>
+<span class="mf">10</span><span class="w">    </span><span class="n">Two</span><span class="w"> </span><span class="n">striking</span><span class="w"> </span><span class="n">colors</span><span class="p">,</span><span class="w"> </span><span class="n">metallic</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">hot</span><span class="w"> </span><span class="n">pin</span><span class="mf">...</span>
+<span class="mf">11</span><span class="w">    </span><span class="n">Midnight</span><span class="w"> </span><span class="n">blue</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">scarlet</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="n">streaks</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="mf">26...</span>
+<span class="mf">12</span><span class="w">    </span><span class="n">The</span><span class="w"> </span><span class="n">steel</span><span class="w"> </span><span class="n">gray</span><span class="w"> </span><span class="n">steel</span><span class="w"> </span><span class="n">frame</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">acid</span><span class="w"> </span><span class="n">green</span><span class="w"> </span><span class="mf">...</span>
+<span class="mf">13</span><span class="w">    </span><span class="n">Help</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">LEGO</span><span class="err">®</span><span class="w"> </span><span class="n">City</span><span class="w"> </span><span class="n">farmer</span><span class="w"> </span><span class="n">manage</span><span class="w"> </span><span class="n">his</span><span class="w"> </span><span class="n">crops</span><span class="w"> </span><span class="n">wi</span><span class="mf">...</span>
+<span class="mf">14</span><span class="w">    </span><span class="err">\</span><span class="n">nEnter</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Dragon</span><span class="w"> </span><span class="n">Pit</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">throne</span><span class="p">,</span><span class="w"> </span><span class="n">gate</span><span class="o">-</span><span class="kr">open</span><span class="n">i</span><span class="mf">...</span>
+<span class="mf">15</span><span class="w">    </span><span class="n">Travel</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">Han</span><span class="w"> </span><span class="n">Solo</span><span class="p">,</span><span class="w"> </span><span class="n">Chewbacca</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">frie</span><span class="mf">...</span>
+<span class="mf">16</span><span class="w">    </span><span class="n">Evade</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">HunterCopter</span><span class="err">’</span><span class="n">s</span><span class="w"> </span><span class="n">stud</span><span class="w"> </span><span class="n">shooters</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">Ven</span><span class="mf">...</span>
+<span class="mf">17</span><span class="w">    </span><span class="n">Fly</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">sleek</span><span class="w"> </span><span class="nb">int</span><span class="n">erceptor</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">LEGO</span><span class="err">®</span><span class="w"> </span><span class="n">Star</span><span class="w"> </span><span class="n">Wars</span><span class="w"> </span><span class="n">A</span><span class="mf">...</span>
+<span class="mf">18</span><span class="w">    </span><span class="n">Display</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">role</span><span class="o">-</span><span class="n">play</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">majestic</span><span class="w"> </span><span class="n">meter</span><span class="mf">...</span>
+<span class="n">Name</span><span class="p">:</span><span class="w"> </span><span class="n">summary</span><span class="p">,</span><span class="w"> </span><span class="n">dtype</span><span class="p">:</span><span class="w"> </span><span class="n">object</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># count words</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span> <span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span> <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">3041</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">REPLACE_BY_SPACE_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;[/()</span><span class="si">{}</span><span class="s1">\[\]\|@,;]&#39;</span><span class="p">)</span>
+<span class="n">BAD_SYMBOLS_RE</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;[^0-9a-z #+_]&#39;</span><span class="p">)</span>
+<span class="n">STOPWORDS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">clean_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        text: a string</span>
+
+<span class="sd">        return: modified initial string</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;lxml&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span> <span class="c1"># HTML decoding</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="c1"># lowercase text</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">REPLACE_BY_SPACE_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="c1"># replace REPLACE_BY_SPACE_RE symbols by space in text</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">BAD_SYMBOLS_RE</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span> <span class="c1"># delete symbols which are in BAD_SYMBOLS_RE from text</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">STOPWORDS</span><span class="p">)</span> <span class="c1"># delete stopwors from text</span>
+    <span class="k">return</span> <span class="n">text</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">clean_text</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Check the words count again</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;summary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span> <span class="p">(</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">))</span> <span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">2333</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">summary</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">category</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Using NB</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.naive_bayes</span> <span class="kn">import</span> <span class="n">MultinomialNB</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfTransformer</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">nb</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">()),</span>
+               <span class="p">(</span><span class="s1">&#39;tfidf&#39;</span><span class="p">,</span> <span class="n">TfidfTransformer</span><span class="p">()),</span>
+               <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">MultinomialNB</span><span class="p">()),</span>
+              <span class="p">])</span>
+<span class="n">nb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">Pipeline</span><span class="p">(</span><span class="nx">memory</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span>
+<span class="w">     </span><span class="nx">steps</span><span class="p">=[(</span><span class="err">&#39;</span><span class="nx">vect</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">CountVectorizer</span><span class="p">(</span><span class="nx">analyzer</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">word</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">binary</span><span class="p">=</span><span class="nx">False</span><span class="p">,</span><span class="w"> </span><span class="nx">decode_error</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">strict</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">dtype</span><span class="p">=&lt;</span><span class="kd">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">numpy</span><span class="p">.</span><span class="nx">int64</span><span class="err">&#39;</span><span class="p">&gt;,</span><span class="w"> </span><span class="nx">encoding</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">utf</span><span class="o">-</span><span class="mi">8</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">input</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">content</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">lowercase</span><span class="p">=</span><span class="nx">True</span><span class="p">,</span><span class="w"> </span><span class="nx">max_df</span><span class="p">=</span><span class="m m-Double">1.0</span><span class="p">,</span><span class="w"> </span><span class="nx">max_features</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span><span class="w"> </span><span class="nx">min_df</span><span class="p">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ngram_range</span><span class="p">=(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="nx">preprocessor</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span><span class="w"> </span><span class="nx">stop_words</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">strip</span><span class="o">...</span><span class="nx">inear_tf</span><span class="p">=</span><span class="nx">False</span><span class="p">,</span><span class="w"> </span><span class="nx">use_idf</span><span class="p">=</span><span class="nx">True</span><span class="p">)),</span><span class="w"> </span><span class="p">(</span><span class="err">&#39;</span><span class="nx">clf</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">MultinomialNB</span><span class="p">(</span><span class="nx">alpha</span><span class="p">=</span><span class="m m-Double">1.0</span><span class="p">,</span><span class="w"> </span><span class="nx">class_prior</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span><span class="w"> </span><span class="nx">fit_prior</span><span class="p">=</span><span class="nx">True</span><span class="p">))])</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">nb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">Pipeline</span><span class="p">(</span><span class="nx">memory</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span>
+<span class="w">     </span><span class="nx">steps</span><span class="p">=[(</span><span class="err">&#39;</span><span class="nx">vect</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">CountVectorizer</span><span class="p">(</span><span class="nx">analyzer</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">word</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">binary</span><span class="p">=</span><span class="nx">False</span><span class="p">,</span><span class="w"> </span><span class="nx">decode_error</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">strict</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">dtype</span><span class="p">=&lt;</span><span class="kd">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">numpy</span><span class="p">.</span><span class="nx">int64</span><span class="err">&#39;</span><span class="p">&gt;,</span><span class="w"> </span><span class="nx">encoding</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">utf</span><span class="o">-</span><span class="mi">8</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">input</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">content</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">lowercase</span><span class="p">=</span><span class="nx">True</span><span class="p">,</span><span class="w"> </span><span class="nx">max_df</span><span class="p">=</span><span class="m m-Double">1.0</span><span class="p">,</span><span class="w"> </span><span class="nx">max_features</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span><span class="w"> </span><span class="nx">min_df</span><span class="p">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">ngram_range</span><span class="p">=(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="nx">preprocessor</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span><span class="w"> </span><span class="nx">stop_words</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span>
+<span class="w">        </span><span class="nx">strip</span><span class="o">...</span><span class="nx">inear_tf</span><span class="p">=</span><span class="nx">False</span><span class="p">,</span><span class="w"> </span><span class="nx">use_idf</span><span class="p">=</span><span class="nx">True</span><span class="p">)),</span><span class="w"> </span><span class="p">(</span><span class="err">&#39;</span><span class="nx">clf</span><span class="err">&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">MultinomialNB</span><span class="p">(</span><span class="nx">alpha</span><span class="p">=</span><span class="m m-Double">1.0</span><span class="p">,</span><span class="w"> </span><span class="nx">class_prior</span><span class="p">=</span><span class="nx">None</span><span class="p">,</span><span class="w"> </span><span class="nx">fit_prior</span><span class="p">=</span><span class="nx">True</span><span class="p">))])</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">classification_report</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">nb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;accuracy </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>accuracy 1.0
+</code></pre></div>
+
+<h5>What did we do?</h5>
+<p>We have just passed summary as an input and predicted category based on the summary. For the testing purpose, we have used only 5 rows. </p>
+<hr>
+<p><strong>Score: 20</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

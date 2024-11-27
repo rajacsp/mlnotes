@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Commentary</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/commentary.html" rel="bookmark"
+        title="Permalink to Commentary">Commentary</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/structured_output/</span>
+<span class="c1"># https://python.langchain.com/docs/how_to/</span>
+<span class="c1"># https://platform.openai.com/usage</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="c1"># Pydantic</span>
+<span class="k">class</span> <span class="nc">CricketCommentary</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cricket Commenaty to tell user.&quot;&quot;&quot;</span>
+
+    <span class="n">commentator</span><span class="p">:</span> <span class="nb">str</span>     <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Commentator&quot;</span><span class="p">)</span>
+    <span class="n">commentaty</span><span class="p">:</span> <span class="nb">str</span>     <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="s2">&quot;Commentary&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">structured_llm</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">with_structured_output</span><span class="p">(</span><span class="n">CricketCommentary</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">q</span><span class="p">(</span><span class="n">ball</span><span class="p">,</span> <span class="n">score</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">structured_llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tell me about cricket commentary for ball number </span><span class="si">{</span><span class="n">ball</span><span class="si">}</span><span class="s2"> and batsman scored </span><span class="si">{</span><span class="n">score</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">q</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>CricketCommentary(commentator=&#39;John Doe&#39;, commentaty=&quot;And here comes the second ball of the over. The bowler runs in, delivers a full-length ball, and the batsman is quick to react. He drives it elegantly through the covers, and that&#39;s a lovely shot! The ball races away to the boundary, and the batsman picks up two runs effortlessly. The crowd erupts in applause as he showcases his class.&quot;)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">q</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nv">CricketCommentary</span><span class="ss">(</span><span class="nv">commentator</span><span class="o">=</span><span class="s1">&#39;John Doe&#39;</span>,<span class="w"> </span><span class="nv">commentaty</span><span class="o">=</span><span class="s2">&quot;And here comes the second ball of the over! It&#39;s a full delivery on the leg stump, and the batsman has picked it beautifully. He swings his bat with all his might, sending the ball soaring over the boundary for a magnificent six! The crowd erupts in cheers as the batsman raises his bat in acknowledgment. What a shot!&quot;</span><span class="ss">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
+    <span class="n">commentary</span> <span class="o">=</span> <span class="n">q</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">commentary</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">commentator</span><span class="o">=</span><span class="s1">&#39;Mark Nicholas&#39;</span><span class="w"> </span><span class="n">commentaty</span><span class="o">=</span><span class="ss">&quot;And here we go! The first ball of the match is bowled. It&#39;s a good length delivery on off stump. The batsman is cautious, not wanting to take any risks on the very first ball. He leaves it alone, and the ball goes through to the keeper. No runs on the board as yet!&quot;</span>
+<span class="o">----------</span>
+<span class="n">commentator</span><span class="o">=</span><span class="s1">&#39;John Doe&#39;</span><span class="w"> </span><span class="n">commentaty</span><span class="o">=</span><span class="s1">&#39;And here comes the second ball of the over. The bowler runs in, delivering a sharp delivery full on off stump. The batsman, looking to get off the mark, plays a defensive shot but misses it completely. No run scored, and the batsman remains on zero.&#39;</span>
+<span class="o">----------</span>
+<span class="n">commentator</span><span class="o">=</span><span class="s1">&#39;Jim Maxwell&#39;</span><span class="w"> </span><span class="n">commentaty</span><span class="o">=</span><span class="s1">&#39;And here comes the bowler for ball number 3. He runs in, bowls a full delivery and oh! What a shot! The batsman launches it high over mid-wicket and it sails into the stands for a magnificent six! The crowd erupts in joy, a fantastic connection there. The batsman is looking in great form!&#39;</span>
+<span class="o">----------</span>
+<span class="n">commentator</span><span class="o">=</span><span class="s1">&#39;Mark Nicholas&#39;</span><span class="w"> </span><span class="n">commentaty</span><span class="o">=</span><span class="ss">&quot;And here comes the fourth ball of the over! The bowler runs in with purpose, but wait! The batsman has read that beautifully. He steps down the pitch and launches it into the air. It&#39;s a massive hit, soaring high over the boundary! That&#39;s six runs! The crowd erupts in cheers as the batsman raises his bat in acknowledgment. What a shot!&quot;</span>
+<span class="o">----------</span>
+<span class="n">commentator</span><span class="o">=</span><span class="s1">&#39;John Doe&#39;</span><span class="w"> </span><span class="n">commentaty</span><span class="o">=</span><span class="ss">&quot;And here comes the fifth ball of the over. The bowler runs in, delivers a quick ball, and the batsman plays a lovely shot! He finds the gap between the fielders and scampers through for a quick single. That&#39;s a well-placed shot, and the batsman has now moved to 3 runs. The crowd appreciates that effort!&quot;</span>
+<span class="o">----------</span>
+<span class="n">commentator</span><span class="o">=</span><span class="s1">&#39;John Doe&#39;</span><span class="w"> </span><span class="n">commentaty</span><span class="o">=</span><span class="ss">&quot;And here we go, it&#39;s ball number 6 of the over. The bowler runs in, delivers the ball, and it&#39;s a full toss! The batsman sees it early, gets his bat down, and with a powerful swing, he drives it through the covers. The ball races away to the boundary, and that&#39;s a fantastic shot! The batsman has scored 5 runs on this ball, moving his score up and putting pressure on the bowler.&quot;</span>
+<span class="c1">----------</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 15</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

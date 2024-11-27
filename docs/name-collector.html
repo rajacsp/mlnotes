@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Name-Collector</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/name-collector.html" rel="bookmark"
+        title="Permalink to Name-Collector">Name-Collector</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "Name Collector"
+author: "Rj"
+date: 2019-04-20
+description: "List Test"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Collect and parse first page</span>
+<span class="n">page</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;https://www.babble.com/pregnancy/1000-most-popular-boy-names/&#39;</span><span class="p">)</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>    
+
+<span class="c1">#print(soup)    </span>
+
+<span class="n">items</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="s1">&#39;main.tm-single-content li a&#39;</span><span class="p">)</span>
+
+<span class="n">item_list</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+    <span class="c1">#print(item.get_text())</span>
+    <span class="n">item_list</span> <span class="o">=</span>  <span class="n">item_list</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span> <span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">item_list</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>,<span class="nv">Liam</span>,<span class="nv">Noah</span>,<span class="nv">William</span>,<span class="nv">James</span>,<span class="nv">Logan</span>,<span class="nv">Benjamin</span>,<span class="nv">Mason</span>,<span class="nv">Elijah</span>,<span class="nv">Oliver</span>,<span class="nv">Jacob</span>,<span class="nv">Lucas</span>,<span class="nv">Michael</span>,<span class="nv">Alexander</span>,<span class="nv">Ethan</span>,<span class="nv">Daniel</span>,<span class="nv">Matthew</span>,<span class="nv">Aiden</span>,<span class="nv">Henry</span>,<span class="nv">Joseph</span>,<span class="nv">Jackson</span>,<span class="nv">Samuel</span>,<span class="nv">Sebastian</span>,<span class="nv">David</span>,<span class="nv">Carter</span>,<span class="nv">Wyatt</span>,<span class="nv">Jayden</span>,<span class="nv">John</span>,<span class="nv">Owen</span>,<span class="nv">Dylan</span>,<span class="nv">Luke</span>,<span class="nv">Gabriel</span>,<span class="nv">Anthony</span>,<span class="nv">Isaac</span>,<span class="nv">Grayson</span>,<span class="nv">Jack</span>,<span class="nv">Julian</span>,<span class="nv">Levi</span>,<span class="nv">Christopher</span>,<span class="nv">Joshua</span>,<span class="nv">Andrew</span>,<span class="nv">Lincoln</span>,<span class="nv">Mateo</span>,<span class="nv">Ryan</span>,<span class="nv">Jaxon</span>,<span class="nv">Nathan</span>,<span class="nv">Aaron</span>,<span class="nv">Isaiah</span>,<span class="nv">Thomas</span>,<span class="nv">Charles</span>,<span class="nv">Caleb</span>,<span class="nv">Josiah</span>,<span class="nv">Christian</span>,<span class="nv">Hunter</span>,<span class="nv">Eli</span>,<span class="nv">Jonathan</span>,<span class="nv">Connor</span>,<span class="nv">Landon</span>,<span class="nv">Adrian</span>,<span class="nv">Asher</span>,<span class="nv">Cameron</span>,<span class="nv">Leo</span>,<span class="nv">Theodore</span>,<span class="nv">Jeremiah</span>,<span class="nv">Hudson</span>,<span class="nv">Robert</span>,<span class="nv">Easton</span>,<span class="nv">Nolan</span>,<span class="nv">Nicholas</span>,<span class="nv">Ezra</span>,<span class="nv">Colton</span>,<span class="nv">Angel</span>,<span class="nv">Brayden</span>,<span class="nv">Jordan</span>,<span class="nv">Dominic</span>,<span class="nv">Austin</span>,<span class="nv">Ian</span>,<span class="nv">Adam</span>,<span class="nv">Elias</span>,<span class="nv">Greyson</span>,<span class="nv">Jose</span>,<span class="nv">Ezekiel</span>,<span class="nv">Carson</span>,<span class="nv">Evan</span>,<span class="nv">Maverick</span>,<span class="nv">Bryson</span>,<span class="nv">Jace</span>,<span class="nv">Cooper</span>,<span class="nv">Xavier</span>,<span class="nv">Parker</span>,<span class="nv">Roman</span>,<span class="nv">Jason</span>,<span class="nv">Santiago</span>,<span class="nv">Chase</span>,<span class="nv">Sawyer</span>,<span class="nv">Gavin</span>,<span class="nv">Leonardo</span>,<span class="nv">Ayden</span>,<span class="nv">Jameson</span>,<span class="nv">Kevin</span>,<span class="nv">Bentley</span>,<span class="nv">Zachary</span>,<span class="nv">Everett</span>,<span class="nv">Axel</span>,<span class="nv">Tyler</span>,<span class="nv">Micah</span>,<span class="nv">Vincent</span>,<span class="nv">Weston</span>,<span class="nv">Miles</span>,<span class="nv">Wesley</span>,<span class="nv">Nathaniel</span>,<span class="nv">Harrison</span>,<span class="nv">Brandon</span>,<span class="nv">Cole</span>,<span class="nv">Declan</span>,<span class="nv">Luis</span>,<span class="nv">Braxton</span>,<span class="nv">Damian</span>,<span class="nv">Silas</span>,<span class="nv">Ryder</span>,<span class="nv">Bennett</span>,<span class="nv">George</span>,<span class="nv">Emmett</span>,<span class="nv">Justin</span>,<span class="nv">Max</span>,<span class="nv">Diego</span>,<span class="nv">Carlos</span>,<span class="nv">Maxwell</span>,<span class="nv">Kingston</span>,<span class="nv">Ivan</span>,<span class="nv">Maddox</span>,<span class="nv">Juan</span>,<span class="nv">Jayce</span>,<span class="nv">Rowan</span>,<span class="nv">Eric</span>,<span class="nv">Jesus</span>,<span class="nv">Calvin</span>,<span class="nv">Abel</span>,<span class="nv">King</span>,<span class="nv">Camden</span>,<span class="nv">Amir</span>,<span class="nv">Blake</span>,<span class="nv">Alex</span>,<span class="nv">Brody</span>,<span class="nv">Malachi</span>,<span class="nv">Emmanuel</span>,<span class="nv">Jonah</span>,<span class="nv">Beau</span>,<span class="nv">Jude</span>,<span class="nv">Antonio</span>,<span class="nv">Alan</span>,<span class="nv">Elliott</span>,<span class="nv">Elliot</span>,<span class="nv">Waylon</span>,<span class="nv">Xander</span>,<span class="nv">Timothy</span>,<span class="nv">Victor</span>,<span class="nv">Bryce</span>,<span class="nv">Finn</span>,<span class="nv">Brantley</span>,<span class="nv">Edward</span>,<span class="nv">Abraham</span>,<span class="nv">Patrick</span>,<span class="nv">Grant</span>,<span class="nv">Hayden</span>,<span class="nv">Richard</span>,<span class="nv">Miguel</span>,<span class="nv">Joel</span>,<span class="nv">Gael</span>,<span class="nv">Rhett</span>,<span class="nv">Steven</span>,<span class="nv">Graham</span>,<span class="nv">Jasper</span>,<span class="nv">Jesse</span>,<span class="nv">Matteo</span>,<span class="nv">Dean</span>,<span class="nv">Preston</span>,<span class="nv">August</span>,<span class="nv">Oscar</span>,<span class="nv">Jeremy</span>,<span class="nv">Alejandro</span>,<span class="nv">Marcus</span>,<span class="nv">Dawson</span>,<span class="nv">Lorenzo</span>,<span class="nv">Zion</span>,<span class="nv">Maximus</span>,<span class="nv">Strong</span><span class="w"> </span><span class="nv">Boy</span><span class="w"> </span><span class="nv">Names</span><span class="w"> </span><span class="nv">That</span><span class="s1">&#39;ll Empower Your Little Guy Right from Day 1,Biblical Boy Names That Have Stood the Test of Time,Classic Boy Names You&#39;</span><span class="nv">ll</span><span class="w"> </span><span class="nv">Never</span><span class="w"> </span><span class="nv">Get</span><span class="w"> </span><span class="nv">Tired</span><span class="w"> </span><span class="nv">of</span><span class="w"> </span><span class="nv">Hearing</span>,<span class="s1">&#39;Star Wars&#39;</span><span class="o">-</span><span class="nv">Inspired</span><span class="w"> </span><span class="nv">Baby</span><span class="w"> </span><span class="nv">Names</span><span class="w"> </span><span class="k">Continue</span><span class="w"> </span><span class="nv">to</span><span class="w"> </span><span class="nv">Climb</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">Charts</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 0</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

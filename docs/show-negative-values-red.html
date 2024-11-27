@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Show-Negative-Values-Red</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/show-negative-values-red.html" rel="bookmark"
+        title="Permalink to Show-Negative-Values-Red">Show-Negative-Values-Red</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "Show Negative values red"
+author: "Rj"
+date: 2019-09-05
+description: "List Test"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Month&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+    <span class="s1">&#39;Temp&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">18</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">data</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>{&#39;Month&#39;: [1, 2, 3], &#39;Temp&#39;: [7, -18, -20]}
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>dict
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Month</th>
+      <th>Temp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>-18</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>-20</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">color_negative_red</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Takes a scalar and returns a string with</span>
+<span class="sd">    the css property `&#39;color: red&#39;` for negative</span>
+<span class="sd">    strings, black otherwise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span> <span class="k">if</span> <span class="n">val</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;black&#39;</span>
+    <span class="k">return</span> <span class="s1">&#39;color: </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">color</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">applymap</span><span class="p">(</span><span class="n">color_negative_red</span><span class="p">)</span>
+</code></pre></div>
+
+<style  type="text/css" >
+#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row0_col0,#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row0_col1,#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row1_col0,#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row2_col0{
+            color:  black;
+        }#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row1_col1,#T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row2_col1{
+            color:  red;
+        }</style>
+<table id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Month</th>        <th class="col_heading level0 col1" >Temp</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row0_col0" class="data row0 col0" >1</td>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row0_col1" class="data row0 col1" >7</td>
+            </tr>
+            <tr>
+                        <th id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row1_col0" class="data row1 col0" >2</td>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row1_col1" class="data row1 col1" >-18</td>
+            </tr>
+            <tr>
+                        <th id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row2_col0" class="data row2 col0" >3</td>
+                        <td id="T_fe8d9290_efe7_11ea_a05d_38f9d3497ee0row2_col1" class="data row2 col1" >-20</td>
+            </tr>
+    </tbody></table>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Month</th>
+      <th>Temp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>-18</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>-20</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Highlight max (axis = 0)</span>
+<span class="c1"># https://pandas.pydata.org/pandas-docs/stable/user_guide/style.html</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">highlight_max</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<style  type="text/css" >
+#T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row0_col1,#T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row2_col0{
+            background-color:  yellow;
+        }</style>
+<table id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Month</th>        <th class="col_heading level0 col1" >Temp</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row0_col0" class="data row0 col0" >1</td>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row0_col1" class="data row0 col1" >7</td>
+            </tr>
+            <tr>
+                        <th id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row1_col0" class="data row1 col0" >2</td>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row1_col1" class="data row1 col1" >-18</td>
+            </tr>
+            <tr>
+                        <th id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row2_col0" class="data row2 col0" >3</td>
+                        <td id="T_ff5ba95a_efe7_11ea_a05d_38f9d3497ee0row2_col1" class="data row2 col1" >-20</td>
+            </tr>
+    </tbody></table>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">highlight_max_rj</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    highlight the maximum in a Series yellow.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">is_max</span> <span class="o">=</span> <span class="n">s</span> <span class="o">==</span> <span class="n">s</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;background-color: &#39;</span><span class="o">+</span><span class="n">color</span> <span class="k">if</span> <span class="n">v</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">is_max</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">highlight_max_rj</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;lightblue&#39;</span><span class="p">,</span>  <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">])</span>
+</code></pre></div>
+
+<style  type="text/css" >
+#T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row0_col1{
+            background-color:  lightblue;
+        }</style>
+<table id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Month</th>        <th class="col_heading level0 col1" >Temp</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row0_col0" class="data row0 col0" >1</td>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row0_col1" class="data row0 col1" >7</td>
+            </tr>
+            <tr>
+                        <th id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row1_col0" class="data row1 col0" >2</td>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row1_col1" class="data row1 col1" >-18</td>
+            </tr>
+            <tr>
+                        <th id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row2_col0" class="data row2 col0" >3</td>
+                        <td id="T_07677b9c_efe8_11ea_a05d_38f9d3497ee0row2_col1" class="data row2 col1" >-20</td>
+            </tr>
+    </tbody></table>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">highlight_max_rj</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subset</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Temp&#39;</span><span class="p">])</span>
+</code></pre></div>
+
+<style  type="text/css" >
+#T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row0_col1,#T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row1_col1,#T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row2_col1{
+            background-color:  lightgreen;
+        }</style>
+<table id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Month</th>        <th class="col_heading level0 col1" >Temp</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0level0_row0" class="row_heading level0 row0" >0</th>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row0_col0" class="data row0 col0" >1</td>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row0_col1" class="data row0 col1" >7</td>
+            </tr>
+            <tr>
+                        <th id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0level0_row1" class="row_heading level0 row1" >1</th>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row1_col0" class="data row1 col0" >2</td>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row1_col1" class="data row1 col1" >-18</td>
+            </tr>
+            <tr>
+                        <th id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0level0_row2" class="row_heading level0 row2" >2</th>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row2_col0" class="data row2 col0" >3</td>
+                        <td id="T_1011fc5e_efe8_11ea_a05d_38f9d3497ee0row2_col1" class="data row2 col1" >-20</td>
+            </tr>
+    </tbody></table>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 15</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

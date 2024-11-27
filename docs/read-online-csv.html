@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Read-Online-Csv</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/read-online-csv.html" rel="bookmark"
+        title="Permalink to Read-Online-Csv">Read-Online-Csv</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "Read Online CSV"
+author: "Raja CSP Raman"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;https://gitlab.com/rajacsp/datasets/raw/master/amazon_co_ecommerce_sample.csv&#39;</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">content</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">BytesIO</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>product_name</th>
+      <th>manufacturer</th>
+      <th>price</th>
+      <th>number_available_in_stock</th>
+      <th>number_of_reviews</th>
+      <th>number_of_answered_questions</th>
+      <th>average_review_rating</th>
+      <th>amazon_category_and_sub_category</th>
+      <th>customers_who_bought_this_item_also_bought</th>
+      <th>description</th>
+      <th>product_information</th>
+      <th>product_description</th>
+      <th>items_customers_buy_after_viewing_this_item</th>
+      <th>customer_questions_and_answers</th>
+      <th>customer_reviews</th>
+      <th>sellers</th>
+    </tr>
+    <tr>
+      <th>uniq_id</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>eac7efa5dbd3d667f26eb3d3ab504464</th>
+      <td>Hornby 2014 Catalogue</td>
+      <td>Hornby</td>
+      <td>£3.42</td>
+      <td>5 new</td>
+      <td>15.0</td>
+      <td>1.0</td>
+      <td>4.9 out of 5 stars</td>
+      <td>Hobbies &gt; Model Trains &amp; Railway Sets &gt; Rail V...</td>
+      <td>http://www.amazon.co.uk/Hornby-R8150-Catalogue...</td>
+      <td>Product Description Hornby 2014 Catalogue Box ...</td>
+      <td>Technical Details Item Weight640 g Product Dim...</td>
+      <td>Product Description Hornby 2014 Catalogue Box ...</td>
+      <td>http://www.amazon.co.uk/Hornby-R8150-Catalogue...</td>
+      <td>Does this catalogue detail all the previous Ho...</td>
+      <td>Worth Buying For The Pictures Alone (As Ever) ...</td>
+      <td>{"seller"=&gt;[{"Seller_name_1"=&gt;"Amazon.co.uk", ...</td>
+    </tr>
+    <tr>
+      <th>b17540ef7e86e461d37f3ae58b7b72ac</th>
+      <td>FunkyBuys® Large Christmas Holiday Express Fes...</td>
+      <td>FunkyBuys</td>
+      <td>£16.99</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>4.5 out of 5 stars</td>
+      <td>Hobbies &gt; Model Trains &amp; Railway Sets &gt; Rail V...</td>
+      <td>http://www.amazon.co.uk/Christmas-Holiday-Expr...</td>
+      <td>Size Name:Large FunkyBuys® Large Christmas Hol...</td>
+      <td>Technical Details Manufacturer recommended age...</td>
+      <td>Size Name:Large FunkyBuys® Large Christmas Hol...</td>
+      <td>http://www.amazon.co.uk/Christmas-Holiday-Expr...</td>
+      <td>can you turn off sounds // hi no you cant turn...</td>
+      <td>Four Stars // 4.0 // 18 Dec. 2015 // By\n    \...</td>
+      <td>{"seller"=&gt;{"Seller_name_1"=&gt;"UHD WHOLESALE", ...</td>
+    </tr>
+    <tr>
+      <th>348f344247b0c1a935b1223072ef9d8a</th>
+      <td>CLASSIC TOY TRAIN SET TRACK CARRIAGES LIGHT EN...</td>
+      <td>ccf</td>
+      <td>£9.99</td>
+      <td>2 new</td>
+      <td>17.0</td>
+      <td>2.0</td>
+      <td>3.9 out of 5 stars</td>
+      <td>Hobbies &gt; Model Trains &amp; Railway Sets &gt; Rail V...</td>
+      <td>http://www.amazon.co.uk/Classic-Train-Lights-B...</td>
+      <td>BIG CLASSIC TOY TRAIN SET TRACK CARRIAGE LIGHT...</td>
+      <td>Technical Details Manufacturer recommended age...</td>
+      <td>BIG CLASSIC TOY TRAIN SET TRACK CARRIAGE LIGHT...</td>
+      <td>http://www.amazon.co.uk/Train-With-Tracks-Batt...</td>
+      <td>What is the gauge of the track // Hi Paul.Trut...</td>
+      <td>**Highly Recommended!** // 5.0 // 26 May 2015 ...</td>
+      <td>{"seller"=&gt;[{"Seller_name_1"=&gt;"DEAL-BOX", "Sel...</td>
+    </tr>
+    <tr>
+      <th>e12b92dbb8eaee78b22965d2a9bbbd9f</th>
+      <td>HORNBY Coach R4410A BR Hawksworth Corridor 3rd</td>
+      <td>Hornby</td>
+      <td>£39.99</td>
+      <td>NaN</td>
+      <td>1.0</td>
+      <td>2.0</td>
+      <td>5.0 out of 5 stars</td>
+      <td>Hobbies &gt; Model Trains &amp; Railway Sets &gt; Rail V...</td>
+      <td>NaN</td>
+      <td>Hornby 00 Gauge BR Hawksworth 3rd Class W 2107...</td>
+      <td>Technical Details Item Weight259 g Product Dim...</td>
+      <td>Hornby 00 Gauge BR Hawksworth 3rd Class W 2107...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>I love it // 5.0 // 22 July 2013 // By\n    \n...</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>e33a9adeed5f36840ccc227db4682a36</th>
+      <td>Hornby 00 Gauge 0-4-0 Gildenlow Salt Co. Steam...</td>
+      <td>Hornby</td>
+      <td>£32.19</td>
+      <td>NaN</td>
+      <td>3.0</td>
+      <td>2.0</td>
+      <td>4.7 out of 5 stars</td>
+      <td>Hobbies &gt; Model Trains &amp; Railway Sets &gt; Rail V...</td>
+      <td>http://www.amazon.co.uk/Hornby-R6367-RailRoad-...</td>
+      <td>Product Description Hornby RailRoad 0-4-0 Gild...</td>
+      <td>Technical Details Item Weight159 g Product Dim...</td>
+      <td>Product Description Hornby RailRoad 0-4-0 Gild...</td>
+      <td>http://www.amazon.co.uk/Hornby-R2672-RailRoad-...</td>
+      <td>NaN</td>
+      <td>Birthday present // 5.0 // 14 April 2014 // By...</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># source : https://stackoverflow.com/questions/19611729/getting-google-spreadsheet-csv-into-a-pandas-dataframe</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

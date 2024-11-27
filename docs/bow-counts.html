@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Bow-Counts</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/bow-counts.html" rel="bookmark"
+        title="Permalink to Bow-Counts">Bow-Counts</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "Bag of word Counts"
+author: "Raja CSP Raman"
+date: 2019-05-02
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gensim.utils</span> <span class="kn">import</span> <span class="n">simple_preprocess</span>
+<span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;The Star obtained a copy of the email outlining the latest in a series of Progressive Conservative provincial budget cuts that could cost the City of Toronto, over the next decade, billions of dollars in funding for transit, public health and more.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Toronto councillors and daycare advocates are expected to hold a news conference Friday demanding the Ford government reverse the elimination of a $50-million fund that helps licensed child-care centres cover increasing labour costs and shield parents from fee increases, along with other changes.&quot;</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">contents</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[<span class="s1">&#39;The Star obtained a copy of the email outlining the latest in a series of Progressive Conservative provincial budget cuts that could cost the City of Toronto, over the next decade, billions of dollars in funding for transit, public health and more.&#39;</span>,
+<span class="w"> </span><span class="s1">&#39;Toronto councillors and daycare advocates are expected to hold a news conference Friday demanding the Ford government reverse the elimination of a $50-million fund that helps licensed child-care centres cover increasing labour costs and shield parents from fee increases, along with other changes.&#39;</span>]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Get the tokens</span>
+<span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span><span class="n">simple_preprocess</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">pprint</span><span class="p">(</span><span class="n">tokens</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[[<span class="s1">&#39;the&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;star&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;obtained&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;copy&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;of&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;the&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;email&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;outlining&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;the&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;latest&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;in&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;series&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;of&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;progressive&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;conservative&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;provincial&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;budget&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;cuts&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;that&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;could&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;cost&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;the&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;city&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;of&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;toronto&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;over&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;the&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;next&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;decade&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;billions&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;of&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;dollars&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;in&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;funding&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;for&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;transit&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;public&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;health&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;and&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;more&#39;</span>],
+<span class="w"> </span>[<span class="s1">&#39;toronto&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;councillors&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;and&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;daycare&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;advocates&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;are&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;expected&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;to&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;hold&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;news&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;conference&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;friday&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;demanding&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;the&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;ford&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;government&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;reverse&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;the&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;elimination&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;of&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;million&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;fund&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;that&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;helps&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;licensed&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;child&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;care&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;centres&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;cover&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;increasing&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;labour&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;costs&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;and&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;shield&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;parents&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;from&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;fee&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;increases&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;along&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;with&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;other&#39;</span>,
+<span class="w">  </span><span class="s1">&#39;changes&#39;</span>]]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the dictionary</span>
+<span class="nb">dict</span> <span class="o">=</span> <span class="n">corpora</span><span class="o">.</span><span class="n">Dictionary</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Create the Corpus</span>
+<span class="n">corpus1</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="o">.</span><span class="n">doc2bow</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">allow_update</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">word_counts</span> <span class="o">=</span> <span class="p">[[(</span><span class="nb">dict</span><span class="p">[</span><span class="nb">id</span><span class="p">],</span> <span class="n">count</span><span class="p">)</span> <span class="k">for</span> <span class="nb">id</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">line</span><span class="p">]</span><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">corpus1</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">pprint</span><span class="p">(</span><span class="n">word_counts</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[[<span class="ss">(</span><span class="s1">&#39;and&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;billions&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;budget&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;city&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;conservative&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;copy&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;cost&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;could&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;cuts&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;decade&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;dollars&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;email&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;for&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;funding&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;health&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;in&#39;</span>,<span class="w"> </span><span class="mi">2</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;latest&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;more&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;next&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;obtained&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;of&#39;</span>,<span class="w"> </span><span class="mi">4</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;outlining&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;over&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;progressive&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;provincial&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;public&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;series&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;star&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;that&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;the&#39;</span>,<span class="w"> </span><span class="mi">5</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;toronto&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;transit&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>],
+<span class="w"> </span>[<span class="ss">(</span><span class="s1">&#39;and&#39;</span>,<span class="w"> </span><span class="mi">2</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;of&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;that&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;the&#39;</span>,<span class="w"> </span><span class="mi">2</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;toronto&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;advocates&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;along&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;are&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;care&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;centres&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;changes&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;child&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;conference&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;costs&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;councillors&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;cover&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;daycare&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;demanding&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;elimination&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;expected&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;fee&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;ford&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;friday&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;from&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;fund&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;government&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;helps&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;hold&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;increases&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;increasing&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;labour&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;licensed&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;million&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;news&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;other&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;parents&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;reverse&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;shield&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;to&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>,
+<span class="w">  </span><span class="ss">(</span><span class="s1">&#39;with&#39;</span>,<span class="w"> </span><span class="mi">1</span><span class="ss">)</span>]]
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 10</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

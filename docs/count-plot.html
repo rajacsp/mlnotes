@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Count-Plot</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/count-plot.html" rel="bookmark"
+        title="Permalink to Count-Plot">Count-Plot</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "Count Plot (Buggy)"
+author: "Rj"
+date: 2020-09-05
+description: "List Test"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="c1"># https://www.machinelearningplus.com/plots/top-50-matplotlib-visualizations-the-master-plots-python/</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">warnings</span><span class="p">;</span> <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="n">action</span><span class="o">=</span><span class="s1">&#39;once&#39;</span><span class="p">)</span>
+
+<span class="c1"># Import Data</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;https://raw.githubusercontent.com/selva86/datasets/master/mpg_ggplot2.csv&quot;</span><span class="p">)</span>
+<span class="n">df_counts</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;hwy&#39;</span><span class="p">,</span> <span class="s1">&#39;cty&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;counts&#39;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>manufacturer</th>
+      <th>model</th>
+      <th>displ</th>
+      <th>year</th>
+      <th>cyl</th>
+      <th>trans</th>
+      <th>drv</th>
+      <th>cty</th>
+      <th>hwy</th>
+      <th>fl</th>
+      <th>class</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>audi</td>
+      <td>a4</td>
+      <td>1.8</td>
+      <td>1999</td>
+      <td>4</td>
+      <td>auto(l5)</td>
+      <td>f</td>
+      <td>18</td>
+      <td>29</td>
+      <td>p</td>
+      <td>compact</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>audi</td>
+      <td>a4</td>
+      <td>1.8</td>
+      <td>1999</td>
+      <td>4</td>
+      <td>manual(m5)</td>
+      <td>f</td>
+      <td>21</td>
+      <td>29</td>
+      <td>p</td>
+      <td>compact</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>audi</td>
+      <td>a4</td>
+      <td>2.0</td>
+      <td>2008</td>
+      <td>4</td>
+      <td>manual(m6)</td>
+      <td>f</td>
+      <td>20</td>
+      <td>31</td>
+      <td>p</td>
+      <td>compact</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>audi</td>
+      <td>a4</td>
+      <td>2.0</td>
+      <td>2008</td>
+      <td>4</td>
+      <td>auto(av)</td>
+      <td>f</td>
+      <td>21</td>
+      <td>30</td>
+      <td>p</td>
+      <td>compact</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>audi</td>
+      <td>a4</td>
+      <td>2.8</td>
+      <td>1999</td>
+      <td>6</td>
+      <td>auto(l5)</td>
+      <td>f</td>
+      <td>16</td>
+      <td>26</td>
+      <td>p</td>
+      <td>compact</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df_counts</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">rajacsp</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py38_jupyter</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">ipykernel</span><span class="o">/</span><span class="n">ipkernel</span><span class="p">.</span><span class="n">py</span><span class="o">:</span><span class="mi">287</span><span class="o">:</span><span class="w"> </span><span class="n">DeprecationWarning</span><span class="o">:</span><span class="w"> </span><span class="n n-Quoted">`should_run_async`</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="n n-Quoted">`transform_cell`</span><span class="w"> </span><span class="n">automatically</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="w"> </span><span class="n">Please</span><span class="w"> </span><span class="n">pass</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n n-Quoted">`transformed_cell`</span><span class="w"> </span><span class="n">argument</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">any</span><span class="w"> </span><span class="n">exception</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">happen</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">thetransform</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n n-Quoted">`preprocessing_exc_tuple`</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">IPython</span><span class="w"> </span><span class="mf">7.17</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">above</span><span class="p">.</span>
+<span class="w">  </span><span class="k">and</span><span class="w"> </span><span class="n">should_run_async</span><span class="p">(</span><span class="k">code</span><span class="p">)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>hwy</th>
+      <th>cty</th>
+      <th>counts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>12</td>
+      <td>9</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>14</td>
+      <td>11</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>15</td>
+      <td>11</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>16</td>
+      <td>11</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>16</td>
+      <td>12</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>73</th>
+      <td>36</td>
+      <td>25</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>74</th>
+      <td>37</td>
+      <td>28</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>75</th>
+      <td>41</td>
+      <td>29</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>76</th>
+      <td>44</td>
+      <td>33</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>77</th>
+      <td>44</td>
+      <td>35</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+<p>78 rows × 3 columns</p>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Draw Stripplot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span> <span class="mi">80</span><span class="p">)</span>    
+<span class="n">sns</span><span class="o">.</span><span class="n">stripplot</span><span class="p">(</span><span class="n">df_counts</span><span class="o">.</span><span class="n">cty</span><span class="p">,</span> <span class="n">df_counts</span><span class="o">.</span><span class="n">hwy</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">df_counts</span><span class="o">.</span><span class="n">counts</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="c1"># Decorations</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Counts Plot - Size of circle is bigger as more points overlap&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">rajacsp</span><span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py38_jupyter</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">ipykernel</span><span class="o">/</span><span class="n">ipkernel</span><span class="p">.</span><span class="n">py</span><span class="o">:</span><span class="mi">287</span><span class="o">:</span><span class="w"> </span><span class="n">DeprecationWarning</span><span class="o">:</span><span class="w"> </span><span class="n n-Quoted">`should_run_async`</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="n n-Quoted">`transform_cell`</span><span class="w"> </span><span class="n">automatically</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">future</span><span class="p">.</span><span class="w"> </span><span class="n">Please</span><span class="w"> </span><span class="n">pass</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n n-Quoted">`transformed_cell`</span><span class="w"> </span><span class="n">argument</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">any</span><span class="w"> </span><span class="n">exception</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">happen</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">thetransform</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n n-Quoted">`preprocessing_exc_tuple`</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">IPython</span><span class="w"> </span><span class="mf">7.17</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">above</span><span class="p">.</span>
+<span class="w">  </span><span class="k">and</span><span class="w"> </span><span class="n">should_run_async</span><span class="p">(</span><span class="k">code</span><span class="p">)</span>
+
+
+
+<span class="o">---------------------------------------------------------------------------</span>
+
+<span class="n">ValueError</span><span class="w">                                </span><span class="n">Traceback</span><span class="w"> </span><span class="p">(</span><span class="n">most</span><span class="w"> </span><span class="n">recent</span><span class="w"> </span><span class="k">call</span><span class="w"> </span><span class="k">last</span><span class="p">)</span>
+
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="n">input</span><span class="o">-</span><span class="mi">11</span><span class="o">-</span><span class="n">74fe28045231</span><span class="o">&gt;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="w">      </span><span class="mi">1</span><span class="w"> </span><span class="c1"># Draw Stripplot</span>
+<span class="w">      </span><span class="mi">2</span><span class="w"> </span><span class="n">fig</span><span class="p">,</span><span class="w"> </span><span class="n">ax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span><span class="w"> </span><span class="n">dpi</span><span class="o">=</span><span class="w"> </span><span class="mi">80</span><span class="p">)</span>
+<span class="o">----&gt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">sns</span><span class="p">.</span><span class="n">stripplot</span><span class="p">(</span><span class="n">df_counts</span><span class="p">.</span><span class="n">cty</span><span class="p">,</span><span class="w"> </span><span class="n">df_counts</span><span class="p">.</span><span class="n">hwy</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="o">=</span><span class="n">df_counts</span><span class="p">.</span><span class="n">counts</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="w">      </span><span class="mi">4</span><span class="w"> </span>
+<span class="w">      </span><span class="mi">5</span><span class="w"> </span><span class="c1"># Decorations</span>
+
+
+<span class="o">~/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py38_jupyter</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">seaborn</span><span class="o">/</span><span class="n">categorical</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">stripplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">hue</span><span class="p">,</span><span class="w"> </span><span class="k">data</span><span class="p">,</span><span class="w"> </span><span class="k">order</span><span class="p">,</span><span class="w"> </span><span class="n">hue_order</span><span class="p">,</span><span class="w"> </span><span class="n">jitter</span><span class="p">,</span><span class="w"> </span><span class="n">dodge</span><span class="p">,</span><span class="w"> </span><span class="n">orient</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">palette</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">,</span><span class="w"> </span><span class="n">edgecolor</span><span class="p">,</span><span class="w"> </span><span class="n">linewidth</span><span class="p">,</span><span class="w"> </span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">2796</span><span class="w">                        </span><span class="n">linewidth</span><span class="o">=</span><span class="n">linewidth</span><span class="p">))</span>
+<span class="w">   </span><span class="mi">2797</span><span class="w"> </span>
+<span class="o">-&gt;</span><span class="w"> </span><span class="mi">2798</span><span class="w">     </span><span class="n">plotter</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">2799</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="n">ax</span>
+<span class="w">   </span><span class="mi">2800</span>
+
+
+<span class="o">~/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py38_jupyter</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">seaborn</span><span class="o">/</span><span class="n">categorical</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">plot</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">kws</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1187</span><span class="w">     </span><span class="n">def</span><span class="w"> </span><span class="n">plot</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">kws</span><span class="p">)</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">1188</span><span class="w">         </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">Make the plot.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="o">-&gt;</span><span class="w"> </span><span class="mi">1189</span><span class="w">         </span><span class="n">self</span><span class="p">.</span><span class="n">draw_stripplot</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">kws</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1190</span><span class="w">         </span><span class="n">self</span><span class="p">.</span><span class="n">add_legend_data</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1191</span><span class="w">         </span><span class="n">self</span><span class="p">.</span><span class="n">annotate_axes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+
+
+<span class="o">~/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py38_jupyter</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">seaborn</span><span class="o">/</span><span class="n">categorical</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">draw_stripplot</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="n">kws</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1163</span><span class="w">                 </span><span class="n">kws</span><span class="p">.</span><span class="k">update</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="n">palette</span><span class="err">[</span><span class="n">point_colors</span><span class="err">]</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1164</span><span class="w">                 </span><span class="k">if</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">orient</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;v&quot;</span><span class="o">:</span>
+<span class="o">-&gt;</span><span class="w"> </span><span class="mi">1165</span><span class="w">                     </span><span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">cat_pos</span><span class="p">,</span><span class="w"> </span><span class="n">strip_data</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1166</span><span class="w">                 </span><span class="k">else</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">1167</span><span class="w">                     </span><span class="n">ax</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">strip_data</span><span class="p">,</span><span class="w"> </span><span class="n">cat_pos</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kws</span><span class="p">)</span>
+
+
+<span class="o">~/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py38_jupyter</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">__init__</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">inner</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="k">data</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1436</span><span class="w">     </span><span class="n">def</span><span class="w"> </span><span class="k">inner</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="k">data</span><span class="o">=</span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">:</span>
+<span class="w">   </span><span class="mi">1437</span><span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="k">data</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">None</span><span class="o">:</span>
+<span class="o">-&gt;</span><span class="w"> </span><span class="mi">1438</span><span class="w">             </span><span class="k">return</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">map</span><span class="p">(</span><span class="n">sanitize_sequence</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">),</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">1439</span><span class="w"> </span>
+<span class="w">   </span><span class="mi">1440</span><span class="w">         </span><span class="n">bound</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_sig</span><span class="p">.</span><span class="n">bind</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="o">~/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py38_jupyter</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">cbook</span><span class="o">/</span><span class="n">deprecation</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">inner_args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">inner_kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">409</span><span class="w">                          </span><span class="k">else</span><span class="w"> </span><span class="n">deprecation_addendum</span><span class="p">,</span>
+<span class="w">    </span><span class="mi">410</span><span class="w">                 </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="o">--&gt;</span><span class="w"> </span><span class="mi">411</span><span class="w">         </span><span class="k">return</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">inner_args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">inner_kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">412</span><span class="w"> </span>
+<span class="w">    </span><span class="mi">413</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="k">wrapper</span>
+
+
+<span class="o">~/</span><span class="n">opt</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py38_jupyter</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.8</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">matplotlib</span><span class="o">/</span><span class="n">axes</span><span class="o">/</span><span class="n">_axes</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">scatter</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="p">,</span><span class="w"> </span><span class="n">cmap</span><span class="p">,</span><span class="w"> </span><span class="n">norm</span><span class="p">,</span><span class="w"> </span><span class="n">vmin</span><span class="p">,</span><span class="w"> </span><span class="n">vmax</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="p">,</span><span class="w"> </span><span class="n">linewidths</span><span class="p">,</span><span class="w"> </span><span class="n">verts</span><span class="p">,</span><span class="w"> </span><span class="n">edgecolors</span><span class="p">,</span><span class="w"> </span><span class="n">plotnonfinite</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4446</span><span class="w">         </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ma</span><span class="p">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4447</span><span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="o">:</span>
+<span class="o">-&gt;</span><span class="w"> </span><span class="mi">4448</span><span class="w">             </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="s2">&quot;s must be a scalar, or the same size as x and y&quot;</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4449</span><span class="w"> </span>
+<span class="w">   </span><span class="mi">4450</span><span class="w">         </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">colors</span><span class="p">,</span><span class="w"> </span><span class="n">edgecolors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">\</span>
+
+
+<span class="n">ValueError</span><span class="o">:</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="n">must</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">scalar</span><span class="p">,</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">y</span>
+</code></pre></div>
+
+<p><img alt="png" src="/mlnotes/images/count-plot_4_2.png"></p>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

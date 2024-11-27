@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Gensim-Similarity</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/gensim-similarity.html" rel="bookmark"
+        title="Permalink to Gensim-Similarity">Gensim-Similarity</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <hr>
+<p>title: "Gensim Similarity"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span> 
+<span class="kn">import</span> <span class="nn">gensim</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">sample</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;Renewed fighting has broken out in South Sudan between forces loyal to the president and vice-president. A reporter in the capital, Juba, told the BBC gunfire and large explosions could be heard all over the city; he said heavy artillery was being used. More than 200 people are reported to have died in clashes since Friday. The latest violence came hours after the UN Security Council called on the warring factions to immediately stop the fighting. In a unanimous statement, the council condemned the violence &quot;in the strongest terms&quot; and expressed &quot;particular shock and outrage&quot; at attacks on UN sites. It also called for additional peacekeepers to be sent to South Sudan.</span>
+<span class="s2">Chinese media say two Chinese UN peacekeepers have now died in Juba. Several other peacekeepers have been injured, as well as a number of civilians who have been caught in crossfire. The latest round of violence erupted when troops loyal to President Salva Kiir and first Vice-President Riek Machar began shooting at each other in the streets of Juba. Relations between the two men have been fractious since South Sudan won independence from Sudan in 2011.</span>
+<span class="s2">Their forces have fought a civil war. But despite a peace deal last year ending the conflict, both sides retain their military capabilities and have continued to accuse each other of bad faith. On Monday, there were reports of tanks on the streets of Juba and clashes close to the airport and UN camps sheltering civilians. The US embassy warned of &quot;serious fighting&quot; taking place. A BBC correspondent in the Kenyan capital, Nairobi, said it was not clear if Mr Kiir and Mr Machar remained in control of their forces. A UN spokeswoman in Juba, Shantal Persaud, said fighting over the past few days had caused hundreds of internally displaced people to take refuge in UN premises. She said both South Sudanese leaders were responsible for implementing last year&#39;s peace agreement, which included a permanent ceasefire and the deployment of forces away from Juba. Information Minister Michael Makuei told the BBC that the situation in the city was &quot;under full control&quot; and civilians who had fled should return to their homes. Mr Machar&#39;s military spokesman, Col William Gatjiath, accused officials loyal to the president of lying, and said there had been at least 10 hours of clashes on Sunday. &quot;The situation in South Sudan is uncontrollable because Salva Kiir and his followers are not ready to follow the peace agreement,&quot; he said. </span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">sentences</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+<span class="c1">#print(sentences)</span>
+
+<span class="n">tokenized_sentences</span> <span class="o">=</span> <span class="p">[</span><span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span> <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">]</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Word2Vec</span><span class="p">(</span><span class="n">tokenized_sentences</span><span class="p">,</span> <span class="n">min_count</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#print(model.most_similar(positive=[&#39;Sudan&#39;], topn=10))</span>
+<span class="c1">#print(model.most_similar(positive=[&#39;Sudan&#39;], negative=[&#39;UN&#39;], topn=10))</span>
+<span class="c1">#print(model.most_similar(positive=[&#39;Sudan&#39;, &#39;UN&#39;], topn=10))</span>
+
+<span class="n">south_sudan</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">similarity</span><span class="p">(</span><span class="s1">&#39;South&#39;</span><span class="p">,</span> <span class="s1">&#39;Sudan&#39;</span><span class="p">)</span>
+<span class="n">peace_sudan</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">similarity</span><span class="p">(</span><span class="s1">&#39;peace&#39;</span><span class="p">,</span> <span class="s1">&#39;Sudan&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">south_sudan</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">peace_sudan</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="o">-</span><span class="mf">0.002689067</span>
+<span class="mf">0.26249856</span>
+
+
+<span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">rajacsp</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py36</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.6</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">ipykernel_launcher</span><span class="p">.</span><span class="n">py</span><span class="o">:</span><span class="mi">12</span><span class="o">:</span><span class="w"> </span><span class="n">DeprecationWarning</span><span class="o">:</span><span class="w"> </span><span class="k">Call</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">deprecated</span><span class="w"> </span><span class="n n-Quoted">`similarity`</span><span class="w"> </span><span class="p">(</span><span class="n">Method</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">removed</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mf">4.0.0</span><span class="p">,</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">wv</span><span class="p">.</span><span class="n">similarity</span><span class="p">()</span><span class="w"> </span><span class="n">instead</span><span class="p">).</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="k">path</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="o">:</span>
+<span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">rajacsp</span><span class="o">/</span><span class="n">anaconda3</span><span class="o">/</span><span class="n">envs</span><span class="o">/</span><span class="n">py36</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python3</span><span class="mf">.6</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">ipykernel_launcher</span><span class="p">.</span><span class="n">py</span><span class="o">:</span><span class="mi">13</span><span class="o">:</span><span class="w"> </span><span class="n">DeprecationWarning</span><span class="o">:</span><span class="w"> </span><span class="k">Call</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">deprecated</span><span class="w"> </span><span class="n n-Quoted">`similarity`</span><span class="w"> </span><span class="p">(</span><span class="n">Method</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">removed</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mf">4.0.0</span><span class="p">,</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">wv</span><span class="p">.</span><span class="n">similarity</span><span class="p">()</span><span class="w"> </span><span class="n">instead</span><span class="p">).</span>
+<span class="w">  </span><span class="n">del</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="k">path</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Periyar-Fact</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/periyar-fact.html" rel="bookmark"
+        title="Permalink to Periyar-Fact">Periyar-Fact</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Python 3.12.4
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+
+<span class="kn">from</span> <span class="nn">langchain_community.vectorstores</span> <span class="kn">import</span> <span class="n">FAISS</span>
+<span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnablePassthrough</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">Periyar, born in 1879, was a social reformer from Tamil Nadu, India.</span>
+<span class="s2">He founded the Self-Respect Movement to challenge caste oppression and social inequality.</span>
+<span class="s2">Periyar was a staunch advocate for women&#39;s rights and gender equality.</span>
+<span class="s2">He opposed the dominance of Brahminical culture and religious superstitions in society.</span>
+<span class="s2">Periyar is known as the &quot;Father of the Dravidian Movement&quot; in South India.</span>
+<span class="s2">He established the Dravidar Kazhagam political party in 1944 to promote rationalism.</span>
+<span class="s2">Periyar campaigned for the use of Tamil in education and government administration.</span>
+<span class="s2">He championed the idea of Tamil Nadu as an independent Dravidian state.</span>
+<span class="s2">His progressive ideas inspired movements for social justice and secularism.</span>
+<span class="s2">Periyar&#39;s influence remains significant in shaping modern Tamil Nadu&#39;s political and social landscape.</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">content</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content_list</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="err">&#39;</span><span class="nx">Periyar</span><span class="p">,</span><span class="w"> </span><span class="nx">born</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1879</span><span class="p">,</span><span class="w"> </span><span class="nx">was</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">social</span><span class="w"> </span><span class="nx">reformer</span><span class="w"> </span><span class="nx">from</span><span class="w"> </span><span class="nx">Tamil</span><span class="w"> </span><span class="nx">Nadu</span><span class="p">,</span><span class="w"> </span><span class="nx">India</span><span class="p">.</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">He</span><span class="w"> </span><span class="nx">founded</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="k">Self</span><span class="o">-</span><span class="nx">Respect</span><span class="w"> </span><span class="nx">Movement</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">challenge</span><span class="w"> </span><span class="nx">caste</span><span class="w"> </span><span class="nx">oppression</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">social</span><span class="w"> </span><span class="nx">inequality</span><span class="p">.</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s">&quot;Periyar was a staunch advocate for women&#39;s rights and gender equality.&quot;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">He</span><span class="w"> </span><span class="nx">opposed</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">dominance</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">Brahminical</span><span class="w"> </span><span class="nx">culture</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">religious</span><span class="w"> </span><span class="nx">superstitions</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">society</span><span class="p">.</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">Periyar</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">known</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="s">&quot;Father of the Dravidian Movement&quot;</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">South</span><span class="w"> </span><span class="nx">India</span><span class="p">.</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">He</span><span class="w"> </span><span class="nx">established</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">Dravidar</span><span class="w"> </span><span class="nx">Kazhagam</span><span class="w"> </span><span class="nx">political</span><span class="w"> </span><span class="nx">party</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1944</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">promote</span><span class="w"> </span><span class="nx">rationalism</span><span class="p">.</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">Periyar</span><span class="w"> </span><span class="nx">campaigned</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">use</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">Tamil</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">education</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">government</span><span class="w"> </span><span class="nx">administration</span><span class="p">.</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">He</span><span class="w"> </span><span class="nx">championed</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">idea</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">Tamil</span><span class="w"> </span><span class="nx">Nadu</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">independent</span><span class="w"> </span><span class="nx">Dravidian</span><span class="w"> </span><span class="nx">state</span><span class="p">.</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="err">&#39;</span><span class="nx">His</span><span class="w"> </span><span class="nx">progressive</span><span class="w"> </span><span class="nx">ideas</span><span class="w"> </span><span class="nx">inspired</span><span class="w"> </span><span class="nx">movements</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">social</span><span class="w"> </span><span class="nx">justice</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">secularism</span><span class="p">.</span><span class="err">&#39;</span><span class="p">,</span>
+<span class="w"> </span><span class="s">&quot;Periyar&#39;s influence remains significant in shaping modern Tamil Nadu&#39;s political and social landscape.&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">vectorstore</span> <span class="o">=</span> <span class="n">FAISS</span><span class="o">.</span><span class="n">from_texts</span><span class="p">(</span>
+    <span class="n">content_list</span><span class="p">,</span> 
+    <span class="n">embedding</span><span class="o">=</span><span class="n">OpenAIEmbeddings</span><span class="p">()</span>
+<span class="p">)</span>
+<span class="n">retriever</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">template</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Answer the question based only on the following context:</span>
+<span class="si">{context}</span>
+
+<span class="s2">Question: </span><span class="si">{question}</span>
+
+<span class="s2">Answer in the following language: </span><span class="si">{language}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">&quot;context&quot;</span><span class="p">:</span> <span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;question&quot;</span><span class="p">)</span> <span class="o">|</span> <span class="n">retriever</span><span class="p">,</span>
+        <span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;question&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="n">itemgetter</span><span class="p">(</span><span class="s2">&quot;language&quot;</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="o">|</span> <span class="n">prompt</span>
+    <span class="o">|</span> <span class="n">model</span>
+    <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;where was Periyar born?&quot;</span><span class="p">,</span> <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;tamil&quot;</span><span class="p">})</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">&#39;</span><span class="n">பெரியார்</span><span class="w"> </span><span class="mi">1879</span><span class="n">ம்</span><span class="w"> </span><span class="n">ஆண்டில்</span><span class="w"> </span><span class="n">தமிழ்நாட்டில்</span><span class="w"> </span><span class="n">பிறந்தார்</span><span class="p">.</span><span class="err">&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">&quot;question&quot;</span><span class="p">:</span> <span class="s2">&quot;wWhat is Periyar known about?&quot;</span><span class="p">,</span> <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;tamil&quot;</span><span class="p">})</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">&#39;</span><span class="n">பெரியார்</span><span class="w"> </span><span class="s">&quot;தர்மசேவகர் இயக்கத்தின் தந்தை&quot;</span><span class="w"> </span><span class="n">என</span><span class="w"> </span><span class="n">அறியப்படுகிறார்</span><span class="p">.</span><span class="w"> </span><span class="n">அவர்</span><span class="w"> </span><span class="mi">1879</span><span class="o">-</span><span class="n">ஆம்</span><span class="w"> </span><span class="n">ஆண்டு</span><span class="w"> </span><span class="n">பிறந்த</span><span class="w"> </span><span class="n">தமிழ்நாட்டைச்</span><span class="w"> </span><span class="n">சேர்ந்த</span><span class="w"> </span><span class="n">ஒரு</span><span class="w"> </span><span class="n">சமூக</span><span class="w"> </span><span class="n">சீர்திருத்தகரர்</span><span class="w"> </span><span class="k">ஆக</span><span class="w"> </span><span class="n">இருந்தார்</span><span class="p">.</span><span class="w"> </span><span class="n">பெண்களின்</span><span class="w"> </span><span class="n">உரிமைகள்</span><span class="w"> </span><span class="n">மற்றும்</span><span class="w"> </span><span class="n">பாலின</span><span class="w"> </span><span class="n">சமத்துவத்துக்காகவும்</span><span class="w"> </span><span class="n">அவர்</span><span class="w"> </span><span class="n">உறுதியாக</span><span class="w"> </span><span class="n">நின்றுள்ளார்</span><span class="p">.</span><span class="w"> </span><span class="n">பெரியாரின்</span><span class="w"> </span><span class="n">தாக்கம்</span><span class="o">,</span><span class="w"> </span><span class="n">நவீன</span><span class="w"> </span><span class="n">தமிழ்நாட்டின்</span><span class="w"> </span><span class="n">அரசியல்</span><span class="w"> </span><span class="n">மற்றும்</span><span class="w"> </span><span class="n">சமூக</span><span class="w"> </span><span class="n">அமைப்பை</span><span class="w"> </span><span class="n">வடிவமைப்பதில்</span><span class="w"> </span><span class="n">முக்கியமானது</span><span class="p">.</span><span class="err">&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 15</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

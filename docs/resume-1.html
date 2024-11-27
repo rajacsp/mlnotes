@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Resume-1</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/resume-1.html" rel="bookmark"
+        title="Permalink to Resume-1">Resume-1</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Python 3.12.4
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">PyPDF2</span> <span class="n">spacy</span> <span class="n">gliner</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">3.0</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">3.8</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">13</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">PyPDF2</span>
+
+<span class="k">def</span> <span class="nf">extract_text_from_pdf</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">reader</span> <span class="o">=</span> <span class="n">PyPDF2</span><span class="o">.</span><span class="n">PdfReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">page</span><span class="o">.</span><span class="n">extract_text</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">text</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gliner</span> <span class="kn">import</span> <span class="n">GLiNER</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Initialize GLiNER with a pre-trained model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">GLiNER</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;urchade/gliner_medium-v2.1&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">Fetching</span><span class="w"> </span><span class="mf">5</span><span class="w"> </span><span class="nx">files</span><span class="o">:</span><span class="w">   </span><span class="mf">0</span><span class="o">%|</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mf">0</span><span class="o">/</span><span class="mf">5</span><span class="w"> </span><span class="p">[</span><span class="mo">00</span><span class="o">:</span><span class="mo">00</span><span class="cp">&lt;?</span><span class="p">,</span> <span class="o">?</span><span class="nx">it</span><span class="o">/</span><span class="nx">s</span><span class="p">]</span>
+
+
+<span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">rajaraman</span><span class="o">/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">transformers</span><span class="o">/</span><span class="nx">convert_slow_tokenizer</span><span class="o">.</span><span class="nx">py</span><span class="o">:</span><span class="mi">562</span><span class="o">:</span> <span class="nx">UserWarning</span><span class="o">:</span> <span class="nx">The</span> <span class="nx">sentencepiece</span> <span class="nx">tokenizer</span> <span class="nx">that</span> <span class="nx">you</span> <span class="nx">are</span> <span class="nx">converting</span> <span class="nx">to</span> <span class="nx">a</span> <span class="nx">fast</span> <span class="nx">tokenizer</span> <span class="nx">uses</span> <span class="nx">the</span> <span class="nx">byte</span> <span class="nx">fallback</span> <span class="nx">option</span> <span class="nx">which</span> <span class="nx">is</span> <span class="k">not</span> <span class="nx">implemented</span> <span class="nx">in</span> <span class="nx">the</span> <span class="nx">fast</span> <span class="nx">tokenizers</span><span class="o">.</span> <span class="nx">In</span> <span class="nx">practice</span> <span class="k">this</span> <span class="nx">means</span> <span class="nx">that</span> <span class="nx">the</span> <span class="nx">fast</span> <span class="nx">version</span> <span class="nx">of</span> <span class="nx">the</span> <span class="nx">tokenizer</span> <span class="nx">can</span> <span class="nx">produce</span> <span class="nx">unknown</span> <span class="nx">tokens</span> <span class="nx">whereas</span> <span class="nx">the</span> <span class="nx">sentencepiece</span> <span class="nx">version</span> <span class="nx">would</span> <span class="nx">have</span> <span class="nx">converted</span> <span class="nx">these</span> <span class="nx">unknown</span> <span class="nx">tokens</span> <span class="nx">into</span> <span class="nx">a</span> <span class="nx">sequence</span> <span class="nx">of</span> <span class="nx">byte</span> <span class="nx">tokens</span> <span class="nx">matching</span> <span class="nx">the</span> <span class="nx">original</span> <span class="nx">piece</span> <span class="nx">of</span> <span class="nx">text</span><span class="o">.</span>
+  <span class="nx">warnings</span><span class="o">.</span><span class="nx">warn</span><span class="p">(</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Extract text from the resume PDF</span>
+<span class="n">pdf_path</span> <span class="o">=</span> <span class="s2">&quot;aravindhan-resume.pdf&quot;</span>  <span class="c1"># Replace with your PDF file path</span>
+<span class="n">resume_text</span> <span class="o">=</span> <span class="n">extract_text_from_pdf</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">resume_text</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="s1">&#39;                                          A.ARAVINDHAN  </span><span class="se">\n\uf029</span><span class="s1">9962962450  </span><span class="se">\n</span><span class="s1">Address:No41  Kalaigar Nagar 6th Street Manali ,Chennai -600068  </span><span class="se">\n</span><span class="s1">@A.Aravindhananta @gmail.com  </span><span class="se">\n</span><span class="s1">Education Qualification:  </span><span class="se">\n</span><span class="s1">SSLC: Government Higher Secondary School Manali ,Chennai -600068  </span><span class="se">\n</span><span class="s1">State Board  </span><span class="se">\n</span><span class="s1">Passing year:2017  </span><span class="se">\n</span><span class="s1">HSC: Government Higher Secondary School Manali ,Chennai -600068  </span><span class="se">\n</span><span class="s1">State Board  </span><span class="se">\n</span><span class="s1">Passing Year:2019  </span><span class="se">\n</span><span class="s1">DEGREE OF COURSE (UG):  </span><span class="se">\n</span><span class="s1">B.Sc(Computer Science)  </span><span class="se">\n</span><span class="s1">J.H.A Agarsen College Madhavaram, Chennai -600060  </span><span class="se">\n</span><span class="s1">Passing Year:2022  </span><span class="se">\n</span><span class="s1">Achievements:  </span><span class="se">\n\uf0d8</span><span class="s1"> Won cricket  Championship in Inter -school  and Outer school </span><span class="se">\n</span><span class="s1">Competition(2017 -2018 ) </span><span class="se">\n\uf0d8</span><span class="s1"> Won volley ball  Championship in Inter -school  and Outer school </span><span class="se">\n</span><span class="s1">Competition(2018 -2019 ) </span><span class="se">\n\uf0d8</span><span class="s1">  </span><span class="se">\n</span><span class="s1">Personal Skills:  </span><span class="se">\n\uf0d8</span><span class="s1"> Positive Thinking  </span><span class="se">\n\uf0d8</span><span class="s1"> Make Friendship Easily  </span><span class="se">\n\uf0d8</span><span class="s1"> Good Speaker  </span><span class="se">\n\uf0d8</span><span class="s1"> Quick Learner  </span><span class="se">\uf0d8</span><span class="s1"> Good Learner  </span><span class="se">\n</span><span class="s1">Skills:  </span><span class="se">\n\uf0d8</span><span class="s1"> Python  </span><span class="se">\n\uf0d8</span><span class="s1"> Html  </span><span class="se">\n\uf0d8</span><span class="s1"> Django  </span><span class="se">\n\uf0d8</span><span class="s1"> MySQL </span><span class="se">\n\uf0d8</span><span class="s1"> Computer Knowledge  </span><span class="se">\n</span><span class="s1">Language Known:  </span><span class="se">\n\uf0d8</span><span class="s1"> Read : Tamil,English  </span><span class="se">\n\uf0d8</span><span class="s1"> Write: Tamil,English  </span><span class="se">\n\uf0d8</span><span class="s1"> Speak : Tamil,English  </span><span class="se">\n</span><span class="s1">Bio Data:  </span><span class="se">\n</span><span class="s1">      Name                :   A.Aravindhan  </span><span class="se">\n</span><span class="s1">      Father Name    :  M.Aanadhan  </span><span class="se">\n</span><span class="s1">      Gender               :  Male  </span><span class="se">\n</span><span class="s1">      Marital Status   :  Single  </span><span class="se">\n</span><span class="s1">      Nationality        :   Indian  </span><span class="se">\n</span><span class="s1">Declaration:  </span><span class="se">\n</span><span class="s1">I here by declare that the above written particulars are true to the best of my </span><span class="se">\n</span><span class="s1">Knowledge and belief.  </span><span class="se">\n</span><span class="s1"> </span><span class="se">\n</span><span class="s1">Place:  </span><span class="se">\n</span><span class="s1">Date:                                                                                                               Signature  </span><span class="se">\n</span><span class="s1">    &#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Define the tech-related labels (customized for tech keys)</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;TECH_KEY&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Perform entity prediction</span>
+<span class="n">tech_keys</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_entities</span><span class="p">(</span><span class="n">resume_text</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Asking to truncate to max_length but no maximum length is provided and the model has no predefined maximum length. Default to no truncation.
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Extract only the tech keys</span>
+<span class="n">extracted_tech_keys</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">tech_keys</span><span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Display the results</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracted Tech Keys:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">tech</span> <span class="ow">in</span> <span class="n">extracted_tech_keys</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">tech</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Extracted Tech Keys:
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Paths to training data and output directory</span>
+<span class="n">train_data_path</span> <span class="o">=</span> <span class="s2">&quot;train_data.json&quot;</span>  <span class="c1"># Path to your training dataset</span>
+<span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;model_output_dir&quot;</span>      <span class="c1"># Path to save the trained model</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">help</span><span class="p">(</span><span class="n">GLiNER</span><span class="o">.</span><span class="n">train</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">Help</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">train</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">modules</span><span class="p">.</span><span class="n">module</span><span class="o">:</span>
+
+<span class="n">train</span><span class="p">(</span><span class="n">self</span><span class="o">:</span><span class="w"> </span><span class="o">~</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="k">mode</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">True</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="o">~</span><span class="n">T</span>
+<span class="w">    </span><span class="k">Set</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">module</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">training</span><span class="w"> </span><span class="k">mode</span><span class="p">.</span>
+
+<span class="w">    </span><span class="n">This</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="k">any</span><span class="w"> </span><span class="n">effect</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">certain</span><span class="w"> </span><span class="n">modules</span><span class="p">.</span><span class="w"> </span><span class="n">See</span><span class="w"> </span><span class="n">documentations</span><span class="w"> </span><span class="k">of</span>
+<span class="w">    </span><span class="n">particular</span><span class="w"> </span><span class="n">modules</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">details</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">behaviors</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">training</span><span class="o">/</span><span class="n">evaluation</span>
+<span class="w">    </span><span class="k">mode</span><span class="p">,</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">they</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">affected</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.</span><span class="w"> </span><span class="o">:</span><span class="n">class</span><span class="o">:</span><span class="n n-Quoted">`Dropout`</span><span class="p">,</span><span class="w"> </span><span class="o">:</span><span class="n">class</span><span class="o">:</span><span class="n n-Quoted">`BatchNorm`</span><span class="p">,</span>
+<span class="w">    </span><span class="n">etc</span><span class="p">.</span>
+
+<span class="w">    </span><span class="n">Args</span><span class="o">:</span>
+<span class="w">        </span><span class="k">mode</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">whether</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n">training</span><span class="w"> </span><span class="k">mode</span><span class="w"> </span><span class="p">(</span><span class="n n-Quoted">``</span><span class="no">True</span><span class="n n-Quoted">``</span><span class="p">)</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">evaluation</span>
+<span class="w">                     </span><span class="k">mode</span><span class="w"> </span><span class="p">(</span><span class="n n-Quoted">``</span><span class="no">False</span><span class="n n-Quoted">``</span><span class="p">).</span><span class="w"> </span><span class="k">Default</span><span class="o">:</span><span class="w"> </span><span class="n n-Quoted">``</span><span class="no">True</span><span class="n n-Quoted">``</span><span class="p">.</span>
+
+<span class="w">    </span><span class="k">Returns</span><span class="o">:</span>
+<span class="w">        </span><span class="n">Module</span><span class="o">:</span><span class="w"> </span><span class="n">self</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># https://github.com/urchade/GLiNER/blob/main/examples/finetune.ipynb</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 15</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>
