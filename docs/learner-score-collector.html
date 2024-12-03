@@ -48,7 +48,7 @@
         title="Permalink to Learner-Score-Collector">Learner-Score-Collector</a></h3>
     </header>
 
-<h6 class="subheader" title="2024-11-27T00:00:00-05:00">Wed 27 November 2024
+<h6 class="subheader" title="2024-12-03T00:00:00-05:00">Tue 03 December 2024
 </h6>
 
 
@@ -148,8 +148,36 @@
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_score</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+
+    <span class="c1"># Fetch the page content</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+
+    <span class="c1"># Parse the HTML content</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+
+    <span class="n">overall_score_element</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>  <span class="c1"># Locate the &lt;p&gt; tag</span>
+    <span class="k">if</span> <span class="n">overall_score_element</span><span class="p">:</span>
+        <span class="n">strong_tag</span> <span class="o">=</span> <span class="n">overall_score_element</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;strong&#39;</span><span class="p">)</span>  <span class="c1"># Locate the &lt;strong&gt; tag inside &lt;p&gt;</span>
+        <span class="k">if</span> <span class="n">strong_tag</span> <span class="ow">and</span> <span class="s2">&quot;Overall Score:&quot;</span> <span class="ow">in</span> <span class="n">strong_tag</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="n">overall_score</span> <span class="o">=</span> <span class="n">overall_score_element</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Overall Score:&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">overall_score</span><span class="p">)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>    
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">get_score</span><span class="p">(</span><span class="s2">&quot;https://stevesanjay.github.io/pynotes/archives.html&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">510</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
 <hr>
-<p><strong>Score: 10</strong></p>
+<p><strong>Score: 15</strong></p>
 <p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
@@ -178,9 +206,11 @@
             <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/encoding.html">encoding</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
@@ -195,6 +225,7 @@
             <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>

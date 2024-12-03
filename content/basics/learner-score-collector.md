@@ -1,9 +1,9 @@
 ---
 title: Learner-Score-Collector
-date: 2024-11-27
+date: 2024-12-03
 author: Your Name
-cell_count: 12
-score: 10
+cell_count: 15
+score: 15
 ---
 
 ```python
@@ -130,5 +130,43 @@ else:
 ```
 
 
+```python
+def get_score(url):
+
+    # Fetch the page content
+    response = requests.get(url)
+    
+    # Parse the HTML content
+    soup = BeautifulSoup(response.text, 'html.parser')
+
+    overall_score_element = soup.find('p')  # Locate the <p> tag
+    if overall_score_element:
+        strong_tag = overall_score_element.find('strong')  # Locate the <strong> tag inside <p>
+        if strong_tag and "Overall Score:" in strong_tag.text:
+            overall_score = overall_score_element.get_text(strip=True).replace("Overall Score:", "").strip()
+            return int(overall_score)
+        return -1
+
+    return -1    
+```
+
+
+```python
+get_score("https://stevesanjay.github.io/pynotes/archives.html")
+```
+
+
+
+
+    510
+
+
+
+
+```python
+
+```
+
+
 ---
-**Score: 10**
+**Score: 15**
