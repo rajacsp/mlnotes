@@ -1,6 +1,6 @@
 ---
 title: Int And Nan
-date: 2024-12-03
+date: 2024-12-04
 author: Your Name
 cell_count: 14
 score: 10

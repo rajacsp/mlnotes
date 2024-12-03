@@ -48,7 +48,7 @@
         title="Permalink to Split-And-Get-First">Split-And-Get-First</a></h3>
     </header>
 
-<h6 class="subheader" title="2024-12-03T00:00:00-05:00">Tue 03 December 2024
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
 
 
@@ -58,11 +58,86 @@
 <div class="highlight"><pre><span></span><code><span class="n">UNDERSCORE</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">UNDERSCORE</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">constants</span><span class="o">.</span><span class="n">UNDERSCORE</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><span class="n">feature_value_map_for_score</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;system_businessname_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+  <span class="s2">&quot;system_address_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_streetname_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_city_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_zipcode_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_businessname_sorensen&quot;</span><span class="p">:</span> <span class="mf">0.56</span><span class="p">,</span>
+  <span class="s2">&quot;system_address_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_streetname_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_city_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_region_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_houseno_exactMatch&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_zipcode_ratcliff&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_suiteno_exactMatch&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">individual_algo_feature_score_map</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;system_businessname&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;system_businessname_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="s2">&quot;system_businessname_sorensen&quot;</span><span class="p">:</span> <span class="mf">0.56</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;system_address&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;system_address_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="s2">&quot;system_address_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;system_streetname&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;system_streetname_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="s2">&quot;system_streetname_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;system_city&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;system_city_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="s2">&quot;system_city_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;system_zipcode&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;system_zipcode_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+    <span class="s2">&quot;system_zipcode_ratcliff&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;system_region&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;system_region_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;system_houseno&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;system_houseno_exactMatch&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">feature_value_map_for_score</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">feature_prefix</span> <span class="o">=</span> <span class="n">UNDERSCORE</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">UNDERSCORE</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="c1"># print(feature_prefix)</span>
+
+    <span class="k">if</span> <span class="n">feature_prefix</span> <span class="ow">in</span> <span class="n">individual_algo_feature_score_map</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">feature_prefix</span><span class="si">}</span><span class="s1"> avaible, no impute needed&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">feature_prefix</span><span class="si">}</span><span class="s1"> not avaible, impute needed&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">system_businessname</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_address</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_streetname</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_city</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_zipcode</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_businessname</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_address</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_streetname</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_city</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_region</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_houseno</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_zipcode</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+<span class="nx">system_suiteno</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">avaible</span><span class="p">,</span><span class="w"> </span><span class="nx">impute</span><span class="w"> </span><span class="nx">needed</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 0</strong></p>
+<p><strong>Score: 5</strong></p>
 <p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>

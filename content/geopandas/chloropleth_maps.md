@@ -1,6 +1,6 @@
 ---
 title: Chloropleth Maps
-date: 2024-12-03
+date: 2024-12-04
 author: Your Name
 cell_count: 21
 score: 20

@@ -1,10 +1,20 @@
 ---
 title: Seaborn-Pynotes-Growth
-date: 2024-12-03
+date: 2024-12-04
 author: Your Name
-cell_count: 18
-score: 15
+cell_count: 20
+score: 20
 ---
+
+```python
+
+```
+
+
+```python
+
+```
+
 
 ```python
 # https://seaborn.pydata.org/installing.html
@@ -47,7 +57,7 @@ plt.show()
 
 
     
-![png](/mlnotes/images/seaborn-pynotes-growth_3_0.png)
+![png](/mlnotes/images/seaborn-pynotes-growth_5_0.png)
     
 
 
@@ -285,7 +295,7 @@ sns.lineplot(data=df_wide)
 
 
     
-![png](/mlnotes/images/seaborn-pynotes-growth_15_1.png)
+![png](/mlnotes/images/seaborn-pynotes-growth_17_1.png)
     
 
 
@@ -301,4 +311,4 @@ sns.lineplot(data=df_wide)
 
 
 ---
-**Score: 15**
+**Score: 20**
