@@ -47,6 +47,104 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/chainmap.html"><h3 class="article-title">Chainmap</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Chainmap"
+author: "Rj"
+date: 2019-04-20
+description: "List Test"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="n">city</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Toronto&#39;</span><span class="p">,</span> <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;TO&#39;</span><span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">number</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span> <span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">city</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>{&#39;name&#39;: &#39;Toronto&#39;, &#39;short_name&#39;: &#39;TO&#39;}
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">number</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>{&#39;a&#39;: 2, &#39;b&#39;: 3, &#39;c&#39;: 4}
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">ChainMap</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ab</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="n">number</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">ab</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>ChainMap({&#39;name&#39;: &#39;Toronto&#39;, &#39;short_name …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/chainmap.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/chains.html"><h3 class="article-title">Chains</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_template</span><span class="p">(</span><span class="s2">&quot;tell me a joke about </span><span class="si">{topic}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">parser</span> <span class="o">=</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="n">chain …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/chains.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/change-columns-based-on-other-column.html"><h3 class="article-title">Change-Columns-Based-On-Other-Column</h3></a>
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
@@ -265,6 +363,42 @@ draft: false</p>
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/chua-circuit.html"><h3 class="article-title">Chua-Circuit</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">output_notebook</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Set Bokeh output to notebook</span>
+<span class="n">output_notebook</span><span class="p">()</span>
+</code></pre></div>
+
+<style>
+    .bk-notebook-logo {
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAOkSURBVDiNjZRtaJVlGMd/1/08zzln5zjP1LWcU9N0NkN8m2CYjpgQYQXqSs0I84OLIC0hkEKoPtiH3gmKoiJDU7QpLgoLjLIQCpEsNJ1vqUOdO7ppbuec5+V+rj4ctwzd8IIbbi6u+8f1539dt3A78eXC7QizUF7gyV1fD1Yqg4JWz84yffhm0qkFqBogB9rM8tZdtwVsPUhWhGcFJngGeWrPzHm5oaMmkfEg1usvLFyc8jLRqDOMru7AyC8saQr7GG7f5fvDeH7Ej8CM66nIF+8yngt6HWaKh7k49Soy9nXurCi1o3qUbS3zWfrYeQDTB/Qj6kX6Ybhw4B+bOYoLKCC9H3Nu/leUTZ1JdRWkkn2ldcCamzrcf47KKXdAJllSlxAOkRgyHsGC/zRday5Qld9DyoM4/q/rUoy …</style><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/chua-circuit.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/cistem-stemmer.html"><h3 class="article-title">Cistem-Stemmer</h3></a>
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
@@ -396,129 +530,9 @@ draft: false</p>
                 <hr  class="gradient"/>
             </article>
 
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/class-2-json.html"><h3 class="article-title">Class-2-Json</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Class 2 JSON"
-author: "Rj"
-date: 2019-04-20
-description: "List Test"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">City</span><span class="p">:</span>
-    <span class="k">def</span> <span class="nf">toJSON</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="k">lambda</span> <span class="n">o</span><span class="p">:</span> <span class="n">o</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">me</span> <span class="o">=</span> <span class="n">City</span><span class="p">()</span>
-<span class="n">me</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;Onur&quot;</span>
-<span class="n">me</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="mi">1</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">me</span><span class="o">.</span><span class="n">toJSON</span><span class="p">())</span>  
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>{
-    &quot;id&quot;: 1,
-    &quot;name&quot;: &quot;Onur …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/class-2-json.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/class-method.html"><h3 class="article-title">Class-Method</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Class Method"
-author: "Raja CSP Raman"
-date: 2019-04-20
-description: "-"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>  
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    revisit the Person class to validate argument</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">job</span><span class="p">,</span> <span class="n">pay</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">job</span>  <span class="o">=</span> <span class="n">job</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pay</span>  <span class="o">=</span> <span class="n">pay</span>
-                                          <span class="c1"># arg 0 is the self instance here</span>
-                                          <span class="c1"># giveRaise = rangetest(..)(giveRaise)</span>
-    <span class="k">def</span> <span class="nf">giveRaise</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">percent</span><span class="p">):</span>
-        <span class="bp">self …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/class-method.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/classes-sample-2024.html"><h3 class="article-title">Classes-Sample-2024</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">urllib.parse</span>
-<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">urlparse</span>
-
-<span class="k">class</span> <span class="nc">Client</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_url</span><span class="p">,</span> <span class="n">http_client</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">=</span> <span class="n">base_url</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">http_client</span> <span class="o">=</span> <span class="n">http_client</span>
-
-
-<span class="k">def</span> <span class="nf">client_from_environment</span><span class="p">():</span>
-    <span class="n">default_port</span> <span class="o">=</span> <span class="s2">&quot;11434&quot;</span>
-    <span class="n">ollama_host</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">&quot;OLLAMA_HOST&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-
-    <span class="c1"># Parse scheme and hostport</span>
-    <span class="k">if</span> <span class="s2">&quot;://&quot;</span> <span class="ow">in</span> <span class="n">ollama_host</span><span class="p">:</span>
-        <span class="n">scheme</span><span class="p">,</span> <span class="n">hostport</span> <span class="o">=</span> <span class="n">ollama_host</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;://&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">scheme</span><span class="p">,</span> <span class="n">hostport</span> <span class="o">=</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="n">ollama_host</span>
-
-    <span class="c1"># Adjust default …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/classes-sample-2024.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
             <!-- /#posts-list -->
 <div class="pagination-centered">
-<h6 class="subheader">Page 9 of 55</h6>
+<h6 class="subheader">Page 9 of 57</h6>
 
 <p>
             <a href="https://rajasgs.github.io/mlnotes/index8.html">&laquo; Prev</a>
