@@ -2,7 +2,7 @@
 title: Bokeh-Hbar-Plot-1
 date: 2024-12-04
 author: Your Name
-cell_count: 6
+cell_count: 9
 score: 5
 ---
 
@@ -87,6 +87,15 @@ show(hbar_plot)
 
 
 
+
+
+```python
+
+```
+
+Screenshot
+
+![image.png](bokeh-hbar-plot-1_files/60f3f71e-0d58-454c-a7c6-25155c184315.png)
 
 
 ```python

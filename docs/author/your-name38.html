@@ -47,6 +47,62 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/regexp-stemmer.html"><h3 class="article-title">Regexp-Stemmer</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Regexp Stemmer"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">RegexpStemmer</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">re_stemmer</span> <span class="o">=</span> <span class="n">RegexpStemmer</span><span class="p">(</span><span class="s2">&quot;ing$|s$|e$|able$&quot;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">words</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;wheels&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;breaking&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;thrones&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;breakable&quot;</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">words</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[&#39;wheels&#39;, &#39;breaking&#39;, &#39;thrones&#39;, &#39;breakable&#39;]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">re_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">result</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[<span class="s1">&#39;wheels&#39;</span>,<span class="w"> </span><span class="s1">&#39;break&#39;</span>,<span class="w"> </span><span class="s1">&#39;throne&#39;</span>,<span class="w"> </span><span class="s1">&#39;break&#39;</span>]
+</code></pre></div>
+
+<p>As the …</p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/regexp-stemmer.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/remove-item-on-loop.html"><h3 class="article-title">Remove Item On Loop</h3></a>
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
@@ -144,7 +200,7 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/remove-numbers-2127.html"><h3 class="article-title">Remove Numbers-2127</h3></a>
+                <a href="https://rajasgs.github.io/mlnotes/remove-numbers-9470.html"><h3 class="article-title">Remove Numbers-9470</h3></a>
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
 
@@ -167,7 +223,7 @@ draft: false</p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/remove-numbers-2127.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/remove-numbers-9470.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -410,57 +466,6 @@ draft: false</p>
 
 
                 <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/resume2.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/retrieval-chain.html"><h3 class="article-title">Retrieval-Chain</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/streaming/</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Python 3.12.4
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">faiss</span><span class="o">-</span><span class="n">cpu</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nx">Requirement</span><span class="w"> </span><span class="nx">already</span><span class="w"> </span><span class="nx">satisfied</span><span class="p">:</span><span class="w"> </span><span class="nx">faiss</span><span class="o">-</span><span class="nx">cpu …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/retrieval-chain.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
