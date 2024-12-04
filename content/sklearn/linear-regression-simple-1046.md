@@ -1,5 +1,5 @@
 ---
-title: Linear-Regression-Simple-2022
+title: Linear-Regression-Simple-1046
 date: 2024-12-04
 author: Your Name
 cell_count: 14

@@ -1,8 +1,8 @@
 ---
-title: Zzemp-Bokeh-1-Copy1
+title: Bokeh-Line-With-Markers-1
 date: 2024-12-04
 author: Your Name
-cell_count: 5
+cell_count: 6
 score: 5
 ---
 
@@ -34,7 +34,7 @@ output_notebook()
 </style>
 <div>
     <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
-    <span id="c8cc2cd2-749e-47c0-95d4-a31aa7a2ce5c">Loading BokehJS ...</span>
+    <span id="eb14d7dd-0b51-41ee-ba33-4318289d0e02">Loading BokehJS ...</span>
 </div>
 
 
@@ -43,23 +43,40 @@ output_notebook()
 
 
 ```python
-# Sample 2: Scatter Plot with Color Mapping
-data = {'x': [1, 2, 3, 4, 5],
-        'y': [6, 7, 2, 4, 5],
-        'size': [10, 20, 30, 40, 50],
-        'color': ['red', 'blue', 'green', 'orange', 'purple']}
+from bokeh.plotting import figure, show
 
-source = ColumnDataSource(data=data)
+# Bar Plot: No changes needed
+categories = ['A', 'B', 'C', 'D', 'E']
+values = [10, 20, 15, 25, 30]
 
-scatter_plot = figure(title="Sample Scatter Plot", x_axis_label='X-Axis', y_axis_label='Y-Axis')
-scatter_plot.scatter('x', 'y', size='size', color='color', source=source, legend_label="Scatter")
+bar_plot = figure(x_range=categories, title="Sample Bar Plot", x_axis_label='Categories', y_axis_label='Values')
+bar_plot.vbar(x=categories, top=values, width=0.5, color='blue', legend_label="Bar")
 
-show(scatter_plot)
+# Line with Markers: Use scatter for markers
+line_marker_plot = figure(title="Line with Markers", x_range=categories, x_axis_label='Categories', y_axis_label='Values')
+line_marker_plot.line(categories, values, line_width=2, legend_label="Line")
+line_marker_plot.scatter(categories, values, size=8, color="red", legend_label="Markers")
+
+# Show plots
+show(bar_plot)
 ```
 
 
 
-<div id="c22e3197-3147-4bb5-b4ca-52a9a533f771" data-root-id="p1056" style="display: contents;"></div>
+<div id="a97f08ad-2878-4c68-80e5-58b3be61f8ce" data-root-id="p1605" style="display: contents;"></div>
+
+
+
+
+
+
+```python
+show(line_marker_plot)
+```
+
+
+
+<div id="d779fbcf-4467-4f6e-8de5-f99c8c340924" data-root-id="p1652" style="display: contents;"></div>
 
 
 

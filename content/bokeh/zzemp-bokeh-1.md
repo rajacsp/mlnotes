@@ -43,27 +43,8 @@ output_notebook()
 
 
 ```python
-# Sample 2: Scatter Plot with Color Mapping
-data = {'x': [1, 2, 3, 4, 5],
-        'y': [6, 7, 2, 4, 5],
-        'size': [10, 20, 30, 40, 50],
-        'color': ['red', 'blue', 'green', 'orange', 'purple']}
 
-source = ColumnDataSource(data=data)
-
-scatter_plot = figure(title="Sample Scatter Plot", x_axis_label='X-Axis', y_axis_label='Y-Axis')
-scatter_plot.scatter('x', 'y', size='size', color='color', source=source, legend_label="Scatter")
-
-show(scatter_plot)
 ```
-
-
-
-<div id="c22e3197-3147-4bb5-b4ca-52a9a533f771" data-root-id="p1056" style="display: contents;"></div>
-
-
-
-
 
 
 ```python
