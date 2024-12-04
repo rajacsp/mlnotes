@@ -1,5 +1,5 @@
 ---
-title: Zzemp-Bokeh-1-Copy5
+title: Lorenz-Similar-1
 date: 2024-12-04
 author: Your Name
 cell_count: 5
@@ -34,7 +34,7 @@ output_notebook()
 </style>
 <div>
     <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
-    <span id="c8cc2cd2-749e-47c0-95d4-a31aa7a2ce5c">Loading BokehJS ...</span>
+    <span id="b97cb0c0-7f65-4a78-b863-637956254c18">Loading BokehJS ...</span>
 </div>
 
 
@@ -43,8 +43,65 @@ output_notebook()
 
 
 ```python
+import numpy as np
+from scipy.integrate import odeint
+from bokeh.plotting import figure, show
 
+# Lorenz system parameters
+sigma = 10
+rho = 28
+beta = 8.0 / 3
+theta = 3 * np.pi / 4
+
+# Lorenz system function
+def lorenz(xyz, t):
+    x, y, z = xyz
+    x_dot = sigma * (y - x)
+    y_dot = x * rho - x * z - y
+    z_dot = x * y - beta * z
+    return [x_dot, y_dot, z_dot]
+
+# Initial conditions and time steps
+initial = (-10, -7, 35)
+t = np.arange(0, 100, 0.006)
+
+# Solve Lorenz equations
+solution = odeint(lorenz, initial, t)
+x = solution[:, 0]
+y = solution[:, 1]
+z = solution[:, 2]
+
+# Rotate data for a different perspective
+xprime = np.cos(theta) * x - np.sin(theta) * y
+
+# Split data into segments for multi_line
+num_segments = 7
+xs = np.array_split(xprime, num_segments)
+ys = np.array_split(z, num_segments)
+
+# Define a color palette
+colors = ["#C6DBEF", "#9ECAE1", "#6BAED6", "#4292C6", "#2171B5", "#08519C", "#08306B"]
+
+# Create the Bokeh figure
+p = figure(title="Lorenz Attractor Visualization",
+           background_fill_color="#f9f9f9",
+           x_axis_label="X'",
+           y_axis_label="Z")
+
+# Add the multi_line glyph
+p.multi_line(xs, ys, line_color=colors, line_alpha=0.8, line_width=1.5)
+
+# Show the plot
+show(p)
 ```
+
+
+
+<div id="a84d624a-1e42-4711-9dcb-beeaa6deb77a" data-root-id="p1001" style="display: contents;"></div>
+
+
+
+
 
 
 ```python

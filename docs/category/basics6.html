@@ -295,6 +295,58 @@ draft: false</p>
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/hex-validator.html"><h3 class="article-title">Hex-Validator</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">is_valid_hex_color</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;^#(?:[0-9a-fA-F]</span><span class="si">{3}</span><span class="s1">|[0-9a-fA-F]</span><span class="si">{6}</span><span class="s1">)$&#39;</span>
+    <span class="k">return</span> <span class="nb">bool</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">color</span><span class="p">))</span>
+
+<span class="c1"># Examples</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">is_valid_hex_color</span><span class="p">(</span><span class="s2">&quot;#FFF&quot;</span><span class="p">))</span>  <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">is_valid_hex_color</span><span class="p">(</span><span class="s2">&quot;#123ABC&quot;</span><span class="p">))</span>  <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">is_valid_hex_color</span><span class="p">(</span><span class="s2">&quot;#123ABCG&quot;</span><span class="p">))</span>  <span class="c1"># False</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>True
+True
+False
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">webcolors</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">24.11</span><span class="o">.</span><span class="mi">1</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">webcolors</span>
+
+<span class="k">def</span> <span class="nf">is_valid_hex_color</span><span class="p">(</span><span class="n">color</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">webcolors</span><span class="o">.</span><span class="n">hex_to_rgb …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/hex-validator.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/immutable-int.html"><h3 class="article-title">Immutable-Int</h3></a>
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
@@ -513,51 +565,6 @@ draft: false</p>
 
 
                 <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/ip-whois.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/ip2long.html"><h3 class="article-title">Ip2Long</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<hr>
-<p>title: "IP To Long"
-author: "Rj"
-date: 2019-04-20
-description: "List Test"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">math</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AuthException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="k">pass</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ip_to_long</span><span class="p">(</span><span class="n">ip_address</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="k">if</span><span class="p">(</span><span class="n">ip_address</span> <span class="o">==</span> <span class="s1">&#39;0:0:0:0:0:0:0:1&#39;</span><span class="p">):</span>
-        <span class="n">ip_address</span> <span class="o">=</span> <span class="s1">&#39;127.0.0.1&#39;</span>
-
-    <span class="n">ip_address_array</span> <span class="o">=</span> <span class="n">ip_address</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ip_address_array</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">):</span>    
-        <span class="k">raise</span> <span class="n">AuthException</span><span class="p">(</span><span class="s1">&#39;Invalid Ip …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/ip2long.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 

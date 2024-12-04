@@ -1,5 +1,5 @@
 ---
-title: Zzemp-Bokeh-1-Copy7
+title: Multiline-Glyb-1
 date: 2024-12-04
 author: Your Name
 cell_count: 5
@@ -34,7 +34,7 @@ output_notebook()
 </style>
 <div>
     <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
-    <span id="c8cc2cd2-749e-47c0-95d4-a31aa7a2ce5c">Loading BokehJS ...</span>
+    <span id="dcb41736-1dda-4023-a259-f9e2b8381af0">Loading BokehJS ...</span>
 </div>
 
 
@@ -43,8 +43,30 @@ output_notebook()
 
 
 ```python
+from bokeh.plotting import figure, show
+from bokeh.models import ColumnDataSource
 
+# Example data: lists of x and y coordinates for multiple lines
+xs = [[1, 2, 3, 4], [2, 3, 4, 5], [3, 4, 5, 6]]  # x-coordinates for 3 lines
+ys = [[5, 6, 7, 8], [4, 5, 6, 7], [3, 4, 5, 6]]  # y-coordinates for 3 lines
+
+# Create a Bokeh plot
+p = figure(title="Multi-Line Example", x_axis_label="X-axis", y_axis_label="Y-axis")
+
+# Add the multi_line glyph
+p.multi_line(xs=xs, ys=ys, line_width=2, color=["red", "green", "blue"])
+
+# Display the plot
+show(p)
 ```
+
+
+
+<div id="f0e32689-0374-4aed-b3aa-ebc01c4d75ef" data-root-id="p1001" style="display: contents;"></div>
+
+
+
+
 
 
 ```python

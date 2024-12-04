@@ -47,6 +47,157 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/name-scope.html"><h3 class="article-title">Name Scope</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Name Scope"
+author: "Raja CSP Raman"
+date: 2019-05-07
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Just disables the warning, doesn&#39;t enable AVX/FMA</span>
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># to clear the graph before new nodes</span>
+<span class="n">tf</span><span class="o">.</span><span class="n">reset_default_graph</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">name_scope</span><span class="p">(</span><span class="s2">&quot;march&quot;</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mi">1 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/name-scope.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/named-arguments-in-format.html"><h3 class="article-title">Named-Arguments-In-Format</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Named Arguments in Format"
+author: "Rj"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{greeting!r:20}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">greeting</span><span class="o">=</span><span class="s2">&quot;Hello&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;Hello&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{one}</span><span class="s2"> </span><span class="si">{two!r}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">one</span><span class="o">=</span><span class="s2">&quot;ten&quot;</span><span class="p">,</span> <span class="n">two</span><span class="o">=</span><span class="s2">&quot;twenty&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>ten &#39;twenty&#39;
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 0</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/named-arguments-in-format.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/named-colors.html"><h3 class="article-title">Named-Colors</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">six</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">colors</span>
+
+
+<span class="n">colors_</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="n">cnames</span><span class="p">))</span>
+
+<span class="c1"># Add the single letter colors.</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">rgb</span> <span class="ow">in</span> <span class="n">six</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(</span><span class="n">colors</span><span class="o">.</span><span class="n">ColorConverter</span><span class="o">.</span><span class="n">colors</span><span class="p">):</span>
+    <span class="n">hex_</span> <span class="o">=</span> <span class="n">colors</span><span class="o">.</span><span class="n">rgb2hex</span><span class="p">(</span><span class="n">rgb</span><span class="p">)</span>
+    <span class="n">colors_</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">hex_</span><span class="p">))</span>
+
+<span class="c1"># Transform to hex color values.</span>
+<span class="n">hex_</span> <span class="o">=</span> <span class="p">[</span><span class="n">color …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/named-colors.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/negative-lookahead.html"><h3 class="article-title">Negative Lookahead</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Negative Lookahead"
+author: "Raja CSP Raman"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">test</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="s1">&#39;i sure like eating pie, but i love donuts&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+         <span class="p">(</span><span class="s1">&#39;i sure like eating pie, but i hate donuts&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">),</span>
+         <span class="p">(</span><span class="s1">&#39;i sure hate eating pie, but i like donuts&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">rx</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/negative-lookahead.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/new-axis.html"><h3 class="article-title">New-Axis</h3></a>
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
@@ -303,174 +454,6 @@ draft: false</p>
 
 
                 <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/numpy-2-tensor.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/numpy-multiplication-in-tensorflow.html"><h3 class="article-title">Numpy Multiplication In Tensorflow</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Numpy Multplication in Tensorflow"
-author: "Raja CSP Raman"
-date: 2019-05-07
-description: "-"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
-
-<span class="c1"># Just disables the warning, doesn&#39;t enable AVX/FMA</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">matrix1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>
-<span class="n">matrix2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">],[</span><span class="mf">2.0</span><span class="p">]])</span>
-<span class="n">product</span> <span class="o">=</span> <span class="n">tf …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/numpy-multiplication-in-tensorflow.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/odd-even-2.html"><h3 class="article-title">Odd-Even-2</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">odd_even</span><span class="p">():</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>      
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-              <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The number </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> is even&quot;</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The number </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> is odd&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">odd_even</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>The number 0 is even
-The number 1 is odd
-The number 2 is even
-The number 3 is odd
-The number 4 …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/odd-even-2.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/odd-or-even.html"><h3 class="article-title">Odd-Or-Even</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<p>Nov 20 2024</p>
-<p>Write a Python program that checks if a given number is odd or even.</p>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">check_odd_or_even</span><span class="p">(</span><span class="n">input_number</span><span class="p">):</span>
-
-    <span class="k">if</span> <span class="n">input_number</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">input_number</span><span class="si">}</span><span class="s2"> is Even&quot;</span>
-
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">input_number</span><span class="si">}</span><span class="s2"> is Odd&quot;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">check_odd_or_even</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&#39;7 is Odd&#39;
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">check_odd_or_even</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&#39;8 is Even&#39;
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">check_odd_or_even</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&#39;0 is Even&#39;
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">check_odd_or_even …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/odd-or-even.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/ones.html"><h3 class="article-title">Ones</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Ones"
-author: "Raja CSP Raman"
-date: 2019-05-07
-description: "-"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
-
-<span class="c1"># Just disables the warning, doesn&#39;t enable AVX/FMA</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">a</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nx">tf</span><span class="p">.</span><span class="nx">Tensor</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">ones</span><span class="p">:</span><span class="mi">0</span><span class="err">&#39;</span><span class="w"> </span><span class="nx">shape</span><span class="p">=(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="nx">dtype</span><span class="p">=</span><span class="nx">float32</span><span class="p">&gt;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">tf</span><span class="o">.</span><span class="n">Session …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/ones.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 

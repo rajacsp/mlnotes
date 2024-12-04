@@ -1,5 +1,5 @@
 ---
-title: Zzemp-Bokeh-1-Copy6
+title: Duffing-Oscillator-1
 date: 2024-12-04
 author: Your Name
 cell_count: 5
@@ -34,7 +34,7 @@ output_notebook()
 </style>
 <div>
     <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
-    <span id="c8cc2cd2-749e-47c0-95d4-a31aa7a2ce5c">Loading BokehJS ...</span>
+    <span id="fa824045-cdf9-402b-b94d-f232b0fe434d">Loading BokehJS ...</span>
 </div>
 
 
@@ -43,8 +43,61 @@ output_notebook()
 
 
 ```python
+import numpy as np
+from scipy.integrate import odeint
+from bokeh.plotting import figure, show
 
+# Duffing oscillator parameters
+alpha = -1
+beta = 1
+delta = 0.2
+gamma = 0.3
+omega = 1.2
+
+# Duffing system function
+def duffing(state, t):
+    x, y = state
+    x_dot = y
+    y_dot = -delta * y - alpha * x - beta * x**3 + gamma * np.cos(omega * t)
+    return [x_dot, y_dot]
+
+# Initial conditions and time steps
+initial = [1, 0]
+t = np.linspace(0, 100, 10000)
+
+# Solve Duffing oscillator equations
+solution = odeint(duffing, initial, t)
+x = solution[:, 0]
+y = solution[:, 1]
+
+# Split data into segments for multi-line
+num_segments = 7
+xs = np.array_split(x, num_segments)
+ys = np.array_split(y, num_segments)
+
+# Define a color palette
+colors = ["#FFEDA0", "#FED976", "#FEB24C", "#FD8D3C", "#FC4E2A", "#E31A1C", "#BD0026"]
+
+# Create the Bokeh figure
+p = figure(title="Duffing Oscillator Visualization",
+           background_fill_color="#f9f9f9",
+           x_axis_label="X",
+           y_axis_label="Y")
+
+# Add the multi_line glyph
+p.multi_line(xs, ys, line_color=colors, line_alpha=0.8, line_width=1.5)
+
+# Show the plot
+show(p)
 ```
+
+
+
+<div id="d9b675ef-40aa-4d53-abfc-55d9359f4531" data-root-id="p1001" style="display: contents;"></div>
+
+
+
+
 
 
 ```python

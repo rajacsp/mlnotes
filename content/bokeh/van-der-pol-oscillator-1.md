@@ -1,8 +1,8 @@
 ---
-title: Zzemp-Bokeh-1-Copy8
+title: Van-Der-Pol-Oscillator-1
 date: 2024-12-04
 author: Your Name
-cell_count: 5
+cell_count: 7
 score: 5
 ---
 
@@ -34,8 +34,62 @@ output_notebook()
 </style>
 <div>
     <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
-    <span id="c8cc2cd2-749e-47c0-95d4-a31aa7a2ce5c">Loading BokehJS ...</span>
+    <span id="a951b50c-9a3e-48d8-b7e4-0b7625fc8cc3">Loading BokehJS ...</span>
 </div>
+
+
+
+
+
+
+```python
+import numpy as np
+from scipy.integrate import odeint
+from bokeh.plotting import figure, show
+
+# Van der Pol oscillator parameter
+mu = 2.0  # Controls the nonlinearity and damping
+
+# Van der Pol system function
+def van_der_pol(state, t):
+    x, y = state
+    x_dot = y
+    y_dot = mu * (1 - x**2) * y - x
+    return [x_dot, y_dot]
+
+# Initial conditions and time steps
+initial = [2, 0]
+t = np.linspace(0, 100, 10000)
+
+# Solve Van der Pol equations
+solution = odeint(van_der_pol, initial, t)
+x = solution[:, 0]
+y = solution[:, 1]
+
+# Split data into segments for multi-line
+num_segments = 7
+xs = np.array_split(x, num_segments)
+ys = np.array_split(y, num_segments)
+
+# Define a color palette
+colors = ["#FFE5D9", "#FFB3B3", "#FF9999", "#FF6666", "#FF3333", "#CC0000", "#990000"]
+
+# Create the Bokeh figure
+p = figure(title="Van der Pol Oscillator Visualization",
+           background_fill_color="#f9f9f9",
+           x_axis_label="X",
+           y_axis_label="Y")
+
+# Add the multi_line glyph
+p.multi_line(xs, ys, line_color=colors, line_alpha=0.8, line_width=1.5)
+
+# Show the plot
+show(p)
+```
+
+
+
+<div id="c65e25a2-4f4f-450d-9fdd-6e50a43c2faf" data-root-id="p1001" style="display: contents;"></div>
 
 
 
@@ -45,6 +99,18 @@ output_notebook()
 ```python
 
 ```
+
+
+```python
+from IPython.display import Image, display
+
+# Display the image
+display(Image(url="https://snipboard.io/HfrZtc.jpg"))
+```
+
+
+<img src="https://snipboard.io/HfrZtc.jpg"/>
+
 
 
 ```python

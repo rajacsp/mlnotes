@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Zzemp-Bokeh-1-Copy7</title>
+    <title>Duffing-Oscillator-1</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
@@ -44,8 +44,8 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/zzemp-bokeh-1-copy7.html" rel="bookmark"
-        title="Permalink to Zzemp-Bokeh-1-Copy7">Zzemp-Bokeh-1-Copy7</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/duffing-oscillator-1.html" rel="bookmark"
+        title="Permalink to Duffing-Oscillator-1">Duffing-Oscillator-1</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
@@ -74,11 +74,58 @@
 </style>
 <div>
     <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
-    <span id="c8cc2cd2-749e-47c0-95d4-a31aa7a2ce5c">Loading BokehJS ...</span>
+    <span id="fa824045-cdf9-402b-b94d-f232b0fe434d">Loading BokehJS ...</span>
 </div>
 
-<div class="highlight"><pre><span></span><code>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">show</span>
+
+<span class="c1"># Duffing oscillator parameters</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="mf">1.2</span>
+
+<span class="c1"># Duffing system function</span>
+<span class="k">def</span> <span class="nf">duffing</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">state</span>
+    <span class="n">x_dot</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="n">y_dot</span> <span class="o">=</span> <span class="o">-</span><span class="n">delta</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">x</span> <span class="o">-</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">3</span> <span class="o">+</span> <span class="n">gamma</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">omega</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x_dot</span><span class="p">,</span> <span class="n">y_dot</span><span class="p">]</span>
+
+<span class="c1"># Initial conditions and time steps</span>
+<span class="n">initial</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+
+<span class="c1"># Solve Duffing oscillator equations</span>
+<span class="n">solution</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">duffing</span><span class="p">,</span> <span class="n">initial</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">solution</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">solution</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Split data into segments for multi-line</span>
+<span class="n">num_segments</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">num_segments</span><span class="p">)</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">num_segments</span><span class="p">)</span>
+
+<span class="c1"># Define a color palette</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#FFEDA0&quot;</span><span class="p">,</span> <span class="s2">&quot;#FED976&quot;</span><span class="p">,</span> <span class="s2">&quot;#FEB24C&quot;</span><span class="p">,</span> <span class="s2">&quot;#FD8D3C&quot;</span><span class="p">,</span> <span class="s2">&quot;#FC4E2A&quot;</span><span class="p">,</span> <span class="s2">&quot;#E31A1C&quot;</span><span class="p">,</span> <span class="s2">&quot;#BD0026&quot;</span><span class="p">]</span>
+
+<span class="c1"># Create the Bokeh figure</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Duffing Oscillator Visualization&quot;</span><span class="p">,</span>
+           <span class="n">background_fill_color</span><span class="o">=</span><span class="s2">&quot;#f9f9f9&quot;</span><span class="p">,</span>
+           <span class="n">x_axis_label</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">,</span>
+           <span class="n">y_axis_label</span><span class="o">=</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add the multi_line glyph</span>
+<span class="n">p</span><span class="o">.</span><span class="n">multi_line</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">line_alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">show</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
 </code></pre></div>
+
+<div id="d9b675ef-40aa-4d53-abfc-55d9359f4531" data-root-id="p1001" style="display: contents;"></div>
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>

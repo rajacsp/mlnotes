@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Zzemp-Bokeh-1-Copy8</title>
+    <title>Van-Der-Pol-Oscillator-1</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
@@ -44,8 +44,8 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/zzemp-bokeh-1-copy8.html" rel="bookmark"
-        title="Permalink to Zzemp-Bokeh-1-Copy8">Zzemp-Bokeh-1-Copy8</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/van-der-pol-oscillator-1.html" rel="bookmark"
+        title="Permalink to Van-Der-Pol-Oscillator-1">Van-Der-Pol-Oscillator-1</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
@@ -74,12 +74,65 @@
 </style>
 <div>
     <a href="https://bokeh.org" target="_blank" class="bk-notebook-logo"></a>
-    <span id="c8cc2cd2-749e-47c0-95d4-a31aa7a2ce5c">Loading BokehJS ...</span>
+    <span id="a951b50c-9a3e-48d8-b7e4-0b7625fc8cc3">Loading BokehJS ...</span>
 </div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">odeint</span>
+<span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">show</span>
+
+<span class="c1"># Van der Pol oscillator parameter</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="mf">2.0</span>  <span class="c1"># Controls the nonlinearity and damping</span>
+
+<span class="c1"># Van der Pol system function</span>
+<span class="k">def</span> <span class="nf">van_der_pol</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">state</span>
+    <span class="n">x_dot</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="n">y_dot</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">y</span> <span class="o">-</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x_dot</span><span class="p">,</span> <span class="n">y_dot</span><span class="p">]</span>
+
+<span class="c1"># Initial conditions and time steps</span>
+<span class="n">initial</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+
+<span class="c1"># Solve Van der Pol equations</span>
+<span class="n">solution</span> <span class="o">=</span> <span class="n">odeint</span><span class="p">(</span><span class="n">van_der_pol</span><span class="p">,</span> <span class="n">initial</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">solution</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">solution</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Split data into segments for multi-line</span>
+<span class="n">num_segments</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">num_segments</span><span class="p">)</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">num_segments</span><span class="p">)</span>
+
+<span class="c1"># Define a color palette</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#FFE5D9&quot;</span><span class="p">,</span> <span class="s2">&quot;#FFB3B3&quot;</span><span class="p">,</span> <span class="s2">&quot;#FF9999&quot;</span><span class="p">,</span> <span class="s2">&quot;#FF6666&quot;</span><span class="p">,</span> <span class="s2">&quot;#FF3333&quot;</span><span class="p">,</span> <span class="s2">&quot;#CC0000&quot;</span><span class="p">,</span> <span class="s2">&quot;#990000&quot;</span><span class="p">]</span>
+
+<span class="c1"># Create the Bokeh figure</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">figure</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Van der Pol Oscillator Visualization&quot;</span><span class="p">,</span>
+           <span class="n">background_fill_color</span><span class="o">=</span><span class="s2">&quot;#f9f9f9&quot;</span><span class="p">,</span>
+           <span class="n">x_axis_label</span><span class="o">=</span><span class="s2">&quot;X&quot;</span><span class="p">,</span>
+           <span class="n">y_axis_label</span><span class="o">=</span><span class="s2">&quot;Y&quot;</span><span class="p">)</span>
+
+<span class="c1"># Add the multi_line glyph</span>
+<span class="n">p</span><span class="o">.</span><span class="n">multi_line</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">line_color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">line_alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1"># Show the plot</span>
+<span class="n">show</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+</code></pre></div>
+
+<div id="c65e25a2-4f4f-450d-9fdd-6e50a43c2faf" data-root-id="p1001" style="display: contents;"></div>
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span><span class="p">,</span> <span class="n">display</span>
+
+<span class="c1"># Display the image</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://snipboard.io/HfrZtc.jpg&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<p><img src="https://snipboard.io/HfrZtc.jpg"/></p>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
