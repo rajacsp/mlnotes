@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>ML Notes - error-analyzer</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+        
+        
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/prettify-error.html"><h3 class="article-title">Prettify-Error</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">error_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">{</span>
+<span class="s2">    &quot;error&quot;: {</span>
+<span class="s2">        &quot;error_code&quot;: 1002,</span>
+<span class="s2">        &quot;error_message&quot;: &quot;Unspecified Error&quot;,</span>
+<span class="s2">        &quot;details&quot;: &quot;Unexpected error: [&#39;Traceback (most recent call last):&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/main.py</span><span class="se">\&quot;</span><span class="s2">, line 228, in post_predict_classic_joblib_api&#39;, &#39;    result_obj = await label_generator.match_with_multi(&#39;, &#39;                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py</span><span class="se">\&quot;</span><span class="s2">, line 770, in match_with_multi&#39;, &#39;    feature_scores, overall_score = get_match_scores(&#39;, &#39;                                    ^^^^^^^^^^^^^^^^^&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py</span><span class="se">\&quot;</span><span class="s2">, line 559, in get_match_scores&#39;, &#39;    overall_score = get_average_feature_score(&#39;, &#39;                    ^^^^^^^^^^^^^^^^^^^^^^^^^^&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py</span><span class="se">\&quot;</span><span class="s2">, line 332, in get_average_feature_score&#39;, &#39;    weighted_scores = get_feature_name_score_pair(&#39;, &#39;                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py</span><span class="se">\&quot;</span><span class="s2">, line 292, in get_feature_name_score_pair&#39;, &#39;    if feature_prefix in individual_algo_feature_score_map.keys():&#39;, &#39;       ^^^^^^^^^^^^^^&#39;, </span><span class="se">\&quot;</span><span class="s2">UnboundLocalError: cannot access local variable &#39;feature_prefix&#39; where it is not associated with a value</span><span class="se">\&quot;</span><span class="s2">]&quot;</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">error_string</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">{</span><span class="se">\n</span><span class="s1">    &quot;error&quot;: {</span><span class="se">\n</span><span class="s1">        &quot;error_code&quot;: 1002,</span><span class="se">\n</span><span class="s1">        &quot;error_message&quot;: &quot;Unspecified Error&quot;,</span><span class="se">\n</span><span class="s1">        &quot;details&quot;: &quot;Unexpected error: [</span><span class="se">\&#39;</span><span class="s1">Traceback (most recent call last):</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">  File &quot;/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/main.py&quot;, line 228, in post_predict_classic_joblib_api</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">    result_obj = await label_generator.match_with_multi(</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">  File &quot;/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py&quot;, line 770, in match_with_multi</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">    feature_scores, overall_score = get_match_scores(</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">                                    ^^^^^^^^^^^^^^^^^</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">  File &quot;/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py&quot;, line 559, in get_match_scores</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">    overall_score = get_average_feature_score(</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">                    ^^^^^^^^^^^^^^^^^^^^^^^^^^</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">  File &quot;/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py&quot;, line 332, in get_average_feature_score</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">    weighted_scores = get_feature_name_score_pair(</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">  File &quot;/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py&quot;, line 292, in get_feature_name_score_pair</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">    if feature_prefix in individual_algo_feature_score_map.keys():</span><span class="se">\&#39;</span><span class="s1">, </span><span class="se">\&#39;</span><span class="s1">       ^^^^^^^^^^^^^^</span><span class="se">\&#39;</span><span class="s1">, &quot;UnboundLocalError: cannot access local variable </span><span class="se">\&#39;</span><span class="s1">feature_prefix</span><span class="se">\&#39;</span><span class="s1"> where it is not associated with a value&quot;]&quot;</span><span class="se">\n</span><span class="s1">    }</span><span class="se">\n</span><span class="s1">}</span><span class="se">\n</span><span class="s1">&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">def</span> <span class="nf">prettify_error</span><span class="p">(</span><span class="n">error</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prettify the given error dictionary for better readability.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Extract error details</span>
+        <span class="n">error_code</span> <span class="o">=</span> <span class="n">error</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_code&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="n">error</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_message&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">details</span> <span class="o">=</span> <span class="n">error</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Format traceback details (if present) into a structured list</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">details</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span>
+
+        <span class="c1"># Construct the prettified error message</span>
+        <span class="n">prettified_error</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Error Code&quot;</span><span class="p">:</span> <span class="n">error_code</span><span class="p">,</span>
+            <span class="s2">&quot;Error Message&quot;</span><span class="p">:</span> <span class="n">error_message</span><span class="p">,</span>
+            <span class="s2">&quot;Traceback Details&quot;</span><span class="p">:</span> <span class="n">traceback_details</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Return prettified JSON output</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">prettified_error</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;An error occurred while prettifying: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Call the prettify function</span>
+<span class="n">prettified_output</span> <span class="o">=</span> <span class="n">prettify_error</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prettified_output</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nv">An</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="nv">occurred</span><span class="w"> </span><span class="k">while</span><span class="w"> </span><span class="nv">prettifying</span>:<span class="w"> </span><span class="s1">&#39;str&#39;</span><span class="w"> </span><span class="nv">object</span><span class="w"> </span><span class="nv">has</span><span class="w"> </span><span class="nv">no</span><span class="w"> </span><span class="nv">attribute</span><span class="w"> </span><span class="s1">&#39;get&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">def</span> <span class="nf">prettify_error_from_string</span><span class="p">(</span><span class="n">error_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prettify the error message from a JSON string.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Parse the string into a dictionary</span>
+        <span class="n">error_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+
+        <span class="c1"># Extract error details</span>
+        <span class="n">error_code</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_code&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_message&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">details</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Format traceback details (if present) into a structured list</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">details</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span>
+
+        <span class="c1"># Construct the prettified error message</span>
+        <span class="n">prettified_error</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Error Code&quot;</span><span class="p">:</span> <span class="n">error_code</span><span class="p">,</span>
+            <span class="s2">&quot;Error Message&quot;</span><span class="p">:</span> <span class="n">error_message</span><span class="p">,</span>
+            <span class="s2">&quot;Traceback Details&quot;</span><span class="p">:</span> <span class="n">traceback_details</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Return prettified JSON output</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">prettified_error</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error decoding JSON: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Call the prettify function with the error string</span>
+<span class="n">prettified_output</span> <span class="o">=</span> <span class="n">prettify_error_from_string</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prettified_output</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Error decoding JSON: Expecting &#39;,&#39; delimiter: line 6 column 87 (char 178)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">def</span> <span class="nf">fix_and_prettify_error</span><span class="p">(</span><span class="n">error_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fix the JSON string by escaping quotes and prettify the error message.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Fix the error string by replacing unescaped quotes</span>
+        <span class="n">fixed_error_string</span> <span class="o">=</span> <span class="n">error_string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&quot;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&quot;{&#39;</span><span class="p">,</span> <span class="s1">&#39;{&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;}</span><span class="se">\\</span><span class="s1">&quot;&#39;</span><span class="p">,</span> <span class="s1">&#39;}&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Parse the fixed string into a Python dictionary</span>
+        <span class="n">error_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">fixed_error_string</span><span class="p">)</span>
+
+        <span class="c1"># Extract error details</span>
+        <span class="n">error_code</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_code&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_message&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">details</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Format traceback details (if present) into a structured list</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">details</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span>
+
+        <span class="c1"># Construct the prettified error message</span>
+        <span class="n">prettified_error</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Error Code&quot;</span><span class="p">:</span> <span class="n">error_code</span><span class="p">,</span>
+            <span class="s2">&quot;Error Message&quot;</span><span class="p">:</span> <span class="n">error_message</span><span class="p">,</span>
+            <span class="s2">&quot;Traceback Details&quot;</span><span class="p">:</span> <span class="n">traceback_details</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Return prettified JSON output</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">prettified_error</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error decoding JSON: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Fix and prettify the error string</span>
+<span class="n">prettified_output</span> <span class="o">=</span> <span class="n">fix_and_prettify_error</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prettified_output</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Error decoding JSON: Expecting property name enclosed in double quotes: line 3 column 5 (char 7)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="k">def</span> <span class="nf">prettify_error</span><span class="p">(</span><span class="n">error_string</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Parse the string into a dictionary</span>
+        <span class="n">error_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+
+        <span class="c1"># Extract error details</span>
+        <span class="n">error_code</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_code&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_message&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">details</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Format traceback details (if present) into a structured list</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">details</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span>
+
+        <span class="c1"># Construct the prettified error message</span>
+        <span class="n">prettified_error</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Error Code&quot;</span><span class="p">:</span> <span class="n">error_code</span><span class="p">,</span>
+            <span class="s2">&quot;Error Message&quot;</span><span class="p">:</span> <span class="n">error_message</span><span class="p">,</span>
+            <span class="s2">&quot;Traceback Details&quot;</span><span class="p">:</span> <span class="n">traceback_details</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Return prettified JSON output</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">prettified_error</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error decoding JSON: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Call the prettify function</span>
+<span class="n">prettified_output</span> <span class="o">=</span> <span class="n">prettify_error</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prettified_output</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Error decoding JSON: Expecting &#39;,&#39; delimiter: line 6 column 87 (char 178)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">sanitize_and_prettify_error</span><span class="p">(</span><span class="n">error_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sanitize the input JSON string and prettify the error message.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Use regex to replace single quotes inside the &#39;details&#39; field with double quotes</span>
+        <span class="n">sanitized_string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+            <span class="sa">r</span><span class="s2">&quot;(&#39;)(?:(?=(</span><span class="se">\\</span><span class="s2">?))\2.)*?\1&quot;</span><span class="p">,</span>  <span class="c1"># Match strings wrapped in single quotes</span>
+            <span class="k">lambda</span> <span class="n">match</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;&quot;</span><span class="si">{</span><span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1">&quot;&#39;</span><span class="p">,</span>  <span class="c1"># Replace single quotes with double quotes</span>
+            <span class="n">error_string</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Parse the sanitized string into a Python dictionary</span>
+        <span class="n">error_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sanitized_string</span><span class="p">)</span>
+
+        <span class="c1"># Extract error details</span>
+        <span class="n">error_code</span> <span class="o">=</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_code&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_message&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">details</span> <span class="o">=</span> <span class="n">error_dict</span><span class="p">[</span><span class="s2">&quot;error&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Split traceback details if it&#39;s a string</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">details</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span>
+
+        <span class="c1"># Construct prettified output</span>
+        <span class="n">prettified_error</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Error Code&quot;</span><span class="p">:</span> <span class="n">error_code</span><span class="p">,</span>
+            <span class="s2">&quot;Error Message&quot;</span><span class="p">:</span> <span class="n">error_message</span><span class="p">,</span>
+            <span class="s2">&quot;Traceback Details&quot;</span><span class="p">:</span> <span class="n">traceback_details</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Return the prettified JSON</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">prettified_error</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error decoding JSON: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Call the function with the given error_string</span>
+<span class="n">prettified_output</span> <span class="o">=</span> <span class="n">sanitize_and_prettify_error</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prettified_output</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Error decoding JSON: Expecting &#39;,&#39; delimiter: line 6 column 41 (char 132)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="k">def</span> <span class="nf">sanitize_and_prettify_error</span><span class="p">(</span><span class="n">error_string</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sanitize and parse a malformed JSON string, then prettify the output.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Fix the single quotes in JSON-like fields with regex</span>
+        <span class="n">sanitized_string</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+            <span class="sa">r</span><span class="s2">&quot;(?&lt;!</span><span class="se">\\</span><span class="s2">)&#39;&quot;</span><span class="p">,</span>  <span class="c1"># Match single quotes not preceded by a backslash</span>
+            <span class="s1">&#39;&quot;&#39;</span><span class="p">,</span>  <span class="c1"># Replace with double quotes</span>
+            <span class="n">error_string</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Parse the fixed string into a Python dictionary</span>
+        <span class="n">error_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">sanitized_string</span><span class="p">)</span>
+
+        <span class="c1"># Extract error details</span>
+        <span class="n">error_code</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_code&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">error_message</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error_message&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+        <span class="n">details</span> <span class="o">=</span> <span class="n">error_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="p">{})</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;details&quot;</span><span class="p">,</span> <span class="s2">&quot;N/A&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Split traceback details if it&#39;s a string</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">details</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">traceback_details</span> <span class="o">=</span> <span class="n">details</span>
+
+        <span class="c1"># Construct a prettified dictionary</span>
+        <span class="n">prettified_error</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;Error Code&quot;</span><span class="p">:</span> <span class="n">error_code</span><span class="p">,</span>
+            <span class="s2">&quot;Error Message&quot;</span><span class="p">:</span> <span class="n">error_message</span><span class="p">,</span>
+            <span class="s2">&quot;Traceback Details&quot;</span><span class="p">:</span> <span class="n">traceback_details</span>
+        <span class="p">}</span>
+
+        <span class="c1"># Return prettified JSON</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">prettified_error</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">json</span><span class="o">.</span><span class="n">JSONDecodeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;Error decoding JSON: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;An error occurred: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Input string</span>
+<span class="n">error_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">{</span>
+<span class="s2">    &quot;error&quot;: {</span>
+<span class="s2">        &quot;error_code&quot;: 1002,</span>
+<span class="s2">        &quot;error_message&quot;: &quot;Unspecified Error&quot;,</span>
+<span class="s2">        &quot;details&quot;: &quot;Unexpected error: [&#39;Traceback (most recent call last):&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/main.py</span><span class="se">\&quot;</span><span class="s2">, line 228, in post_predict_classic_joblib_api&#39;, &#39;    result_obj = await label_generator.match_with_multi(&#39;, &#39;                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py</span><span class="se">\&quot;</span><span class="s2">, line 770, in match_with_multi&#39;, &#39;    feature_scores, overall_score = get_match_scores(&#39;, &#39;                                    ^^^^^^^^^^^^^^^^^&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py</span><span class="se">\&quot;</span><span class="s2">, line 559, in get_match_scores&#39;, &#39;    overall_score = get_average_feature_score(&#39;, &#39;                    ^^^^^^^^^^^^^^^^^^^^^^^^^^&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py</span><span class="se">\&quot;</span><span class="s2">, line 332, in get_average_feature_score&#39;, &#39;    weighted_scores = get_feature_name_score_pair(&#39;, &#39;                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^&#39;, &#39;  File </span><span class="se">\&quot;</span><span class="s2">/home/rajaraman/rprojects/ml-api-work/ml-api-raja/services/mlapi/app/label_generator.py</span><span class="se">\&quot;</span><span class="s2">, line 292, in get_feature_name_score_pair&#39;, &#39;    if feature_prefix in individual_algo_feature_score_map.keys():&#39;, &#39;       ^^^^^^^^^^^^^^&#39;, </span><span class="se">\&quot;</span><span class="s2">UnboundLocalError: cannot access local variable &#39;feature_prefix&#39; where it is not associated with a value</span><span class="se">\&quot;</span><span class="s2">]&quot;</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c1"># Prettify and sanitize the error string</span>
+<span class="n">prettified_output</span> <span class="o">=</span> <span class="n">sanitize_and_prettify_error</span><span class="p">(</span><span class="n">error_string</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">prettified_output</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Error decoding JSON: Expecting &#39;,&#39; delimiter: line 6 column 41 (char 132)
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 20</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a>
+
+</p>
+
+
+
+            </article>
+
+<div class="pagination-centered">
+<h6 class="subheader">Page 1 of 1</h6>
+
+<p>
+
+</p>
+</div>
+
+
+
+            <!-- /#posts-list -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/encoding.html">encoding</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>
