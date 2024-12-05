@@ -47,42 +47,31 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/xml-file-to-dict.html"><h3 class="article-title">Xml-File-To-Dict</h3></a>
+                <a href="https://rajasgs.github.io/mlnotes/wiki-bag-of-words.html"><h3 class="article-title">Wiki-Bag-Of-Words</h3></a>
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
 
 
 <hr>
-<p>title: "XML File to Dictionary"
+<p>title: "Wiki Bag of Words"
 author: "Rj"
 date: 2019-04-20
-description: "List Test"
+description: "-"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">xmltodict</span>
-<span class="kn">import</span> <span class="nn">pprint</span>
-<span class="kn">import</span> <span class="nn">json</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;sample.xml&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fd</span><span class="p">:</span>
-    <span class="n">doc1</span> <span class="o">=</span> <span class="n">xmltodict</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">fd</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">doc1</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>OrderedDict([(&#39;note&#39;,
-              OrderedDict([(&#39;to&#39;, &#39;Tove&#39;),
-                           (&#39;from&#39;, &#39;Jani&#39;),
-                           (&#39;heading&#39;, &#39;Reminder&#39;),
-                           (&#39;body&#39;, &quot;Don&#39;t forget me this weekend …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<div class="highlight"><pre><span></span><code><span class="n">article</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;&#39;</span><span class="se">\&#39;\&#39;\&#39;</span><span class="s2">Debugging</span><span class="se">\&#39;\&#39;\&#39;</span><span class="s2"> is the process of finding and resolving of defects that prevent correct operation of computer software or a system.  </span><span class="se">\n\n</span><span class="s2">Numerous books …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/xml-file-to-dict.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/wiki-bag-of-words.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -90,44 +79,31 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/xml-to-dict.html"><h3 class="article-title">Xml-To-Dict</h3></a>
+                <a href="https://rajasgs.github.io/mlnotes/wiki-bag-of-words-2.html"><h3 class="article-title">Wiki-Bag-Of-Words-2</h3></a>
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
 
 
 <hr>
-<p>title: "XML to Dictionary"
+<p>title: "Wiki Bag of Words 2"
 author: "Rj"
-date: 2019-04-20
-description: "List Test"
+date: 2019-04-21
+description: "-"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">xmltodict</span>
-<span class="kn">import</span> <span class="nn">pprint</span>
-<span class="kn">import</span> <span class="nn">json</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="kn">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">xml_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">     &lt;note&gt;</span>
-<span class="s2">       &lt;to&gt;Tove&lt;/to&gt;</span>
-<span class="s2">       &lt;from&gt;Jani&lt;/from&gt;</span>
-<span class="s2">       &lt;heading&gt;Reminder&lt;/heading&gt;</span>
-<span class="s2">       &lt;body&gt;Don&#39;t forget me this weekend!&lt;/body&gt;</span>
-<span class="s2">   &lt;/note&gt;</span>
-<span class="s2">&quot;&quot;&quot;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">xml_content</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&quot;\n<span class="w">     </span><span class="nt">&lt;note&gt;</span>\n<span class="w">       </span><span class="nt">&lt;to&gt;</span>Tove<span class="nt">&lt;/to&gt;</span>\n<span class="w">       </span><span class="nt">&lt;from …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<div class="highlight"><pre><span></span><code><span class="n">article</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Natural lead consists of four stable isotopes with mass numbers of 204, 206, 207, and 208,[27] and traces of five short-lived radioisotopes …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/xml-to-dict.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/wiki-bag-of-words-2.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -135,44 +111,73 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/xml-to-json.html"><h3 class="article-title">Xml-To-Json</h3></a>
+                <a href="https://rajasgs.github.io/mlnotes/word-average.html"><h3 class="article-title">Word-Average</h3></a>
 <h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
 </h6>
 
 
 <hr>
-<p>title: "XML to JSON"
+<p>title: "Word Average"
 author: "Rj"
-date: 2019-04-20
-description: "List Test"
+date: 2019-04-21
+description: "-"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">xmltodict</span>
-<span class="kn">import</span> <span class="nn">pprint</span>
-<span class="kn">import</span> <span class="nn">json</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">xml_content</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">     &lt;note&gt;</span>
-<span class="s2">       &lt;to&gt;Tove&lt;/to&gt;</span>
-<span class="s2">       &lt;from&gt;Jani&lt;/from&gt;</span>
-<span class="s2">       &lt;heading&gt;Reminder&lt;/heading&gt;</span>
-<span class="s2">       &lt;body&gt;Don&#39;t forget me this weekend!&lt;/body&gt;</span>
-<span class="s2">   &lt;/note&gt;</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">f</span> <span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;canola.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">xml_content</span>
+<div class="highlight"><pre><span></span><code><span class="n">raw</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>&quot;\n<span class="w">     </span><span class="nt">&lt;note&gt;</span>\n<span class="w">       </span><span class="nt">&lt;to&gt;</span>Tove<span class="nt">&lt;/to&gt;</span>\n<span class="w">       </span><span class="nt">&lt;from …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<div class="highlight"><pre><span></span><code><span class="s">&#39;OTTAWA—The federal Liberals promised Wednesday to give Canada’s canola farmers much-needed financial aid to help lessen the impact of China’s decision to ban the …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/xml-to-json.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/word-average.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/word-cloud-shutter-island.html"><h3 class="article-title">Word-Cloud-Shutter-Island</h3></a>
+<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Word Cloud on Shutter Island Script"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span><span class="p">,</span> <span class="n">STOPWORDS</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Read the whole text.</span>
+<span class="n">text</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;script.txt …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/word-cloud-shutter-island.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -414,42 +419,6 @@ draft: false</p>
 
 
                 <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/zzemp-bokeh-1-copy14.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/zzemp-bokeh-1-copy2.html"><h3 class="article-title">Zzemp-Bokeh-1-Copy2</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">show</span>
-<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">output_notebook</span>
-<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Set Bokeh output to notebook</span>
-<span class="n">output_notebook</span><span class="p">()</span>
-</code></pre></div>
-
-<style>
-    .bk-notebook-logo {
-        display: block;
-        width: 20px;
-        height: 20px;
-        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAOkSURBVDiNjZRtaJVlGMd/1/08zzln5zjP1LWcU9N0NkN8m2CYjpgQYQXqSs0I84OLIC0hkEKoPtiH3gmKoiJDU7QpLgoLjLIQCpEsNJ1vqUOdO7ppbuec5+V+rj4ctwzd8IIbbi6u+8f1539dt3A78eXC7QizUF7gyV1fD1Yqg4JWz84yffhm0qkFqBogB9rM8tZdtwVsPUhWhGcFJngGeWrPzHm5oaMmkfEg1usvLFyc8jLRqDOMru7AyC8saQr7GG7f5fvDeH7Ej8CM66nIF+8yngt6HWaKh7k49Soy9nXurCi1o3qUbS3zWfrYeQDTB/Qj6kX6Ybhw4B+bOYoLKCC9H3Nu/leUTZ1JdRWkkn2ldcCamzrcf47KKXdAJllSlxAOkRgyHsGC/zRday5Qld9DyoM4/q/rUoy …</style><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/zzemp-bokeh-1-copy2.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
