@@ -1,5 +1,5 @@
 ---
-title: Simple-Plot-6763
+title: Simple-Plot-3696
 date: 2024-12-06
 author: Your Name
 cell_count: 4
