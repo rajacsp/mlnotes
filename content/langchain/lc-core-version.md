@@ -1,6 +1,6 @@
 ---
 title: Lc-Core-Version
-date: 2024-12-04
+date: 2024-12-06
 author: Your Name
 cell_count: 3
 score: 0

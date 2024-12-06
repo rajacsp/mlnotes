@@ -47,124 +47,157 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/text-similarity.html"><h3 class="article-title">Text-Similarity</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/histogram.html"><h3 class="article-title">Histogram</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
 
 <hr>
-<p>title: "Text Similarity"
-author: "Raja CSP Raman"
-date: 2019-04-20
-description: "-"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span><span class="o">,</span> <span class="nn">string</span>
-<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">stemmer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">stem</span><span class="o">.</span><span class="n">porter</span><span class="o">.</span><span class="n">PorterStemmer</span><span class="p">()</span>
-<span class="n">remove_punctuation_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">stem_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="sd">&#39;&#39;&#39;remove …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/text-similarity.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/text-similarity-finder.html"><h3 class="article-title">Text-Similarity-Finder</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Text Similarity Finder"
-author: "Raja CSP Raman"
-date: 2019-04-20
-description: "-"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">cosine_similarity</span>  
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">findSimilarity</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">):</span>
-    <span class="n">documents</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">param1</span><span class="p">,</span>
-        <span class="n">param2</span>
-    <span class="p">)</span>
-    <span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
-    <span class="n">tfidf_matrix</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
-    <span class="n">cosine</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span> <span class="n">tfidf_matrix</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="n">cosine</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">findSimilarity</span><span class="p">(</span><span class="s2">&quot;In …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/text-similarity-finder.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/time-with-periods.html"><h3 class="article-title">Time With Periods</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Time With Periods"
+<p>title: "Histogram"
 author: "Rj"
-date: 2019-04-20
-description: "-"
+date: 2019-05-06
+description: "List Test"
 type: technical_note
 draft: false</p>
 <hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">arr_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">yhist</span><span class="p">,</span> <span class="n">binedges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">arr_data</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">bincenters</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">binedges</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">binedges</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/histogram.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/holmes-map.html"><h3 class="article-title">Holmes-Map</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">output_notebook</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Set Bokeh output to notebook</span>
+<span class="n">output_notebook</span><span class="p">()</span>
+</code></pre></div>
+
+<style>
+    .bk-notebook-logo {
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAOkSURBVDiNjZRtaJVlGMd/1/08zzln5zjP1LWcU9N0NkN8m2CYjpgQYQXqSs0I84OLIC0hkEKoPtiH3gmKoiJDU7QpLgoLjLIQCpEsNJ1vqUOdO7ppbuec5+V+rj4ctwzd8IIbbi6u+8f1539dt3A78eXC7QizUF7gyV1fD1Yqg4JWz84yffhm0qkFqBogB9rM8tZdtwVsPUhWhGcFJngGeWrPzHm5oaMmkfEg1usvLFyc8jLRqDOMru7AyC8saQr7GG7f5fvDeH7Ej8CM66nIF+8yngt6HWaKh7k49Soy9nXurCi1o3qUbS3zWfrYeQDTB/Qj6kX6Ybhw4B+bOYoLKCC9H3Nu/leUTZ1JdRWkkn2ldcCamzrcf47KKXdAJllSlxAOkRgyHsGC/zRday5Qld9DyoM4/q/rUoy …</style><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/holmes-map.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/horizontal-bar.html"><h3 class="article-title">Horizontal-Bar</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="c1"># http://matplotlib.org/1.2.1/examples/pylab_examples/barh_demo.html</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="n">val</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">21</span><span class="p">]</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">))</span> <span class="o">+</span> <span class="mf">.5</span>    <span class="c1"># the bar centers on the y axis</span>
+
+<span class="n">pl</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">val</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/horizontal-bar.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/house-sales.html"><h3 class="article-title">House-Sales</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="c1"># !pip install kaggle</span>
+<span class="c1"># https://medium.com/@pumaline/easy-analysis-of-your-data-and-ml-model-using-evidently-ai-830ef0c1c4fd</span>
+<span class="c1"># https://xgboost.readthedocs.io/en/latest/python/python_api.html</span>
+</code></pre></div>
+
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">times</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="s1">&#39;2000-01-01&#39;</span><span class="p">,</span> <span class="n">periods</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">times</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;~/datasets/kaggle/kc_house_data.csv&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">DatetimeIndex</span><span class="p">(</span><span class="o">[</span><span class="n">&#39;2000-01-01&#39;, &#39;2000-01-02&#39;, &#39;2000-01-03&#39;, &#39;2000-01-04&#39;</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;datetime64[ns]&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">freq</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">times</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
-</code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<div class="highlight"><pre><span></span><code><span class="mf">2000</span><span class="o">-</span><span class="mf">01</span><span class="o">-</span><span class="mf">01</span><span class="w"> </span><span class="mf">00</span><span class="p">:</span><span class="mf">00</span><span class="p">:</span><span class="mf">00</span>
-<span class="mf">2000</span><span class="o">-</span><span class="mf">01</span><span class="o">-</span><span class="mf">02 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>date …</th></tr></thead></table></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/time-with-periods.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/house-sales.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -172,42 +205,109 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/timeit-simple.html"><h3 class="article-title">Timeit-Simple</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/hub-runnable-1.html"><h3 class="article-title">Hub Runnable-1</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<p>8
+<br>How to: add message history (memory) to a chain
+<br>https://python.langchain.com/docs/how_to/message_history/</p>
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Python 3.12.4
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/hub-runnable-1.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/hybrid-gliner.html"><h3 class="article-title">Hybrid-Gliner</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">gliner</span> <span class="kn">import</span> <span class="n">GLiNER</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Initialize GLiNER with a pre-trained model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">GLiNER</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;urchade/gliner_medium-v2.1&quot;</span><span class="p">)</span>  <span class="c1"># Replace with a location-specific model if available</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nx">Fetching</span><span class="w"> </span><span class="mf">5</span><span class="w"> </span><span class="nx">files</span><span class="o">:</span><span class="w">   </span><span class="mf">0</span><span class="o">%|</span><span class="w">          </span><span class="o">|</span><span class="w"> </span><span class="mf">0</span><span class="o">/</span><span class="mf">5</span><span class="w"> </span><span class="p">[</span><span class="mo">00</span><span class="o">:</span><span class="mo">00</span><span class="cp">&lt;?</span><span class="p">,</span> <span class="o">?</span><span class="nx">it</span><span class="o">/</span><span class="nx">s</span><span class="p">]</span>
+
+
+<span class="o">/</span><span class="nx">home</span><span class="o">/</span><span class="nx">rajaraman</span><span class="o">/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="o">.</span><span class="mi">12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">transformers</span><span class="o">/</span><span class="nx">convert_slow_tokenizer</span><span class="o">.</span><span class="nx">py</span><span class="o">:</span><span class="mi">562</span><span class="o">:</span> <span class="nx">UserWarning …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/hybrid-gliner.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/if-else-pandas.html"><h3 class="article-title">If-Else-Pandas</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
 
 <hr>
-<p>title: "Timeit Simple"
+<p>title: "If Else Pandas"
 author: "Rj"
 date: 2019-04-24
 description: "-"
 type: technical_note
-draft: false</p>
+draft: false
+source: http://pandas.pydata.org/pandas-docs/version/0.24/user_guide/cookbook.html#idioms</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">timeit</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">repeat_number</span> <span class="o">=</span> <span class="mi">100000</span>
-<span class="n">e</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span>
-    <span class="n">stmt</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;add(a, b)&#39;&#39;&#39;</span><span class="p">,</span> 
-    <span class="n">setup</span><span class="o">=</span><span class="s1">&#39;&#39;&#39;a=2; b=3;from __main__ import add&#39;&#39;&#39;</span><span class="p">,</span> 
-    <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">number</span><span class="o">=</span><span class="n">repeat_number</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Method: </span><span class="si">{}</span><span class="s1">, Avg …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;maths&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">89</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+    <span class="s1">&#39;science&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+    <span class="s1">&#39;language&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">30 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/timeit-simple.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/if-else-pandas.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -215,242 +315,150 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/timeit-simple-2.html"><h3 class="article-title">Timeit-Simple-2</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/if-then.html"><h3 class="article-title">If Then</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
 
 <hr>
-<p>title: "Timeit Simple 2"
+<p>title: "Template"
+author: "Rj"
+date: 2019-04-24
+description: "-"
+type: technical_note
+draft: false
+source: http://pandas.pydata.org/pandas-docs/version/0.24/user_guide/cookbook.html#idioms</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;abc.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align …</style></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/if-then.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/ikeda-map.html"><h3 class="article-title">Ikeda-Map</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">bokeh.plotting</span> <span class="kn">import</span> <span class="n">figure</span><span class="p">,</span> <span class="n">output_file</span><span class="p">,</span> <span class="n">show</span>
+<span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">output_notebook</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">ColumnDataSource</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Set Bokeh output to notebook</span>
+<span class="n">output_notebook</span><span class="p">()</span>
+</code></pre></div>
+
+<style>
+    .bk-notebook-logo {
+        display: block;
+        width: 20px;
+        height: 20px;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNui8sowAAAOkSURBVDiNjZRtaJVlGMd/1/08zzln5zjP1LWcU9N0NkN8m2CYjpgQYQXqSs0I84OLIC0hkEKoPtiH3gmKoiJDU7QpLgoLjLIQCpEsNJ1vqUOdO7ppbuec5+V+rj4ctwzd8IIbbi6u+8f1539dt3A78eXC7QizUF7gyV1fD1Yqg4JWz84yffhm0qkFqBogB9rM8tZdtwVsPUhWhGcFJngGeWrPzHm5oaMmkfEg1usvLFyc8jLRqDOMru7AyC8saQr7GG7f5fvDeH7Ej8CM66nIF+8yngt6HWaKh7k49Soy9nXurCi1o3qUbS3zWfrYeQDTB/Qj6kX6Ybhw4B+bOYoLKCC9H3Nu/leUTZ1JdRWkkn2ldcCamzrcf47KKXdAJllSlxAOkRgyHsGC/zRday5Qld9DyoM4/q/rUoy …</style><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/ikeda-map.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/iloc.html"><h3 class="article-title">Iloc</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<hr>
+<p>title: "iLoc Simple"
 author: "Rj"
 date: 2019-04-20
 description: "-"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">timeit</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">some_function</span><span class="p">():</span>
-    <span class="k">return</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">^</span><span class="mi">2</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">time1</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">some_function</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">time1</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">0.39235781200113706</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">time1</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">0.39235781200113706</span>
-</code></pre></div>
-
-<hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/timeit-simple-2.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/tips-seaborn.html"><h3 class="article-title">Tips-Seaborn</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Python 3.10.5
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Load the dataset</span>
-<span class="n">tips</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;tips&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Create a PairGrid with regression and histogram plots</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">PairGrid</span><span class="p">(</span><span class="n">tips</span><span class="p">,</span> <span class="n">diag_sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set2&quot;</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">map_upper</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/tips-seaborn.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/titanic-deepcheck-analysis.html"><h3 class="article-title">Titanic-Deepcheck-Analysis</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Python 3.10.5
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
-<span class="kn">from</span> <span class="nn">deepchecks.tabular</span> <span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span> <span class="nn">deepchecks.tabular.suites</span> <span class="kn">import</span> <span class="n">full_suite</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Load the Titanic dataset</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/titanic-deepcheck-analysis.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/titnaic-evi.html"><h3 class="article-title">Titnaic-Evi</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># https://github.com/datasciencedojo/datasets/blob/master/titanic.csv</span>
-</code></pre></div>
-
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">ls</span> <span class="o">../</span><span class="n">titanic</span><span class="o">.</span><span class="n">csv</span>
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data1.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="cp">../titanic.csv</span>
+<div class="highlight"><pre><span></span><code><span class="n">df</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># Load the dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../titanic.csv&#39;</span><span class="p">)</span>
-</code></pre></div>
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<div class="highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</code></pre></div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
 
-<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="kd">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">pandas</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">frame</span><span class="p">.</span><span class="nx">DataFrame</span><span class="err">&#39;</span><span class="p">&gt;</span>
-<span class="nx">RangeIndex</span><span class="p">:</span><span class="w"> </span><span class="mi">891</span><span class="w"> </span><span class="nx">entries</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="mi">890</span>
-<span class="nx">Data</span><span class="w"> </span><span class="nx">columns</span><span class="w"> </span><span class="p">(</span><span class="nx">total</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="nx">columns</span><span class="p">):</span>
-<span class="w"> </span><span class="err">#</span><span class="w">   </span><span class="nx">Column</span><span class="w">       </span><span class="nx">Non</span><span class="o">-</span><span class="nx">Null</span><span class="w"> </span><span class="nx">Count</span><span class="w">  </span><span class="nx">Dtype</span><span class="w">  </span>
-<span class="o">---</span><span class="w">  </span><span class="o">------</span><span class="w">       </span><span class="o">--------------</span><span class="w">  </span><span class="o">-----</span><span class="w">  </span>
-<span class="w"> </span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a>
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>capacity</td>
+      <td>score</td>
+      <td>length …</td></tr></tbody></table></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/titnaic-evi.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/tokenize-sentence.html"><h3 class="article-title">Tokenize Sentence</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Tokenize Sentences"
-author: "Raja CSP Raman"
-date: 2019-05-02
-description: "-"
-type: technical_note
-draft: false
-source: https://tedboy.github.io/nlps/gensim_tutorial/tut1.html</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">documents</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;The traditional paradigm just seems safer: be firm and a little distant from your employees&quot;</span><span class="p">,</span> 
-
-<span class="s2">&quot;The people who work for you should …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/tokenize-sentence.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/total-score-calculator.html"><h3 class="article-title">Total-Score-Calculator</h3></a>
-<h6 class="subheader" title="2024-12-05T00:00:00-05:00">Thu 05 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">random</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">total_score_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">):</span>
-
-    <span class="n">current_score</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ball </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">, current score: </span><span class="si">{</span><span class="n">current_score</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-    <span class="n">total_score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">current_score</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>ball 0, current score: 3
-ball 1, current score: 0
-ball 2, current score: 5
-ball 3, current score: 1
-ball 4, current score: 5
-ball 5 …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/total-score-calculator.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/iloc.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
             <!-- /#posts-list -->
 <div class="pagination-centered">
-<h6 class="subheader">Page 24 of 57</h6>
+<h6 class="subheader">Page 24 of 59</h6>
 
 <p>
             <a href="https://rajasgs.github.io/mlnotes/index23.html">&laquo; Prev</a>
@@ -502,6 +510,7 @@ ball 5 …</code></pre></div><p class="subheader">Category: <a href="https://raj
             <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>

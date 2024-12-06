@@ -1,6 +1,6 @@
 ---
 title: Wired-Reader
-date: 2024-12-05
+date: 2024-12-06
 author: Your Name
 cell_count: 5
 score: 5

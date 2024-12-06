@@ -47,49 +47,110 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/remove-numbers.html"><h3 class="article-title">Remove Numbers</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/snowball-stemmer.html"><h3 class="article-title">Snowball-Stemmer</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
 
 <hr>
-<p>title: "Remove Numbers"
-author: "Raja CSP Raman"
+<p>title: "Snowball Stemmer"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nltk.stem.snowball</span> <span class="kn">import</span> <span class="n">SnowballStemmer</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">words</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;hunting&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;bunnies&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;thinking&quot;</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">words</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[&#39;hunting&#39;, &#39;bunnies&#39;, &#39;thinking&#39;]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">stemmer</span> <span class="o">=</span> <span class="n">SnowballStemmer</span><span class="p">(</span><span class="s2">&quot;english&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">result</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[&#39;hunt&#39;, &#39;bunni&#39;, &#39;think&#39;]
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/snowball-stemmer.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/sort-dictionary-by-value.html"><h3 class="article-title">Sort-Dictionary-By-Value</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Sort Dictionary By Value"
+author: "Rj"
 date: 2019-04-20
-description: "-"
+description: "List Test"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="n">content</span> <span class="o">=</span> <span class="s1">&#39;15. TFRecord in Tensorflow&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">dict</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;one&#39;</span> <span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+    <span class="s1">&#39;two&#39;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;three&#39;</span> <span class="p">:</span> <span class="mi">12</span>
+<span class="p">}</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">content</span>
+<div class="highlight"><pre><span></span><code><span class="nb">dict</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>&#39;15. TFRecord in Tensorflow&#39;
+<div class="highlight"><pre><span></span><code>{&#39;one&#39;: 8, &#39;three&#39;: 12, &#39;two&#39;: 1}
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">operator</span>
+
+
+<span class="n">sorted_x</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">operator</span><span class="o">.</span><span class="n">itemgetter</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;\d+\.&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">sorted_x</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">result</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code>[(&#39;two&#39;, 1), (&#39;one&#39;, 8), (&#39;three&#39;, 12)]
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>&#39;TFRecord in Tensorflow&#39;
+<div class="highlight"><pre><span></span><code><span class="nb">type</span><span class="p">(</span><span class="n">sorted_x</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">content2</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;1. Cross Entropy Loss Derivation</span>
-
-<span class="s2">2. How to split a tensorflow model …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a>
+<div class="highlight"><pre><span></span><code>list …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/remove-numbers.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/sort-dictionary-by-value.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -97,41 +158,42 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/remove-symbols.html"><h3 class="article-title">Remove Symbols</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/sort-map-by-key.html"><h3 class="article-title">Sort-Map-By-Key</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
 
 <hr>
-<p>title: "Remove Symbols"
-author: "Raja CSP Raman"
+<p>title: "Sort Map By Key"
+author: "Rj"
 date: 2019-04-20
-description: "-"
+description: "List Test"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;This device is costing only 12.89$. This is fantastic!&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Hello Toronto&#39;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">content</span>
+<div class="highlight"><pre><span></span><code>Hello Toronto
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>&#39;This device is costing only 12.89$. This is fantastic!&#39;
-</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sort_by_key</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        ::getRemotrAddr</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    for key, value in sorted(dict.iteritems(), key=lambda(k,v): (v,k)):</span>
+<span class="sd">        print(&quot;%s: %s&quot; % (key, value))</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[^\w]&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&#39;This device is costing only 12 89 …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="nb">print …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/remove-symbols.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/sort-map-by-key.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -139,39 +201,52 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/reshape.html"><h3 class="article-title">Reshape</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/sort-map-by-value.html"><h3 class="article-title">Sort-Map-By-Value</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
 
 <hr>
-<p>title: "Reshape"
-author: "Raja CSP Raman"
-date: 2019-05-07
-description: "-"
+<p>title: "Sort Map by Value"
+author: "Rj"
+date: 2019-04-20
+description: "List Test"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">sort_by_value</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">import</span> <span class="nn">os</span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
-<span class="c1"># Just disables the warning, doesn&#39;t enable AVX/FMA</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>
+    <span class="n">age_sorted</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1">#print(age_sorted)</span>
+
+    <span class="k">return</span> <span class="n">age_sorted</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">tf</span><span class="o">.</span><span class="n">InteractiveSession</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="n">age</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;carl&#39;</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span>
+        <span class="s1">&#39;alan&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span>
+        <span class="s1">&#39;bob&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s1">&#39;danny&#39;</span><span class="p">:</span><span class="mi">3</span>
+    <span class="p">}</span>
+</code></pre></div>
 
-<span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="n">age_sorted</span> <span class="o">=</span> <span class="n">sort_by_value</span><span class="p">(</span><span class="n">age</span><span class="p">)</span>
+</code></pre></div>
 
-<span class="n">abc</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_sum</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">reduction_indices</span><span class="o">=</span><span class="mi">1 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a>
+<div class="highlight"><pre><span></span><code><span class="n">age_sorted</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[(&#39;bob&#39;, 1), (&#39;alan&#39;, 2), (&#39;danny …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/reshape.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/sort-map-by-value.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -179,37 +254,47 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/reshape-1.html"><h3 class="article-title">Reshape-1</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/sort-rows.html"><h3 class="article-title">Sort Rows</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
 
 <hr>
-<p>title: "Reshape Extra"
-author: "Raja CSP Raman"
-date: 2019-05-07
-description: "-"
+<p>title: "Sort Rows"
+author: "Rj"
+date: 2019-04-20
+description: "List Test"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
-
-<span class="kn">import</span> <span class="nn">os</span>
-
-<span class="c1"># Just disables the warning, doesn&#39;t enable AVX/FMA</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;TF_CPP_MIN_LOG_LEVEL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">constant</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;language&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">80</span><span class="p">,</span> <span class="mi">67</span><span class="p">,</span> <span class="mi">90</span><span class="p">],</span>
+    <span class="s1">&#39;maths&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">78</span><span class="p">,</span> <span class="mi">98</span><span class="p">],</span>
+    <span class="s1">&#39;science&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">98</span><span class="p">,</span> <span class="mi">77</span><span class="p">,</span> <span class="mi">56</span><span class="p">],</span>
+    <span class="s1">&#39;programming&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">90</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;chris&#39;</span><span class="p">,</span> <span class="s1">&#39;kevin&#39;</span><span class="p">,</span> <span class="s1">&#39;peter&#39;</span><span class="p">]</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">b</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a>
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="n">index</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th …</style></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/reshape-1.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/sort-rows.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -217,43 +302,22 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/resume-1.html"><h3 class="article-title">Resume-1</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/space-army-chatbot.html"><h3 class="article-title">Space-Army-Chatbot</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Python 3.12.4
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">PyPDF2</span> <span class="n">spacy</span> <span class="n">gliner</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version&quot;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">3.0</span><span class="o">.</span><span class="mi">1</span>
-<span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">3.8</span><span class="o">.</span><span class="mi">2</span>
-<span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">13</span>
-</code></pre></div>
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">PyPDF2</span>
-
-<span class="k">def</span> <span class="nf">extract_text_from_pdf</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">):</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pdf_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
-        <span class="n">reader</span> <span class="o">=</span> <span class="n">PyPDF2</span><span class="o">.</span><span class="n">PdfReader</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
-        <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">reader</span><span class="o">.</span><span class="n">pages</span><span class="p">:</span>
-            <span class="n">text</span> <span class="o">+=</span> <span class="n">page</span><span class="o">.</span><span class="n">extract_text</span><span class="p">()</span>
-    <span class="k">return …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a>
+<hr>
+<p><strong>Score: 0</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/resume-1.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/space-army-chatbot.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -261,142 +325,8 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/resume2.html"><h3 class="article-title">Resume2</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># https://github.com/urchade/GLiNER/blob/main/examples/finetune.ipynb</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">accelerate</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="n">accelerate</span>
-<span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">1.1</span><span class="o">.</span><span class="mi">1</span>
-<span class="n">Summary</span><span class="o">:</span><span class="w"> </span><span class="n">Accelerate</span>
-<span class="n">Home</span><span class="o">-</span><span class="n">page</span><span class="o">:</span><span class="w"> </span><span class="n">https</span><span class="o">://</span><span class="n">github</span><span class="o">.</span><span class="na">com</span><span class="sr">/huggingface/</span><span class="n">accelerate</span>
-<span class="n">Author</span><span class="o">:</span><span class="w"> </span><span class="n">The</span><span class="w"> </span><span class="n">HuggingFace</span><span class="w"> </span><span class="n">team</span>
-<span class="n">Author</span><span class="o">-</span><span class="n">email</span><span class="o">:</span><span class="w"> </span><span class="n">zach</span><span class="o">.</span><span class="na">mueller</span><span class="err">@</span><span class="n">huggingface</span><span class="o">.</span><span class="na">co</span>
-<span class="n">License</span><span class="o">:</span><span class="w"> </span><span class="n">Apache</span>
-<span class="n">Location</span><span class="o">:</span><span class="w"> </span><span class="sr">/home/rajaraman/miniconda3/envs/ml312/lib/python3.12/si …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/resume2.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/retrieval-chain.html"><h3 class="article-title">Retrieval-Chain</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/streaming/</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Python 3.12.4
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">faiss</span><span class="o">-</span><span class="n">cpu</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nx">Requirement</span><span class="w"> </span><span class="nx">already</span><span class="w"> </span><span class="nx">satisfied</span><span class="p">:</span><span class="w"> </span><span class="nx">faiss</span><span class="o">-</span><span class="nx">cpu …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/retrieval-chain.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/retriever-2.html"><h3 class="article-title">Retriever-2</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Python 3.12.4
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_community.vectorstores</span> <span class="kn">import</span> <span class="n">FAISS</span>
-<span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
-<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
-<span class="kn">from …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/retriever-2.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/retriever-passthrough.html"><h3 class="article-title">Retriever-Passthrough</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/spacey-army-questions.html"><h3 class="article-title">Spacey-Army-Questions</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
 
@@ -430,13 +360,13 @@ draft: false</p>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">Periyar, born in 1879, was a social reformer …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+<span class="s2">In the distant future, a group of courageous …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/retriever-passthrough.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/spacey-army-questions.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -444,58 +374,130 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/reverse-with-runnable.html"><h3 class="article-title">Reverse With Runnable</h3></a>
-<h6 class="subheader" title="2024-12-04T00:00:00-05:00">Wed 04 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/specific-pattern-1.html"><h3 class="article-title">Specific Pattern 1</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
 </h6>
 
 
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+<hr>
+<p>title: "Specific Pattern 1"
+author: "Raja CSP Raman"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false
+source: https://stackoverflow.com/questions/56232268/extract-word-form-string-using-regex-word-boundaries-in-python</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>Python 3.12.4
+<div class="highlight"><pre><span></span><code><span class="n">fn</span> <span class="o">=</span> <span class="s2">&quot;DC_QnA_bo_v.15.12.3_DE_duplicates.xlsx&quot;</span>
+<span class="n">rgx</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\b</span><span class="s1">_[A-Z]</span><span class="si">{2}</span><span class="se">\b</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">rgx</span><span class="p">,</span> <span class="n">fn</span><span class="p">))</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+<div class="highlight"><pre><span></span><code>[]
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableLambda</span>
-<span class="kn">from</span> <span class="nn">langchain_core.tools</span> <span class="kn">import</span> <span class="n">tool</span>
-
-
-<span class="k">def</span> <span class="nf">reverse_word</span><span class="p">(</span><span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">word …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+<div class="highlight"><pre><span></span><code><span class="n">rgx</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;(?&lt;=_)[A-Z]+(?=_)&#39;</span><span class="p">)</span>
+<span class="nb">print …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/reverse-with-runnable.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/specific-pattern-1.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/speech-2-text.html"><h3 class="article-title">Speech-2-Text</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Speech 2 Text"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">speech_recognition</span> <span class="k">as</span> <span class="nn">sr</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">startpy</span><span class="p">():</span>
+
+    <span class="c1"># obtain audio from the microphone</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">sr</span><span class="o">.</span><span class="n">Recognizer</span><span class="p">()</span>
+    <span class="n">d</span><span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">d</span><span class="o">!=</span><span class="s1">&#39;exit&#39;</span> <span class="ow">and</span> <span class="n">d</span><span class="o">!=</span><span class="s1">&#39;quit&#39;</span><span class="p">):</span>
+        <span class="k">with</span> <span class="n">sr</span><span class="o">.</span><span class="n">Microphone</span><span class="p">()</span> <span class="k">as</span> <span class="n">source</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Say something!&quot;</span><span class="p">)</span>
+            <span class="n">audio</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+
+    <span class="c1"># recognize speech using Google …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/speech-2-text.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/split-and-get-first.html"><h3 class="article-title">Split-And-Get-First</h3></a>
+<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">UNDERSCORE</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">feature_value_map_for_score</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;system_businessname_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+  <span class="s2">&quot;system_address_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_streetname_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_city_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_zipcode_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_businessname_sorensen&quot;</span><span class="p">:</span> <span class="mf">0.56</span><span class="p">,</span>
+  <span class="s2">&quot;system_address_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_streetname_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_city_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_region_sorensen&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_houseno_exactMatch&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_zipcode_ratcliff&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
+  <span class="s2">&quot;system_suiteno_exactMatch&quot;</span><span class="p">:</span> <span class="mf">1.0</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">individual_algo_feature_score_map</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="s2">&quot;system_businessname&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;system_businessname_overlapLevenshtein&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+    <span class="s2">&quot;system_businessname_sorensen&quot;</span><span class="p">:</span> <span class="mf">0.56 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/split-and-get-first.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
             <!-- /#posts-list -->
 <div class="pagination-centered">
-<h6 class="subheader">Page 47 of 57</h6>
+<h6 class="subheader">Page 47 of 59</h6>
 
 <p>
             <a href="https://rajasgs.github.io/mlnotes/index46.html">&laquo; Prev</a>
@@ -547,6 +549,7 @@ draft: false</p>
             <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
