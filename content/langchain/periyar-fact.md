@@ -1,6 +1,6 @@
 ---
 title: Periyar-Fact
-date: 2024-12-06
+date: 2024-12-07
 author: Your Name
 cell_count: 16
 score: 15

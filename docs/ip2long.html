@@ -48,74 +48,41 @@
         title="Permalink to Ip2Long">Ip2Long</a></h3>
     </header>
 
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
-    <hr>
-<p>title: "IP To Long"
-author: "Rj"
-date: 2019-04-20
-description: "List Test"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">math</span>
+    <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">AuthException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="k">pass</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyutil</span> <span class="k">as</span> <span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ip_to_long</span><span class="p">(</span><span class="n">ip_address</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
-
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="k">if</span><span class="p">(</span><span class="n">ip_address</span> <span class="o">==</span> <span class="s1">&#39;0:0:0:0:0:0:0:1&#39;</span><span class="p">):</span>
-        <span class="n">ip_address</span> <span class="o">=</span> <span class="s1">&#39;127.0.0.1&#39;</span>
-
-    <span class="n">ip_address_array</span> <span class="o">=</span> <span class="n">ip_address</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
-
-    <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ip_address_array</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">):</span>    
-        <span class="k">raise</span> <span class="n">AuthException</span><span class="p">(</span><span class="s1">&#39;Invalid Ip&#39;</span><span class="p">)</span>
-
-    <span class="c1">#print(ip_address_array[1])</span>
-
-    <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ip_address_array</span><span class="p">)):</span>
-        <span class="c1">#print(ip_address_array[i])</span>
-        <span class="n">power</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">i</span>
-        <span class="n">num</span> <span class="o">=</span> <span class="n">num</span> <span class="o">+</span> <span class="p">(</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ip_address_array</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">%</span> <span class="mi">256</span> <span class="o">*</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="n">power</span><span class="p">))</span> <span class="p">))</span>
-
-    <span class="k">return</span> <span class="n">num</span>
+<div class="highlight"><pre><span></span><code><span class="err">&#39;</span><span class="nx">conda</span><span class="w"> </span><span class="nx">env</span><span class="p">:</span><span class="w"> </span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="p">;</span><span class="w"> </span><span class="nx">pyv</span><span class="p">:</span><span class="w"> </span><span class="m m-Double">3.12.7</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">packaged</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">Anaconda</span><span class="p">,</span><span class="w"> </span><span class="nx">Inc</span><span class="p">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="nx">main</span><span class="p">,</span><span class="w"> </span><span class="nx">Oct</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="nx">GCC</span><span class="w"> </span><span class="m m-Double">11.2.0</span><span class="p">]</span><span class="err">&#39;</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">ip_long</span> <span class="o">=</span> <span class="n">ip_to_long</span><span class="p">(</span><span class="s1">&#39;10.3.81.34&#39;</span><span class="p">)</span>        
-<span class="nb">print</span><span class="p">(</span><span class="n">ip_long</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">ipaddress</span>
+
+<span class="k">def</span> <span class="nf">ip_to_long</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
+    <span class="c1"># Convert IP string to a long integer</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">ipaddress</span><span class="o">.</span><span class="n">IPv4Address</span><span class="p">(</span><span class="n">ip</span><span class="p">))</span>
+
+<span class="c1"># Example usage</span>
+<span class="n">ip</span> <span class="o">=</span> <span class="s2">&quot;192.168.1.1&quot;</span>
+<span class="n">ip_long</span> <span class="o">=</span> <span class="n">ip_to_long</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;IP Address: </span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2"> -&gt; Long Integer: </span><span class="si">{</span><span class="n">ip_long</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="mf">167989538</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">long_to_ip</span><span class="p">(</span><span class="n">ip</span><span class="p">):</span>
-
-    <span class="n">ip_address</span> <span class="o">=</span> <span class="p">((</span><span class="n">ip</span> <span class="o">&gt;&gt;</span> <span class="mi">24</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="p">((</span><span class="n">ip</span> <span class="o">&gt;&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="p">((</span><span class="n">ip</span> <span class="o">&gt;&gt;</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="n">ip</span> <span class="o">&amp;</span> <span class="mh">0xFF</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">ip_address</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1">#ip_ = long_to_ip(int(167989538))</span>
-
-<span class="c1">#print(ip_)</span>
+<div class="highlight"><pre><span></span><code><span class="n">IP</span><span class="w"> </span><span class="n">Address</span><span class="o">:</span><span class="w"> </span><span class="mf">192.168.1.1</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">Integer</span><span class="o">:</span><span class="w"> </span><span class="mi">3232235777</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 5</strong></p>
-<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<p><strong>Score: 0</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a>
 
 </p>
 
@@ -159,6 +126,7 @@ draft: false</p>
             <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
@@ -187,6 +155,7 @@ draft: false</p>
             <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
    
         </ul>
 

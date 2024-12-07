@@ -1,6 +1,6 @@
 ---
 title: Get Int Input
-date: 2024-12-06
+date: 2024-12-07
 author: Your Name
 cell_count: 5
 score: 5

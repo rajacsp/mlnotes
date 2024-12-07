@@ -1,6 +1,6 @@
 ---
 title: Geopy Simple
-date: 2024-12-06
+date: 2024-12-07
 author: Your Name
 cell_count: 13
 score: 10

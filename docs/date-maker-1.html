@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Date-Maker-1</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/date-maker-1.html" rel="bookmark"
+        title="Permalink to Date-Maker-1">Date-Maker-1</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyutil</span> <span class="k">as</span> <span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">&#39;</span><span class="nx">conda</span><span class="w"> </span><span class="nx">env</span><span class="p">:</span><span class="w"> </span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="p">;</span><span class="w"> </span><span class="nx">pyv</span><span class="p">:</span><span class="w"> </span><span class="m m-Double">3.12.7</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">packaged</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">Anaconda</span><span class="p">,</span><span class="w"> </span><span class="nx">Inc</span><span class="p">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="nx">main</span><span class="p">,</span><span class="w"> </span><span class="nx">Oct</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="nx">GCC</span><span class="w"> </span><span class="m m-Double">11.2.0</span><span class="p">]</span><span class="err">&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># will be used in MyWalks</span>
+<span class="c1"># https://docs.google.com/spreadsheets/d/1WZOx71Pg7Id_dd6wLRDQbmS8ZDaRdkMQIwltM6vFTX8/edit?gid=0#gid=0</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+<span class="c1"># Start and end dates for 2024</span>
+<span class="n">start_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+
+<span class="c1"># Generate all dates in 2024 in the format YYYYMMDD</span>
+<span class="n">current_date</span> <span class="o">=</span> <span class="n">start_date</span>
+<span class="k">while</span> <span class="n">current_date</span> <span class="o">&lt;=</span> <span class="n">end_date</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">current_date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+    <span class="n">current_date</span> <span class="o">+=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">20240101</span>
+<span class="mf">20240102</span>
+<span class="mf">20240103</span>
+<span class="mf">20240104</span>
+<span class="mf">20240105</span>
+<span class="mf">20240106</span>
+<span class="mf">20240107</span>
+<span class="mf">20240108</span>
+<span class="mf">20240109</span>
+<span class="mf">20240110</span>
+<span class="mf">20240111</span>
+<span class="mf">20240112</span>
+<span class="mf">20240113</span>
+<span class="mf">20240114</span>
+<span class="mf">20240115</span>
+<span class="mf">20240116</span>
+<span class="mf">20240117</span>
+<span class="mf">20240118</span>
+<span class="mf">20240119</span>
+<span class="mf">20240120</span>
+<span class="mf">20240121</span>
+<span class="mf">20240122</span>
+<span class="mf">20240123</span>
+<span class="mf">20240124</span>
+<span class="mf">20240125</span>
+<span class="mf">20240126</span>
+<span class="mf">20240127</span>
+<span class="mf">20240128</span>
+<span class="mf">20240129</span>
+<span class="mf">20240130</span>
+<span class="mf">20240131</span>
+<span class="mf">20240201</span>
+<span class="mf">20240202</span>
+<span class="mf">20240203</span>
+<span class="mf">20240204</span>
+<span class="mf">20240205</span>
+<span class="mf">20240206</span>
+<span class="mf">20240207</span>
+<span class="mf">20240208</span>
+<span class="mf">20240209</span>
+<span class="mf">20240210</span>
+<span class="mf">20240211</span>
+<span class="mf">20240212</span>
+<span class="mf">20240213</span>
+<span class="mf">20240214</span>
+<span class="mf">20240215</span>
+<span class="mf">20240216</span>
+<span class="mf">20240217</span>
+<span class="mf">20240218</span>
+<span class="mf">20240219</span>
+<span class="mf">20240220</span>
+<span class="mf">20240221</span>
+<span class="mf">20240222</span>
+<span class="mf">20240223</span>
+<span class="mf">20240224</span>
+<span class="mf">20240225</span>
+<span class="mf">20240226</span>
+<span class="mf">20240227</span>
+<span class="mf">20240228</span>
+<span class="mf">20240229</span>
+<span class="mf">20240301</span>
+<span class="mf">20240302</span>
+<span class="mf">20240303</span>
+<span class="mf">20240304</span>
+<span class="mf">20240305</span>
+<span class="mf">20240306</span>
+<span class="mf">20240307</span>
+<span class="mf">20240308</span>
+<span class="mf">20240309</span>
+<span class="mf">20240310</span>
+<span class="mf">20240311</span>
+<span class="mf">20240312</span>
+<span class="mf">20240313</span>
+<span class="mf">20240314</span>
+<span class="mf">20240315</span>
+<span class="mf">20240316</span>
+<span class="mf">20240317</span>
+<span class="mf">20240318</span>
+<span class="mf">20240319</span>
+<span class="mf">20240320</span>
+<span class="mf">20240321</span>
+<span class="mf">20240322</span>
+<span class="mf">20240323</span>
+<span class="mf">20240324</span>
+<span class="mf">20240325</span>
+<span class="mf">20240326</span>
+<span class="mf">20240327</span>
+<span class="mf">20240328</span>
+<span class="mf">20240329</span>
+<span class="mf">20240330</span>
+<span class="mf">20240331</span>
+<span class="mf">20240401</span>
+<span class="mf">20240402</span>
+<span class="mf">20240403</span>
+<span class="mf">20240404</span>
+<span class="mf">20240405</span>
+<span class="mf">20240406</span>
+<span class="mf">20240407</span>
+<span class="mf">20240408</span>
+<span class="mf">20240409</span>
+<span class="mf">20240410</span>
+<span class="mf">20240411</span>
+<span class="mf">20240412</span>
+<span class="mf">20240413</span>
+<span class="mf">20240414</span>
+<span class="mf">20240415</span>
+<span class="mf">20240416</span>
+<span class="mf">20240417</span>
+<span class="mf">20240418</span>
+<span class="mf">20240419</span>
+<span class="mf">20240420</span>
+<span class="mf">20240421</span>
+<span class="mf">20240422</span>
+<span class="mf">20240423</span>
+<span class="mf">20240424</span>
+<span class="mf">20240425</span>
+<span class="mf">20240426</span>
+<span class="mf">20240427</span>
+<span class="mf">20240428</span>
+<span class="mf">20240429</span>
+<span class="mf">20240430</span>
+<span class="mf">20240501</span>
+<span class="mf">20240502</span>
+<span class="mf">20240503</span>
+<span class="mf">20240504</span>
+<span class="mf">20240505</span>
+<span class="mf">20240506</span>
+<span class="mf">20240507</span>
+<span class="mf">20240508</span>
+<span class="mf">20240509</span>
+<span class="mf">20240510</span>
+<span class="mf">20240511</span>
+<span class="mf">20240512</span>
+<span class="mf">20240513</span>
+<span class="mf">20240514</span>
+<span class="mf">20240515</span>
+<span class="mf">20240516</span>
+<span class="mf">20240517</span>
+<span class="mf">20240518</span>
+<span class="mf">20240519</span>
+<span class="mf">20240520</span>
+<span class="mf">20240521</span>
+<span class="mf">20240522</span>
+<span class="mf">20240523</span>
+<span class="mf">20240524</span>
+<span class="mf">20240525</span>
+<span class="mf">20240526</span>
+<span class="mf">20240527</span>
+<span class="mf">20240528</span>
+<span class="mf">20240529</span>
+<span class="mf">20240530</span>
+<span class="mf">20240531</span>
+<span class="mf">20240601</span>
+<span class="mf">20240602</span>
+<span class="mf">20240603</span>
+<span class="mf">20240604</span>
+<span class="mf">20240605</span>
+<span class="mf">20240606</span>
+<span class="mf">20240607</span>
+<span class="mf">20240608</span>
+<span class="mf">20240609</span>
+<span class="mf">20240610</span>
+<span class="mf">20240611</span>
+<span class="mf">20240612</span>
+<span class="mf">20240613</span>
+<span class="mf">20240614</span>
+<span class="mf">20240615</span>
+<span class="mf">20240616</span>
+<span class="mf">20240617</span>
+<span class="mf">20240618</span>
+<span class="mf">20240619</span>
+<span class="mf">20240620</span>
+<span class="mf">20240621</span>
+<span class="mf">20240622</span>
+<span class="mf">20240623</span>
+<span class="mf">20240624</span>
+<span class="mf">20240625</span>
+<span class="mf">20240626</span>
+<span class="mf">20240627</span>
+<span class="mf">20240628</span>
+<span class="mf">20240629</span>
+<span class="mf">20240630</span>
+<span class="mf">20240701</span>
+<span class="mf">20240702</span>
+<span class="mf">20240703</span>
+<span class="mf">20240704</span>
+<span class="mf">20240705</span>
+<span class="mf">20240706</span>
+<span class="mf">20240707</span>
+<span class="mf">20240708</span>
+<span class="mf">20240709</span>
+<span class="mf">20240710</span>
+<span class="mf">20240711</span>
+<span class="mf">20240712</span>
+<span class="mf">20240713</span>
+<span class="mf">20240714</span>
+<span class="mf">20240715</span>
+<span class="mf">20240716</span>
+<span class="mf">20240717</span>
+<span class="mf">20240718</span>
+<span class="mf">20240719</span>
+<span class="mf">20240720</span>
+<span class="mf">20240721</span>
+<span class="mf">20240722</span>
+<span class="mf">20240723</span>
+<span class="mf">20240724</span>
+<span class="mf">20240725</span>
+<span class="mf">20240726</span>
+<span class="mf">20240727</span>
+<span class="mf">20240728</span>
+<span class="mf">20240729</span>
+<span class="mf">20240730</span>
+<span class="mf">20240731</span>
+<span class="mf">20240801</span>
+<span class="mf">20240802</span>
+<span class="mf">20240803</span>
+<span class="mf">20240804</span>
+<span class="mf">20240805</span>
+<span class="mf">20240806</span>
+<span class="mf">20240807</span>
+<span class="mf">20240808</span>
+<span class="mf">20240809</span>
+<span class="mf">20240810</span>
+<span class="mf">20240811</span>
+<span class="mf">20240812</span>
+<span class="mf">20240813</span>
+<span class="mf">20240814</span>
+<span class="mf">20240815</span>
+<span class="mf">20240816</span>
+<span class="mf">20240817</span>
+<span class="mf">20240818</span>
+<span class="mf">20240819</span>
+<span class="mf">20240820</span>
+<span class="mf">20240821</span>
+<span class="mf">20240822</span>
+<span class="mf">20240823</span>
+<span class="mf">20240824</span>
+<span class="mf">20240825</span>
+<span class="mf">20240826</span>
+<span class="mf">20240827</span>
+<span class="mf">20240828</span>
+<span class="mf">20240829</span>
+<span class="mf">20240830</span>
+<span class="mf">20240831</span>
+<span class="mf">20240901</span>
+<span class="mf">20240902</span>
+<span class="mf">20240903</span>
+<span class="mf">20240904</span>
+<span class="mf">20240905</span>
+<span class="mf">20240906</span>
+<span class="mf">20240907</span>
+<span class="mf">20240908</span>
+<span class="mf">20240909</span>
+<span class="mf">20240910</span>
+<span class="mf">20240911</span>
+<span class="mf">20240912</span>
+<span class="mf">20240913</span>
+<span class="mf">20240914</span>
+<span class="mf">20240915</span>
+<span class="mf">20240916</span>
+<span class="mf">20240917</span>
+<span class="mf">20240918</span>
+<span class="mf">20240919</span>
+<span class="mf">20240920</span>
+<span class="mf">20240921</span>
+<span class="mf">20240922</span>
+<span class="mf">20240923</span>
+<span class="mf">20240924</span>
+<span class="mf">20240925</span>
+<span class="mf">20240926</span>
+<span class="mf">20240927</span>
+<span class="mf">20240928</span>
+<span class="mf">20240929</span>
+<span class="mf">20240930</span>
+<span class="mf">20241001</span>
+<span class="mf">20241002</span>
+<span class="mf">20241003</span>
+<span class="mf">20241004</span>
+<span class="mf">20241005</span>
+<span class="mf">20241006</span>
+<span class="mf">20241007</span>
+<span class="mf">20241008</span>
+<span class="mf">20241009</span>
+<span class="mf">20241010</span>
+<span class="mf">20241011</span>
+<span class="mf">20241012</span>
+<span class="mf">20241013</span>
+<span class="mf">20241014</span>
+<span class="mf">20241015</span>
+<span class="mf">20241016</span>
+<span class="mf">20241017</span>
+<span class="mf">20241018</span>
+<span class="mf">20241019</span>
+<span class="mf">20241020</span>
+<span class="mf">20241021</span>
+<span class="mf">20241022</span>
+<span class="mf">20241023</span>
+<span class="mf">20241024</span>
+<span class="mf">20241025</span>
+<span class="mf">20241026</span>
+<span class="mf">20241027</span>
+<span class="mf">20241028</span>
+<span class="mf">20241029</span>
+<span class="mf">20241030</span>
+<span class="mf">20241031</span>
+<span class="mf">20241101</span>
+<span class="mf">20241102</span>
+<span class="mf">20241103</span>
+<span class="mf">20241104</span>
+<span class="mf">20241105</span>
+<span class="mf">20241106</span>
+<span class="mf">20241107</span>
+<span class="mf">20241108</span>
+<span class="mf">20241109</span>
+<span class="mf">20241110</span>
+<span class="mf">20241111</span>
+<span class="mf">20241112</span>
+<span class="mf">20241113</span>
+<span class="mf">20241114</span>
+<span class="mf">20241115</span>
+<span class="mf">20241116</span>
+<span class="mf">20241117</span>
+<span class="mf">20241118</span>
+<span class="mf">20241119</span>
+<span class="mf">20241120</span>
+<span class="mf">20241121</span>
+<span class="mf">20241122</span>
+<span class="mf">20241123</span>
+<span class="mf">20241124</span>
+<span class="mf">20241125</span>
+<span class="mf">20241126</span>
+<span class="mf">20241127</span>
+<span class="mf">20241128</span>
+<span class="mf">20241129</span>
+<span class="mf">20241130</span>
+<span class="mf">20241201</span>
+<span class="mf">20241202</span>
+<span class="mf">20241203</span>
+<span class="mf">20241204</span>
+<span class="mf">20241205</span>
+<span class="mf">20241206</span>
+<span class="mf">20241207</span>
+<span class="mf">20241208</span>
+<span class="mf">20241209</span>
+<span class="mf">20241210</span>
+<span class="mf">20241211</span>
+<span class="mf">20241212</span>
+<span class="mf">20241213</span>
+<span class="mf">20241214</span>
+<span class="mf">20241215</span>
+<span class="mf">20241216</span>
+<span class="mf">20241217</span>
+<span class="mf">20241218</span>
+<span class="mf">20241219</span>
+<span class="mf">20241220</span>
+<span class="mf">20241221</span>
+<span class="mf">20241222</span>
+<span class="mf">20241223</span>
+<span class="mf">20241224</span>
+<span class="mf">20241225</span>
+<span class="mf">20241226</span>
+<span class="mf">20241227</span>
+<span class="mf">20241228</span>
+<span class="mf">20241229</span>
+<span class="mf">20241230</span>
+<span class="mf">20241231</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 0</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/encoding.html">encoding</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

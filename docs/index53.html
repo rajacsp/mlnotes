@@ -47,8 +47,199 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/text-index-and-slicing.html"><h3 class="article-title">Text-Index-And-Slicing</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Text Index and Slicing"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">f</span> <span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;canola.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">raw</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="s">&#39;OTTAWA—The federal Liberals promised Wednesday to give Canada’s canola farmers much-needed financial aid to help lessen the impact of China’s decision to …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/text-index-and-slicing.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/text-similarity.html"><h3 class="article-title">Text-Similarity</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Text Similarity"
+author: "Raja CSP Raman"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span><span class="o">,</span> <span class="nn">string</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">stemmer</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">stem</span><span class="o">.</span><span class="n">porter</span><span class="o">.</span><span class="n">PorterStemmer</span><span class="p">()</span>
+<span class="n">remove_punctuation_map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="nb">ord</span><span class="p">(</span><span class="n">char</span><span class="p">),</span> <span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">char</span> <span class="ow">in</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">stem_tokens</span><span class="p">(</span><span class="n">tokens</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="sd">&#39;&#39;&#39;remove …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/text-similarity.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/text-similarity-finder.html"><h3 class="article-title">Text-Similarity-Finder</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Text Similarity Finder"
+author: "Raja CSP Raman"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">cosine_similarity</span>  
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">findSimilarity</span><span class="p">(</span><span class="n">param1</span><span class="p">,</span> <span class="n">param2</span><span class="p">):</span>
+    <span class="n">documents</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">param1</span><span class="p">,</span>
+        <span class="n">param2</span>
+    <span class="p">)</span>
+    <span class="n">tfidf_vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">()</span>
+    <span class="n">tfidf_matrix</span> <span class="o">=</span> <span class="n">tfidf_vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+    <span class="n">cosine</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">tfidf_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">],</span> <span class="n">tfidf_matrix</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">cosine</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">findSimilarity</span><span class="p">(</span><span class="s2">&quot;In …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/text-similarity-finder.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/text-to-vector.html"><h3 class="article-title">Text-To-Vector</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Text to Vector"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content</span> <span class="o">=</span> <span class="s2">&quot;The Democrats — including more than 50 freshmen — are mindful that impeachment poses political risks that could endanger the seats of moderates and their majority, as well as strengthen Mr. Trump’s hand. &quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">content</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>&#39;The …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/text-to-vector.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/textblob-classifier-2.html"><h3 class="article-title">Textblob-Classifier-2</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+<hr>
+<p>title: "TextBlob Classifier 2"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">textblob.classifiers</span> <span class="kn">import</span> <span class="n">NaiveBayesClassifier</span>
+<span class="kn">from</span> <span class="nn">textblob</span> <span class="kn">import</span> <span class="n">TextBlob</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">train</span> <span class="o">=</span> <span class="p">[</span>
+     <span class="p">(</span><span class="s1">&#39;I love this sandwich.&#39;</span><span class="p">,</span> <span class="s1">&#39;pos&#39;</span><span class="p">),</span>
+     <span class="p">(</span><span class="s1">&#39;this is an amazing place!&#39;</span><span class="p">,</span> <span class="s1">&#39;pos&#39;</span><span class="p">),</span>
+     <span class="p">(</span><span class="s1">&#39;I feel very good about these beers.&#39;</span><span class="p">,</span> <span class="s1">&#39;pos&#39;</span><span class="p">),</span>
+     <span class="p">(</span><span class="s1">&#39;this is my best work.&#39;</span><span class="p">,</span> <span class="s1">&#39;pos&#39;</span><span class="p">),</span>
+     <span class="p">(</span><span class="s2">&quot;what an …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/textblob-classifier-2.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/three.html"><h3 class="article-title">Three</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -81,7 +272,7 @@
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/time-with-periods.html"><h3 class="article-title">Time With Periods</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -124,7 +315,7 @@ draft: false</p>
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/timeit-simple.html"><h3 class="article-title">Timeit-Simple</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -167,7 +358,7 @@ draft: false</p>
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/timeit-simple-2.html"><h3 class="article-title">Timeit-Simple-2</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -215,7 +406,7 @@ draft: false</p>
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/tinkerball-map.html"><h3 class="article-title">Tinkerball-Map</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -246,190 +437,9 @@ draft: false</p>
                 <hr  class="gradient"/>
             </article>
 
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/tips-seaborn.html"><h3 class="article-title">Tips-Seaborn</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Python 3.10.5
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Load the dataset</span>
-<span class="n">tips</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;tips&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Create a PairGrid with regression and histogram plots</span>
-<span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">PairGrid</span><span class="p">(</span><span class="n">tips</span><span class="p">,</span> <span class="n">diag_sharey</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;sex&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;Set2&quot;</span><span class="p">)</span>
-<span class="n">g</span><span class="o">.</span><span class="n">map_upper</span><span class="p">(</span><span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/tips-seaborn.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/titanic.html"><h3 class="article-title">Titanic</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">export_graphviz</span>
-<span class="kn">import</span> <span class="nn">pydotplus</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-
-<span class="c1"># Load the Titanic dataset</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv&quot;</span>
-<span class="n">titanic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-
-<span class="c1"># Preprocess the dataset</span>
-<span class="c1"># Select features and target variable</span>
-<span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Pclass …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/titanic.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/titanic-deepcheck-analysis.html"><h3 class="article-title">Titanic-Deepcheck-Analysis</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>Python 3.10.5
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
-<span class="kn">from</span> <span class="nn">deepchecks.tabular</span> <span class="kn">import</span> <span class="n">Dataset</span>
-<span class="kn">from</span> <span class="nn">deepchecks.tabular.suites</span> <span class="kn">import</span> <span class="n">full_suite</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Load the Titanic dataset</span>
-<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/titanic-deepcheck-analysis.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/titnaic-evi.html"><h3 class="article-title">Titnaic-Evi</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># https://github.com/datasciencedojo/datasets/blob/master/titanic.csv</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">ls</span> <span class="o">../</span><span class="n">titanic</span><span class="o">.</span><span class="n">csv</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c">../titanic.csv</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Load the dataset</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../titanic.csv&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">data</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="kd">class</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">pandas</span><span class="p">.</span><span class="nx">core</span><span class="p">.</span><span class="nx">frame</span><span class="p">.</span><span class="nx">DataFrame</span><span class="err">&#39;</span><span class="p">&gt;</span>
-<span class="nx">RangeIndex</span><span class="p">:</span><span class="w"> </span><span class="mi">891</span><span class="w"> </span><span class="nx">entries</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="mi">890</span>
-<span class="nx">Data</span><span class="w"> </span><span class="nx">columns</span><span class="w"> </span><span class="p">(</span><span class="nx">total</span><span class="w"> </span><span class="mi">12</span><span class="w"> </span><span class="nx">columns</span><span class="p">):</span>
-<span class="w"> </span><span class="err">#</span><span class="w">   </span><span class="nx">Column</span><span class="w">       </span><span class="nx">Non</span><span class="o">-</span><span class="nx">Null</span><span class="w"> </span><span class="nx">Count</span><span class="w">  </span><span class="nx">Dtype</span><span class="w">  </span>
-<span class="o">---</span><span class="w">  </span><span class="o">------</span><span class="w">       </span><span class="o">--------------</span><span class="w">  </span><span class="o">-----</span><span class="w">  </span>
-<span class="w"> </span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/titnaic-evi.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/tokenize-sentence.html"><h3 class="article-title">Tokenize Sentence</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Tokenize Sentences"
-author: "Raja CSP Raman"
-date: 2019-05-02
-description: "-"
-type: technical_note
-draft: false
-source: https://tedboy.github.io/nlps/gensim_tutorial/tut1.html</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">documents</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;The traditional paradigm just seems safer: be firm and a little distant from your employees&quot;</span><span class="p">,</span> 
-
-<span class="s2">&quot;The people who work for you should …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/tokenize-sentence.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
             <!-- /#posts-list -->
 <div class="pagination-centered">
-<h6 class="subheader">Page 53 of 59</h6>
+<h6 class="subheader">Page 53 of 60</h6>
 
 <p>
             <a href="https://rajasgs.github.io/mlnotes/index52.html">&laquo; Prev</a>
@@ -474,6 +484,7 @@ source: https://tedboy.github.io/nlps/gensim_tutorial/tut1.html</p>
             <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
@@ -502,6 +513,7 @@ source: https://tedboy.github.io/nlps/gensim_tutorial/tut1.html</p>
             <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
    
         </ul>
 

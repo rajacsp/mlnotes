@@ -47,8 +47,171 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/linear-regression-simple-9649.html"><h3 class="article-title">Linear-Regression-Simple-9649</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/letter-match.html"><h3 class="article-title">Letter-Match</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Letter Match"
+author: "Raja CSP Raman"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">contents</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;AB23&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;A2B3&quot;</span><span class="p">,</span> 
+    <span class="s2">&quot;DE09&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MN90&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;XYi9&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;XY90&quot;</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
+    <span class="n">regex_pattern</span> <span class="o">=</span> <span class="s2">&quot;(?:AB|DE|XY)\d+&quot;</span> 
+    <span class="c1"># starts with AB or DE; should contain one or more number</span>
+
+    <span class="n">m</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">regex_pattern</span><span class="p">,</span> <span class="n">content</span><span class="p">)</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="n">m …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/letter-match.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/levenshtein-distance.html"><h3 class="article-title">Levenshtein-Distance</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Levenshtein Distance"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">levenshtein_distance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">s</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">t</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cost</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">levenshtein_distance</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">t</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+               <span class="n">levenshtein_distance</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/levenshtein-distance.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/lexical-diversity.html"><h3 class="article-title">Lexical-Diversity</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Lexical Diversity"
+author: "Rj"
+date: 2019-04-21
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">f</span> <span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;canola.txt&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">raw</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">raw</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="s">&#39;OTTAWA—The federal Liberals promised Wednesday to give Canada’s canola farmers much-needed financial aid to help lessen the impact of China’s decision to ban the …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/lexical-diversity.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/linear-regression-simple.html"><h3 class="article-title">Linear-Regression-Simple</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Linear Regression Simple"
+author: "Raja CSP Raman"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Load the diabetes dataset</span>
+<span class="n">diabetes_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_diabetes</span><span class="p">()</span>
+
+<span class="c1"># Print all keys and …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/linear-regression-simple.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/linear-regression-simple-7031.html"><h3 class="article-title">Linear-Regression-Simple-7031</h3></a>
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -77,7 +240,7 @@ draft: false</p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/linear-regression-simple-9649.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/linear-regression-simple-7031.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -86,7 +249,7 @@ draft: false</p>
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/linear-search.html"><h3 class="article-title">Linear Search</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -132,7 +295,7 @@ draft: false</p>
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/linear-vs-binary-timeit.html"><h3 class="article-title">Linear Vs Binary Timeit</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -173,7 +336,7 @@ draft: false</p>
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/linkedin-summary-classification-nb.html"><h3 class="article-title">Linkedin-Summary-Classification-Nb</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -210,7 +373,7 @@ draft: false</p>
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/list-files.html"><h3 class="article-title">List-Files</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -252,7 +415,7 @@ occupancy.zip …</code></pre></div><p class="subheader">Category: <a href="http
 
             <article>
                 <a href="https://rajasgs.github.io/mlnotes/list-operations.html"><h3 class="article-title">List-Operations</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -306,221 +469,9 @@ draft: false</p>
                 <hr  class="gradient"/>
             </article>
 
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/list-ref.html"><h3 class="article-title">List Ref</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
-</h6>
-
-
-<hr>
-<p>title: "List Reference"
-author: "Rj"
-date: 2019-04-20
-description: "List Test"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span>
-<span class="p">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">b</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[1, 2, 3, 4]
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">a</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[1, 2, 3, 4, 5]
-</code></pre></div>
-
-<p>As b is referring to a, whatever is added to b, will be reflected to …</p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/list-ref.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/list-remove.html"><h3 class="article-title">List-Remove</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Remove Item from list"
-author: "Rj"
-date: 2019-04-20
-description: "-"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="n">names</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;Kevin&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Peter&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;John&quot;</span>
-<span class="p">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">names</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;Kevin&#39;, &#39;Peter&#39;, &#39;John&#39;]
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">names</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&#39;Kevin&#39;
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">names</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;Peter&#39;, &#39;John&#39;]
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/list-remove.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/list-test.html"><h3 class="article-title">List Test</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
-</h6>
-
-
-<hr>
-<p>title: "List Test"
-author: "Rj"
-date: 2019-04-20
-description: "List Test"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;one&#39;, 2, &#39;three&#39;, False]
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">7</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;three&#39;, False]
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">entryTuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="s1">&#39;four&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">entryTuple</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>(100, 200, &#39;three&#39;, &#39;four&#39;)
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">cities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Toronto&#39;</span><span class="p">,</span> <span class="s1">&#39;Monteal&#39;</span><span class="p">,</span> <span class="s1">&#39;Vancouver&#39;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cities</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;Toronto&#39;, &#39;Monteal …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/list-test.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/list-test-2.html"><h3 class="article-title">List Test 2</h3></a>
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
-</h6>
-
-
-<hr>
-<p>title: "List Test 2"
-author: "Rj"
-date: 2019-04-20
-description: "List Test"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">entries</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;one&#39;, 2, &#39;three&#39;, False]
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">7</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;three&#39;, False]
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">entryTuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="s1">&#39;four&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">entryTuple</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>(100, 200, &#39;three&#39;, &#39;four&#39;)
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">cities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Toronto&#39;</span><span class="p">,</span> <span class="s1">&#39;Monteal&#39;</span><span class="p">,</span> <span class="s1">&#39;Vancouver&#39;</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cities</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;Toronto …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/list-test-2.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
             <!-- /#posts-list -->
 <div class="pagination-centered">
-<h6 class="subheader">Page 29 of 59</h6>
+<h6 class="subheader">Page 29 of 60</h6>
 
 <p>
             <a href="https://rajasgs.github.io/mlnotes/author/your-name28.html">&laquo; Prev</a>
@@ -565,6 +516,7 @@ draft: false</p>
             <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
@@ -593,6 +545,7 @@ draft: false</p>
             <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
    
         </ul>
 

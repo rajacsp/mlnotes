@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Zzemp-5723</title>
+    <title>Ip-Generator</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
@@ -44,11 +44,11 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/zzemp-5723.html" rel="bookmark"
-        title="Permalink to Zzemp-5723">Zzemp-5723</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/ip-generator.html" rel="bookmark"
+        title="Permalink to Ip-Generator">Ip-Generator</a></h3>
     </header>
 
-<h6 class="subheader" title="2024-12-06T00:00:00-05:00">Fri 06 December 2024
+<h6 class="subheader" title="2024-12-07T00:00:00-05:00">Sat 07 December 2024
 </h6>
 
 
@@ -56,12 +56,60 @@
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyutil</span> <span class="k">as</span> <span class="nn">pyu</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="err">&#39;</span><span class="nx">conda</span><span class="w"> </span><span class="nx">env</span><span class="p">:</span><span class="w"> </span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="p">;</span><span class="w"> </span><span class="nx">pyv</span><span class="p">:</span><span class="w"> </span><span class="m m-Double">3.12.7</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">packaged</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">Anaconda</span><span class="p">,</span><span class="w"> </span><span class="nx">Inc</span><span class="p">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="nx">main</span><span class="p">,</span><span class="w"> </span><span class="nx">Oct</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="nx">GCC</span><span class="w"> </span><span class="m m-Double">11.2.0</span><span class="p">]</span><span class="err">&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># public ip</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="k">def</span> <span class="nf">generate_public_ip</span><span class="p">():</span>
+    <span class="c1"># Exclude private IP ranges</span>
+    <span class="n">excluded_ranges</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>  <span class="c1"># 10.0.0.0 - 10.255.255.255</span>
+        <span class="p">(</span><span class="mi">172</span><span class="p">,</span> <span class="mi">172</span><span class="p">),</span>  <span class="c1"># 172.16.0.0 - 172.31.255.255</span>
+        <span class="p">(</span><span class="mi">192</span><span class="p">,</span> <span class="mi">192</span><span class="p">),</span>  <span class="c1"># 192.168.0.0 - 192.168.255.255</span>
+    <span class="p">]</span>
+
+    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Generate random first octet</span>
+        <span class="n">first</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">223</span><span class="p">)</span>
+
+        <span class="c1"># Ensure it&#39;s not a private IP range</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">start</span> <span class="o">&lt;=</span> <span class="n">first</span> <span class="o">&lt;=</span> <span class="n">end</span> <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="ow">in</span> <span class="n">excluded_ranges</span><span class="p">):</span>
+            <span class="k">break</span>
+
+    <span class="c1"># Generate the other octets (2-4)</span>
+    <span class="n">second</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="n">third</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+    <span class="n">fourth</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span>
+
+    <span class="c1"># Combine to create the IP</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">first</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">second</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">third</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">fourth</span><span class="si">}</span><span class="s2">&quot;</span>
+
+<span class="c1"># Generate multiple public IPs</span>
+<span class="n">public_ips</span> <span class="o">=</span> <span class="p">[</span><span class="n">generate_public_ip</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+
+<span class="c1"># Print the generated IPs</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Random Public IP Addresses:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="n">public_ips</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ip</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">Random</span><span class="w"> </span><span class="nv">Public</span><span class="w"> </span><span class="nv">IP</span><span class="w"> </span><span class="nv">Addresses</span>:
+<span class="mi">223</span>.<span class="mi">59</span>.<span class="mi">16</span>.<span class="mi">209</span>
+<span class="mi">88</span>.<span class="mi">224</span>.<span class="mi">147</span>.<span class="mi">129</span>
+<span class="mi">144</span>.<span class="mi">148</span>.<span class="mi">121</span>.<span class="mi">177</span>
+<span class="mi">90</span>.<span class="mi">210</span>.<span class="mi">54</span>.<span class="mi">132</span>
+<span class="mi">143</span>.<span class="mi">64</span>.<span class="mi">56</span>.<span class="mi">165</span>
+<span class="mi">176</span>.<span class="mi">220</span>.<span class="mi">110</span>.<span class="mi">253</span>
+<span class="mi">55</span>.<span class="mi">141</span>.<span class="mi">50</span>.<span class="mi">54</span>
+<span class="mi">168</span>.<span class="mi">71</span>.<span class="mi">210</span>.<span class="mi">26</span>
+<span class="mi">127</span>.<span class="mi">184</span>.<span class="mi">181</span>.<span class="mi">104</span>
+<span class="mi">116</span>.<span class="mi">199</span>.<span class="mi">204</span>.<span class="mi">222</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code>
@@ -69,7 +117,7 @@
 
 <hr>
 <p><strong>Score: 0</strong></p>
-<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a>
 
 </p>
 
@@ -113,6 +161,7 @@
             <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
@@ -141,6 +190,7 @@
             <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
    
         </ul>
 
