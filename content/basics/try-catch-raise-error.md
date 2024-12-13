@@ -1,6 +1,6 @@
 ---
 title: Try-Catch-Raise-Error
-date: 2024-12-07
+date: 2024-12-13
 author: Your Name
 cell_count: 6
 score: 5

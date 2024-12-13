@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Space-Removal-Df</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/space-removal-df.html" rel="bookmark"
+        title="Permalink to Space-Removal-Df">Space-Removal-Df</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-12-13T00:00:00-05:00">Fri 13 December 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">FILEPATH</span> <span class="o">=</span> <span class="s2">&quot;../countries-of-the-world.csv&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">FILEPATH</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country</th>
+      <th>Region</th>
+      <th>Population</th>
+      <th>Area (sq. mi.)</th>
+      <th>Pop. Density (per sq. mi.)</th>
+      <th>Coastline (coast/area ratio)</th>
+      <th>Net migration</th>
+      <th>Infant mortality (per 1000 births)</th>
+      <th>GDP ($ per capita)</th>
+      <th>Literacy (%)</th>
+      <th>Phones (per 1000)</th>
+      <th>Arable (%)</th>
+      <th>Crops (%)</th>
+      <th>Other (%)</th>
+      <th>Climate</th>
+      <th>Birthrate</th>
+      <th>Deathrate</th>
+      <th>Agriculture</th>
+      <th>Industry</th>
+      <th>Service</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>ASIA (EX. NEAR EAST)</td>
+      <td>31056997</td>
+      <td>647500</td>
+      <td>48,0</td>
+      <td>0,00</td>
+      <td>23,06</td>
+      <td>163,07</td>
+      <td>700.0</td>
+      <td>36,0</td>
+      <td>3,2</td>
+      <td>12,13</td>
+      <td>0,22</td>
+      <td>87,65</td>
+      <td>1</td>
+      <td>46,6</td>
+      <td>20,34</td>
+      <td>0,38</td>
+      <td>0,24</td>
+      <td>0,38</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Albania</td>
+      <td>EASTERN EUROPE</td>
+      <td>3581655</td>
+      <td>28748</td>
+      <td>124,6</td>
+      <td>1,26</td>
+      <td>-4,93</td>
+      <td>21,52</td>
+      <td>4500.0</td>
+      <td>86,5</td>
+      <td>71,2</td>
+      <td>21,09</td>
+      <td>4,42</td>
+      <td>74,49</td>
+      <td>3</td>
+      <td>15,11</td>
+      <td>5,22</td>
+      <td>0,232</td>
+      <td>0,188</td>
+      <td>0,579</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>Country
+Region
+Population
+Area (sq. mi.)
+Pop. Density (per sq. mi.)
+Coastline (coast/area ratio)
+Net migration
+Infant mortality (per 1000 births)
+GDP ($ per capita)
+Literacy (%)
+Phones (per 1000)
+Arable (%)
+Crops (%)
+Other (%)
+Climate
+Birthrate
+Deathrate
+Agriculture
+Industry
+Service
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># print all cols</span>
+
+<span class="n">new_cols</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">old_col</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="c1"># print(col)</span>
+
+    <span class="n">col</span> <span class="o">=</span> <span class="n">old_col</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;$&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+    <span class="c1"># if &quot; &quot; in col or &quot;(&quot; in col:</span>
+    <span class="c1"># print(col)</span>
+
+    <span class="n">new_cols</span><span class="p">[</span><span class="n">old_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">col</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">new_cols</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">{&#39;</span><span class="n">Country</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">country</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Region</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">region</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Population</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">population</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Area</span><span class="w"> </span><span class="p">(</span><span class="n">sq</span><span class="p">.</span><span class="w"> </span><span class="n">mi</span><span class="p">.)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">area_sq_mi</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Pop</span><span class="p">.</span><span class="w"> </span><span class="n">Density</span><span class="w"> </span><span class="p">(</span><span class="n">per</span><span class="w"> </span><span class="n">sq</span><span class="p">.</span><span class="w"> </span><span class="n">mi</span><span class="p">.)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">pop_density_per_sq_mi</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Coastline</span><span class="w"> </span><span class="p">(</span><span class="n">coast</span><span class="o">/</span><span class="n">area</span><span class="w"> </span><span class="n">ratio</span><span class="p">)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">coastline_coastarea_ratio</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Net</span><span class="w"> </span><span class="n">migration</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">net_migration</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Infant</span><span class="w"> </span><span class="n">mortality</span><span class="w"> </span><span class="p">(</span><span class="n">per</span><span class="w"> </span><span class="mh">1000</span><span class="w"> </span><span class="n">births</span><span class="p">)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">infant_mortality_per_1000_births</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">GDP</span><span class="w"> </span><span class="p">(</span><span class="err">$</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">capita</span><span class="p">)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">gdp__per_capita</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Literacy</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="p">)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">literacy_</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Phones</span><span class="w"> </span><span class="p">(</span><span class="n">per</span><span class="w"> </span><span class="mh">1000</span><span class="p">)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">phones_per_1000</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Arable</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="p">)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">arable_</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Crops</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="p">)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">crops_</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Other</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="p">)&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">other_</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Climate</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">climate</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Birthrate</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">birthrate</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Deathrate</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">deathrate</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Agriculture</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">agriculture</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Industry</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">industry</span><span class="p">&#39;,</span>
+<span class="w"> </span><span class="p">&#39;</span><span class="n">Service</span><span class="p">&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">&#39;</span><span class="n">service</span><span class="p">&#39;}</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span>
+    <span class="n">columns</span> <span class="o">=</span> <span class="n">new_cols</span><span class="p">,</span> 
+    <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>region</th>
+      <th>population</th>
+      <th>area_sq_mi</th>
+      <th>pop_density_per_sq_mi</th>
+      <th>coastline_coastarea_ratio</th>
+      <th>net_migration</th>
+      <th>infant_mortality_per_1000_births</th>
+      <th>gdp__per_capita</th>
+      <th>literacy_</th>
+      <th>phones_per_1000</th>
+      <th>arable_</th>
+      <th>crops_</th>
+      <th>other_</th>
+      <th>climate</th>
+      <th>birthrate</th>
+      <th>deathrate</th>
+      <th>agriculture</th>
+      <th>industry</th>
+      <th>service</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>ASIA (EX. NEAR EAST)</td>
+      <td>31056997</td>
+      <td>647500</td>
+      <td>48,0</td>
+      <td>0,00</td>
+      <td>23,06</td>
+      <td>163,07</td>
+      <td>700.0</td>
+      <td>36,0</td>
+      <td>3,2</td>
+      <td>12,13</td>
+      <td>0,22</td>
+      <td>87,65</td>
+      <td>1</td>
+      <td>46,6</td>
+      <td>20,34</td>
+      <td>0,38</td>
+      <td>0,24</td>
+      <td>0,38</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Albania</td>
+      <td>EASTERN EUROPE</td>
+      <td>3581655</td>
+      <td>28748</td>
+      <td>124,6</td>
+      <td>1,26</td>
+      <td>-4,93</td>
+      <td>21,52</td>
+      <td>4500.0</td>
+      <td>86,5</td>
+      <td>71,2</td>
+      <td>21,09</td>
+      <td>4,42</td>
+      <td>74,49</td>
+      <td>3</td>
+      <td>15,11</td>
+      <td>5,22</td>
+      <td>0,232</td>
+      <td>0,188</td>
+      <td>0,579</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../countries-of-the-world-cleaned.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 10</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/duckdb.html">duckdb</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/encoding.html">encoding</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

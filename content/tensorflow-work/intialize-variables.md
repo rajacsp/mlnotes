@@ -1,6 +1,6 @@
 ---
 title: Intialize-Variables
-date: 2024-12-07
+date: 2024-12-13
 author: Your Name
 cell_count: 5
 score: 5

@@ -1,6 +1,6 @@
 ---
 title: 4-Genetic-Algorithm-1
-date: 2024-12-07
+date: 2024-12-13
 author: Your Name
 cell_count: 25
 score: 25
