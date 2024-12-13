@@ -2,7 +2,7 @@
 title: Duck-Test1
 date: 2024-12-13
 author: Your Name
-cell_count: 16
+cell_count: 19
 score: 15
 ---
 
@@ -57,7 +57,7 @@ con.execute("CREATE TABLE my_table AS SELECT * FROM '../dataset/student_data.csv
 
 
 
-    <duckdb.duckdb.DuckDBPyConnection at 0x7ff4d81c1570>
+    <duckdb.duckdb.DuckDBPyConnection at 0x7ff46ea2adf0>
 
 
 
@@ -91,13 +91,6 @@ print(result)
 ```python
 # type(result[0])
 ```
-
-
-
-
-    tuple
-
-
 
 
 ```python
@@ -146,33 +139,33 @@ q("SELECT * FROM my_table WHERE student_id = 1")
 
 
 <style type="text/css">
-#T_1bb30_row0_col0, #T_1bb30_row0_col1, #T_1bb30_row0_col2, #T_1bb30_row0_col3, #T_1bb30_row0_col4, #T_1bb30_row0_col5, #T_1bb30_row0_col6 {
+#T_52dd6_row0_col0, #T_52dd6_row0_col1, #T_52dd6_row0_col2, #T_52dd6_row0_col3, #T_52dd6_row0_col4, #T_52dd6_row0_col5, #T_52dd6_row0_col6 {
   text-align: center;
 }
 </style>
-<table id="T_1bb30">
+<table id="T_52dd6">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_1bb30_level0_col0" class="col_heading level0 col0" >col_0</th>
-      <th id="T_1bb30_level0_col1" class="col_heading level0 col1" >col_1</th>
-      <th id="T_1bb30_level0_col2" class="col_heading level0 col2" >col_2</th>
-      <th id="T_1bb30_level0_col3" class="col_heading level0 col3" >col_3</th>
-      <th id="T_1bb30_level0_col4" class="col_heading level0 col4" >col_4</th>
-      <th id="T_1bb30_level0_col5" class="col_heading level0 col5" >col_5</th>
-      <th id="T_1bb30_level0_col6" class="col_heading level0 col6" >col_6</th>
+      <th id="T_52dd6_level0_col0" class="col_heading level0 col0" >col_0</th>
+      <th id="T_52dd6_level0_col1" class="col_heading level0 col1" >col_1</th>
+      <th id="T_52dd6_level0_col2" class="col_heading level0 col2" >col_2</th>
+      <th id="T_52dd6_level0_col3" class="col_heading level0 col3" >col_3</th>
+      <th id="T_52dd6_level0_col4" class="col_heading level0 col4" >col_4</th>
+      <th id="T_52dd6_level0_col5" class="col_heading level0 col5" >col_5</th>
+      <th id="T_52dd6_level0_col6" class="col_heading level0 col6" >col_6</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_1bb30_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_1bb30_row0_col0" class="data row0 col0" >1</td>
-      <td id="T_1bb30_row0_col1" class="data row0 col1" >John Doe</td>
-      <td id="T_1bb30_row0_col2" class="data row0 col2" >85</td>
-      <td id="T_1bb30_row0_col3" class="data row0 col3" >90</td>
-      <td id="T_1bb30_row0_col4" class="data row0 col4" >80</td>
-      <td id="T_1bb30_row0_col5" class="data row0 col5" >88</td>
-      <td id="T_1bb30_row0_col6" class="data row0 col6" >1</td>
+      <th id="T_52dd6_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_52dd6_row0_col0" class="data row0 col0" >1</td>
+      <td id="T_52dd6_row0_col1" class="data row0 col1" >John Doe</td>
+      <td id="T_52dd6_row0_col2" class="data row0 col2" >85</td>
+      <td id="T_52dd6_row0_col3" class="data row0 col3" >90</td>
+      <td id="T_52dd6_row0_col4" class="data row0 col4" >80</td>
+      <td id="T_52dd6_row0_col5" class="data row0 col5" >88</td>
+      <td id="T_52dd6_row0_col6" class="data row0 col6" >1</td>
     </tr>
   </tbody>
 </table>
@@ -191,25 +184,135 @@ limit 2
 
 
 <style type="text/css">
-#T_dad1e_row0_col0, #T_dad1e_row1_col0 {
+#T_2e4f5_row0_col0, #T_2e4f5_row1_col0 {
   text-align: center;
 }
 </style>
-<table id="T_dad1e">
+<table id="T_2e4f5">
   <thead>
     <tr>
       <th class="blank level0" >&nbsp;</th>
-      <th id="T_dad1e_level0_col0" class="col_heading level0 col0" >student_name</th>
+      <th id="T_2e4f5_level0_col0" class="col_heading level0 col0" >student_name</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th id="T_dad1e_level0_row0" class="row_heading level0 row0" >0</th>
-      <td id="T_dad1e_row0_col0" class="data row0 col0" >John Doe</td>
+      <th id="T_2e4f5_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_2e4f5_row0_col0" class="data row0 col0" >John Doe</td>
     </tr>
     <tr>
-      <th id="T_dad1e_level0_row1" class="row_heading level0 row1" >1</th>
-      <td id="T_dad1e_row1_col0" class="data row1 col0" >Jane Smith</td>
+      <th id="T_2e4f5_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_2e4f5_row1_col0" class="data row1 col0" >Jane Smith</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+```python
+q("""
+SELECT 
+AVG(test_scores)
+FROM my_table
+limit 2
+""",
+["one"])
+```
+
+
+<style type="text/css">
+#T_ba28d_row0_col0 {
+  text-align: center;
+}
+</style>
+<table id="T_ba28d">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_ba28d_level0_col0" class="col_heading level0 col0" >one</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_ba28d_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_ba28d_row0_col0" class="data row0 col0" >77.790000</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+```python
+q("""
+SELECT 
+"student_name"
+FROM my_table
+limit 2
+""",
+["one"])
+```
+
+
+<style type="text/css">
+#T_04ff0_row0_col0, #T_04ff0_row1_col0 {
+  text-align: center;
+}
+</style>
+<table id="T_04ff0">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_04ff0_level0_col0" class="col_heading level0 col0" >one</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_04ff0_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_04ff0_row0_col0" class="data row0 col0" >John Doe</td>
+    </tr>
+    <tr>
+      <th id="T_04ff0_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_04ff0_row1_col0" class="data row1 col0" >Jane Smith</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+```python
+q("""
+SELECT 
+student_id
+FROM my_table
+WHERE student_name IN ('John Doe', 'Jane Smith')
+""",
+["one"])
+```
+
+
+<style type="text/css">
+#T_b8b00_row0_col0, #T_b8b00_row1_col0 {
+  text-align: center;
+}
+</style>
+<table id="T_b8b00">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_b8b00_level0_col0" class="col_heading level0 col0" >one</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_b8b00_level0_row0" class="row_heading level0 row0" >0</th>
+      <td id="T_b8b00_row0_col0" class="data row0 col0" >1</td>
+    </tr>
+    <tr>
+      <th id="T_b8b00_level0_row1" class="row_heading level0 row1" >1</th>
+      <td id="T_b8b00_row1_col0" class="data row1 col0" >2</td>
     </tr>
   </tbody>
 </table>

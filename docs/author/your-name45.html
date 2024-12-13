@@ -47,6 +47,53 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/search.html"><h3 class="article-title">Search</h3></a>
+<h6 class="subheader" title="2024-12-13T00:00:00-05:00">Fri 13 December 2024
+</h6>
+
+
+<hr>
+<p>title: "Search"
+author: "Raja CSP Raman"
+date: 2019-04-20
+description: "-"
+type: technical_note
+draft: false</p>
+<hr>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">re</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;name[&#39;toronto&#39;] = &#39;One&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;state[&#39;ontario&#39;] = &#39;Two&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;country[&#39;canada&#39;][&#39;ca&#39;] = &#39;Three&#39;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;extra[&#39;maple&#39;] = &#39;Four&#39;&quot;</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">REGEX</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\[&#39;(?P&lt;word&gt;.*?)&#39;\]&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="n">found</span> <span class="o">=</span> <span class="n">REGEX</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">found</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">found</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="s1">&#39;word&#39;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>toronto …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/search.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/search-text.html"><h3 class="article-title">Search-Text</h3></a>
 <h6 class="subheader" title="2024-12-13T00:00:00-05:00">Fri 13 December 2024
 </h6>
@@ -430,46 +477,6 @@ draft: false</p>
 
 
                 <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/simple-bar.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/simple-bar-chart.html"><h3 class="article-title">Simple-Bar-Chart</h3></a>
-<h6 class="subheader" title="2024-12-13T00:00:00-05:00">Fri 13 December 2024
-</h6>
-
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pl</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-
-<span class="n">data</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;0 14-11-2003</span>
-<span class="s2">1 15-03-1999</span>
-<span class="s2">12 04-12-2012</span>
-<span class="s2">33 09-05-2007</span>
-<span class="s2">44 16-08-1998</span>
-<span class="s2">55 25-07-2001</span>
-<span class="s2">76 31-12-2011</span>
-<span class="s2">87 25-06-1993</span>
-<span class="s2">118 16-02-1995</span>
-<span class="s2">119 10-02-1981</span>
-<span class="s2">145 03-05-2014&quot;&quot;&quot;</span>
-
-<span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">dates</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
-    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-    <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-    <span class="n">dates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/simple-bar-chart.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 

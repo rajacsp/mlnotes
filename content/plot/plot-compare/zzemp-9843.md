@@ -1,18 +1,17 @@
 ---
-title: Zzemp-4477
+title: Zzemp-9843
 date: 2024-12-13
 author: Your Name
-cell_count: 3
-score: 0
+cell_count: 5
+score: 5
 ---
 
 ```python
-
+import pyutil as pyu
 ```
 
 
 ```python
-import pyutil as pyu
 pyu.get_local_pyinfo()
 ```
 
@@ -29,5 +28,15 @@ pyu.get_local_pyinfo()
 ```
 
 
+```python
+
+```
+
+
+```python
+
+```
+
+
 ---
-**Score: 0**
+**Score: 5**

@@ -47,6 +47,40 @@
 
 
             <article>
+                <a href="https://rajasgs.github.io/mlnotes/isotonic-1.html"><h3 class="article-title">Isotonic-1</h3></a>
+<h6 class="subheader" title="2024-12-13T00:00:00-05:00">Fri 13 December 2024
+</h6>
+
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib.collections</span> <span class="kn">import</span> <span class="n">LineCollection</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.isotonic</span> <span class="kn">import</span> <span class="n">IsotonicRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.utils</span> <span class="kn">import</span> <span class="n">check_random_state</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="n">rs</span> <span class="o">=</span> <span class="n">check_random_state</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="n">n</span><span class="p">,))</span> <span class="o">+</span> <span class="mf">50.</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/isotonic-1.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
                 <a href="https://rajasgs.github.io/mlnotes/itertool-chain.html"><h3 class="article-title">Itertool Chain</h3></a>
 <h6 class="subheader" title="2024-12-13T00:00:00-05:00">Fri 13 December 2024
 </h6>
@@ -441,68 +475,6 @@ draft: false</p>
 
 
                 <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/lambda-sqaure.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/lancaster-stemmer.html"><h3 class="article-title">Lancaster-Stemmer</h3></a>
-<h6 class="subheader" title="2024-12-13T00:00:00-05:00">Fri 13 December 2024
-</h6>
-
-
-<hr>
-<p>title: "Lancaster Stemmer"
-author: "Rj"
-date: 2019-04-21
-description: "-"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">LancasterStemmer</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">l_stemmer</span> <span class="o">=</span> <span class="n">LancasterStemmer</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">l_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s2">&quot;hunting&quot;</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>hunt
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">l_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="s2">&quot;hunting&quot;</span><span class="p">))</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>hunt
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">words</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;hunting&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;bunnies&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;flies&quot;</span>
-<span class="p">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">result</span> <span class="o">=</span> <span class="p">[</span><span class="n">l_stemmer</span><span class="o">.</span><span class="n">stem</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">words</span><span class="p">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">result</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;hunt&#39;, &#39;bunny&#39;, &#39;fli&#39;]
-</code></pre></div>
-
-<hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/lancaster-stemmer.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 

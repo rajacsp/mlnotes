@@ -4,7 +4,7 @@
     <!-- Set the viewport width to device width for mobile -->
     <meta name="viewport" content="width=device-width" />
 
-    <title>Linear-Regression-Simple-7119</title>
+    <title>Remove Numbers-3948</title>
 
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
     <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
@@ -44,8 +44,8 @@
     <div class="large-9 columns">
 <article>
     <header>
-        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/linear-regression-simple-7119.html" rel="bookmark"
-        title="Permalink to Linear-Regression-Simple-7119">Linear-Regression-Simple-7119</a></h3>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/remove-numbers-3948.html" rel="bookmark"
+        title="Permalink to Remove Numbers-3948">Remove Numbers-3948</a></h3>
     </header>
 
 <h6 class="subheader" title="2024-12-13T00:00:00-05:00">Fri 13 December 2024
@@ -53,88 +53,19 @@
 
 
     <hr>
-<p>title: "Linear Regression Simple"
+<p>title: "Remove Numbers"
 author: "Rj"
 date: 2019-04-20
-description: "-"
+description: "List Test"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span><span class="p">,</span> <span class="n">linear_model</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span><span class="p">,</span> <span class="n">r2_score</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Load the diabetes dataset</span>
-<span class="n">diabetes_data</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_diabetes</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Print all keys and number of raw and columns</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">diabetes_data</span><span class="o">.</span><span class="n">keys</span><span class="p">,</span> <span class="n">diabetes_data</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>&lt;built-in method keys of Bunch object at 0x10b789830&gt; (442, 10)
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Print all the feature_names in dataset</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">diabetes_data</span><span class="o">.</span><span class="n">feature_names</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[&#39;age&#39;, &#39;sex&#39;, &#39;bmi&#39;, &#39;bp&#39;, &#39;s1&#39;, &#39;s2&#39;, &#39;s3&#39;, &#39;s4&#39;, &#39;s5&#39;, &#39;s6&#39;]
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">diabetes_data</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">diabetes_data</span><span class="o">.</span><span class="n">feature_names</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">diabetes_data</span><span class="o">.</span><span class="n">target</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;target&#39;</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># Create linear regression object</span>
-<span class="n">rm</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">rm</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">target</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None,
-         normalize=False)
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">coef_</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">152.1334841628965</span>
-<span class="err">[</span><span class="w"> </span><span class="o">-</span><span class="mf">10.01219782</span><span class="w"> </span><span class="o">-</span><span class="mf">239.81908937</span><span class="w">  </span><span class="mf">519.83978679</span><span class="w">  </span><span class="mf">324.39042769</span><span class="w"> </span><span class="o">-</span><span class="mf">792.18416163</span>
-<span class="w">  </span><span class="mf">476.74583782</span><span class="w">  </span><span class="mf">101.04457032</span><span class="w">  </span><span class="mf">177.06417623</span><span class="w">  </span><span class="mf">751.27932109</span><span class="w">   </span><span class="mf">67.62538639</span><span class="err">]</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">rm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)[:</span><span class="mi">10</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>[206.11706979  68.07234761 176.88406035 166.91796559 128.45984241
- 106.34908972  73.89417947 118.85378669 158.81033076 213.58408893]
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">rm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;old data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;predicted data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div>
-
-<p><img alt="png" src="/mlnotes/images/linear-regression-simple_12_0.png"></p>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 10</strong></p>
-<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a>
+<p><strong>Score: 0</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
