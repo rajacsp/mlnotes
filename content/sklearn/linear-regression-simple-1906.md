@@ -1,6 +1,6 @@
 ---
-title: Linear-Regression-Simple-1306
-date: 2024-12-13
+title: Linear-Regression-Simple-1906
+date: 2024-12-14
 author: Your Name
 cell_count: 14
 score: 10
