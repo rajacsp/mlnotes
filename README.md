@@ -2,6 +2,11 @@
 ### Site Generator Python
 
 
+### RJ Setup
+```
+ml311
+```
+
 ### One time setup
 ```
 1. Go to this
