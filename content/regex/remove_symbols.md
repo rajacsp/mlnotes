@@ -1,6 +1,6 @@
 ---
 title: Remove Symbols
-date: 2024-12-14
+date: 2024-12-25
 author: Your Name
 cell_count: 7
 score: 5

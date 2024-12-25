@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Simple-Translator-With-Llm</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/simple-translator-with-llm.html" rel="bookmark"
+        title="Permalink to Simple-Translator-With-Llm">Simple-Translator-With-Llm</a></h3>
+    </header>
+
+<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyutil</span> <span class="k">as</span> <span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="s1">&#39;conda env: ml311; pyv: 3.11.10 (main, Oct  3 2024, 07:29:13) </span><span class="cp">[</span><span class="nx">GCC</span><span class="w"> </span><span class="mf">11.2.0</span><span class="cp">]</span><span class="s1">&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">pyu</span><span class="o">.</span><span class="n">ps2</span><span class="p">(</span><span class="s2">&quot;transformers&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>transformers==4.47.0
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForSeq2SeqLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">model_name</span> <span class="o">=</span> <span class="s2">&quot;Helsinki-NLP/opus-mt-en-fi&quot;</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForSeq2SeqLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="n">model_name</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="mf">2024</span><span class="o">-</span><span class="mf">12</span><span class="o">-</span><span class="mf">22</span><span class="w"> </span><span class="mf">20</span><span class="p">:</span><span class="mf">23</span><span class="p">:</span><span class="mf">01.709850</span><span class="p">:</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">tensorflow</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">util</span><span class="o">/</span><span class="n">port</span><span class="mf">.</span><span class="n">cc</span><span class="p">:</span><span class="mf">153</span><span class="err">]</span><span class="w"> </span><span class="kr">on</span><span class="n">eDNN</span><span class="w"> </span><span class="n">custom</span><span class="w"> </span><span class="n">operations</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="kr">on</span><span class="mf">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">may</span><span class="w"> </span><span class="n">see</span><span class="w"> </span><span class="n">slightly</span><span class="w"> </span><span class="n">different</span><span class="w"> </span><span class="n">numerical</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="n">due</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">floating</span><span class="o">-</span><span class="n">point</span><span class="w"> </span><span class="n">round</span><span class="o">-</span><span class="n">off</span><span class="w"> </span><span class="n">errors</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">different</span><span class="w"> </span><span class="n">computation</span><span class="w"> </span><span class="ow">or</span><span class="n">ders</span><span class="mf">.</span><span class="w"> </span><span class="kr">To</span><span class="w"> </span><span class="n">turn</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="n">off</span><span class="p">,</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">environment</span><span class="w"> </span><span class="n">variable</span><span class="w"> </span><span class="err">`</span><span class="n">TF_ENABLE_ONEDNN_OPTS</span><span class="o">=</span><span class="mf">0</span><span class="err">`</span><span class="mf">.</span>
+<span class="mf">2024</span><span class="o">-</span><span class="mf">12</span><span class="o">-</span><span class="mf">22</span><span class="w"> </span><span class="mf">20</span><span class="p">:</span><span class="mf">23</span><span class="p">:</span><span class="mf">01.721152</span><span class="p">:</span><span class="w"> </span><span class="n">E</span><span class="w"> </span><span class="n">external</span><span class="o">/</span><span class="n">local_xla</span><span class="o">/</span><span class="n">xla</span><span class="o">/</span><span class="n">stream_executor</span><span class="o">/</span><span class="n">cuda</span><span class="o">/</span><span class="n">cuda_fft</span><span class="mf">.</span><span class="n">cc</span><span class="p">:</span><span class="mf">477</span><span class="err">]</span><span class="w"> </span><span class="n">Unable</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="n">cuFFT</span><span class="w"> </span><span class="n">factory</span><span class="p">:</span><span class="w"> </span><span class="n">Attempting</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="n">factory</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="n">cuFFT</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="kr">on</span><span class="n">e</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">registered</span>
+<span class="n">WARNING</span><span class="p">:</span><span class="w"> </span><span class="n">All</span><span class="w"> </span><span class="nb">log</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="n">before</span><span class="w"> </span><span class="nb">abs</span><span class="n">l</span><span class="p">::</span><span class="n">InitializeLog</span><span class="p">()</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">called</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">written</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">STDERR</span>
+<span class="n">E0000</span><span class="w"> </span><span class="mf">00</span><span class="p">:</span><span class="mf">00</span><span class="p">:</span><span class="mf">1734879181.735845</span><span class="w"> </span><span class="mf">2038709</span><span class="w"> </span><span class="n">cuda_dnn</span><span class="mf">.</span><span class="n">cc</span><span class="p">:</span><span class="mf">8310</span><span class="err">]</span><span class="w"> </span><span class="n">Unable</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="n">cuDNN</span><span class="w"> </span><span class="n">factory</span><span class="p">:</span><span class="w"> </span><span class="n">Attempting</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="n">factory</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="n">cuDNN</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="kr">on</span><span class="n">e</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">registered</span>
+<span class="n">E0000</span><span class="w"> </span><span class="mf">00</span><span class="p">:</span><span class="mf">00</span><span class="p">:</span><span class="mf">1734879181.740370</span><span class="w"> </span><span class="mf">2038709</span><span class="w"> </span><span class="n">cuda_blas</span><span class="mf">.</span><span class="n">cc</span><span class="p">:</span><span class="mf">1418</span><span class="err">]</span><span class="w"> </span><span class="n">Unable</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="n">cuBLAS</span><span class="w"> </span><span class="n">factory</span><span class="p">:</span><span class="w"> </span><span class="n">Attempting</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="n">factory</span><span class="w"> </span><span class="kr">for</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="n">cuBLAS</span><span class="w"> </span><span class="n">when</span><span class="w"> </span><span class="kr">on</span><span class="n">e</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">already</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">registered</span>
+<span class="mf">2024</span><span class="o">-</span><span class="mf">12</span><span class="o">-</span><span class="mf">22</span><span class="w"> </span><span class="mf">20</span><span class="p">:</span><span class="mf">23</span><span class="p">:</span><span class="mf">01.755310</span><span class="p">:</span><span class="w"> </span><span class="n">I</span><span class="w"> </span><span class="n">tensorflow</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">platform</span><span class="o">/</span><span class="n">cpu_feature_guard</span><span class="mf">.</span><span class="n">cc</span><span class="p">:</span><span class="mf">210</span><span class="err">]</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">TensorFlow</span><span class="w"> </span><span class="n">binary</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">optimized</span><span class="w"> </span><span class="kr">to</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="n">CPU</span><span class="w"> </span><span class="n">instructions</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">performance</span><span class="o">-</span><span class="n">critical</span><span class="w"> </span><span class="n">operations</span><span class="mf">.</span>
+<span class="kr">To</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">following</span><span class="w"> </span><span class="n">instructions</span><span class="p">:</span><span class="w"> </span><span class="n">AVX2</span><span class="w"> </span><span class="n">AVX512F</span><span class="w"> </span><span class="n">AVX512_VNNI</span><span class="w"> </span><span class="n">FMA</span><span class="p">,</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">operations</span><span class="p">,</span><span class="w"> </span><span class="n">rebuild</span><span class="w"> </span><span class="n">TensorFlow</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">appropriate</span><span class="w"> </span><span class="n">compiler</span><span class="w"> </span><span class="n">flags</span><span class="mf">.</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">english_text</span> <span class="o">=</span> <span class="s2">&quot;Hello, how are you?&quot;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Tokenize the input</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    <span class="n">english_text</span><span class="p">,</span> 
+    <span class="n">return_tensors</span> <span class="o">=</span> <span class="s2">&quot;pt&quot;</span><span class="p">,</span> 
+    <span class="n">truncation</span>     <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Generate translation</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span>
+    <span class="n">inputs</span><span class="p">,</span> 
+    <span class="n">max_length</span> <span class="o">=</span> <span class="mi">40</span><span class="p">,</span> 
+    <span class="n">num_beams</span>  <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> 
+    <span class="n">early_stopping</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">finnish_translation</span> <span class="o">=</span> <span class="n">tokenizer</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span>
+    <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> 
+    <span class="n">skip_special_tokens</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Print the result</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Original: </span><span class="si">{</span><span class="n">english_text</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Translated: </span><span class="si">{</span><span class="n">finnish_translation</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">Original</span><span class="o">:</span><span class="w"> </span><span class="n">Hello</span><span class="o">,</span><span class="w"> </span><span class="n">how</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">you</span><span class="o">?</span>
+<span class="n">Translated</span><span class="o">:</span><span class="w"> </span><span class="n">Hei</span><span class="o">,</span><span class="w"> </span><span class="n">mitä</span><span class="w"> </span><span class="n">kuuluu</span><span class="o">?</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 10</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/mythraki.html">mythraki</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/duckdb.html">duckdb</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/encoding.html">encoding</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/haystack.html">haystack</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/mythraki.html">mythraki</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sys.html">sys</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

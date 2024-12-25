@@ -1,6 +1,6 @@
 ---
 title: Binary Search
-date: 2024-12-14
+date: 2024-12-25
 author: Your Name
 cell_count: 4
 score: 0
