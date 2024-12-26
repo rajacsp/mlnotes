@@ -1,6 +1,6 @@
 ---
 title: Compress Image
-date: 2024-12-25
+date: 2024-12-26
 author: Your Name
 cell_count: 4
 score: 0

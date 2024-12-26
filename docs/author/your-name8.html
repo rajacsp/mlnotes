@@ -47,29 +47,36 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/base.html"><h3 class="article-title">Base</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/111-minimum-depth-of-binary-tree.html"><h3 class="article-title">111-Minimum-Depth-Of-Binary-Tree</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">gliner</span>
+<p>https://leetcode.com/problems/minimum-depth-of-binary-tree</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="n">gliner</span>
-<span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">13</span>
-<span class="n">Summary</span><span class="o">:</span><span class="w"> </span><span class="n">Generalist</span><span class="w"> </span><span class="n">model</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">NER</span><span class="w"> </span><span class="o">(</span><span class="n">Extract</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">entity</span><span class="w"> </span><span class="n">types</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">texts</span><span class="o">)</span>
-<span class="n">Home</span><span class="o">-</span><span class="n">page</span><span class="o">:</span><span class="w"> </span>
-<span class="n">Author</span><span class="o">:</span><span class="w"> </span><span class="n">Urchade</span><span class="w"> </span><span class="n">Zaratiana</span><span class="o">,</span><span class="w"> </span><span class="n">Nadi</span><span class="w"> </span><span class="n">Tomeh</span><span class="o">,</span><span class="w"> </span><span class="n">Pierre</span><span class="w"> </span><span class="n">Holat</span><span class="o">,</span><span class="w"> </span><span class="n">Thierry</span><span class="w"> </span><span class="n">Charnois</span>
-<span class="n">Author</span><span class="o">-</span><span class="n">email</span><span class="o">:</span><span class="w"> </span>
-<span class="n">License</span><span class="o">:</span><span class="w"> </span><span class="n">Apache</span><span class="o">-</span><span class="mf">2.0</span>
-<span class="n">Location</span><span class="o">:</span><span class="w"> </span><span class="sr">/home/rajaraman/miniconda3/envs/ml312/lib/python3.12/si</span><span class="n">te</span><span class="o">-</span><span class="n">packages</span>
-<span class="n">Requires …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a>
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">minDepth</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">root</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">TreeNode</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">int</span><span class="err">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">root</span><span class="p">:</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="nf">left</span><span class="err">:</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">minDepth</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="nf">right</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="nf">right</span><span class="err">:</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">minDepth …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/base.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/111-minimum-depth-of-binary-tree.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -77,42 +84,35 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/basic-plot.html"><h3 class="article-title">Basic-Plot</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/112-path-sum.html"><h3 class="article-title">112-Path-Sum</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<hr>
-<p>title: "Basic Plot"
-author: "Rj"
-date: 2019-05-06
-description: "List Test"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<p>https://leetcode.com/problems/path-sum</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="p">,</span> <span class="n">y</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>([1, 2, 3, 4], [2, 4, 9, 16])
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="n">Solution:</span>
+  <span class="n">def</span> <span class="n">hasPathSum</span>(<span class="nb">self</span>, <span class="n">root:</span> <span class="n">TreeNode</span>, <span class="n">summ:</span> <span class="n">int</span>) -&gt; <span class="n">bool:</span>
+    <span class="k">if</span> <span class="nb">not</span> <span class="n">root:</span>
+      <span class="k">return</span> <span class="nb">False</span>
+    <span class="k">if</span> <span class="n">root</span>.<span class="nb">val</span> == <span class="n">summ</span> <span class="o">and</span> <span class="nb">not</span> <span class="n">root</span>.<span class="n">left</span> <span class="o">and</span> <span class="nb">not</span> <span class="n">root</span>.<span class="n">right:</span>
+      <span class="k">return</span> <span class="nb">True</span>
+    <span class="k">return</span> <span class="nb">self …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/basic-plot.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/112-path-sum.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -120,41 +120,36 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/basic-plot-1.html"><h3 class="article-title">Basic-Plot-1</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/113-path-sum-ii.html"><h3 class="article-title">113-Path-Sum-Ii</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<hr>
-<p>title: "Basic Plot With Multiple Axes"
-author: "Rj"
-date: 2019-05-06
-description: "List Test"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<p>https://leetcode.com/problems/path-sum-ii</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">z</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">27</span><span class="p">,</span> <span class="mi">64</span><span class="p">]</span>
-</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">pathSum</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">root</span><span class="p">:</span><span class="w"> </span><span class="n">TreeNode</span><span class="p">,</span><span class="w"> </span><span class="nl">summ</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">List[int</span><span class="o">]</span><span class="err">]:</span>
+<span class="w">    </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[]</span>
 
-<div class="highlight"><pre><span></span><code><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>([1, 2, 3, 4], [1, 4, 9, 16], [1, 8 …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">dfs</span><span class="p">(</span><span class="nl">root</span><span class="p">:</span><span class="w"> </span><span class="n">TreeNode</span><span class="p">,</span><span class="w"> </span><span class="nl">summ</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"> </span><span class="k">path</span><span class="err">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">root</span><span class="p">:</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">summ …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/basic-plot-1.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/113-path-sum-ii.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -162,28 +157,38 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/basic-table.html"><h3 class="article-title">Basic-Table</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/114-flatten-binary-tree-to-linked-list.html"><h3 class="article-title">114-Flatten-Binary-Tree-To-Linked-List</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">sqlalchemy</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">create_engine</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy.ext.declarative</span> <span class="kn">import</span> <span class="n">declarative_base</span>
-<span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="kn">import</span> <span class="n">Column</span><span class="p">,</span> <span class="n">Integer</span><span class="p">,</span> <span class="n">String</span>
+<p>https://leetcode.com/problems/flatten-binary-tree-to-linked-list</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///:memory:&#39;</span><span class="p">,</span> <span class="n">echo</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Base</span> <span class="o">=</span> <span class="n">declarative_base</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>/tmp/ipykernel_4126507/3500228846.py:2: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2 …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">flatten</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">root</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">TreeNode</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">root</span><span class="p">:</span>
+<span class="w">      </span><span class="k">return</span>
+
+<span class="w">    </span><span class="n">self</span><span class="p">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="nf">left</span><span class="p">)</span>
+<span class="w">    </span><span class="n">self</span><span class="p">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">root</span><span class="p">.</span><span class="nf">right</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nf">left</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="nf">left</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Flattened</span><span class="w"> </span><span class="nf">left</span>
+<span class="w">    </span><span class="nf">right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">root</span><span class="p">.</span><span class="nf">right</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Flattened</span><span class="w"> </span><span class="nf">right …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/basic-table.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/114-flatten-binary-tree-to-linked-list.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -191,32 +196,35 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/basic-vector.html"><h3 class="article-title">Basic-Vector</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/115-distinct-subsequences.html"><h3 class="article-title">115-Distinct-Subsequences</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<hr>
-<p>title: "Basic Vector"
-author: "Raja CSP Raman"
-date: 2019-05-02
-description: "-"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">gensim</span> <span class="kn">import</span> <span class="n">corpora</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">similarities</span>
+<p>https://leetcode.com/problems/distinct-subsequences</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">corpus</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)],</span>
-    <span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)],</span>
-    <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a>
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">numDistinct</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">s</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">t</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">int</span><span class="err">:</span>
+<span class="w">    </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="w">    </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">[0</span><span class="o">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="n">m</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="err">]</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="n">m …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/basic-vector.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/115-distinct-subsequences.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -224,38 +232,38 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/bi-grams.html"><h3 class="article-title">Bi-Grams</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/116-populating-next-right-pointers-in-each-node.html"><h3 class="article-title">116-Populating-Next-Right-Pointers-In-Each-Node</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<hr>
-<p>title: "Bigrams"
-author: "Rj"
-date: 2019-04-29
-description: "-"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk.collocations</span>
-<span class="kn">import</span> <span class="nn">nltk.corpus</span>
-<span class="kn">import</span> <span class="nn">collections</span>
+<p>https://leetcode.com/problems/populating-next-right-pointers-in-each-node</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">bgm</span>    <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramAssocMeasures</span><span class="p">()</span>
-<span class="n">finder</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramCollocationFinder</span><span class="o">.</span><span class="n">from_words</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">brown</span><span class="o">.</span><span class="n">words</span><span class="p">())</span>
-<span class="n">scored</span> <span class="o">=</span> <span class="n">finder</span><span class="o">.</span><span class="n">score_ngrams</span><span class="p">(</span> <span class="n">bgm</span><span class="o">.</span><span class="n">likelihood_ratio</span>  <span class="p">)</span>
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># Group bigrams by first word in bigram.                                        </span>
-<span class="n">prefix_keys</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">key …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="k">connect</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">root</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;Optional[Node]&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s1">&#39;Optional[Node]&#39;</span><span class="err">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">root</span><span class="p">:</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="k">None</span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">connectTwoNodes</span><span class="p">(</span><span class="n">p</span><span class="p">,</span><span class="w"> </span><span class="n">q</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">p</span><span class="p">:</span>
+<span class="w">        </span><span class="k">return</span>
+<span class="w">      </span><span class="n">p</span><span class="p">.</span><span class="k">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q</span>
+<span class="w">      </span><span class="n">connectTwoNodes</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="nf">left</span><span class="p">,</span><span class="w"> </span><span class="n">p …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/bi-grams.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/116-populating-next-right-pointers-in-each-node.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -263,35 +271,36 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/bigrams.html"><h3 class="article-title">Bigrams</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/117-populating-next-right-pointers-in-each-node-ii.html"><h3 class="article-title">117-Populating-Next-Right-Pointers-In-Each-Node-Ii</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk.collocations</span>
-<span class="kn">import</span> <span class="nn">nltk.corpus</span>
-<span class="kn">import</span> <span class="nn">collections</span>
+<p>https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># import nltk</span>
-<span class="c1"># nltk.download(&#39;brown&#39;)</span>
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="n">bgm</span>    <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramAssocMeasures</span><span class="p">()</span>
-<span class="n">finder</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">collocations</span><span class="o">.</span><span class="n">BigramCollocationFinder</span><span class="o">.</span><span class="n">from_words</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">brown</span><span class="o">.</span><span class="n">words</span><span class="p">())</span>
-<span class="n">scored</span> <span class="o">=</span> <span class="n">finder</span><span class="o">.</span><span class="n">score_ngrams</span><span class="p">(</span> <span class="n">bgm</span><span class="o">.</span><span class="n">likelihood_ratio</span>  <span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># Group bigrams by first word in bigram.                                        </span>
-<span class="n">prefix_keys</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">scores</span> <span class="ow">in</span> <span class="n">scored</span><span class="p">:</span>
-   <span class="n">prefix_keys</span><span class="p">[</span><span class="n">key</span><span class="p">[</span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="n">Solution:</span>
+  <span class="n">def</span> <span class="nb">connect</span>(<span class="nb">self</span>, <span class="n">root:</span> <span class="s">&#39;Node&#39;</span>) -&gt; <span class="s">&#39;Node&#39;</span>:
+    <span class="n">node</span> = <span class="n">root</span>  <span class="c1"># The node just above current needling</span>
+
+    <span class="k">while</span> <span class="n">node:</span>
+      <span class="n">dummy</span> = <span class="n">Node</span>(<span class="mi">0</span>)  <span class="c1"># Dummy node before needling</span>
+      <span class="c1"># Needle children of node</span>
+      <span class="n">needle</span> = <span class="n">dummy …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/bigrams.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/117-populating-next-right-pointers-in-each-node-ii.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -299,36 +308,37 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/binary-search.html"><h3 class="article-title">Binary Search</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/118-pascals-triangle.html"><h3 class="article-title">118-Pascals-Triangle</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<hr>
-<p>title: "Binary Search"
-author: "Rj"
-date: 2019-04-20
-description: "List Test"
-type: technical_note
-draft: false</p>
-<hr>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">binary_search</span><span class="p">(</span><span class="n">lys</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
-    <span class="n">first</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">last</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lys</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
-    <span class="n">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-    <span class="k">while</span> <span class="p">(</span><span class="n">first</span> <span class="o">&lt;=</span> <span class="n">last</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">first</span><span class="o">+</span><span class="n">last</span><span class="p">)</span><span class="o">//</span><span class="mi">2</span>
-        <span class="k">if</span> <span class="n">lys</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">==</span> <span class="n">val</span><span class="p">:</span>
-            <span class="n">index</span> <span class="o">=</span> <span class="n">mid</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">val</span><span class="o">&lt;</span><span class="n">lys</span><span class="p">[</span><span class="n">mid</span><span class="p">]:</span>
-                <span class="n">last</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span><span class="mi">1 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<p>https://leetcode.com/problems/pascals-triangle</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">generate</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">numRows</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">List[int</span><span class="o">]</span><span class="err">]:</span>
+<span class="w">    </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[]</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="n">numRows</span><span class="p">)</span><span class="err">:</span>
+<span class="w">      </span><span class="n">ans</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">))</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">numRows</span><span class="p">)</span><span class="err">:</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/binary-search.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/118-pascals-triangle.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -336,56 +346,35 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/bind-tools.html"><h3 class="article-title">Bind-Tools</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/119-pascals-triangle-ii.html"><h3 class="article-title">119-Pascals-Triangle-Ii</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+<p>https://leetcode.com/problems/pascals-triangle-ii</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>Python 3.12.4
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
-</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">getRow</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">rowIndex</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="err">:</span>
+<span class="w">    </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">rowIndex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
 
-<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">tools</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span>
-        <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="p">{</span>
-            <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;get_current_weather&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;Get the current weather in a given location&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;parameters …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">rowIndex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="err">:</span>
+<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="err">:</span>
+<span class="w">        </span><span class="n">ans</span><span class="o">[</span><span class="n">i - j</span><span class="o">]</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">ans</span><span class="o">[</span><span class="n">i …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/bind-tools.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/119-pascals-triangle-ii.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -393,54 +382,42 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/binding-stop-sequence.html"><h3 class="article-title">Binding-Stop-Sequence</h3></a>
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+                <a href="https://rajasgs.github.io/mlnotes/12-integer-to-roman.html"><h3 class="article-title">12-Integer-To-Roman</h3></a>
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">python</span> <span class="o">--</span><span class="n">version</span>
+<p>https://leetcode.com/problems/integer-to-roman</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>Python 3.12.4
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">constants</span> <span class="kn">import</span> <span class="n">OPENAI_API_KEY</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="err">!</span><span class="n">pip</span> <span class="n">show</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="o">|</span> <span class="n">grep</span> <span class="s2">&quot;Version:&quot;</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Version</span><span class="o">:</span><span class="w"> </span><span class="mf">0.2</span><span class="o">.</span><span class="mi">9</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;OPENAI_API_KEY&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OPENAI_API_KEY</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
-
-<span class="n">model</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="c1"># https://python.langchain.com/docs/how_to/binding/</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
-<span class="kn">from</span> <span class="nn">langchain_core.prompts</span> <span class="kn">import …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="n">Solution:</span>
+  <span class="n">def</span> <span class="n">intToRoman</span>(<span class="nb">self</span>, <span class="n">num:</span> <span class="n">int</span>) -&gt; <span class="n">str:</span>
+    <span class="n">valueSymbols</span> = [(<span class="mi">1000</span>, <span class="s">&#39;M&#39;</span>), (<span class="mi">900</span>, <span class="s">&#39;CM&#39;</span>),
+                    (<span class="mi">500</span>, <span class="s">&#39;D&#39;</span>), (<span class="mi">400</span>, <span class="s">&#39;CD&#39;</span>),
+                    (<span class="mi">100</span>, <span class="s">&#39;C&#39;</span>), (<span class="mi">90</span>, <span class="s">&#39;XC&#39;</span>),
+                    (<span class="mi">50</span>, <span class="s">&#39;L&#39;</span>), (<span class="mi">40</span>, <span class="s">&#39;XL&#39;</span>),
+                    (<span class="mi">10</span>, <span class="s">&#39;X&#39;</span>), (<span class="mi">9</span>, <span class="s">&#39;IX&#39;</span>),
+                    (<span class="mi">5</span>, <span class="s">&#39;V …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/binding-stop-sequence.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/12-integer-to-roman.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
             <!-- /#posts-list -->
 <div class="pagination-centered">
-<h6 class="subheader">Page 8 of 65</h6>
+<h6 class="subheader">Page 8 of 139</h6>
 
 <p>
             <a href="https://rajasgs.github.io/mlnotes/author/your-name7.html">&laquo; Prev</a>

@@ -1,6 +1,6 @@
 ---
 title: Simple-Entropy
-date: 2024-12-25
+date: 2024-12-26
 author: Your Name
 cell_count: 6
 score: 5

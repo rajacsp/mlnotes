@@ -1,40 +1,31 @@
 ---
 title: 7-Reverse-Integer
-date: 2024-12-25
+date: 2024-12-26
 author: Your Name
-cell_count: 9
+cell_count: 6
 score: 5
 ---
 
-```python
-# https://leetcode.com/problems/reverse-integer/description/
+https://leetcode.com/problems/reverse-integer
+
+
 ```
-
-
-```python
 import pyutil as pyu
 pyu.get_local_pyinfo()
 ```
 
 
-
-
-    'conda env: ml311; pyv: 3.11.10 (main, Oct  3 2024, 07:29:13) [GCC 11.2.0]'
-
-
-
-
-```python
-# print(pyu.ps2("scipy"))
+```
+print(pyu.ps2("python-dotenv"))
 ```
 
 
-```python
-
+```
+from typing import List
 ```
 
 
-```python
+```
 class Solution:
   def reverse(self, x: int) -> int:
     ans = 0
@@ -49,44 +40,8 @@ class Solution:
 ```
 
 
-```python
-Solution().reverse(123)
 ```
-
-
-
-
-    321
-
-
-
-
-```python
-Solution().reverse(-123)
-```
-
-
-
-
-    -321
-
-
-
-
-```python
-Solution().reverse(120)
-```
-
-
-
-
-    21
-
-
-
-
-```python
-
+new Solution().reverse()
 ```
 
 

@@ -1,6 +1,6 @@
 ---
 title: Partial-Regression-Plot
-date: 2024-12-25
+date: 2024-12-26
 author: Your Name
 cell_count: 25
 score: 25

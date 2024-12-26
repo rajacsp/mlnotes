@@ -48,70 +48,47 @@
         title="Permalink to 4-Median-Of-Two-Sorted-Arrays">4-Median-Of-Two-Sorted-Arrays</a></h3>
     </header>
 
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-    <div class="highlight"><pre><span></span><code><span class="c1"># https://leetcode.com/problems/median-of-two-sorted-arrays/description/</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyutil</span> <span class="k">as</span> <span class="nn">pyu</span>
+    <p>https://leetcode.com/problems/median-of-two-sorted-arrays</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
 <span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="s1">&#39;conda env: ml311; pyv: 3.11.10 (main, Oct  3 2024, 07:29:13) </span><span class="cp">[</span><span class="nx">GCC</span><span class="w"> </span><span class="mf">11.2.0</span><span class="cp">]</span><span class="s1">&#39;</span>
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># print(pyu.ps2(&quot;scipy&quot;))</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>scipy==1.14.1
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">findMedianSortedArrays</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">nums1</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="nl">nums2</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">float</span><span class="err">:</span>
+<span class="w">    </span><span class="n">n1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">nums1</span><span class="p">)</span>
+<span class="w">    </span><span class="n">n2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">nums2</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">n1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nl">n2</span><span class="p">:</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">findMedianSortedArrays</span><span class="p">(</span><span class="n">nums2</span><span class="p">,</span><span class="w"> </span><span class="n">nums1</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n1</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nl">r</span><span class="p">:</span>
+<span class="w">      </span><span class="n">partition1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">      </span><span class="n">partition2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">n1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">partition1</span>
+<span class="w">      </span><span class="n">maxLeft1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">31</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">partition1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">nums1</span><span class="o">[</span><span class="n">partition1 - 1</span><span class="o">]</span>
+<span class="w">      </span><span class="n">maxLeft2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">31</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">partition2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">nums2</span><span class="o">[</span><span class="n">partition2 - 1</span><span class="o">]</span>
+<span class="w">      </span><span class="n">minRight1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="mi">31</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">partition1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">n1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">nums1</span><span class="o">[</span><span class="n">partition1</span><span class="o">]</span>
+<span class="w">      </span><span class="n">minRight2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="o">**</span><span class="mi">31</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">partition2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">n2</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">nums2</span><span class="o">[</span><span class="n">partition2</span><span class="o">]</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">maxLeft1</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">minRight2</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">maxLeft2</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nl">minRight1</span><span class="p">:</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="n">maxLeft1</span><span class="p">,</span><span class="w"> </span><span class="n">maxLeft2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="n">minRight1</span><span class="p">,</span><span class="w"> </span><span class="n">minRight2</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">n1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n2</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">maxLeft1</span><span class="p">,</span><span class="w"> </span><span class="n">maxLeft2</span><span class="p">)</span>
+<span class="w">      </span><span class="n">elif</span><span class="w"> </span><span class="n">maxLeft1</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nl">minRight2</span><span class="p">:</span>
+<span class="w">        </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">partition1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="k">else</span><span class="err">:</span>
+<span class="w">        </span><span class="n">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">partition1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-
-<span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-  <span class="k">def</span> <span class="nf">findMedianSortedArrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nums1</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">nums2</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-    <span class="n">n1</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums1</span><span class="p">)</span>
-    <span class="n">n2</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">nums2</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">n1</span> <span class="o">&gt;</span> <span class="n">n2</span><span class="p">:</span>
-      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">findMedianSortedArrays</span><span class="p">(</span><span class="n">nums2</span><span class="p">,</span> <span class="n">nums1</span><span class="p">)</span>
-
-    <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">r</span> <span class="o">=</span> <span class="n">n1</span>
-
-    <span class="k">while</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span><span class="p">:</span>
-      <span class="n">partition1</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
-      <span class="n">partition2</span> <span class="o">=</span> <span class="p">(</span><span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">partition1</span>
-      <span class="n">maxLeft1</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="k">if</span> <span class="n">partition1</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">nums1</span><span class="p">[</span><span class="n">partition1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-      <span class="n">maxLeft2</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="k">if</span> <span class="n">partition2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">nums2</span><span class="p">[</span><span class="n">partition2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
-      <span class="n">minRight1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">partition1</span> <span class="o">==</span> <span class="n">n1</span> <span class="k">else</span> <span class="n">nums1</span><span class="p">[</span><span class="n">partition1</span><span class="p">]</span>
-      <span class="n">minRight2</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">partition2</span> <span class="o">==</span> <span class="n">n2</span> <span class="k">else</span> <span class="n">nums2</span><span class="p">[</span><span class="n">partition2</span><span class="p">]</span>
-
-      <span class="k">if</span> <span class="n">maxLeft1</span> <span class="o">&lt;=</span> <span class="n">minRight2</span> <span class="ow">and</span> <span class="n">maxLeft2</span> <span class="o">&lt;=</span> <span class="n">minRight1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">maxLeft1</span><span class="p">,</span> <span class="n">maxLeft2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">min</span><span class="p">(</span><span class="n">minRight1</span><span class="p">,</span> <span class="n">minRight2</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.5</span> <span class="k">if</span> <span class="p">(</span><span class="n">n1</span> <span class="o">+</span> <span class="n">n2</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">max</span><span class="p">(</span><span class="n">maxLeft1</span><span class="p">,</span> <span class="n">maxLeft2</span><span class="p">)</span>
-      <span class="k">elif</span> <span class="n">maxLeft1</span> <span class="o">&gt;</span> <span class="n">minRight2</span><span class="p">:</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">partition1</span> <span class="o">-</span> <span class="mi">1</span>
-      <span class="k">else</span><span class="p">:</span>
-        <span class="n">l</span> <span class="o">=</span> <span class="n">partition1</span> <span class="o">+</span> <span class="mi">1</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Solution</span><span class="p">()</span><span class="o">.</span><span class="n">findMedianSortedArrays</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">2</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Solution</span><span class="p">()</span><span class="o">.</span><span class="n">findMedianSortedArrays</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">2.5</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
+<div class="highlight"><pre><span></span><code>new Solution().findMedianSortedArrays()
 </code></pre></div>
 
 <hr>

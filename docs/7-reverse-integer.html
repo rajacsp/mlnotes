@@ -48,58 +48,35 @@
         title="Permalink to 7-Reverse-Integer">7-Reverse-Integer</a></h3>
     </header>
 
-<h6 class="subheader" title="2024-12-25T00:00:00-05:00">Wed 25 December 2024
+<h6 class="subheader" title="2024-12-26T00:00:00-05:00">Thu 26 December 2024
 </h6>
 
 
-    <div class="highlight"><pre><span></span><code><span class="c1"># https://leetcode.com/problems/reverse-integer/description/</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyutil</span> <span class="k">as</span> <span class="nn">pyu</span>
+    <p>https://leetcode.com/problems/reverse-integer</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
 <span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="s1">&#39;conda env: ml311; pyv: 3.11.10 (main, Oct  3 2024, 07:29:13) </span><span class="cp">[</span><span class="nx">GCC</span><span class="w"> </span><span class="mf">11.2.0</span><span class="cp">]</span><span class="s1">&#39;</span>
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># print(pyu.ps2(&quot;scipy&quot;))</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="n">Solution:</span>
+  <span class="n">def</span> <span class="nb">reverse</span>(<span class="nb">self</span>, <span class="o">x</span>: <span class="n">int</span>) -&gt; <span class="n">int:</span>
+    <span class="n">ans</span> = <span class="mi">0</span>
+    <span class="nb">sign</span> = -<span class="mi">1</span> <span class="k">if</span> <span class="nb">x</span> &lt; <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
+    <span class="nb">x</span> *= <span class="nb">sign</span>
+
+    <span class="k">while</span> <span class="o">x</span>:
+      <span class="n">ans</span> = <span class="n">ans</span> * <span class="mi">10</span> + <span class="nb">x</span> % <span class="mi">10</span>
+      <span class="nb">x</span> //= <span class="mi">10</span>
+
+    <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">ans</span> &lt; -<span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">or</span> <span class="n">ans</span> &gt; <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> - <span class="mi">1</span> <span class="k">else</span> <span class="nb">sign</span> * <span class="n">ans</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
-  <span class="k">def</span> <span class="nf">reverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-    <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">sign</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">1</span>
-    <span class="n">x</span> <span class="o">*=</span> <span class="n">sign</span>
-
-    <span class="k">while</span> <span class="n">x</span><span class="p">:</span>
-      <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">+</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">10</span>
-      <span class="n">x</span> <span class="o">//=</span> <span class="mi">10</span>
-
-    <span class="k">return</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">ans</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="ow">or</span> <span class="n">ans</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">31</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">sign</span> <span class="o">*</span> <span class="n">ans</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Solution</span><span class="p">()</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">321</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Solution</span><span class="p">()</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="o">-</span><span class="mi">123</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>-321
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="n">Solution</span><span class="p">()</span><span class="o">.</span><span class="n">reverse</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="mf">21</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>
+<div class="highlight"><pre><span></span><code>new Solution().reverse()
 </code></pre></div>
 
 <hr>

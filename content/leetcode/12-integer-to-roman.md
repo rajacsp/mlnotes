@@ -1,40 +1,31 @@
 ---
 title: 12-Integer-To-Roman
-date: 2024-12-25
+date: 2024-12-26
 author: Your Name
-cell_count: 10
-score: 10
+cell_count: 6
+score: 5
 ---
 
-```python
-# https://leetcode.com/problems/integer-to-roman/description/
+https://leetcode.com/problems/integer-to-roman
+
+
 ```
-
-
-```python
 import pyutil as pyu
 pyu.get_local_pyinfo()
 ```
 
 
-
-
-    'conda env: ml311; pyv: 3.11.10 (main, Oct  3 2024, 07:29:13) [GCC 11.2.0]'
-
-
-
-
-```python
-# print(pyu.ps2("scipy"))
+```
+print(pyu.ps2("python-dotenv"))
 ```
 
 
-```python
-# from typing import List 
+```
+from typing import List
 ```
 
 
-```python
+```
 class Solution:
   def intToRoman(self, num: int) -> str:
     valueSymbols = [(1000, 'M'), (900, 'CM'),
@@ -53,62 +44,13 @@ class Solution:
       ans.append(symbol * count)
 
     return ''.join(ans)
-
 ```
 
 
-```python
-Solution().intToRoman(3749)
 ```
-
-
-
-
-    'MMMDCCXLIX'
-
-
-
-
-```python
-Solution().intToRoman(10)
-```
-
-
-
-
-    'X'
-
-
-
-
-```python
-Solution().intToRoman(2024)
-```
-
-
-
-
-    'MMXXIV'
-
-
-
-
-```python
-Solution().intToRoman(2025)
-```
-
-
-
-
-    'MMXXV'
-
-
-
-
-```python
-
+new Solution().intToRoman()
 ```
 
 
 ---
-**Score: 10**
+**Score: 5**

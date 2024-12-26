@@ -1,40 +1,31 @@
 ---
 title: 14-Longest-Common-Prefix
-date: 2024-12-25
+date: 2024-12-26
 author: Your Name
 cell_count: 6
 score: 5
 ---
 
-```python
-# https://leetcode.com/problems/longest-common-prefix/description/
+https://leetcode.com/problems/longest-common-prefix
+
+
 ```
-
-
-```python
 import pyutil as pyu
 pyu.get_local_pyinfo()
 ```
 
 
-
-
-    'conda env: ml311; pyv: 3.11.10 (main, Oct  3 2024, 07:29:13) [GCC 11.2.0]'
-
-
-
-
-```python
-# print(pyu.ps2("scipy"))
+```
+print(pyu.ps2("python-dotenv"))
 ```
 
 
-```python
-from typing import List 
+```
+from typing import List
 ```
 
 
-```python
+```
 class Solution:
   def longestCommonPrefix(self, strs: List[str]) -> str:
     if not strs:
@@ -49,8 +40,8 @@ class Solution:
 ```
 
 
-```python
-Solution().longestCommonPrefix()
+```
+new Solution().longestCommonPrefix()
 ```
 
 

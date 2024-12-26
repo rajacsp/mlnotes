@@ -1,6 +1,6 @@
 ---
 title: Itertool Chain
-date: 2024-12-25
+date: 2024-12-26
 author: Your Name
 cell_count: 9
 score: 5

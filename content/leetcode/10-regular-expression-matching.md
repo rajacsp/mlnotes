@@ -1,40 +1,31 @@
 ---
 title: 10-Regular-Expression-Matching
-date: 2024-12-25
+date: 2024-12-26
 author: Your Name
-cell_count: 8
+cell_count: 6
 score: 5
 ---
 
-```python
-# https://leetcode.com/problems/regular-expression-matching/description/
+https://leetcode.com/problems/regular-expression-matching
+
+
 ```
-
-
-```python
 import pyutil as pyu
 pyu.get_local_pyinfo()
 ```
 
 
-
-
-    'conda env: ml311; pyv: 3.11.10 (main, Oct  3 2024, 07:29:13) [GCC 11.2.0]'
-
-
-
-
-```python
-# print(pyu.ps2("scipy"))
+```
+print(pyu.ps2("python-dotenv"))
 ```
 
 
-```python
-
+```
+from typing import List
 ```
 
 
-```python
+```
 class Solution:
   def isMatch(self, s: str, p: str) -> bool:
     m = len(s)
@@ -63,32 +54,8 @@ class Solution:
 ```
 
 
-```python
-Solution().isMatch("aa", "a")
 ```
-
-
-
-
-    False
-
-
-
-
-```python
-Solution().isMatch("aa", "a*")
-```
-
-
-
-
-    True
-
-
-
-
-```python
-Solution().isMatch("aa", "a*")
+new Solution().isMatch()
 ```
 
 
