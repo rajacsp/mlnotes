@@ -1,6 +1,6 @@
 ---
 title: 38-Count-And-Say
-date: 2024-12-26
+date: 2025-01-03
 author: Your Name
 cell_count: 6
 score: 5

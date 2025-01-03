@@ -1,9 +1,9 @@
 ---
 title: 1-Two-Sums
-date: 2024-12-26
+date: 2025-01-03
 author: Your Name
-cell_count: 8
-score: 5
+cell_count: 11
+score: 10
 ---
 
 ```python
@@ -83,5 +83,35 @@ sol.twoSum([3,2,4], 6)
 ```
 
 
+```python
+# Variant 1: Using a single return statement
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        numToIndex = {}
+        for i, num in enumerate(nums):
+            diff = target - num
+            if diff in numToIndex:
+                return [numToIndex[diff], i]
+            numToIndex[num] = i
+```
+
+
+```python
+Solution().twoSum([2,7,11,15], 9)
+```
+
+
+
+
+    [0, 1]
+
+
+
+
+```python
+
+```
+
+
 ---
-**Score: 5**
+**Score: 10**

@@ -1,6 +1,6 @@
 ---
 title: 1042-Flower-Planting-With-No-Adjacent
-date: 2024-12-26
+date: 2025-01-03
 author: Your Name
 cell_count: 6
 score: 5

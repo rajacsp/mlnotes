@@ -1,6 +1,6 @@
 ---
 title: 840-Magic-Squares-In-Grid
-date: 2024-12-26
+date: 2025-01-03
 author: Your Name
 cell_count: 6
 score: 5

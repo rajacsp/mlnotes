@@ -1,6 +1,6 @@
 ---
 title: 689-Maximum-Sum-Of-3-Non-Overlapping-Subarrays
-date: 2024-12-26
+date: 2025-01-03
 author: Your Name
 cell_count: 6
 score: 5

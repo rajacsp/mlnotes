@@ -1,6 +1,6 @@
 ---
 title: 660-Remove-9
-date: 2024-12-26
+date: 2025-01-03
 author: Your Name
 cell_count: 6
 score: 5
