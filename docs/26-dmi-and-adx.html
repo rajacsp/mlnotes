@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>26-Dmi-And-Adx</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/26-dmi-and-adx.html" rel="bookmark"
+        title="Permalink to 26-Dmi-And-Adx">26-Dmi-And-Adx</a></h3>
+    </header>
+
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="c1"># Created: 20250104</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyutil</span> <span class="k">as</span> <span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">&#39;</span><span class="nx">conda</span><span class="w"> </span><span class="nx">env</span><span class="p">:</span><span class="w"> </span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="p">;</span><span class="w"> </span><span class="nx">pyv</span><span class="p">:</span><span class="w"> </span><span class="m m-Double">3.12.7</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">packaged</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">Anaconda</span><span class="p">,</span><span class="w"> </span><span class="nx">Inc</span><span class="p">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="nx">main</span><span class="p">,</span><span class="w"> </span><span class="nx">Oct</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="nx">GCC</span><span class="w"> </span><span class="m m-Double">11.2.0</span><span class="p">]</span><span class="err">&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">pyu</span><span class="o">.</span><span class="n">ps2</span><span class="p">(</span><span class="s2">&quot;yfinance pandas matplotlib&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>yfinance==0.2.51
+pandas==2.2.3
+matplotlib==3.9.3
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="c1"># Step 1: Download historical data</span>
+<span class="n">symbol</span> <span class="o">=</span> <span class="s2">&quot;^GSPC&quot;</span>  <span class="c1"># S&amp;P 500 as an example</span>
+<span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2020-01-01&quot;</span>
+<span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2023-12-31&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Calculate DMI and ADX</span>
+<span class="k">def</span> <span class="nf">calculate_dmi_adx</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mi">14</span><span class="p">):</span>
+    <span class="n">high</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">]</span>
+    <span class="n">low</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">]</span>
+    <span class="n">close</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">]</span>
+
+    <span class="c1"># Calculate True Range (TR)</span>
+    <span class="n">tr1</span> <span class="o">=</span> <span class="n">high</span> <span class="o">-</span> <span class="n">low</span>
+    <span class="n">tr2</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">high</span> <span class="o">-</span> <span class="n">close</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">tr3</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">low</span> <span class="o">-</span> <span class="n">close</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">tr</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;TR1&#39;</span><span class="p">:</span> <span class="n">tr1</span><span class="p">,</span> <span class="s1">&#39;TR2&#39;</span><span class="p">:</span> <span class="n">tr2</span><span class="p">,</span> <span class="s1">&#39;TR3&#39;</span><span class="p">:</span> <span class="n">tr3</span><span class="p">})</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Calculate +DM and -DM</span>
+    <span class="n">plus_dm</span> <span class="o">=</span> <span class="n">high</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+    <span class="n">minus_dm</span> <span class="o">=</span> <span class="n">low</span><span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+    <span class="n">plus_dm</span><span class="p">[</span><span class="n">plus_dm</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">minus_dm</span><span class="p">[</span><span class="n">minus_dm</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">minus_dm</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">minus_dm</span><span class="p">)</span>
+
+    <span class="c1"># Smooth TR, +DM, -DM</span>
+    <span class="n">atr</span> <span class="o">=</span> <span class="n">tr</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">period</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">smoothed_plus_dm</span> <span class="o">=</span> <span class="n">plus_dm</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">period</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">smoothed_minus_dm</span> <span class="o">=</span> <span class="n">minus_dm</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">period</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># Calculate +DI and -DI</span>
+    <span class="n">plus_di</span> <span class="o">=</span> <span class="p">(</span><span class="n">smoothed_plus_dm</span> <span class="o">/</span> <span class="n">atr</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">minus_di</span> <span class="o">=</span> <span class="p">(</span><span class="n">smoothed_minus_dm</span> <span class="o">/</span> <span class="n">atr</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="c1"># Calculate DX and ADX</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">plus_di</span> <span class="o">-</span> <span class="n">minus_di</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">plus_di</span> <span class="o">+</span> <span class="n">minus_di</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">adx</span> <span class="o">=</span> <span class="n">dx</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="n">period</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="c1"># Assign results to DataFrame</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;+DI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">plus_di</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;-DI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">minus_di</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;ADX&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">adx</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="c1"># Apply DMI and ADX calculation</span>
+<span class="n">period</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">calculate_dmi_adx</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">period</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Plot Close Price, +DI, -DI, and ADX</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Plot Close Price</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close Price&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s1"> Close Price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Plot +DI and -DI</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;+DI&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;+DI&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;-DI&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;-DI&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Directional Movement Index (+DI and -DI) for </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Index Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Plot ADX</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ADX&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ADX&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;purple&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Trend Threshold (25)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average Directional Index (ADX) for </span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;ADX Value&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="o">*********************</span><span class="mi">100</span><span class="o">%***********************</span><span class="p">]</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nx">completed</span>
+
+
+
+<span class="o">---------------------------------------------------------------------------</span>
+
+<span class="nx">ValueError</span><span class="w">                                </span><span class="nx">Traceback</span><span class="w"> </span><span class="p">(</span><span class="nx">most</span><span class="w"> </span><span class="nx">recent</span><span class="w"> </span><span class="nx">call</span><span class="w"> </span><span class="nx">last</span><span class="p">)</span>
+
+<span class="nx">Cell</span><span class="w"> </span><span class="nx">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="mi">53</span>
+<span class="w">     </span><span class="mi">51</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">Apply</span><span class="w"> </span><span class="nx">DMI</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">ADX</span><span class="w"> </span><span class="nx">calculation</span>
+<span class="w">     </span><span class="mi">52</span><span class="w"> </span><span class="nx">period</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">14</span>
+<span class="o">---&gt;</span><span class="w"> </span><span class="mi">53</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">calculate_dmi_adx</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">period</span><span class="p">)</span>
+<span class="w">     </span><span class="mi">55</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">Step</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span><span class="w"> </span><span class="nx">Plot</span><span class="w"> </span><span class="nx">Close</span><span class="w"> </span><span class="nx">Price</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nx">DI</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="nx">DI</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">ADX</span>
+<span class="w">     </span><span class="mi">56</span><span class="w"> </span><span class="nx">plt</span><span class="p">.</span><span class="nx">figure</span><span class="p">(</span><span class="nx">figsize</span><span class="p">=(</span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span>
+
+
+<span class="nx">Cell</span><span class="w"> </span><span class="nx">In</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span><span class="w"> </span><span class="nx">line</span><span class="w"> </span><span class="mi">22</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">calculate_dmi_adx</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">period</span><span class="p">)</span>
+<span class="w">     </span><span class="mi">20</span><span class="w"> </span><span class="nx">tr2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">abs</span><span class="p">(</span><span class="nx">high</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">close</span><span class="p">.</span><span class="nx">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="w">     </span><span class="mi">21</span><span class="w"> </span><span class="nx">tr3</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">abs</span><span class="p">(</span><span class="nx">low</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">close</span><span class="p">.</span><span class="nx">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+<span class="o">---&gt;</span><span class="w"> </span><span class="mi">22</span><span class="w"> </span><span class="nx">tr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">pd</span><span class="p">.</span><span class="nx">DataFrame</span><span class="p">({</span><span class="err">&#39;</span><span class="nx">TR1</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">tr1</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">TR2</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">tr2</span><span class="p">,</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">TR3</span><span class="err">&#39;</span><span class="p">:</span><span class="w"> </span><span class="nx">tr3</span><span class="p">}).</span><span class="nx">max</span><span class="p">(</span><span class="nx">axis</span><span class="p">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">     </span><span class="mi">24</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">Calculate</span><span class="w"> </span><span class="o">+</span><span class="nx">DM</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="o">-</span><span class="nx">DM</span>
+<span class="w">     </span><span class="mi">25</span><span class="w"> </span><span class="nx">plus_dm</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">high</span><span class="p">.</span><span class="nx">diff</span><span class="p">()</span>
+
+
+<span class="nx">File</span><span class="w"> </span><span class="o">~/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">pandas</span><span class="o">/</span><span class="nx">core</span><span class="o">/</span><span class="nx">frame</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">778</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">.</span><span class="nx">__init__</span><span class="p">(</span><span class="kp">self</span><span class="p">,</span><span class="w"> </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">columns</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">,</span><span class="w"> </span><span class="nx">copy</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">772</span><span class="w">     </span><span class="nx">mgr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kp">self</span><span class="p">.</span><span class="nx">_init_mgr</span><span class="p">(</span>
+<span class="w">    </span><span class="mi">773</span><span class="w">         </span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">axes</span><span class="p">={</span><span class="s">&quot;index&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;columns&quot;</span><span class="p">:</span><span class="w"> </span><span class="nx">columns</span><span class="p">},</span><span class="w"> </span><span class="nx">dtype</span><span class="p">=</span><span class="nx">dtype</span><span class="p">,</span><span class="w"> </span><span class="nx">copy</span><span class="p">=</span><span class="nx">copy</span>
+<span class="w">    </span><span class="mi">774</span><span class="w">     </span><span class="p">)</span>
+<span class="w">    </span><span class="mi">776</span><span class="w"> </span><span class="nx">elif</span><span class="w"> </span><span class="nx">isinstance</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">dict</span><span class="p">):</span>
+<span class="w">    </span><span class="mi">777</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="nx">GH</span><span class="err">#</span><span class="mi">38939</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">facto</span><span class="w"> </span><span class="nx">copy</span><span class="w"> </span><span class="nx">defaults</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">False</span><span class="w"> </span><span class="nx">only</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">non</span><span class="o">-</span><span class="nx">dict</span><span class="w"> </span><span class="nx">cases</span>
+<span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">778</span><span class="w">     </span><span class="nx">mgr</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">dict_to_mgr</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">columns</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">=</span><span class="nx">dtype</span><span class="p">,</span><span class="w"> </span><span class="nx">copy</span><span class="p">=</span><span class="nx">copy</span><span class="p">,</span><span class="w"> </span><span class="nx">typ</span><span class="p">=</span><span class="nx">manager</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">779</span><span class="w"> </span><span class="nx">elif</span><span class="w"> </span><span class="nx">isinstance</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">ma</span><span class="p">.</span><span class="nx">MaskedArray</span><span class="p">):</span>
+<span class="w">    </span><span class="mi">780</span><span class="w">     </span><span class="nx">from</span><span class="w"> </span><span class="nx">numpy</span><span class="p">.</span><span class="nx">ma</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nx">mrecords</span>
+
+
+<span class="nx">File</span><span class="w"> </span><span class="o">~/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">pandas</span><span class="o">/</span><span class="nx">core</span><span class="o">/</span><span class="nx">internals</span><span class="o">/</span><span class="nx">construction</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">503</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">dict_to_mgr</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">columns</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">,</span><span class="w"> </span><span class="nx">typ</span><span class="p">,</span><span class="w"> </span><span class="nx">copy</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">499</span><span class="w">     </span><span class="k">else</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">500</span><span class="w">         </span><span class="err">#</span><span class="w"> </span><span class="nx">dtype</span><span class="w"> </span><span class="nx">check</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">exclude</span><span class="w"> </span><span class="nx">e</span><span class="p">.</span><span class="nx">g</span><span class="p">.</span><span class="w"> </span><span class="nx">range</span><span class="w"> </span><span class="nx">objects</span><span class="p">,</span><span class="w"> </span><span class="nx">scalars</span>
+<span class="w">    </span><span class="mi">501</span><span class="w">         </span><span class="nx">arrays</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="nx">x</span><span class="p">.</span><span class="nx">copy</span><span class="p">()</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">hasattr</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;dtype&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">arrays</span><span class="p">]</span>
+<span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">503</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">arrays_to_mgr</span><span class="p">(</span><span class="nx">arrays</span><span class="p">,</span><span class="w"> </span><span class="nx">columns</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">=</span><span class="nx">dtype</span><span class="p">,</span><span class="w"> </span><span class="nx">typ</span><span class="p">=</span><span class="nx">typ</span><span class="p">,</span><span class="w"> </span><span class="nx">consolidate</span><span class="p">=</span><span class="nx">copy</span><span class="p">)</span>
+
+
+<span class="nx">File</span><span class="w"> </span><span class="o">~/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">pandas</span><span class="o">/</span><span class="nx">core</span><span class="o">/</span><span class="nx">internals</span><span class="o">/</span><span class="nx">construction</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">114</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">arrays_to_mgr</span><span class="p">(</span><span class="nx">arrays</span><span class="p">,</span><span class="w"> </span><span class="nx">columns</span><span class="p">,</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="nx">dtype</span><span class="p">,</span><span class="w"> </span><span class="nx">verify_integrity</span><span class="p">,</span><span class="w"> </span><span class="nx">typ</span><span class="p">,</span><span class="w"> </span><span class="nx">consolidate</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">111</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">verify_integrity</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">112</span><span class="w">     </span><span class="err">#</span><span class="w"> </span><span class="nx">figure</span><span class="w"> </span><span class="nx">out</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">index</span><span class="p">,</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">necessary</span>
+<span class="w">    </span><span class="mi">113</span><span class="w">     </span><span class="k">if</span><span class="w"> </span><span class="nx">index</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">None</span><span class="p">:</span>
+<span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">114</span><span class="w">         </span><span class="nx">index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">_extract_index</span><span class="p">(</span><span class="nx">arrays</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">115</span><span class="w">     </span><span class="k">else</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">116</span><span class="w">         </span><span class="nx">index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">ensure_index</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span>
+
+
+<span class="nx">File</span><span class="w"> </span><span class="o">~/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">pandas</span><span class="o">/</span><span class="nx">core</span><span class="o">/</span><span class="nx">internals</span><span class="o">/</span><span class="nx">construction</span><span class="p">.</span><span class="nx">py</span><span class="p">:</span><span class="mi">667</span><span class="p">,</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nx">_extract_index</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">664</span><span class="w">         </span><span class="nx">raise</span><span class="w"> </span><span class="nx">ValueError</span><span class="p">(</span><span class="s">&quot;Per-column arrays must each be 1-dimensional&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">666</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">indexes</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="nx">raw_lengths</span><span class="p">:</span>
+<span class="o">--</span><span class="p">&gt;</span><span class="w"> </span><span class="mi">667</span><span class="w">     </span><span class="nx">raise</span><span class="w"> </span><span class="nx">ValueError</span><span class="p">(</span><span class="s">&quot;If using all scalar values, you must pass an index&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="mi">669</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nx">have_series</span><span class="p">:</span>
+<span class="w">    </span><span class="mi">670</span><span class="w">     </span><span class="nx">index</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">union_indexes</span><span class="p">(</span><span class="nx">indexes</span><span class="p">)</span>
+
+
+<span class="nx">ValueError</span><span class="p">:</span><span class="w"> </span><span class="nx">If</span><span class="w"> </span><span class="nx">using</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">scalar</span><span class="w"> </span><span class="nx">values</span><span class="p">,</span><span class="w"> </span><span class="nx">you</span><span class="w"> </span><span class="nx">must</span><span class="w"> </span><span class="nx">pass</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">index</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">show_graph</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
+
+<span class="k">pass</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">show_graph</span><span class="p">(</span><span class="s2">&quot;AMZN&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">---------------------------------------------------------------------------</span>
+
+<span class="c">NameError                                 Traceback (most recent call last)</span>
+
+<span class="c">Cell In</span><span class="k">[</span><span class="c">5</span><span class="k">]</span><span class="nt">,</span><span class="c"> line 1</span>
+<span class="nb">----</span><span class="nv">&gt;</span><span class="c"> 1 show_graph(&quot;AMZN&quot;)</span>
+
+
+<span class="c">NameError: name &#39;show_graph&#39; is not defined</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/stockmarket.html">stockmarket</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/duckdb.html">duckdb</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/encoding.html">encoding</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/haystack.html">haystack</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/mythraki.html">mythraki</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/stockmarket.html">stockmarket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sys.html">sys</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/trends.html">trends</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

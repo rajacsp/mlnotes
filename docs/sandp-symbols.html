@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Sandp-Symbols</title>
+
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajasgs.github.io/mlnotes/sandp-symbols.html" rel="bookmark"
+        title="Permalink to Sandp-Symbols">Sandp-Symbols</a></h3>
+    </header>
+
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="c1"># Created: 20250103</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pyutil</span> <span class="k">as</span> <span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">&#39;</span><span class="nx">conda</span><span class="w"> </span><span class="nx">env</span><span class="p">:</span><span class="w"> </span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="p">;</span><span class="w"> </span><span class="nx">pyv</span><span class="p">:</span><span class="w"> </span><span class="m m-Double">3.12.7</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">packaged</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">Anaconda</span><span class="p">,</span><span class="w"> </span><span class="nx">Inc</span><span class="p">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="nx">main</span><span class="p">,</span><span class="w"> </span><span class="nx">Oct</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="nx">GCC</span><span class="w"> </span><span class="m m-Double">11.2.0</span><span class="p">]</span><span class="err">&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">pyu</span><span class="o">.</span><span class="n">ps2</span><span class="p">(</span><span class="s2">&quot;requests&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>requests==2.32.3
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="c1"># Download the list of S&amp;P 500 companies from Wikipedia</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://en.wikipedia.org/wiki/List_of_S%26P_500_companies&quot;</span>
+<span class="n">sp500_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">url</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Extract symbols as a list</span>
+<span class="n">sp500_symbols</span> <span class="o">=</span> <span class="n">sp500_df</span><span class="p">[</span><span class="s1">&#39;Symbol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;sp500-1.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">myfile</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="n">sp500_symbols</span><span class="p">:</span>
+        <span class="n">myfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">sp500_symbols</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>[&#39;MMM&#39;,
+ &#39;AOS&#39;,
+ &#39;ABT&#39;,
+ &#39;ABBV&#39;,
+ &#39;ACN&#39;,
+ &#39;ADBE&#39;,
+ &#39;AMD&#39;,
+ &#39;AES&#39;,
+ &#39;AFL&#39;,
+ &#39;A&#39;,
+ &#39;APD&#39;,
+ &#39;ABNB&#39;,
+ &#39;AKAM&#39;,
+ &#39;ALB&#39;,
+ &#39;ARE&#39;,
+ &#39;ALGN&#39;,
+ &#39;ALLE&#39;,
+ &#39;LNT&#39;,
+ &#39;ALL&#39;,
+ &#39;GOOGL&#39;,
+ &#39;GOOG&#39;,
+ &#39;MO&#39;,
+ &#39;AMZN&#39;,
+ &#39;AMCR&#39;,
+ &#39;AEE&#39;,
+ &#39;AEP&#39;,
+ &#39;AXP&#39;,
+ &#39;AIG&#39;,
+ &#39;AMT&#39;,
+ &#39;AWK&#39;,
+ &#39;AMP&#39;,
+ &#39;AME&#39;,
+ &#39;AMGN&#39;,
+ &#39;APH&#39;,
+ &#39;ADI&#39;,
+ &#39;ANSS&#39;,
+ &#39;AON&#39;,
+ &#39;APA&#39;,
+ &#39;APO&#39;,
+ &#39;AAPL&#39;,
+ &#39;AMAT&#39;,
+ &#39;APTV&#39;,
+ &#39;ACGL&#39;,
+ &#39;ADM&#39;,
+ &#39;ANET&#39;,
+ &#39;AJG&#39;,
+ &#39;AIZ&#39;,
+ &#39;T&#39;,
+ &#39;ATO&#39;,
+ &#39;ADSK&#39;,
+ &#39;ADP&#39;,
+ &#39;AZO&#39;,
+ &#39;AVB&#39;,
+ &#39;AVY&#39;,
+ &#39;AXON&#39;,
+ &#39;BKR&#39;,
+ &#39;BALL&#39;,
+ &#39;BAC&#39;,
+ &#39;BAX&#39;,
+ &#39;BDX&#39;,
+ &#39;BRK.B&#39;,
+ &#39;BBY&#39;,
+ &#39;TECH&#39;,
+ &#39;BIIB&#39;,
+ &#39;BLK&#39;,
+ &#39;BX&#39;,
+ &#39;BK&#39;,
+ &#39;BA&#39;,
+ &#39;BKNG&#39;,
+ &#39;BWA&#39;,
+ &#39;BSX&#39;,
+ &#39;BMY&#39;,
+ &#39;AVGO&#39;,
+ &#39;BR&#39;,
+ &#39;BRO&#39;,
+ &#39;BF.B&#39;,
+ &#39;BLDR&#39;,
+ &#39;BG&#39;,
+ &#39;BXP&#39;,
+ &#39;CHRW&#39;,
+ &#39;CDNS&#39;,
+ &#39;CZR&#39;,
+ &#39;CPT&#39;,
+ &#39;CPB&#39;,
+ &#39;COF&#39;,
+ &#39;CAH&#39;,
+ &#39;KMX&#39;,
+ &#39;CCL&#39;,
+ &#39;CARR&#39;,
+ &#39;CAT&#39;,
+ &#39;CBOE&#39;,
+ &#39;CBRE&#39;,
+ &#39;CDW&#39;,
+ &#39;CE&#39;,
+ &#39;COR&#39;,
+ &#39;CNC&#39;,
+ &#39;CNP&#39;,
+ &#39;CF&#39;,
+ &#39;CRL&#39;,
+ &#39;SCHW&#39;,
+ &#39;CHTR&#39;,
+ &#39;CVX&#39;,
+ &#39;CMG&#39;,
+ &#39;CB&#39;,
+ &#39;CHD&#39;,
+ &#39;CI&#39;,
+ &#39;CINF&#39;,
+ &#39;CTAS&#39;,
+ &#39;CSCO&#39;,
+ &#39;C&#39;,
+ &#39;CFG&#39;,
+ &#39;CLX&#39;,
+ &#39;CME&#39;,
+ &#39;CMS&#39;,
+ &#39;KO&#39;,
+ &#39;CTSH&#39;,
+ &#39;CL&#39;,
+ &#39;CMCSA&#39;,
+ &#39;CAG&#39;,
+ &#39;COP&#39;,
+ &#39;ED&#39;,
+ &#39;STZ&#39;,
+ &#39;CEG&#39;,
+ &#39;COO&#39;,
+ &#39;CPRT&#39;,
+ &#39;GLW&#39;,
+ &#39;CPAY&#39;,
+ &#39;CTVA&#39;,
+ &#39;CSGP&#39;,
+ &#39;COST&#39;,
+ &#39;CTRA&#39;,
+ &#39;CRWD&#39;,
+ &#39;CCI&#39;,
+ &#39;CSX&#39;,
+ &#39;CMI&#39;,
+ &#39;CVS&#39;,
+ &#39;DHR&#39;,
+ &#39;DRI&#39;,
+ &#39;DVA&#39;,
+ &#39;DAY&#39;,
+ &#39;DECK&#39;,
+ &#39;DE&#39;,
+ &#39;DELL&#39;,
+ &#39;DAL&#39;,
+ &#39;DVN&#39;,
+ &#39;DXCM&#39;,
+ &#39;FANG&#39;,
+ &#39;DLR&#39;,
+ &#39;DFS&#39;,
+ &#39;DG&#39;,
+ &#39;DLTR&#39;,
+ &#39;D&#39;,
+ &#39;DPZ&#39;,
+ &#39;DOV&#39;,
+ &#39;DOW&#39;,
+ &#39;DHI&#39;,
+ &#39;DTE&#39;,
+ &#39;DUK&#39;,
+ &#39;DD&#39;,
+ &#39;EMN&#39;,
+ &#39;ETN&#39;,
+ &#39;EBAY&#39;,
+ &#39;ECL&#39;,
+ &#39;EIX&#39;,
+ &#39;EW&#39;,
+ &#39;EA&#39;,
+ &#39;ELV&#39;,
+ &#39;EMR&#39;,
+ &#39;ENPH&#39;,
+ &#39;ETR&#39;,
+ &#39;EOG&#39;,
+ &#39;EPAM&#39;,
+ &#39;EQT&#39;,
+ &#39;EFX&#39;,
+ &#39;EQIX&#39;,
+ &#39;EQR&#39;,
+ &#39;ERIE&#39;,
+ &#39;ESS&#39;,
+ &#39;EL&#39;,
+ &#39;EG&#39;,
+ &#39;EVRG&#39;,
+ &#39;ES&#39;,
+ &#39;EXC&#39;,
+ &#39;EXPE&#39;,
+ &#39;EXPD&#39;,
+ &#39;EXR&#39;,
+ &#39;XOM&#39;,
+ &#39;FFIV&#39;,
+ &#39;FDS&#39;,
+ &#39;FICO&#39;,
+ &#39;FAST&#39;,
+ &#39;FRT&#39;,
+ &#39;FDX&#39;,
+ &#39;FIS&#39;,
+ &#39;FITB&#39;,
+ &#39;FSLR&#39;,
+ &#39;FE&#39;,
+ &#39;FI&#39;,
+ &#39;FMC&#39;,
+ &#39;F&#39;,
+ &#39;FTNT&#39;,
+ &#39;FTV&#39;,
+ &#39;FOXA&#39;,
+ &#39;FOX&#39;,
+ &#39;BEN&#39;,
+ &#39;FCX&#39;,
+ &#39;GRMN&#39;,
+ &#39;IT&#39;,
+ &#39;GE&#39;,
+ &#39;GEHC&#39;,
+ &#39;GEV&#39;,
+ &#39;GEN&#39;,
+ &#39;GNRC&#39;,
+ &#39;GD&#39;,
+ &#39;GIS&#39;,
+ &#39;GM&#39;,
+ &#39;GPC&#39;,
+ &#39;GILD&#39;,
+ &#39;GPN&#39;,
+ &#39;GL&#39;,
+ &#39;GDDY&#39;,
+ &#39;GS&#39;,
+ &#39;HAL&#39;,
+ &#39;HIG&#39;,
+ &#39;HAS&#39;,
+ &#39;HCA&#39;,
+ &#39;DOC&#39;,
+ &#39;HSIC&#39;,
+ &#39;HSY&#39;,
+ &#39;HES&#39;,
+ &#39;HPE&#39;,
+ &#39;HLT&#39;,
+ &#39;HOLX&#39;,
+ &#39;HD&#39;,
+ &#39;HON&#39;,
+ &#39;HRL&#39;,
+ &#39;HST&#39;,
+ &#39;HWM&#39;,
+ &#39;HPQ&#39;,
+ &#39;HUBB&#39;,
+ &#39;HUM&#39;,
+ &#39;HBAN&#39;,
+ &#39;HII&#39;,
+ &#39;IBM&#39;,
+ &#39;IEX&#39;,
+ &#39;IDXX&#39;,
+ &#39;ITW&#39;,
+ &#39;INCY&#39;,
+ &#39;IR&#39;,
+ &#39;PODD&#39;,
+ &#39;INTC&#39;,
+ &#39;ICE&#39;,
+ &#39;IFF&#39;,
+ &#39;IP&#39;,
+ &#39;IPG&#39;,
+ &#39;INTU&#39;,
+ &#39;ISRG&#39;,
+ &#39;IVZ&#39;,
+ &#39;INVH&#39;,
+ &#39;IQV&#39;,
+ &#39;IRM&#39;,
+ &#39;JBHT&#39;,
+ &#39;JBL&#39;,
+ &#39;JKHY&#39;,
+ &#39;J&#39;,
+ &#39;JNJ&#39;,
+ &#39;JCI&#39;,
+ &#39;JPM&#39;,
+ &#39;JNPR&#39;,
+ &#39;K&#39;,
+ &#39;KVUE&#39;,
+ &#39;KDP&#39;,
+ &#39;KEY&#39;,
+ &#39;KEYS&#39;,
+ &#39;KMB&#39;,
+ &#39;KIM&#39;,
+ &#39;KMI&#39;,
+ &#39;KKR&#39;,
+ &#39;KLAC&#39;,
+ &#39;KHC&#39;,
+ &#39;KR&#39;,
+ &#39;LHX&#39;,
+ &#39;LH&#39;,
+ &#39;LRCX&#39;,
+ &#39;LW&#39;,
+ &#39;LVS&#39;,
+ &#39;LDOS&#39;,
+ &#39;LEN&#39;,
+ &#39;LII&#39;,
+ &#39;LLY&#39;,
+ &#39;LIN&#39;,
+ &#39;LYV&#39;,
+ &#39;LKQ&#39;,
+ &#39;LMT&#39;,
+ &#39;L&#39;,
+ &#39;LOW&#39;,
+ &#39;LULU&#39;,
+ &#39;LYB&#39;,
+ &#39;MTB&#39;,
+ &#39;MPC&#39;,
+ &#39;MKTX&#39;,
+ &#39;MAR&#39;,
+ &#39;MMC&#39;,
+ &#39;MLM&#39;,
+ &#39;MAS&#39;,
+ &#39;MA&#39;,
+ &#39;MTCH&#39;,
+ &#39;MKC&#39;,
+ &#39;MCD&#39;,
+ &#39;MCK&#39;,
+ &#39;MDT&#39;,
+ &#39;MRK&#39;,
+ &#39;META&#39;,
+ &#39;MET&#39;,
+ &#39;MTD&#39;,
+ &#39;MGM&#39;,
+ &#39;MCHP&#39;,
+ &#39;MU&#39;,
+ &#39;MSFT&#39;,
+ &#39;MAA&#39;,
+ &#39;MRNA&#39;,
+ &#39;MHK&#39;,
+ &#39;MOH&#39;,
+ &#39;TAP&#39;,
+ &#39;MDLZ&#39;,
+ &#39;MPWR&#39;,
+ &#39;MNST&#39;,
+ &#39;MCO&#39;,
+ &#39;MS&#39;,
+ &#39;MOS&#39;,
+ &#39;MSI&#39;,
+ &#39;MSCI&#39;,
+ &#39;NDAQ&#39;,
+ &#39;NTAP&#39;,
+ &#39;NFLX&#39;,
+ &#39;NEM&#39;,
+ &#39;NWSA&#39;,
+ &#39;NWS&#39;,
+ &#39;NEE&#39;,
+ &#39;NKE&#39;,
+ &#39;NI&#39;,
+ &#39;NDSN&#39;,
+ &#39;NSC&#39;,
+ &#39;NTRS&#39;,
+ &#39;NOC&#39;,
+ &#39;NCLH&#39;,
+ &#39;NRG&#39;,
+ &#39;NUE&#39;,
+ &#39;NVDA&#39;,
+ &#39;NVR&#39;,
+ &#39;NXPI&#39;,
+ &#39;ORLY&#39;,
+ &#39;OXY&#39;,
+ &#39;ODFL&#39;,
+ &#39;OMC&#39;,
+ &#39;ON&#39;,
+ &#39;OKE&#39;,
+ &#39;ORCL&#39;,
+ &#39;OTIS&#39;,
+ &#39;PCAR&#39;,
+ &#39;PKG&#39;,
+ &#39;PLTR&#39;,
+ &#39;PANW&#39;,
+ &#39;PARA&#39;,
+ &#39;PH&#39;,
+ &#39;PAYX&#39;,
+ &#39;PAYC&#39;,
+ &#39;PYPL&#39;,
+ &#39;PNR&#39;,
+ &#39;PEP&#39;,
+ &#39;PFE&#39;,
+ &#39;PCG&#39;,
+ &#39;PM&#39;,
+ &#39;PSX&#39;,
+ &#39;PNW&#39;,
+ &#39;PNC&#39;,
+ &#39;POOL&#39;,
+ &#39;PPG&#39;,
+ &#39;PPL&#39;,
+ &#39;PFG&#39;,
+ &#39;PG&#39;,
+ &#39;PGR&#39;,
+ &#39;PLD&#39;,
+ &#39;PRU&#39;,
+ &#39;PEG&#39;,
+ &#39;PTC&#39;,
+ &#39;PSA&#39;,
+ &#39;PHM&#39;,
+ &#39;PWR&#39;,
+ &#39;QCOM&#39;,
+ &#39;DGX&#39;,
+ &#39;RL&#39;,
+ &#39;RJF&#39;,
+ &#39;RTX&#39;,
+ &#39;O&#39;,
+ &#39;REG&#39;,
+ &#39;REGN&#39;,
+ &#39;RF&#39;,
+ &#39;RSG&#39;,
+ &#39;RMD&#39;,
+ &#39;RVTY&#39;,
+ &#39;ROK&#39;,
+ &#39;ROL&#39;,
+ &#39;ROP&#39;,
+ &#39;ROST&#39;,
+ &#39;RCL&#39;,
+ &#39;SPGI&#39;,
+ &#39;CRM&#39;,
+ &#39;SBAC&#39;,
+ &#39;SLB&#39;,
+ &#39;STX&#39;,
+ &#39;SRE&#39;,
+ &#39;NOW&#39;,
+ &#39;SHW&#39;,
+ &#39;SPG&#39;,
+ &#39;SWKS&#39;,
+ &#39;SJM&#39;,
+ &#39;SW&#39;,
+ &#39;SNA&#39;,
+ &#39;SOLV&#39;,
+ &#39;SO&#39;,
+ &#39;LUV&#39;,
+ &#39;SWK&#39;,
+ &#39;SBUX&#39;,
+ &#39;STT&#39;,
+ &#39;STLD&#39;,
+ &#39;STE&#39;,
+ &#39;SYK&#39;,
+ &#39;SMCI&#39;,
+ &#39;SYF&#39;,
+ &#39;SNPS&#39;,
+ &#39;SYY&#39;,
+ &#39;TMUS&#39;,
+ &#39;TROW&#39;,
+ &#39;TTWO&#39;,
+ &#39;TPR&#39;,
+ &#39;TRGP&#39;,
+ &#39;TGT&#39;,
+ &#39;TEL&#39;,
+ &#39;TDY&#39;,
+ &#39;TFX&#39;,
+ &#39;TER&#39;,
+ &#39;TSLA&#39;,
+ &#39;TXN&#39;,
+ &#39;TPL&#39;,
+ &#39;TXT&#39;,
+ &#39;TMO&#39;,
+ &#39;TJX&#39;,
+ &#39;TSCO&#39;,
+ &#39;TT&#39;,
+ &#39;TDG&#39;,
+ &#39;TRV&#39;,
+ &#39;TRMB&#39;,
+ &#39;TFC&#39;,
+ &#39;TYL&#39;,
+ &#39;TSN&#39;,
+ &#39;USB&#39;,
+ &#39;UBER&#39;,
+ &#39;UDR&#39;,
+ &#39;ULTA&#39;,
+ &#39;UNP&#39;,
+ &#39;UAL&#39;,
+ &#39;UPS&#39;,
+ &#39;URI&#39;,
+ &#39;UNH&#39;,
+ &#39;UHS&#39;,
+ &#39;VLO&#39;,
+ &#39;VTR&#39;,
+ &#39;VLTO&#39;,
+ &#39;VRSN&#39;,
+ &#39;VRSK&#39;,
+ &#39;VZ&#39;,
+ &#39;VRTX&#39;,
+ &#39;VTRS&#39;,
+ &#39;VICI&#39;,
+ &#39;V&#39;,
+ &#39;VST&#39;,
+ &#39;VMC&#39;,
+ &#39;WRB&#39;,
+ &#39;GWW&#39;,
+ &#39;WAB&#39;,
+ &#39;WBA&#39;,
+ &#39;WMT&#39;,
+ &#39;DIS&#39;,
+ &#39;WBD&#39;,
+ &#39;WM&#39;,
+ &#39;WAT&#39;,
+ &#39;WEC&#39;,
+ &#39;WFC&#39;,
+ &#39;WELL&#39;,
+ &#39;WST&#39;,
+ &#39;WDC&#39;,
+ &#39;WY&#39;,
+ &#39;WMB&#39;,
+ &#39;WTW&#39;,
+ &#39;WDAY&#39;,
+ &#39;WYNN&#39;,
+ &#39;XEL&#39;,
+ &#39;XYL&#39;,
+ &#39;YUM&#39;,
+ &#39;ZBRA&#39;,
+ &#39;ZBH&#39;,
+ &#39;ZTS&#39;]
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># Display the first few symbols</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">sp500_symbols</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/stockmarket.html">stockmarket</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/duckdb.html">duckdb</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/encoding.html">encoding</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/haystack.html">haystack</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/mythraki.html">mythraki</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/stockmarket.html">stockmarket</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sys.html">sys</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/trends.html">trends</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

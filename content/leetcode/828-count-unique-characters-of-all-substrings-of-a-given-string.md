@@ -1,6 +1,6 @@
 ---
 title: 828-Count-Unique-Characters-Of-All-Substrings-Of-A-Given-String
-date: 2025-01-03
+date: 2025-01-04
 author: Your Name
 cell_count: 6
 score: 5

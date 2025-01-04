@@ -47,12 +47,12 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/949-largest-time-for-given-digits.html"><h3 class="article-title">949-Largest-Time-For-Given-Digits</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
+                <a href="https://rajasgs.github.io/mlnotes/914-x-of-a-kind-in-a-deck-of-cards.html"><h3 class="article-title">914-X-Of-A-Kind-In-A-Deck-Of-Cards</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
 </h6>
 
 
-<p>https://leetcode.com/problems/largest-time-for-given-digits</p>
+<p>https://leetcode.com/problems/x-of-a-kind-in-a-deck-of-cards</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
 <span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
@@ -64,102 +64,22 @@
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">largestTimeFromDigits</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">A</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">itertools</span><span class="p">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="nf">reverse</span><span class="o">=</span><span class="k">True</span><span class="p">))</span><span class="err">:</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nc">time</span><span class="o">[</span><span class="n">:2</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nc">time</span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">6</span><span class="err">:</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="s1">&#39;%d%d:%d …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/949-largest-time-for-given-digits.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/95-unique-binary-search-trees-ii.html"><h3 class="article-title">95-Unique-Binary-Search-Trees-Ii</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
-</h6>
-
-
-<p>https://leetcode.com/problems/unique-binary-search-trees-ii</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
-<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">hasGroupsSizeX</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">deck</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="nf">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Counter</span><span class="p">(</span><span class="n">deck</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">functools</span><span class="p">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">gcd</span><span class="p">,</span><span class="w"> </span><span class="nf">count</span><span class="p">.</span><span class="k">values</span><span class="p">())</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">generateTrees</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">n</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">TreeNode</span><span class="o">]</span><span class="err">:</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="err">:</span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="err">[]</span>
-
-<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generateTrees</span><span class="p">(</span><span class="nl">mini</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"> </span><span class="nl">maxi</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">Optional[int</span><span class="o">]</span><span class="err">]:</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">mini</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nl">maxi</span><span class="p">:</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">[</span><span class="n">None</span><span class="o">]</span>
-
-<span class="w">      </span><span class="n">ans</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[]</span>
-
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/95-unique-binary-search-trees-ii.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/950-reveal-cards-in-increasing-order.html"><h3 class="article-title">950-Reveal-Cards-In-Increasing-Order</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
-</h6>
-
-
-<p>https://leetcode.com/problems/reveal-cards-in-increasing-order</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
-<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">deckRevealedIncreasing</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">deck</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="err">:</span>
-<span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">deque</span><span class="p">()</span>
-
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">card</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">reversed</span><span class="p">(</span><span class="n">sorted</span><span class="p">(</span><span class="n">deck</span><span class="p">))</span><span class="err">:</span>
-<span class="w">      </span><span class="n">q</span><span class="p">.</span><span class="n">rotate</span><span class="p">()</span>
-<span class="w">      </span><span class="n">q</span><span class="p">.</span><span class="n">appendleft</span><span class="p">(</span><span class="n">card</span><span class="p">)</span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">list</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>new Solution().deckRevealedIncreasing()
+<div class="highlight"><pre><span></span><code>new Solution().hasGroupsSizeX()
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 5 …</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/950-reveal-cards-in-increasing-order.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/914-x-of-a-kind-in-a-deck-of-cards.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -167,12 +87,12 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/951-flip-equivalent-binary-trees.html"><h3 class="article-title">951-Flip-Equivalent-Binary-Trees</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
+                <a href="https://rajasgs.github.io/mlnotes/915-partition-array-into-disjoint-intervals.html"><h3 class="article-title">915-Partition-Array-Into-Disjoint-Intervals</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
 </h6>
 
 
-<p>https://leetcode.com/problems/flip-equivalent-binary-trees</p>
+<p>https://leetcode.com/problems/partition-array-into-disjoint-intervals</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
 <span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
@@ -184,19 +104,19 @@
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">flipEquiv</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">root1</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">TreeNode</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="nl">root2</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">TreeNode</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">root1</span><span class="p">:</span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">root2</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">root2</span><span class="p">:</span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">root1</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">root1</span><span class="p">.</span><span class="n">val</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">root2</span><span class="p">.</span><span class="nl">val</span><span class="p">:</span>
-<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="k">False …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">partitionDisjoint</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">A</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">int</span><span class="err">:</span>
+<span class="w">    </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="w">    </span><span class="n">mini</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">[</span><span class="n">A[-1</span><span class="o">]</span><span class="err">]</span>
+<span class="w">    </span><span class="n">maxi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">math</span><span class="p">.</span><span class="n">inf</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="err">:</span>
+<span class="w">      </span><span class="n">mini</span><span class="o">[</span><span class="n">i …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/951-flip-equivalent-binary-trees.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/915-partition-array-into-disjoint-intervals.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -204,48 +124,12 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/952-largest-component-size-by-common-factor.html"><h3 class="article-title">952-Largest-Component-Size-By-Common-Factor</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
+                <a href="https://rajasgs.github.io/mlnotes/916-word-subsets.html"><h3 class="article-title">916-Word-Subsets</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
 </h6>
 
 
-<p>https://leetcode.com/problems/largest-component-size-by-common-factor</p>
-<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
-<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
-</code></pre></div>
-
-<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">UnionFind</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">n</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="err">:</span>
-<span class="w">    </span><span class="n">self</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">i for i in range(n + 1)</span><span class="o">]</span>
-
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="ow">union</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">u</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"> </span><span class="nl">v</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-<span class="w">    </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">find …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
-
-</p>
-
-
-
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/952-largest-component-size-by-common-factor.html">Read More</a>
-                <hr  class="gradient"/>
-            </article>
-
-        
-
-
-            <article>
-                <a href="https://rajasgs.github.io/mlnotes/953-verifying-an-alien-dictionary.html"><h3 class="article-title">953-Verifying-An-Alien-Dictionary</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
-</h6>
-
-
-<p>https://leetcode.com/problems/verifying-an-alien-dictionary</p>
+<p>https://leetcode.com/problems/word-subsets</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
 <span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
@@ -257,15 +141,19 @@
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">isAlienSorted</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">words</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="k">order</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="n">dict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="nl">c</span><span class="p">:</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">enumerate</span><span class="p">(</span><span class="k">order</span><span class="p">)</span><span class="err">}</span>
-<span class="w">    </span><span class="n">words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">[dict[c</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">word</span><span class="err">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">word</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">words …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">wordSubsets</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">A</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="nl">B</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="err">:</span>
+<span class="w">    </span><span class="nf">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Counter</span><span class="p">()</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">B</span><span class="p">:</span>
+<span class="w">      </span><span class="nf">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">count</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">Counter</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="o">[</span><span class="n">a for a in A if Counter …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/953-verifying-an-alien-dictionary.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/916-word-subsets.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -273,12 +161,12 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/954-array-of-doubled-pairs.html"><h3 class="article-title">954-Array-Of-Doubled-Pairs</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
+                <a href="https://rajasgs.github.io/mlnotes/917-reverse-only-letters.html"><h3 class="article-title">917-Reverse-Only-Letters</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
 </h6>
 
 
-<p>https://leetcode.com/problems/array-of-doubled-pairs</p>
+<p>https://leetcode.com/problems/reverse-only-letters</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
 <span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
@@ -290,19 +178,21 @@
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">canReorderDoubled</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">A</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span>
-<span class="w">    </span><span class="nf">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Counter</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">reverseOnlyLetters</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">S</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span>
+<span class="w">    </span><span class="n">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+<span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">S</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="nf">count</span><span class="p">,</span><span class="w"> </span><span class="k">key</span><span class="o">=</span><span class="nf">abs</span><span class="p">)</span><span class="err">:</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="nf">count</span><span class="o">[</span><span class="n">key</span><span class="o">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="nf">count</span><span class="o">[</span><span class="n">2 * key</span><span class="o">]</span><span class="err">:</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">False</span>
-<span class="w">      </span><span class="nf">count</span><span class="o">[</span><span class="n">2 * key</span><span class="o">]</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="nf">count …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">j</span><span class="p">:</span>
+<span class="w">      </span><span class="k">while</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">S</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">.</span><span class="n">isalpha</span><span class="p">()</span><span class="err">:</span>
+<span class="w">        </span><span class="n">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="k">while …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/954-array-of-doubled-pairs.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/917-reverse-only-letters.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -310,12 +200,12 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/957-prison-cells-after-n-days.html"><h3 class="article-title">957-Prison-Cells-After-N-Days</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
+                <a href="https://rajasgs.github.io/mlnotes/918-maximum-sum-circular-subarray.html"><h3 class="article-title">918-Maximum-Sum-Circular-Subarray</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
 </h6>
 
 
-<p>https://leetcode.com/problems/prison-cells-after-n-days</p>
+<p>https://leetcode.com/problems/maximum-sum-circular-subarray</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
 <span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
@@ -327,19 +217,22 @@
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">prisonAfterNDays</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">cells</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="nl">N</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="err">:</span>
-<span class="w">    </span><span class="n">nextDayCells</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span>
-<span class="w">    </span><span class="nf">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">maxSubarraySumCircular</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">A</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">int</span><span class="err">:</span>
+<span class="w">    </span><span class="n">totalSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">currMaxSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">currMinSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">maxSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">math</span><span class="p">.</span><span class="n">inf</span>
+<span class="w">    </span><span class="n">minSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">math</span><span class="p">.</span><span class="n">inf</span>
 
-<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="err">:</span>
-<span class="w">      </span><span class="n">N</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">cells</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">A</span><span class="p">:</span>
+<span class="w">      </span><span class="n">totalSum</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">a</span>
+<span class="w">      </span><span class="n">currMaxSum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">currMaxSum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">a …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/957-prison-cells-after-n-days.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/918-maximum-sum-circular-subarray.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -347,12 +240,12 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/96-unique-binary-search-trees.html"><h3 class="article-title">96-Unique-Binary-Search-Trees</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
+                <a href="https://rajasgs.github.io/mlnotes/92-reverse-linked-list-ii.html"><h3 class="article-title">92-Reverse-Linked-List-Ii</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
 </h6>
 
 
-<p>https://leetcode.com/problems/unique-binary-search-trees</p>
+<p>https://leetcode.com/problems/reverse-linked-list-ii</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
 <span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
@@ -364,17 +257,17 @@
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">numTrees</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">n</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">int</span><span class="err">:</span>
-<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">G</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="err">:</span><span class="o">=</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="k">Of</span><span class="w"> </span><span class="k">unique</span><span class="w"> </span><span class="n">BST</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">store</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="mf">1.</span><span class="p">.</span><span class="n">i</span>
-<span class="w">    </span><span class="n">G</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="n">1, 1</span><span class="o">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">reverseBetween</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">head</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">ListNode</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="nf">left</span><span class="err">:</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"> </span><span class="nf">right</span><span class="err">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">ListNode</span><span class="o">]</span><span class="err">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nf">left</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="err">:</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">reverseN</span><span class="p">(</span><span class="n">head</span><span class="p">,</span><span class="w"> </span><span class="nf">right</span><span class="p">)</span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">n …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+<span class="w">    </span><span class="n">head</span><span class="p">.</span><span class="k">next</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">reverseBetween</span><span class="p">(</span><span class="n">head</span><span class="p">.</span><span class="k">next</span><span class="p">,</span><span class="w"> </span><span class="nf">left</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nf">right …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/96-unique-binary-search-trees.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/92-reverse-linked-list-ii.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -382,12 +275,56 @@
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/961-n-repeated-element-in-size-2n-array.html"><h3 class="article-title">961-N-Repeated-Element-In-Size-2N-Array</h3></a>
-<h6 class="subheader" title="2025-01-03T00:00:00-05:00">Fri 03 January 2025
+                <a href="https://rajasgs.github.io/mlnotes/921-minimum-add-to-make-parentheses-valid.html"><h3 class="article-title">921-Minimum-Add-To-Make-Parentheses-Valid</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
 </h6>
 
 
-<p>https://leetcode.com/problems/n-repeated-element-in-size-2n-array</p>
+<p>https://leetcode.com/problems/minimum-add-to-make-parentheses-valid</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="n">Solution:</span>
+  <span class="n">def</span> <span class="n">minAddToMakeValid</span>(<span class="nb">self</span>, <span class="o">s</span>: <span class="n">str</span>) -&gt; <span class="n">int:</span>
+    <span class="nb">l</span> = <span class="mi">0</span>
+    <span class="nb">r</span> = <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">c</span> <span class="nb">in</span> <span class="o">s</span>:
+      <span class="k">if</span> <span class="n">c</span> == <span class="s">&#39;(&#39;</span>:
+        <span class="nb">l</span> += <span class="mi">1</span>
+      <span class="n">else:</span>
+        <span class="k">if</span> <span class="nb">l</span> == <span class="mi">0</span>:
+          <span class="nb">r</span> += <span class="mi">1</span>
+        <span class="n">else:</span>
+          <span class="nb">l</span> -= <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="nb">l …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/921-minimum-add-to-make-parentheses-valid.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/922-sort-array-by-parity-ii.html"><h3 class="article-title">922-Sort-Array-By-Parity-Ii</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+</h6>
+
+
+<p>https://leetcode.com/problems/sort-array-by-parity-ii</p>
 <div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
 <span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
 </code></pre></div>
@@ -399,22 +336,99 @@
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
-<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">repeatedNTimes</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">A</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">int</span><span class="err">:</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="err">:</span>
-<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">A</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">A</span><span class="o">[</span><span class="n">i + 1</span><span class="o">]</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="n">A</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">A</span><span class="o">[</span><span class="n">i + 2</span><span class="o">]</span><span class="err">:</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">A</span><span class="o">[</span><span class="n">i …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">sortArrayByParityII</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">A</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="err">:</span>
+<span class="w">    </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+<span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nl">n</span><span class="p">:</span>
+<span class="w">      </span><span class="k">while</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">A</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="err">:</span>
+<span class="w">        </span><span class="n">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">      </span><span class="k">while …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/961-n-repeated-element-in-size-2n-array.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/922-sort-array-by-parity-ii.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/925-long-pressed-name.html"><h3 class="article-title">925-Long-Pressed-Name</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+</h6>
+
+
+<p>https://leetcode.com/problems/long-pressed-name</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">isLongPressedName</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">typed</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">j</span><span class="p">,</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">enumerate</span><span class="p">(</span><span class="n">typed</span><span class="p">)</span><span class="err">:</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">name</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nl">t</span><span class="p">:</span>
+<span class="w">        </span><span class="n">i</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="n">elif</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/925-long-pressed-name.html">Read More</a>
+                <hr  class="gradient"/>
+            </article>
+
+        
+
+
+            <article>
+                <a href="https://rajasgs.github.io/mlnotes/926-flip-string-to-monotone-increasing.html"><h3 class="article-title">926-Flip-String-To-Monotone-Increasing</h3></a>
+<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+</h6>
+
+
+<p>https://leetcode.com/problems/flip-string-to-monotone-increasing</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>print(pyu.ps2(&quot;python-dotenv&quot;))
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="nb">List</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="n">Solution</span><span class="p">:</span>
+<span class="w">  </span><span class="n">def</span><span class="w"> </span><span class="n">minFlipsMonoIncr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">:</span><span class="w"> </span><span class="nb">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">:</span>
+<span class="w">    </span><span class="n">dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">enumerate</span><span class="p">(</span><span class="n">S</span><span class="p">):</span>
+<span class="w">      </span><span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="p">),</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">c …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a>
+
+</p>
+
+
+
+                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/926-flip-string-to-monotone-increasing.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
             <!-- /#posts-list -->
 <div class="pagination-centered">
-<h6 class="subheader">Page 75 of 140</h6>
+<h6 class="subheader">Page 75 of 143</h6>
 
 <p>
             <a href="https://rajasgs.github.io/mlnotes/index74.html">&laquo; Prev</a>
@@ -485,6 +499,7 @@
             <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajasgs.github.io/mlnotes/category/stockmarket.html">stockmarket</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/sys.html">sys</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
             <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
