@@ -1,6 +1,6 @@
 ---
 title: Duck-Automobile
-date: 2025-01-04
+date: 2025-05-17
 author: Your Name
 cell_count: 22
 score: 20

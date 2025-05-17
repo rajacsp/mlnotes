@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8" />
+    <!-- Set the viewport width to device width for mobile -->
+    <meta name="viewport" content="width=device-width" />
+
+    <title>44-Pivot-Range</title>
+
+    <link rel="stylesheet" href="https://rajacsp.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajacsp.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajacsp.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajacsp.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajacsp.github.io/mlnotes/theme/js/modernizr.js"></script>
+</head>
+
+<body>
+
+<!-- Nav Bar -->
+<nav>
+<div class="top-bar">
+<div class="row">
+    <div class="large-9 large-centered columns">
+	    <h1><a href="https://rajacsp.github.io/mlnotes">ML Notes</a></h1>
+    </div>
+</div>
+</div>
+
+<!-- Show menu items and pages -->
+<div class="row">
+<div class="large-9 columns">
+    <ul class="button-group navigation">
+
+    </ul>
+</div>
+</div>
+</nav>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns">
+<article>
+    <header>
+        <h3 class="article-title"><a href="https://rajacsp.github.io/mlnotes/44-pivot-range.html" rel="bookmark"
+        title="Permalink to 44-Pivot-Range">44-Pivot-Range</a></h3>
+    </header>
+
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
+</h6>
+
+
+    <div class="highlight"><pre><span></span><code><span class="c1"># Created: 20250104</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pyutil</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pyu</span>
+<span class="n">pyu</span><span class="o">.</span><span class="n">get_local_pyinfo</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="err">&#39;</span><span class="nx">conda</span><span class="w"> </span><span class="nx">env</span><span class="p">:</span><span class="w"> </span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="p">;</span><span class="w"> </span><span class="nx">pyv</span><span class="p">:</span><span class="w"> </span><span class="m m-Double">3.12.7</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">packaged</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">Anaconda</span><span class="p">,</span><span class="w"> </span><span class="nx">Inc</span><span class="p">.</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="nx">main</span><span class="p">,</span><span class="w"> </span><span class="nx">Oct</span><span class="w">  </span><span class="mi">4</span><span class="w"> </span><span class="mi">2024</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">36</span><span class="p">)</span><span class="w"> </span><span class="p">[</span><span class="nx">GCC</span><span class="w"> </span><span class="m m-Double">11.2.0</span><span class="p">]</span><span class="err">&#39;</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="n">pyu</span><span class="o">.</span><span class="n">ps2</span><span class="p">(</span><span class="s2">&quot;yfinance pandas matplotlib&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>yfinance==0.2.51
+pandas==2.2.3
+matplotlib==3.9.3
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">yfinance</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">yf</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># Step 1: Download historical data</span>
+<span class="n">symbol</span> <span class="o">=</span> <span class="s2">&quot;^GSPC&quot;</span>  <span class="c1"># S&amp;P 500 as an example</span>
+<span class="n">start</span> <span class="o">=</span> <span class="s2">&quot;2020-01-01&quot;</span>
+<span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;2023-12-31&quot;</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">)</span>
+
+<span class="c1"># Step 2: Calculate Pivot Range</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculate_pivot_range</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Pivot Point&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">])</span> <span class="o">/</span> <span class="mi">3</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;R1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Pivot Point&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;R2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Pivot Point&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">])</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;S1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Pivot Point&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">]</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;S2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Pivot Point&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;High&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Low&#39;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="c1"># Apply Pivot Range calculation</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">calculate_pivot_range</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Step 3: Plot Close Price and Pivot Range</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="c1"># Plot Close Price</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Close&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close Price&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;Pivot Point&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pivot Point (P)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;R1&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Resistance 1 (R1)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;R2&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Resistance 2 (R2)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lime&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;S1&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Support 1 (S1)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;S2&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Support 2 (S2)&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="c1"># Customize the plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s1"> Pivot Range&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="o">*********************</span><span class="mi">100</span><span class="o">%***********************</span><span class="p">]</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nx">completed</span>
+
+
+
+<span class="o">---------------------------------------------------------------------------</span>
+
+<span class="nx">ValueError</span><span class="w">                                </span><span class="nx">Traceback</span><span class="w"> </span><span class="p">(</span><span class="nx">most</span><span class="w"> </span><span class="nx">recent</span><span class="w"> </span><span class="nx">call</span><span class="w"> </span><span class="nx">last</span><span class="p">)</span>
+
+<span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">ipykernel_1326968</span><span class="o">/</span><span class="mi">2158972586</span><span class="p">.</span><span class="nx">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">?()</span>
+<span class="w">     </span><span class="mi">17</span><span class="w">     </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">S2</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Pivot</span><span class="w"> </span><span class="nx">Point</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">High</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Low</span><span class="err">&#39;</span><span class="p">])</span>
+<span class="w">     </span><span class="mi">18</span><span class="w">     </span><span class="k">return</span><span class="w"> </span><span class="nx">data</span>
+<span class="w">     </span><span class="mi">19</span><span class="w"> </span>
+<span class="w">     </span><span class="mi">20</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">Apply</span><span class="w"> </span><span class="nx">Pivot</span><span class="w"> </span><span class="nx">Range</span><span class="w"> </span><span class="nx">calculation</span>
+<span class="o">---&gt;</span><span class="w"> </span><span class="mi">21</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">calculate_pivot_range</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+<span class="w">     </span><span class="mi">22</span><span class="w"> </span>
+<span class="w">     </span><span class="mi">23</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">Step</span><span class="w"> </span><span class="mi">3</span><span class="p">:</span><span class="w"> </span><span class="nx">Plot</span><span class="w"> </span><span class="nx">Close</span><span class="w"> </span><span class="nx">Price</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">Pivot</span><span class="w"> </span><span class="nx">Range</span>
+<span class="w">     </span><span class="mi">24</span><span class="w"> </span><span class="nx">plt</span><span class="p">.</span><span class="nx">figure</span><span class="p">(</span><span class="nx">figsize</span><span class="p">=(</span><span class="mi">14</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">))</span>
+
+
+<span class="o">/</span><span class="nx">tmp</span><span class="o">/</span><span class="nx">ipykernel_1326968</span><span class="o">/</span><span class="mi">2158972586</span><span class="p">.</span><span class="nx">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">?(</span><span class="nx">data</span><span class="p">)</span>
+<span class="w">     </span><span class="mi">12</span><span class="w"> </span><span class="nx">def</span><span class="w"> </span><span class="nx">calculate_pivot_range</span><span class="p">(</span><span class="nx">data</span><span class="p">):</span>
+<span class="w">     </span><span class="mi">13</span><span class="w">     </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Pivot</span><span class="w"> </span><span class="nx">Point</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">High</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Low</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Close</span><span class="err">&#39;</span><span class="p">])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span>
+<span class="o">---&gt;</span><span class="w"> </span><span class="mi">14</span><span class="w">     </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">R1</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Pivot</span><span class="w"> </span><span class="nx">Point</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Low</span><span class="err">&#39;</span><span class="p">]</span>
+<span class="w">     </span><span class="mi">15</span><span class="w">     </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">R2</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Pivot</span><span class="w"> </span><span class="nx">Point</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">High</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Low</span><span class="err">&#39;</span><span class="p">])</span>
+<span class="w">     </span><span class="mi">16</span><span class="w">     </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">S1</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Pivot</span><span class="w"> </span><span class="nx">Point</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">High</span><span class="err">&#39;</span><span class="p">]</span>
+<span class="w">     </span><span class="mi">17</span><span class="w">     </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">S2</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Pivot</span><span class="w"> </span><span class="nx">Point</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">High</span><span class="err">&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">data</span><span class="p">[</span><span class="err">&#39;</span><span class="nx">Low</span><span class="err">&#39;</span><span class="p">])</span>
+
+
+<span class="o">~/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">pandas</span><span class="o">/</span><span class="nx">core</span><span class="o">/</span><span class="nx">frame</span><span class="p">.</span><span class="nx">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">?(</span><span class="kp">self</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4297</span><span class="w">             </span><span class="kp">self</span><span class="p">.</span><span class="nx">_setitem_frame</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4298</span><span class="w">         </span><span class="nx">elif</span><span class="w"> </span><span class="nx">isinstance</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">Series</span><span class="p">,</span><span class="w"> </span><span class="nx">np</span><span class="p">.</span><span class="nx">ndarray</span><span class="p">,</span><span class="w"> </span><span class="nx">list</span><span class="p">,</span><span class="w"> </span><span class="nx">Index</span><span class="p">)):</span>
+<span class="w">   </span><span class="mi">4299</span><span class="w">             </span><span class="kp">self</span><span class="p">.</span><span class="nx">_setitem_array</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4300</span><span class="w">         </span><span class="nx">elif</span><span class="w"> </span><span class="nx">isinstance</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span><span class="w"> </span><span class="nx">DataFrame</span><span class="p">):</span>
+<span class="o">-&gt;</span><span class="w"> </span><span class="mi">4301</span><span class="w">             </span><span class="kp">self</span><span class="p">.</span><span class="nx">_set_item_frame_value</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4302</span><span class="w">         </span><span class="nx">elif</span><span class="w"> </span><span class="p">(</span>
+<span class="w">   </span><span class="mi">4303</span><span class="w">             </span><span class="nx">is_list_like</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4304</span><span class="w">             </span><span class="k">and</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="kp">self</span><span class="p">.</span><span class="nx">columns</span><span class="p">.</span><span class="nx">is_unique</span>
+
+
+<span class="o">~/</span><span class="nx">miniconda3</span><span class="o">/</span><span class="nx">envs</span><span class="o">/</span><span class="nx">ml312</span><span class="o">-</span><span class="mi">2024</span><span class="o">/</span><span class="nx">lib</span><span class="o">/</span><span class="nx">python3</span><span class="m m-Double">.12</span><span class="o">/</span><span class="nx">site</span><span class="o">-</span><span class="nx">packages</span><span class="o">/</span><span class="nx">pandas</span><span class="o">/</span><span class="nx">core</span><span class="o">/</span><span class="nx">frame</span><span class="p">.</span><span class="nx">py</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">?(</span><span class="kp">self</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4455</span><span class="w"> </span>
+<span class="w">   </span><span class="mi">4456</span><span class="w">             </span><span class="k">return</span><span class="w"> </span><span class="kp">self</span><span class="p">.</span><span class="nx">isetitem</span><span class="p">(</span><span class="nx">locs</span><span class="p">,</span><span class="w"> </span><span class="nx">value</span><span class="p">)</span>
+<span class="w">   </span><span class="mi">4457</span><span class="w"> </span>
+<span class="w">   </span><span class="mi">4458</span><span class="w">         </span><span class="k">if</span><span class="w"> </span><span class="nx">len</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">columns</span><span class="p">)</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span>
+<span class="o">-&gt;</span><span class="w"> </span><span class="mi">4459</span><span class="w">             </span><span class="nx">raise</span><span class="w"> </span><span class="nx">ValueError</span><span class="p">(</span>
+<span class="w">   </span><span class="mi">4460</span><span class="w">                 </span><span class="s">&quot;Cannot set a DataFrame with multiple columns to the single &quot;</span>
+<span class="w">   </span><span class="mi">4461</span><span class="w">                 </span><span class="nx">f</span><span class="s">&quot;column {key}&quot;</span>
+<span class="w">   </span><span class="mi">4462</span><span class="w">             </span><span class="p">)</span>
+
+
+<span class="nx">ValueError</span><span class="p">:</span><span class="w"> </span><span class="nx">Cannot</span><span class="w"> </span><span class="nx">set</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">DataFrame</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">multiple</span><span class="w"> </span><span class="nx">columns</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">single</span><span class="w"> </span><span class="nx">column</span><span class="w"> </span><span class="nx">R1</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show_graph</span><span class="p">(</span><span class="n">symbol</span><span class="p">):</span>
+
+<span class="k">pass</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">show_graph</span><span class="p">(</span><span class="s2">&quot;AMZN&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="nb">---------------------------------------------------------------------------</span>
+
+<span class="c">NameError                                 Traceback (most recent call last)</span>
+
+<span class="c">Cell In</span><span class="k">[</span><span class="c">5</span><span class="k">]</span><span class="nt">,</span><span class="c"> line 1</span>
+<span class="nb">----</span><span class="nv">&gt;</span><span class="c"> 1 show_graph(&quot;AMZN&quot;)</span>
+
+
+<span class="c">NameError: name &#39;show_graph&#39; is not defined</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
+
+<hr>
+<p><strong>Score: 5</strong></p>
+<p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/stockmarket.html">stockmarket</a>
+
+</p>
+
+
+
+
+</article>
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns">
+        <h5 class="sidebar-title">Site</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajacsp.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajacsp.github.io/mlnotes/tags.html">Tags</a>
+        </ul>
+
+		
+        <h5 class="sidebar-title">Categories</h5>
+        <ul class="side-nav">
+            <li><a href="https://rajacsp.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/bokeh.html">bokeh</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/duckdb.html">duckdb</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/encoding.html">encoding</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/haystack.html">haystack</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/ip.html">ip</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/leetcode.html">leetcode</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/mythraki.html">mythraki</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/stockmarket.html">stockmarket</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sys.html">sys</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/trends.html">trends</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
+   
+        </ul>
+
+		
+        <h5 class="sidebar-title">Social</h5>
+        <ul class="side-nav">
+            <li><a href="https://github.com/<yourusername>/">GitHub</a></li>
+            <li><a href="<linkedin handle>">LinkedIn</a></li>
+        </ul>
+
+    </aside> <!-- End Sidebar -->
+
+</div> <!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+    <div class="large-12 columns">
+        <hr />
+        <div class="row">
+            <div class="large-6 columns">
+              <!--                  <p>ML Notes by Raja CSP RAman</p> -->
+            </div>
+            </div>
+    </div>
+</footer>
+</body>
+</html>

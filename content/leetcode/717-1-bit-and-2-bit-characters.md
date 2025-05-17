@@ -1,6 +1,6 @@
 ---
 title: 717-1-Bit-And-2-Bit-Characters
-date: 2025-01-04
+date: 2025-05-17
 author: Your Name
 cell_count: 6
 score: 5

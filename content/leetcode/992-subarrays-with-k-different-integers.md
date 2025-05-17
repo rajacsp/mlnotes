@@ -1,6 +1,6 @@
 ---
 title: 992-Subarrays-With-K-Different-Integers
-date: 2025-01-04
+date: 2025-05-17
 author: Your Name
 cell_count: 6
 score: 5

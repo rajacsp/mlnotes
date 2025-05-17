@@ -6,11 +6,11 @@
 
     <title>ML Notes - basics</title>
 
-    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/normalize.css" />
-    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/foundation.min.css" />
-    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/style.css" />
-    <link rel="stylesheet" href="https://rajasgs.github.io/mlnotes/theme/css/pygments.css" />	
-    <script src="https://rajasgs.github.io/mlnotes/theme/js/modernizr.js"></script>
+    <link rel="stylesheet" href="https://rajacsp.github.io/mlnotes/theme/css/normalize.css" />
+    <link rel="stylesheet" href="https://rajacsp.github.io/mlnotes/theme/css/foundation.min.css" />
+    <link rel="stylesheet" href="https://rajacsp.github.io/mlnotes/theme/css/style.css" />
+    <link rel="stylesheet" href="https://rajacsp.github.io/mlnotes/theme/css/pygments.css" />	
+    <script src="https://rajacsp.github.io/mlnotes/theme/js/modernizr.js"></script>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 <div class="top-bar">
 <div class="row">
     <div class="large-9 large-centered columns">
-	    <h1><a href="https://rajasgs.github.io/mlnotes">ML Notes</a></h1>
+	    <h1><a href="https://rajacsp.github.io/mlnotes">ML Notes</a></h1>
     </div>
 </div>
 </div>
@@ -46,8 +46,8 @@
         
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/abstract-with-ast.html"><h3 class="article-title">Abstract-With-Ast</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/abstract-with-ast.html"><h3 class="article-title">Abstract-With-Ast</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
@@ -57,7 +57,7 @@
 <div class="highlight"><pre><span></span><code>Python 3.12.4
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">ast</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">ast</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="c1"># Python code as a string</span>
@@ -76,17 +76,17 @@
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="c1"># Define a visitor class to analyze nodes</span>
-<span class="k">class</span> <span class="nc">CodeAnalyzer</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeVisitor</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">visit_FunctionDef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CodeAnalyzer</span><span class="p">(</span><span class="n">ast</span><span class="o">.</span><span class="n">NodeVisitor</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">visit_FunctionDef</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function found: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">visit_Assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">visit_Assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="n">targets</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">targets</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">)]</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Assignment to: </span><span class="si">{</span><span class="n">targets</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">visit_Call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">visit_Call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Name</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Function call: </span><span class="si">{</span><span class="n">node</span><span class="o">.</span><span class="n">func</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">generic_visit</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
@@ -108,7 +108,7 @@ Function call: greet
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
@@ -124,8 +124,8 @@ Function call: greet
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/add-padding-around-string.html"><h3 class="article-title">Add-Padding-Around-String</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/add-padding-around-string.html"><h3 class="article-title">Add-Padding-Around-String</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
@@ -158,13 +158,13 @@ Function call: greet
 <div class="highlight"><pre><span></span><code>&#39;     Chapter 2      &#39;
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="c1"># Add * Of Padding On …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<div class="highlight"><pre><span></span><code><span class="c1"># Add * Of Padding On …</span></code></pre></div><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/add-padding-around-string.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajacsp.github.io/mlnotes/add-padding-around-string.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -172,15 +172,15 @@ Function call: greet
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/age-calculator.html"><h3 class="article-title">Age-Calculator</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/age-calculator.html"><h3 class="article-title">Age-Calculator</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_age</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_age</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
     <span class="n">d1</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
     <span class="n">months</span> <span class="o">=</span> <span class="p">(</span><span class="n">d1</span><span class="o">.</span><span class="n">year</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">year</span><span class="p">)</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">+</span> <span class="n">d1</span><span class="o">.</span><span class="n">month</span> <span class="o">-</span> <span class="n">d</span><span class="o">.</span><span class="n">month</span>
 
@@ -201,13 +201,13 @@ Function call: greet
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/age-calculator.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajacsp.github.io/mlnotes/age-calculator.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -215,15 +215,15 @@ Function call: greet
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/args-sample.html"><h3 class="article-title">Args-Sample</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/args-sample.html"><h3 class="article-title">Args-Sample</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">print_everything</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">print_everything</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">count</span><span class="p">,</span> <span class="n">thing</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
             <span class="nb">print</span><span class="p">(</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">. </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">thing</span><span class="p">))</span>
 </code></pre></div>
@@ -241,13 +241,13 @@ Function call: greet
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 0</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<p><strong>Score: 0</strong></p><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/args-sample.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajacsp.github.io/mlnotes/args-sample.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -255,16 +255,16 @@ Function call: greet
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/article-reader.html"><h3 class="article-title">Article-Reader</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/article-reader.html"><h3 class="article-title">Article-Reader</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="c1"># Collect and parse first page</span>
@@ -285,13 +285,13 @@ Function call: greet
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/article-reader.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajacsp.github.io/mlnotes/article-reader.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -299,8 +299,8 @@ Function call: greet
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/barcode-or-not.html"><h3 class="article-title">Barcode Or Not</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/barcode-or-not.html"><h3 class="article-title">Barcode Or Not</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
@@ -312,25 +312,25 @@ description: "-"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">colormap</span> <span class="kn">import</span> <span class="n">rgb2hex</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">isdir</span>
-<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">path</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">colormap</span><span class="w"> </span><span class="kn">import</span> <span class="n">rgb2hex</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">listdir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">isdir</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">path</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">NON_BARCODE_PAR</span> <span class="o">=</span> <span class="mi">500</span>
 
-<span class="k">def</span> <span class="nf">is_barcode_image</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_barcode_image</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 
     <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-    <span class="c1">#width, height = im …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+    <span class="c1">#width, height = im …</span></code></pre></div><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/barcode-or-not.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajacsp.github.io/mlnotes/barcode-or-not.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -338,8 +338,8 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/barcode-validator.html"><h3 class="article-title">Barcode-Validator</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/barcode-validator.html"><h3 class="article-title">Barcode-Validator</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
@@ -349,16 +349,16 @@ draft: false</p>
 <div class="highlight"><pre><span></span><code><span class="c1"># !pip install colormap</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">colormap</span> <span class="kn">import</span> <span class="n">rgb2hex</span>
-<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span>
-<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">isdir</span>
-<span class="kn">import</span> <span class="nn">os.path</span> <span class="k">as</span> <span class="nn">path</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">colormap</span><span class="w"> </span><span class="kn">import</span> <span class="n">rgb2hex</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="kn">import</span> <span class="n">listdir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">isfile</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">isdir</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">path</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">NON_BARCODE_PAR</span> <span class="o">=</span> <span class="mi">500</span>
 
-<span class="k">def</span> <span class="nf">is_barcode_image</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_barcode_image</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
 
     <span class="n">im</span> <span class="o">=</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
     <span class="c1">#width, height = im.size</span>
@@ -368,13 +368,13 @@ draft: false</p>
 
     <span class="n">color_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
 
-    <span class="k">for …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+    <span class="k">for …</span></code></pre></div><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/barcode-validator.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajacsp.github.io/mlnotes/barcode-validator.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -382,8 +382,8 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/binary-search.html"><h3 class="article-title">Binary Search</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/binary-search.html"><h3 class="article-title">Binary Search</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
@@ -395,7 +395,7 @@ description: "List Test"
 type: technical_note
 draft: false</p>
 <hr>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">binary_search</span><span class="p">(</span><span class="n">lys</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">binary_search</span><span class="p">(</span><span class="n">lys</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
     <span class="n">first</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">last</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lys</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
     <span class="n">index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
@@ -405,13 +405,13 @@ draft: false</p>
             <span class="n">index</span> <span class="o">=</span> <span class="n">mid</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">val</span><span class="o">&lt;</span><span class="n">lys</span><span class="p">[</span><span class="n">mid</span><span class="p">]:</span>
-                <span class="n">last</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span><span class="mi">1 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+                <span class="n">last</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span><span class="mi">1 …</span></code></pre></div><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/binary-search.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajacsp.github.io/mlnotes/binary-search.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -419,15 +419,15 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/cell-sequence-test.html"><h3 class="article-title">Cell-Sequence-Test</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/cell-sequence-test.html"><h3 class="article-title">Cell-Sequence-Test</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_abc</span><span class="p">():</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_abc</span><span class="p">():</span>
 
     <span class="k">return</span> <span class="s2">&quot;abc&quot;</span>
 </code></pre></div>
@@ -450,7 +450,7 @@ draft: false</p>
 <div class="highlight"><pre><span></span><code>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_xyz</span><span class="p">():</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_xyz</span><span class="p">():</span>
 
     <span class="k">return</span> <span class="s2">&quot;xyz&quot;</span>
 </code></pre></div>
@@ -462,13 +462,13 @@ draft: false</p>
 </code></pre></div>
 
 <hr>
-<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<p><strong>Score: 5</strong></p><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/cell-sequence-test.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajacsp.github.io/mlnotes/cell-sequence-test.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -476,8 +476,8 @@ draft: false</p>
 
 
             <article>
-                <a href="https://rajasgs.github.io/mlnotes/chainmap.html"><h3 class="article-title">Chainmap</h3></a>
-<h6 class="subheader" title="2025-01-04T00:00:00-05:00">Sat 04 January 2025
+                <a href="https://rajacsp.github.io/mlnotes/chainmap.html"><h3 class="article-title">Chainmap</h3></a>
+<h6 class="subheader" title="2025-05-17T00:00:00-04:00">Sat 17 May 2025
 </h6>
 
 
@@ -507,7 +507,7 @@ draft: false</p>
 <div class="highlight"><pre><span></span><code>{&#39;a&#39;: 2, &#39;b&#39;: 3, &#39;c&#39;: 4}
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">ChainMap</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChainMap</span>
 </code></pre></div>
 
 <div class="highlight"><pre><span></span><code><span class="n">ab</span> <span class="o">=</span> <span class="n">ChainMap</span><span class="p">(</span><span class="n">city</span><span class="p">,</span> <span class="n">number</span><span class="p">)</span>
@@ -516,13 +516,13 @@ draft: false</p>
 <div class="highlight"><pre><span></span><code><span class="n">ab</span>
 </code></pre></div>
 
-<div class="highlight"><pre><span></span><code>ChainMap({&#39;name&#39;: &#39;Toronto&#39;, &#39;short_name …</code></pre></div><p class="subheader">Category: <a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a>
+<div class="highlight"><pre><span></span><code>ChainMap({&#39;name&#39;: &#39;Toronto&#39;, &#39;short_name …</code></pre></div><p class="subheader">Category: <a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a>
 
 </p>
 
 
 
-                <a class="button radius secondary small right" href="https://rajasgs.github.io/mlnotes/chainmap.html">Read More</a>
+                <a class="button radius secondary small right" href="https://rajacsp.github.io/mlnotes/chainmap.html">Read More</a>
                 <hr  class="gradient"/>
             </article>
 
@@ -532,7 +532,7 @@ draft: false</p>
 
 <p>
 
-        <a href="https://rajasgs.github.io/mlnotes/category/basics2.html">Next &raquo;</a>
+        <a href="https://rajacsp.github.io/mlnotes/category/basics2.html">Next &raquo;</a>
 </p>
 </div>
 
@@ -543,72 +543,72 @@ draft: false</p>
     <aside class="large-3 columns">
         <h5 class="sidebar-title">Site</h5>
         <ul class="side-nav">
-            <li><a href="https://rajasgs.github.io/mlnotes/archives.html">Archives</a>
-            <li><a href="https://rajasgs.github.io/mlnotes/tags.html">Tags</a>
+            <li><a href="https://rajacsp.github.io/mlnotes/archives.html">Archives</a>
+            <li><a href="https://rajacsp.github.io/mlnotes/tags.html">Tags</a>
         </ul>
 
 		
         <h5 class="sidebar-title">Categories</h5>
         <ul class="side-nav">
-            <li><a href="https://rajasgs.github.io/mlnotes/category/arima.html">arima</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/array.html">array</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/assignments.html">assignments</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/async.html">async</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/barchart.html">barchart</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/basics.html">basics</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/bokeh.html">bokeh</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/cricket.html">cricket</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/duckdb.html">duckdb</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/encoding.html">encoding</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/gliner.html">gliner</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/haystack.html">haystack</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/image-work.html">image-work</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/ip.html">ip</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/langchain.html">langchain</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/leetcode.html">leetcode</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/mythraki.html">mythraki</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/numba.html">numba</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/numpy.html">numpy</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/one.html">one</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/pandas.html">pandas</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/plot.html">plot</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/plotly.html">plotly</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/regex.html">regex</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/scipy.html">scipy</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/spacy.html">spacy</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/stockmarket.html">stockmarket</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/sys.html">sys</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/tips.html">tips</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/trends.html">trends</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/webreader.html">webreader</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
-            <li><a href="https://rajasgs.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/arima.html">arima</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/array.html">array</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/assignments.html">assignments</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/async.html">async</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/barchart.html">barchart</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/basics.html">basics</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/bokeh.html">bokeh</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/collab-filtering.html">collab-filtering</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/cricket.html">cricket</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/data-wrangling.html">data-wrangling</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/deepchecks.html">deepchecks</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/duckdb.html">duckdb</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/encoding.html">encoding</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/error-analyzer.html">error-analyzer</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/evidentlyai.html">evidentlyai</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/file-utils.html">file-utils</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/game20241121.html">game20241121</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/gensim-samples.html">gensim-samples</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/geopandas.html">geopandas</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/gliner.html">gliner</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/haystack.html">haystack</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/hyperparam-tuning.html">hyperparam-tuning</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/image-analysis.html">image-analysis</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/image-work.html">image-work</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/ip.html">ip</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/kaggle.html">kaggle</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/langchain.html">langchain</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/leetcode.html">leetcode</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/mlbasics.html">mlbasics</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/mythraki.html">mythraki</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/numba.html">numba</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/numpy.html">numpy</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/one.html">one</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/pandas.html">pandas</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/pdfbot.html">pdfbot</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/plot.html">plot</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/plot-compare.html">plot-compare</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/plotly.html">plotly</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/pydotplus.html">pydotplus</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/regex.html">regex</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/resume-analysis.html">resume-analysis</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/scipy.html">scipy</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/seaborn.html">seaborn</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sentiment.html">sentiment</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sklearn.html">sklearn</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/spacy.html">spacy</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sqlalchemy.html">sqlalchemy</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/statsmodel.html">statsmodel</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/stockmarket.html">stockmarket</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sys.html">sys</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/sysargs.html">sysargs</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/tensorflow-work.html">tensorflow-work</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/textprocessing.html">textprocessing</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/tips.html">tips</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/trends.html">trends</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/webreader.html">webreader</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/xgboost.html">xgboost</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/yellowbrick.html">yellowbrick</a></li>
+            <li><a href="https://rajacsp.github.io/mlnotes/category/zzemp.html">zzemp</a></li>
    
         </ul>
 

@@ -2,7 +2,7 @@
 
 AUTHOR          = 'Raja CSP RAman'  # use your name
 SITENAME        = 'ML Notes' # use title
-GITHUB_USERNAME = 'rajasgs' # use your username
+GITHUB_USERNAME = 'rajacsp' # use your username
 
 
 # Blogroll

@@ -1,6 +1,6 @@
 ---
 title: 19-Renko-Charts
-date: 2025-01-04
+date: 2025-05-17
 author: Your Name
 cell_count: 10
 score: 10

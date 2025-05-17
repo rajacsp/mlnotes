@@ -1,6 +1,6 @@
 ---
 title: 143-Reorder-List
-date: 2025-01-04
+date: 2025-05-17
 author: Your Name
 cell_count: 6
 score: 5
