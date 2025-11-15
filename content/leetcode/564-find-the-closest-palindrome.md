@@ -1,6 +1,6 @@
 ---
 title: 564-Find-The-Closest-Palindrome
-date: 2025-05-17
+date: 2025-11-14
 author: Your Name
 cell_count: 6
 score: 5

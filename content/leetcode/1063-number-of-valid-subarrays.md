@@ -1,6 +1,6 @@
 ---
 title: 1063-Number-Of-Valid-Subarrays
-date: 2025-05-17
+date: 2025-11-14
 author: Your Name
 cell_count: 6
 score: 5

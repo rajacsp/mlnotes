@@ -1,6 +1,6 @@
 ---
 title: 138-Copy-List-With-Random-Pointer
-date: 2025-05-17
+date: 2025-11-14
 author: Your Name
 cell_count: 6
 score: 5
